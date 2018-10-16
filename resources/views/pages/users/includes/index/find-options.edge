@@ -1,0 +1,50 @@
+<div class="mb-4">
+  <div class="card-btn">
+    <a class="btn btn-secondary" data-toggle="collapse" href="#search-params" aria-expanded="false">
+      <i class="fa fa-angle-down"></i> Opções de Filtragem
+    </a>
+    <a class="btn btn-secondary" href="{{ route('users.find') }}">
+      <i class="fa fa-search"></i> Procurar Usuários
+    </a>
+  </div>
+  <div class="collapse mt-3" id="search-params">
+    <div class="card card-body">
+      <div class="form-group">
+        <label for="u">Nome de usuário:</label>
+        <input type="text" name="u" id="u" class="form-control" value="{{ has(fields.u) }}" />
+        <small class="form-text text-muted">Deixe em branco para filtrar por todos os usuários.</small>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <label for="order">Ordenar por:</label>
+          <select name="order" id="order" class="form-control">
+            <option value="last_visit" {{ fields.order === 'last_visit' ? 'selected' : '' }}>Visto por Último</option>
+            <option value="username" {{ fields.order === 'username' ? 'selected' : '' }}>Nome de Usuário</option>
+            <option value="id" {{ fields.order === 'id' ? 'selected' : '' }}>ID</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label for="order_by">Ordem:</label>
+          <select name="order_by" id="order_by" class="form-control">
+            <option value="desc" {{ fields.order_by === 'desc' ? 'selected' : '' }}>Decrescente</option>
+            <option value="asc" {{ fields.order_by === 'asc' ? 'selected' : '' }}>Crescente</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- <div class="form-group">
+        <div class="custom-control custom-checkbox custom-control-inline">
+          <input class="custom-control-input" id="inactive" name="inactive" value="on" type="checkbox" {{ fields.inactive === 'on' ? 'checked' : '' }} />
+          <label class="custom-control-label" for="inactive">
+            Mostrar usuários inativos?
+          </label>
+        </div>
+      </div> -->
+
+      <button class="btn btn-primary js-submit">
+        Aplicar Filtros
+      </button>
+    </div>
+  </div>
+</div>

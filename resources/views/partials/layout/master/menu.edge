@@ -1,0 +1,114 @@
+<div class="sys-menu-wrapper">
+  <div class="sys-menu-overlay"></div>
+
+  <div class="sys-menu">
+    <a href="javascript:toggleMenu(false);" class="sys-menu-close" aria-label="Fechar">
+      <span>&times;</span>
+    </a>
+
+    <div class="sys-menu-top">
+      <a href="{{ route('index') }}" class="sys-logo">Polícia RCC</a>
+    </div>
+    <nav class="sys-menu-section sys-menu-nav">
+      <label>Menu</label>
+      <ul>
+
+        <li>
+          <a href="{{ route('index') }}">
+            <i class="fa fa-home fa-fw"></i> Início
+          </a>
+        </li>
+
+        @if(hasGroup('ADMIN'))
+          <li class="only-mobile">
+            <a href="{{ route('admin') }}">
+              <i class="fa fa-cog"></i> Admin
+            </a>
+          </li>
+        @endif
+
+        <li class="only-mobile">
+          <a href="#">
+            <i class="fa fa-user-circle"></i> {{ $userdata.username }}
+          </a>
+          <ul class="submenu">
+            <li><a href="{{ route('users.show') }}?u={{ $userdata.username }}">Meu Perfil</a></li>
+            <li><a href="{{ route('user-config.index') }}">Configurações</a></li>
+            <li><a href="{{ route('logout') }}">Sair</a></li>
+          </ul>
+        </li>
+
+        <li>
+          <a href="{{ route('users.find') }}">
+            <i class="fa fa-search fa-fw"></i> Conferir Policial
+          </a>
+        </li>
+
+        <li>
+          <a href="{{ route('requests.create') }}">
+            <i class="fa fa-plus fa-fw"></i> Abrir Requerimento
+          </a>
+        </li>
+
+        <li>
+          <a>
+            <i class="fa fa-list fa-fw"></i> Listagens
+          </a>
+          <ul class="submenu">
+            <li><a href="#">Soldados</a></li>
+            <li><a href="#">Praças</a></li>
+            <li><a href="#">Oficiais</a></li>
+            <li><a href="#">Corpo Executivo</a></li>
+            <li><a href="#">Desligados</a></li>
+            <li><a href="#">Exonerados</a></li>
+            <li><a href="#">TAG's</a></li>
+            <li><a href="#">Gratificações</a></li>
+            <li><a href="#">Cursos Concluídos</a></li>
+          </ul>
+        </li>
+
+        <li>
+          <a>
+            <i class="fa fa-users"></i> Usuários
+          </a>
+          <ul class="submenu">
+            <li><a href="{{ route('users.index') }}">Ver Usuários</a></li>
+            <li><a href="{{ route('groups.index') }}">Ver Grupos</a></li>
+            <li><a href="{{ route('positions.users') }}">Ver Usuários Por Posição</a></li>
+            <li><a href="{{ route('positions.list') }}">Ver Patentes/Cargos</a></li>
+            <li><a href="{{ route('users.find') }}">Conferir Policial</a></li>
+            <li><a href="#">Ver Banidos</a></li>
+          </ul>
+        </li>
+
+        <li>
+          <a>
+            <i class="fa fa-book fa-fw"></i> Documentos
+          </a>
+          <ul class="submenu">
+            <li><a href="#">CCM</a></li>
+            <li><a href="#">CPM</a></li>
+            <li><a href="#">PCE</a></li>
+            <li><a href="#">Portarias</a></li>
+          </ul>
+        </li>
+
+        <li>
+          <a>
+            <i class="fa fa-book"></i> System
+          </a>
+          <ul class="submenu">
+            <li><a href="#">Estatísticas</a></li>
+          </ul>
+        </li>
+
+        <li>
+          <a href="{{ route('posts.index') }}">
+            <i class="fa fa-newspaper-o fa-fw"></i> Notícias &amp; Anúncios
+          </a>
+        </li>
+
+      </ul>
+    </nav>
+  </div>
+</div>

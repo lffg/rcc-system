@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  @include('partials.layout.list.head')
+  @!section('styles')
+</head>
+<body>
+  <header class="sys-header">
+    @include('partials.layout.list.navbar')
+  </header>
+
+  <div class="container-fluid">
+    {{-- Flash Messages --}}
+    <div class="sys-listpage-flash-zone">
+      @include('partials.utils.flash-message')
+    </div>
+
+    @if(skip_title != 'true')
+      <h5 class="sys-listpage-title">
+        <samp>
+          @!section('title')
+        </samp>
+      </h5>
+      @!section('description')
+      <hr class="mb-4" />
+    @endif
+
+    <div class="sys-listpage-container">
+      @!section('content')
+    </div>
+  </div>
+
+
+  {{-- EndPage --}}
+  @!section('before-end')
+  @include('partials.layout.list.scripts')
+  @!section('scripts')
+</body>
+</html>

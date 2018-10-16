@@ -1,0 +1,43 @@
+<form method="POST" class="card">
+  <div class="card-body">
+    <p class="lead d-none d-md-block">Edite o seu e-mail usando o formulário abaixo.</p>
+
+    <hr class="fw" />
+
+    <div class="form-group">
+      <label for="email">E-Mail:</label>
+      <input
+        type="email"
+        name="email"
+        id="email"
+        class="form-control {{ elIf('$self', 'is-invalid', hasErrorFor('email')) }}"
+        value="{{ old('email', undefined) || user.email }}"
+        required />
+      {{ elIf('<span class="invalid-feedback">$self</span>', getErrorFor('email'), hasErrorFor('email')) }}
+      <small class="form-text text-muted">
+        <strong>Nota:</strong> Após submeter este formulário, você deverá confirmar o seu novo e-mail.
+      </small>
+    </div>
+
+    <hr class="fw" />
+
+    <div class="form-group">
+      <label for="current_password">Senha Atual:</label>
+      <input
+        type="password"
+        name="current_password"
+        id="current_password"
+        class="form-control {{ elIf('$self', 'is-invalid', hasErrorFor('current_password')) }}"
+        required />
+      {{ elIf('<span class="invalid-feedback">$self</span>', getErrorFor('current_password'), hasErrorFor('current_password')) }}
+    </div>
+
+    <hr class="fw" />
+
+    <button type="submit" class="btn btn-primary js-submit">
+      Salvar
+    </button>
+  </div>
+
+  {{ csrfField() }}
+</form>

@@ -1,0 +1,58 @@
+@layout('partials.layouts.session')
+
+@section('title')
+  Login
+@endsection
+
+@section('content')
+  <form action="{{ route('login') }}" method="POST">
+    <div class="form-group">
+      <label for="username">Nome de usuário:</label>
+      <input
+        type="text"
+        id="username"
+        name="username"
+        class="form-control {{ elIf('$self', 'is-invalid', hasErrorFor('username')) }}"
+        value="{{ old('username', '') }}"
+        autocomplete="off"
+        required />
+      {{ elIf('<span class="invalid-feedback">$self</span>', getErrorFor('username'), hasErrorFor('username')) }}
+    </div>
+    <div class="form-group">
+      <label for="password">Senha:</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        class="form-control {{ elIf('$self', 'is-invalid', hasErrorFor('password')) }}"
+        value="{{ old('password', '') }}"
+        autocomplete="off"
+        required />
+      {{ elIf('<span class="invalid-feedback">$self</span>', getErrorFor('password'), hasErrorFor('password')) }}
+    </div>
+    <div class="form-group">
+      <div class="custom-control custom-checkbox">
+        <input type="checkbox" class="custom-control-input" id="remember" name="remember" value="on" />
+        <label class="custom-control-label" for="remember">
+          Lembrar usuário?
+          <small class="form-help text-muted d-block">
+            Não recomendado para computadores públicos.
+          </small>
+        </label>
+      </div>
+    </div>
+    <div class="form-group mb-0">
+      <button class="btn btn-primary btn-block js-submit" type="submit">
+        Login
+      </button>
+    </div>
+
+    {{ csrfField() }}
+  </form>
+@endsection
+
+@section('footer')
+  <a href="{{ route('register') }}">Registrar</a> &middot;
+  <a href="#">Recuperar Senha</a> &middot;
+  <a href="{{ route('site-about') }}">Sobre</a>
+@endsection

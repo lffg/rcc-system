@@ -1,0 +1,23 @@
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+<meta name="description" content="System de Policiais da Polícia Militar Revolução Contra o Crime." />
+
+@section('theme_color')
+  <meta name="theme-color" content="{{ meta_theme_color || '#2c353b' }}" />
+@endsection
+
+<title>
+  @if(title_override)
+    {{ title_override }}
+  @else
+    @section('title')
+      Início
+    @endsection
+  @endif
+  &middot; RCC System
+</title>
+
+<link rel="shortcut icon" type="image/x-icon" href="{{ assetsUrl('icons/rcc-favicon.ico') }}" />
+{{ style('vendor/fonts/font-awesome/css/font-awesome.min') }}
+{{ style('css/auth') }}

@@ -1,0 +1,127 @@
+.dropdown-menu {
+  border: solid 1px #e1e1e1;
+  box-shadow: 0 1px 2px 0 rgba(0,0,0,0.2);
+  display: block;
+  opacity: 0;
+  transform: translate(0, -1rem);
+  pointer-events: none;
+  transition: all 150ms linear;
+
+  &.show {
+    opacity: 1;
+    transform: translate(0, 0);
+    pointer-events: auto;
+  }
+
+  .dropdown-item {
+    display: block;
+    color: $primary;
+    background-color: $white;
+    padding: .25rem 2rem .25rem 1rem;
+    transition: all linear 90ms;
+
+    &:hover,
+    &:focus {
+      background: none;
+      background-image: none;
+      background-color: $primary;
+      color: $white;
+    }
+  }
+}
+
+.card {
+  border-color: #d0d0d0;
+  box-shadow: 0px 3px 0 0px rgba(0, 0, 0, 0.1);
+
+  .card-header {
+    background-color: #ffffff;
+    /* background-image: linear-gradient(to bottom, #fff, #ddd); */
+    color: #2c353b;
+    /* border-bottom: solid 4px #d0d0d0; */
+    text-shadow: 0 2px rgba(0,0,0,0.1);
+  }
+}
+
+.row {
+  margin-bottom: 1rem;
+
+  [class^=col-sm] {
+    @media screen and (max-width: map-get($grid-breakpoints, $key: sm)) {
+      margin-bottom: 1rem;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  [class^=col-md] {
+    @media screen and (max-width: map-get($grid-breakpoints, $key: md)) {
+      margin-bottom: 1rem;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  [class^=col-lg] {
+    @media screen and (max-width: map-get($grid-breakpoints, $key: lg)) {
+      margin-bottom: 1rem;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  [class^=col-xl] {
+    @media screen and (max-width: map-get($grid-breakpoints, $key: xl)) {
+      margin-bottom: 1rem;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+.breadcrumb {
+  flex-wrap: nowrap;
+  overflow-x: auto;
+
+  .breadcrumb-item {
+    white-space: nowrap;
+  }
+}
+
+.form-group {
+  position: relative;
+}
+
+.alert {
+  &.alert-fw {
+    margin: 1rem -1rem -1rem -1rem;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+
+  &.alert-with-icon {
+    display: flex;
+    align-items: center;
+
+    > .alert-icon {
+      margin-right: .9rem;
+      vertical-align: middle;
+    }
+  }
+}
+
+.no-u,
+.no-u:hover,
+.no-u:focus,
+.no-u:active {
+  text-decoration: none !important;
+}

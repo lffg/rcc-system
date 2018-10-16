@@ -1,0 +1,143 @@
+@layout('partials.layouts.master')
+
+@section('title')
+  @set('skip_title', 'true')
+  {{ user.username }}
+@endsection
+
+@section('breadcrumb')
+  <li class="breadcrumb-item">
+    <a href="{{ route('users.index') }}">Usuários</a>
+  </li>
+  <li class="breadcrumb-item">
+    {{ user.username }}
+  </li>
+@endsection
+
+@section('content')
+  <div class="row sys-profile">
+    <div class="col-lg-3">
+
+      <div class="sys-lateral">
+        @include('pages.users.includes.show.nav')
+      </div>
+
+    </div>
+    <div class="col-lg-9">
+      <div class="card mb-3">
+        <div class="card-body">
+          @include('pages.users.includes.show.tab-navbar')
+        </div>
+      </div>
+
+      <div class="sys-tabs">
+        <div class="tab-content">
+          {{-- Main --}}
+          <div class="tab-pane fade show active" id="sys-main-tab" role="tabpanel">
+            @include('pages.users.includes.show.tab-main')
+          </div>
+
+          {{-- Timeline --}}
+          <div class="tab-pane fade" id="sys-timeline-tab" role="tabpanel">
+            @include('pages.users.includes.show.tab-timeline')
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+@endsection
+
+@section('scripts')
+  <script>
+    (function ($) {
+      'use strict';
+
+      $(function () {
+        $('.sys-groups-show-more-groups').on('click', function (event) {
+          event.preventDefault();
+
+          var $this = $(this);
+          var $el = $this.prev();
+
+          $this.toggleClass('is-opened');
+          $el.slideToggle();
+
+          if ($this.is('.is-opened')) {
+            $this.html([
+              '<i class="fa fa-angle-up"></i>',
+              'Mostrar Menos'
+            ].join(' '));
+          } else {
+            $this.html([
+              '<i class="fa fa-angle-down"></i>',
+              'Mostrar Mais'
+            ].join(' '));
+          }
+        });
+
+        var timeline = false;
+        var loading = false;
+
+        function toggleState () {
+          loading = ! loading;
+          $('#timeline-refresh').prop('disabled', loading);
+          $('#timeline-refresh .fa').toggleClass('fa-spin', loading);
+        }
+
+        function loadTimeline (reloading) {
+          toggleState();
+
+          $.ajax({
+            url: '{{ route('timeline.index', { id: user.id }) }}',
+            method: 'GET',
+            cache: false,
+
+            beforeSend: function () {
+              function animate () {
+                $('#timeline-zone')
+                  .find('.sys-timeline-component')
+                  .stop()
+                  [reloading ? 'fadeOut' : 'hide'](reloading ? 180 : undefined)
+                  .end()
+                  .find('#loading-alert')
+                  .stop()
+                  [reloading ? 'fadeIn' : 'show'](reloading ? 180 : undefined);
+              }
+
+              if (reloading) {
+                $('#response-zone').fadeOut(200, function () {
+                  animate();
+                });
+              } else {
+                animate();
+              }
+            },
+
+            success: function (response) {
+              $('#timeline-zone').find('.sys-timeline-component').hide();
+              $('#timeline-zone').find('#response-zone').html(response).stop().fadeIn(200);
+
+              timeline = true;
+              toggleState();
+            },
+
+            error: function () {
+              $('#timeline-zone').find('.sys-timeline-component').hide();
+              $('#timeline-zone').find('#error-alert').show();
+              toggleState();
+            }
+          });
+        }
+
+        $('#timeline-btn, #timeline-refresh').on('click', function () {
+          if ($(this).is('#timeline-btn')) {
+            if (timeline) return;
+            return loadTimeline();
+          }
+
+          loadTimeline(true);
+        });
+      });
+    })(jQuery);
+  </script>
+@endsection

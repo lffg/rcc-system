@@ -1,0 +1,85 @@
+<header class="sys-top">
+  <div class="sys-avatar">
+
+    <span class="sys-avatar-image" style="background-image: url(https://www.habbo.com.br/habbo-imaging/avatarimage?user={{ user.username }}&action=std&direction=2&head_direction=3&gesture=sml&size=l&__time__={{ moment().format('DD-MM-YY-HH') }});"></span>
+
+    <span class="sys-rcc-image"></span>
+
+  </div>
+
+  <div class="sys-primary-userinfo">
+    <h1 class="sys-username-bar">
+      {{ user.username }} <span class="sr-only">- Ver Perfil</span>
+
+      @if(now() - 1000 * 60 * 60 < user.last_visit)
+        <span
+          class="sys-online-indicator"
+          title="Este usuário está on-line."
+          data-toggle="tooltip"
+          data-placement="right"
+          aria-label="Este usuário está on-line."></span>
+      @endif
+    </h1>
+    <div class="sys-position">
+      {{ user.position.name }}
+    </div>
+  </div>
+</header>
+
+@if(user.bio)
+  <hr class="sys-separator" />
+  <blockquote style="color: #424242;">{{ user.bio }}</blockquote>
+@elseif(user.id === $userdata.id)
+  <hr class="sys-separator" />
+  <a href="{{ route('user-config.index') }}" class="btn btn-secondary btn-sm">
+    <i class="fa fa-plus"></i> Adicionar biografia
+  </a>
+@endif
+
+@if(user.groups.length > 0)
+  <hr class="sys-separator" />
+  <ul class="sys-groups">
+    @each(group in user.groups)
+      @unless(group.is_hidden)
+        @if($loop.index >= 3)
+          @if($loop.index === 3)
+            <div class="sys-groups-hidden" style="display: none;">
+          @endif
+
+          <a href="{{ route('groups.show', { id: group.id }) }}">
+            <li
+              style="color: {{ group.colorYiq }}; background-color: {{ group.color }};"
+              class="sys-group-bar"
+            >
+              @if(group.icon)
+                <i class="{{ group.icon }}"></i>
+              @endif
+              {{ group.name }}
+            </li>
+          </a>
+
+          @if($loop.last)
+            </div>
+            <a href="#" class="sys-groups-show-more-groups">
+              <i class="fa fa-angle-down"></i>
+              Mostrar todos
+            </a>
+          @endif
+
+        @else
+          <a href="{{ route('groups.show', { id: group.id }) }}">
+            <li
+              style="color: {{ group.colorYiq }}; background-color: {{ group.color }};"
+              class="sys-group-bar"
+            >
+              @if(group.icon)
+                <i class="{{ group.icon }}"></i>
+              @endif
+              {{ group.name }}
+            </li>
+          </a>
+        @endif
+      @endunless
+    @endeach
+  </ul>
+@endif

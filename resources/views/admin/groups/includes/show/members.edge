@@ -1,0 +1,124 @@
+<div class="card mb-3">
+  <div class="card-header">Membros do Grupo ({{ group.name }})</div>
+  <div class="card-body">
+
+    <section>
+      @unless(group.alias === 'USERS')
+        <a href="#remove-user" data-toggle="modal" class="btn btn-danger btn-sm mb-3 ml-2 pull-right">
+          <i class="fa fa-user-times"></i> Remover um Membro
+        </a>
+        <a href="#add-user" data-toggle="modal" class="btn btn-secondary btn-sm mb-3 ml-2 pull-right">
+          <i class="fa fa-user-plus"></i> Adicionar Novo Membro
+        </a>
+      @else
+        <div class="alert alert-info text-justify">
+          <i class="fa fa-info"></i> Todos os usuários do system são membros deste grupo. Tendo isso em vista, o gerenciamento dos usuários deste grupo é proibido.
+        </div>
+      @endunless
+    </section>
+
+    <div class="table-responsive">
+      <table class="table text-center table-hover">
+        <thead class="thead-light">
+          <th>ID</th>
+          <th>Nome de Usuário</th>
+          <th>Moderador</th>
+        </thead>
+        <tbody>
+
+          @each(user in group.users)
+            <tr>
+              <td>{{ user.id }}</td>
+              <td>
+                <a href="{{ route('admin:users.show', { id: user.id }) }}">{{ user.username }}</a>
+              </td>
+              <td>
+                @if(user.pivot.is_moderator == '1')
+                  <i class="fa fa-check text-success" title="Usuário moderador" data-toggle="tooltip"></i>
+                @else
+                  <i class="fa fa-times text-danger" title="Membro comum" data-toggle="tooltip"></i>
+                @endif
+              </td>
+            </tr>
+          @else
+            <tr>
+              <td colspan="3">
+                <div class="alert alert-info mb-0">
+                  <i class="fa fa-info"></i> Este grupo não tem membros.
+                </div>
+              </td>
+            </tr>
+          @endeach
+
+        </tbody>
+      </table>
+    </div>
+
+    <a href="{{ route('groups.show', { id: group.id }) }}">
+      Ver todos os membros do grupo <i class="fa fa-angle-right"></i>
+    </a>
+  </div>
+</div>
+
+{{-- Add User Modal --}}
+<div class="modal fade" id="add-user" tabindex="-1">
+  <form class="modal-dialog" action="{{ route('admin:groups.add-user', { id: group.id }) }}" method="POST">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Adicionar Usuário</h5>
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="username">Usuário:</label>
+          <input type="text" name="username" id="username" class="form-control js-username" autocomplete="off" required />
+        </div>
+        <div class="form-group mb-0">
+          <label for="is_moderator">Posição do usuário:</label>
+          <select type="text" name="is_moderator" id="is_moderator" class="form-control" />
+            <option value="0">Membro</option>
+            <option value="1">Moderador</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        <button type="submit" class="btn btn-primary">Adicionar</button>
+      </div>
+    </div>
+
+    {{ csrfField() }}
+  </form>
+</div>
+
+{{-- Remove User Modal --}}
+<div class="modal fade" id="remove-user" tabindex="-1">
+  <form class="modal-dialog" action="{{ route('admin:groups.remove-user', { id: group.id }) }}" method="POST">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Remover Usuário</h5>
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="username">Usuário:</label>
+          <input type="text" name="username" id="username" class="form-control js-username" autocomplete="off" required />
+        </div>
+
+        <div class="alert alert-danger alert-fw">
+          Ao deletar um usuário do grupo {{ group.name }}, ele perderá todas as permissões desse grupo.
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        <button type="submit" class="btn btn-danger">Remover</button>
+      </div>
+    </div>
+
+    {{ csrfField() }}
+  </form>
+</div>

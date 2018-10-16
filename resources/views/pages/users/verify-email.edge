@@ -1,0 +1,74 @@
+@layout('partials.layouts.session')
+
+@section('title')
+  Confirme o E-Mail
+@endsection
+
+@section('content')
+  <form action="{{ route('verify-email.send') }}" method="POST">
+    {{ csrfField() }}
+
+    <p>
+      Para usar a sua conta no System, você deve confirmar o seu e-mail.
+    </p>
+
+    <div class="form-group">
+      <label for="email">E-Mail:</label>
+      <input
+        type="email"
+        name="email"
+        id="email"
+        class="form-control {{ elIf('$self', 'is-invalid', hasErrorFor('email')) }}"
+        value="{{ !hasErrorFor('email') ? $userdata.email : '' }}"
+        {{ !hasErrorFor('email') ? 'readonly' : '' }}
+        required
+      />
+      @if(hasErrorFor('email'))
+        <span class="invalid-feedback">{{ getErrorFor('email') }}</span>
+      @else
+        <small class="text-muted">
+          Clique <a href="javascript:;" onclick="changeField(this);">aqui</a> para alterar o e-mail, caso seja necessário.
+        </small>
+      @endif
+    </div>
+
+    <div class="form-group">
+      <label for="password">Senha:</label>
+      <input
+        type="password"
+        name="password"
+        id="password"
+        class="form-control {{ elIf('$self', 'is-invalid', hasErrorFor('password')) }}"
+        required
+      />
+      {{ elIf('<span class="invalid-feedback">$self</span>', getErrorFor('password'), hasErrorFor('password')) }}
+    </div>
+
+    <div class="form-group mb-0">
+      <hr />
+      <small class="d-block mb-3 text-center text-muted">
+        Ao prosseguir, enviaremos um e-mail com um código de confirmação para que você possa verificar a sua conta.
+      </small>
+      <button class="btn btn-primary btn-block js-submit" type="submit">
+        Enviar E-Mail de Confirmação
+      </button>
+    </div>
+  </form>
+@endsection
+
+@section('footer')
+  <span style="display: block; margin: -10px;"></span>
+@endsection
+
+@section('scripts')
+  <script>
+    (function (w) {
+      window.changeField = function changeField ($el) {
+        var $parent = $el.parentElement;
+
+        $parent.previousElementSibling.removeAttribute('readonly');
+        $parent.remove();
+      };
+    })(window);
+  </script>
+@endsection

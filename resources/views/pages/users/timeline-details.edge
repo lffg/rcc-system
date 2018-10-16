@@ -1,0 +1,49 @@
+<div class="sys-timeline-details-data">
+  <dl>
+    <dt>Nick do afetado:</dt>
+    <dd>{{ item.user.username }}</dd>
+  </dl>
+  <dl>
+    <dt>Nick do autor:</dt>
+    <dd>{{ item.author.username }}</dd>
+  </dl>
+  <dl>
+    <dt>Data:</dt>
+    <dd>{{ moment(item.created_at).format('[Dia] DD/MM/YYYY [às] HH:mm') }}</dd>
+  </dl>
+  <dl>
+    <dt>Ação:</dt>
+    <dd><i class="{{ item.type.icon }}"></i> {{ item.type.name }}</dd>
+  </dl>
+  <dl>
+    <dt>Título:</dt>
+    <dd>{{ item.name }}</dd>
+  </dl>
+  <dl>
+    <dt>Descrição da ação / motivo:</dt>
+    <dd>{{ item.description }}</dd>
+  </dl>
+  @if(item.crh)
+    <dl>
+      <dt>Estado:</dt>
+      <dd class="text-justify">
+        <span class="badge badge-dark" style="background-color: {{ item.crh.color }};">
+          <i class="{{ item.crh.icon }}"></i> {{ item.crh.name }}
+        </span>
+        &mdash; {{ item.crh.message }}
+      </dd>
+    </dl>
+  @endif
+
+  @if(item.crhUser)
+    <dl>
+      <dt>Membro do CRH responsável:</dt>
+      <dd class="text-justify">
+        {{ item.crhUser.username }}
+        @if(item.crh_reason)
+          &mdash; <em><q>{{ item.crh_reason }}</q></em>
+        @endif
+      </dd>
+    </dl>
+  @endif
+</div>

@@ -1,0 +1,54 @@
+<div class="sys-timeline">
+  @each(item in items)
+    <div class="sys-timeline-row">
+      <aside class="sys-timeline-icon" title="{{ item.type.name }}" data-placement="right" style="
+        background-color: {{ item.type.color }};
+        color: #fff;
+      ">
+        <i class="{{ item.type.icon }}"></i>
+      </aside>
+
+      <div class="sys-timeline-info">
+        <h5 class="sys-timeline-title">
+          {{ item.request_title || 'Não Especificado' }}
+        </h5>
+
+        @if(item.request_description)
+          <div class="sys-timeline-description">
+            {{ truncate(item.request_description, 350, '...') }}
+          </div>
+        @endif
+
+        <footer class="sys-timeline-footer">
+        @if(item.crh_has_review)
+          <span class="sys-timeline-footer-item">
+            <span
+              class="badge badge-dark"
+              style="background-color: {{ item.state.color }};"
+              title="{{ item.state.message }}"
+              data-toggle="tooltip">
+              <i class="{{ item.state.icon }}"></i> {{ item.state.name }}
+            </span>
+          </span>
+        @endif
+          <span
+            class="sys-timeline-footer-item"
+            title="Este requerimento foi aberto por {{ item.author.username }}."
+            data-toggle="tooltip">
+            <i class="fa fa-user"></i> Por:
+            <a href="{{ route('users.show') }}?u={{ item.author.username }}">{{ item.author.username }}</a>
+          </span>
+
+          <span class="sys-timeline-footer-item">
+            <i class="fa fa-clock-o"></i>
+            {{ moment(item.created_at).format('DD/MM/YYYY [às] HH:mm')}}
+          </span>
+
+          <a href="{{ route('crh-requests.show', { id: item.id }) }}" class="btn btn-primary btn-sm sys-timeline-details">
+            Detalhes <i class="fa fa-angle-right"></i>
+          </a>
+        </footer>
+      </div>
+    </div>
+  @endeach
+</div>

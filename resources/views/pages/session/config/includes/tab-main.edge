@@ -1,0 +1,78 @@
+<form method="POST" class="card">
+  <div class="card-body">
+    <p class="lead d-none d-md-block">Edite as suas informações primárias usando o formulário abaixo.</p>
+
+    <hr class="fw" />
+
+    <h5 class="mb-3">Informações:</h5>
+
+    {{-- Bio --}}
+    <div class="form-group">
+      <label for="bio">Biografia:</label>
+      <textarea
+        name="bio" id="bio"
+        class="form-control {{ elIf('$self', 'is-invalid', hasErrorFor('bio')) }}"
+      >{{ old('bio', undefined) || user.bio || '' }}</textarea>
+
+      {{ elIf('<span class="invalid-feedback">$self</span>', getErrorFor('bio'), hasErrorFor('bio')) }}
+
+      <small class="form-help text-muted">
+        Pequena biografia, de no <strong>máximo 350 caracteres</strong>, que será mostrada no <a href="{{ route('users.show') }}?u={{ user.username }}">seu perfil</a>.
+      </small>
+    </div>
+
+    {{-- Gender --}}
+    <div class="form-group">
+      <label class="d-block">Gênero:</label>
+      <div class="custom-control custom-radio custom-control-inline">
+        <input
+          type="radio"
+          name="gender"
+          id="gender-1"
+          class="custom-control-input {{ elIf('$self', 'is-invalid', hasErrorFor('gender')) }}"
+          value="M"
+          {{ (old('gender', '') === 'M' || user.gender === 'Masculino') ? 'checked="checked"' : '' }}
+          required />
+        <label for="gender-1" class="custom-control-label">Masculino</label>
+      </div>
+      <div class="custom-control custom-radio custom-control-inline">
+        <input
+          type="radio"
+          name="gender"
+          id="gender-2"
+          class="custom-control-input {{ elIf('$self', 'is-invalid', hasErrorFor('gender')) }}"
+          value="F"
+          {{ (old('gender', '') === 'F' || user.gender === 'Feminino') ? 'checked' : '' }}
+          required />
+        <label for="gender-2" class="custom-control-label">Feminino</label>
+      </div>
+      {{ elIf('<small class="text-danger form-text">$self</small>', getErrorFor('gender'), hasErrorFor('gender')) }}
+    </div>
+
+    {{-- Location --}}
+    <div class="form-group">
+      <label for="location">Região:</label>
+      <select
+        name="location"
+        id="location"
+        class="form-control {{ elIf('$self', 'is-invalid', hasErrorFor('location')) }}"
+        required>
+        <option value="" {{ (old('location', '') === '') ? 'selected' : '' }} disabled>Selecione...</option>
+        <option value="BR" {{ (old('location', '') === 'BR' || user.location === 'Brasil') ? 'selected' : '' }}>Brasil</option>
+        <option value="PT" {{ (old('location', '') === 'PT' || user.location === 'Portugal') ? 'selected' : '' }}>Portugal</option>
+        <option value="AO" {{ (old('location', '') === 'AO' || user.location === 'Angola') ? 'selected' : '' }}>Angola</option>
+        <option value="MZ" {{ (old('location', '') === 'MZ' || user.location === 'Moçambique') ? 'selected' : '' }}>Moçambique</option>
+        <option value="OTHER" {{ (old('location', '') === 'OTHER' || user.location === 'Outro') ? 'selected' : '' }}>Outro</option>
+      </select>
+      {{ elIf('<span class="invalid-feedback">$self</span>', getErrorFor('location'), hasErrorFor('location')) }}
+    </div>
+
+    <hr class="fw" />
+
+    <button type="submit" class="btn btn-primary js-submit">
+      Salvar
+    </button>
+  </div>
+
+  {{ csrfField() }}
+</form>

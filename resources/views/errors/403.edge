@@ -1,0 +1,33 @@
+@layout('partials.layouts.error')
+
+@section('title')
+  Acesso Negado
+@endsection
+
+@section('content')
+  <span class="sys-error-emoticon">(▀̿Ĺ̯▀̿ ̿)</span>
+  <h1 class="sys-error-title">
+    Acesso Negado
+  </h1>
+  <p class="sys-error-desc">
+    Nossos seguranças encontraram algo de errado na sua requisição e a bloquearam.
+    <br />
+    <small class="d-block mt-2">
+      O nosso servidor se recusou a responder a sua requisição. Erro HTTP 403 (proibido). <br />
+      Tente novamente atualizando a página.
+    </small>
+  </p>
+  <div>
+    <a
+      href="javascript:window.location.href = window.location.href"
+      class="btn btn-light mr-3 sys-error-button">
+      <i class="fa fa-refresh"></i> Atualizar a Página
+    </a>
+    <a href="{{ route('index') }}" class="btn btn-light mr-3 sys-error-button">
+      <i class="fa fa-home"></i> Página Inicial
+    </a>
+    <a href="javascript:window.history.back()" class="btn btn-light sys-error-button">
+      <i class="fa fa-long-arrow-left"></i> Voltar à Página Anterior
+    </a>
+  </div>
+@endsection

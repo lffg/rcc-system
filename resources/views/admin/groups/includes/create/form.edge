@@ -1,0 +1,68 @@
+<div class="card mb-3">
+  <div class="card-header">Dados do Grupo</div>
+  <div class="card-body">
+    <form method="POST">
+      <div class="form-group">
+        <label for="name">Nome do grupo:</label>
+        <input
+          type="text"
+          name="name"
+          id="name"
+          class="form-control {{ elIf('$self', 'is-invalid', hasErrorFor('name')) }}"
+          value="{{ old('name', '') }}"
+          autocomplete="off"
+          required />
+        {{ elIf('<span class="invalid-feedback">$self</span>', getErrorFor('name'), hasErrorFor('name')) }}
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <label for="color">Cor do grupo:</label>
+          <input
+            type="text"
+            name="color"
+            id="color"
+            value="#444444"
+            class="
+              form-control
+              jscolor { hash: true }
+              {{ elIf('$self', 'is-invalid', hasErrorFor('color')) }}"
+            style="border: none; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.15);"
+            value="{{ old('color', '') }}" />
+          {{ elIf('<span class="invalid-feedback">$self</span>', getErrorFor('color'), hasErrorFor('color')) }}
+        </div>
+        <div class="col-md-6 sys-select-menu-wrapper">
+          <label for="icon">Ícone do grupo:</label>
+          <input
+            type="text"
+            name="icon"
+            id="icon"
+            class="form-control sys-select-input {{ elIf('$self', 'is-invalid', hasErrorFor('icon')) }}"
+            value="{{ old('icon', '') }}"
+            autocomplete="off" />
+          {{ elIf('<span class="invalid-feedback">$self</span>', getErrorFor('icon'), hasErrorFor('icon')) }}
+          <div class="sys-select-menu">
+            <div class="sys-select-item" data-text="" data-empty-control="true">
+              Vazio (sem ícone)
+            </div>
+            {{{ icons }}}
+          </div>
+          <small class="form-help text-muted">Deixe em branco para não atribuir nenhum ícone.</small>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="description">Descrição:</label>
+        <textarea
+          name="description"
+          class="form-control {{ elIf('$self', 'is-invalid', hasErrorFor('description')) }}"
+          id="description">{{ old('description', '') }}</textarea>
+        {{ elIf('<span class="invalid-feedback">$self</span>', getErrorFor('description'), hasErrorFor('description')) }}
+      </div>
+
+      <button type="submit" class="btn btn-primary js-submit">
+        <i class="fa fa-plus"></i> Criar
+      </button>
+
+      {{ csrfField() }}
+    </form>
+  </div>
+</div>

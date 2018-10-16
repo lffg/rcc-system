@@ -1,0 +1,12 @@
+@if(url !== '/admin')
+  <nav class="sys-breadcrumbs" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="{{ route('index') }}" aria-label="Página Inicial">
+          <i class="fa fa-home" aria-hidden="true"></i>
+        </a>
+      </li>
+      @!section('breadcrumb')
+    </ol>
+  </nav>
+@endif

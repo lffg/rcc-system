@@ -1,0 +1,23 @@
+<div class="card">
+  <div class="card-header">
+    <i class="fa fa-users"></i> Sugestões de Pesquisa
+  </div>
+  <ul class="list-group list-group-flush">
+    <div id="autocomplete-zone">
+      @each(username in usernames)
+        <a
+          class="list-group-item"
+          data-user="{{ username }}"
+          href="{{ route('users.show') }}?u={{ username }}">
+          {{ username }}
+        </a>
+      @else
+        <li class="list-group-item">
+          <div class="alert alert-info mb-0">
+            <i class="fa fa-info"></i> Nenhuma sugestão.
+          </div>
+        </li>
+      @endeach
+    </div>
+  </ul>
+</div>

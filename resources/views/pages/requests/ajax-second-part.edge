@@ -1,0 +1,84 @@
+<form data-wiz-form-goto="3" data-wiz-uri="{{ route('requests.create:part-3') }}">
+  <div data-wiz-meta-wrapper="true">
+    {{ csrfField() }}
+    <input type="hidden" name="author_id" value="{{ data.author_id }}" />
+    <input type="hidden" name="controller_id" value="{{ data.controller_id }}" />
+  </div>
+
+  <h4 class="display-4 mb-4" style="font-size: 30px;">Tipo do Requerimento</h4>
+
+  <nav class="sys-breadcrumbs">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item text-muted">{{ controller.name }}</li>
+    </ol>
+  </nav>
+
+  <div class="form-group">
+    <label class="mb-3">Ação do requerimento:</label>
+    @each(type in types)
+      <div class="custom-control custom-radio {{ $loop.last ? '' : 'mb-1' }}">
+        <input
+          type="radio"
+          id="type-{{ type.id }}"
+          name="type_id"
+          class="custom-control-input"
+          value="{{ type.id }}"
+          required
+        />
+        <label class="custom-control-label" for="type-{{ type.id }}">
+          <span style="
+            background-color: {{ type.color }};
+            color: #fff;
+            padding: 2px 7px;
+            border-radius: .25rem;
+            margin-bottom: 4px;
+            margin-top: 3px;
+            display: inline-block;
+            position: relative;
+            top: -5px;
+          ">
+            <i class="{{ type.icon }}"></i> {{ type.name }}
+          </span>
+        </label>
+      </div>
+    @endeach
+  </div>
+
+  <div class="form-group" data-field="affected">
+    <label for="receivers">Policial(ais) afetado(s):</label>
+    <input
+      type="text"
+      name="receivers"
+      id="receivers"
+      class="form-control"
+      data-toggle="tooltip"
+      data-html="true"
+      title="Separe os nicks usando o caractere da barra (<code>/</code>).<br>Por exemplo:<br><code>luuuiiiz. / Dean.Santos</code>"
+      autocomplete="off"
+      required />
+    <small class="text-muted form-help">
+      Se desejar, você pode inserir mais de um policial. Para isso, separe os nicks usando uma barra (<kbd>/</kbd>).
+    </small>
+  </div>
+
+  @if(data.type_id || data.receivers)
+    <script>
+      (function () {
+        'use strict';
+
+      @if(data.type_id)
+        document.getElementById('type-{{ data.type_id }}').checked = true;
+      @endif
+      @if(data.receivers)
+        document.getElementById('receivers').value = '{{ data.receivers }}';
+      @endif
+      })(jQuery);
+    </script>
+  @endif
+
+  <div class="form-group mb-0">
+      <button type="submit" class="btn btn-primary js-submit">
+        Prosseguir <i class="fa fa-long-arrow-right"></i>
+      </button>
+  </div>
+</form>

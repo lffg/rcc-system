@@ -1,0 +1,39 @@
+.sys-select-menu {
+  display: block;
+  max-width: 90%;
+  width: 400px;
+  min-width: 230px;
+  position: absolute;
+  z-index: 5;
+  border: solid 1px #ced4da;
+  border-radius: .25rem;
+  background-color: #fff;
+  box-shadow: 0px 3px 0 0px rgba(0,0,0,0.1);
+  margin-top: 5px;
+  display: none;
+
+  .sys-select-label {
+    border-bottom: solid 1px #ced4da;
+    text-align: justify;
+    padding: 1rem;
+    color: #6c757d;
+    font-size: 85%;
+  }
+
+  .sys-select-menu-items {
+    max-height: 250px;
+    padding: 0.75rem 0;
+    overflow-y: scroll;
+
+    .sys-select-item {
+      display: flex;
+      align-items: center;
+      padding: .25rem 1rem;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #e2e7ec;
+      }
+    }
+  }
+}

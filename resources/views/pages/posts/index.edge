@@ -1,0 +1,33 @@
+@layout('partials.layouts.master')
+
+@section('title')
+  @set('skip_title', 'true')
+  Notícias
+@endsection
+
+@section('breadcrumb')
+  @set('skip_breadcrumb', 'true')
+@endsection
+
+@section('content')
+  <div class="sys-post-page">
+    <div class="sys-first-post">
+
+      {{ posts[0].title }}
+
+    </div>
+  </div>
+
+
+
+
+  @each(post in posts)
+    <div class="sys-post-wrapper" id="sys-post-{{ post.id }}">
+      @if($loop.first)
+        @include('pages.posts.includes.index.first-post')
+      @else
+        @include('pages.posts.includes.index.post')
+      @endif
+    </div>
+  @endeach
+@endsection

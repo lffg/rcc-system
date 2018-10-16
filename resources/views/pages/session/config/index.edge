@@ -1,0 +1,40 @@
+@layout('partials.layouts.master')
+
+@section('title')
+  Configurações
+@endsection
+
+@section('breadcrumb')
+  <li class="breadcrumb-item">
+    Configurações
+  </li>
+@endsection
+
+@section('content')
+  <div class="sys-config">
+    <p>
+      Clique <a href="{{ route('users.show') }}?u={{ $userdata.username }}">aqui</a> para ver o seu perfil.
+    </p>
+
+    <div class="card mb-3">
+      <div class="card-body">
+        @include('pages.session.config.includes.tab-navbar')
+      </div>
+    </div>
+
+    <div class="sys-tabs">
+      <div class="tab-content">
+        @if(mode === 'main')
+          {{-- Main Options --}}
+          @include('pages.session.config.includes.tab-main')
+        @elseif(mode === 'email')
+          {{-- Email Options --}}
+          @include('pages.session.config.includes.tab-email')
+        @elseif(mode === 'password')
+          {{-- Password Options --}}
+          @include('pages.session.config.includes.tab-password')
+        @endif
+      </div>
+    </div>
+  </div>
+@endsection

@@ -1,0 +1,36 @@
+<tr role="heading">
+  <th colspan="2">Dados Primários:</th>
+</tr>
+<tr>
+  <td>ID</td>
+  <td>
+    <samp>{{ user.id }}</samp>
+  </td>
+</tr>
+<tr>
+  <td>Nome de usuário</td>
+  <td>{{ user.username }}</td>
+</tr>
+<tr>
+  <td>Posição</td>
+  <td>{{ user.position.name }}</td>
+</tr>
+<tr>
+  <td>Criação da Conta</td>
+  <td>{{ moment(user.created_at).format('DD/MM/YY [às] HH:mm') }}</td>
+</tr>
+<tr>
+  <td>Última Visita</td>
+  <td>
+    @if(user.last_visit != 0)
+      {{ moment(user.last_visit).format('DD/MM/YY [às] HH:mm') }}
+    @else
+      Jamais
+    @endif
+  </td>
+</tr>
+<tr>
+  <td colspan="2">
+    <a href="{{ route('users.show') }}?u={{ user.username }}">Ver mais informações</a>
+  </td>
+</tr>

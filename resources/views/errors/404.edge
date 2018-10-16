@@ -1,0 +1,25 @@
+@layout('partials.layouts.error')
+
+@section('title')
+  Erro 404
+@endsection
+
+@section('content')
+  <span class="sys-error-emoticon">(o_O)?</span>
+  <h1 class="sys-error-title">
+    Página não encontrada
+  </h1>
+  <p class="sys-error-desc">
+      Nosso comandante supremo Dean.Santos acabou desativando a página errada! <em>De novo!?</em>
+      <br />
+      <small class="d-block mt-2">
+        Parece que a página que você procurou não existe ou está desativada. <br />
+        Se você acha que isso é um engano, contate um dos desenvolvedores do site.
+      </small>
+    </p>
+  <div>
+    <a href="{{ route('index') }}" class="btn btn-light mr-3 sys-error-button">
+      <i class="fa fa-home"></i> Página Inicial
+    </a>
+  </div>
+@endsection

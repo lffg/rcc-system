@@ -1,0 +1,7 @@
+.sys-config {
+  @media screen and (max-width: map-get($grid-breakpoints, $key: lg)) {
+    .sys-nav {
+      justify-content: center;
+    }
+  }
+}

@@ -1,0 +1,61 @@
+<div class="card sys-card {{ user.isBanned ? '--badged-card' : '' }}" id="user-card-{{ user.id }}">
+  @if(user.isBanned)
+    <span class="sys-card-badge">Exonerado</span>
+  @endif
+
+  <div class="sys-inner">
+    <div class="sys-avatar">
+      <span class="sys-avatar-image" style="background-image: url(https://www.habbo.com.br/habbo-imaging/avatarimage?user={{ user.username }}&action=std&direction=2&head_direction=3&gesture={{ user.isBanned ? 'sad' : 'sml' }}&size=l&__time__={{ moment().format('DD-MM-YY-HH') }});"></span>
+    </div>
+
+    <div class="sys-main">
+      <div class="sys-userinfo">
+        <header class="sys-username">
+          {{ user.username }}
+        </header>
+        <ul class="sys-data">
+          <li>
+            <span title="Patente do usuário {{ user.username }}: {{ user.position.name }}.">
+              <i class="fa fa-address-card-o fa-fw"></i> {{ user.position.name }}
+            </span>
+          </li>
+          <li>
+            <i class="fa fa-users fa-fw"></i>
+            @if(user.groups[0].name)
+              {{ user.groups[0].name }}
+            @else
+              Usuários
+            @endif
+          </li>
+          @if(user.allowed)
+            <li class="text-success">
+              <i class="fa fa-check"></i> Acesso Permitido
+            </li>
+          @else
+            <li
+              @if(user.disallowReason)
+                title="Razão: {{ user.disallowReason }}"
+                data-toggle="tooltip"
+              @endif
+              class="text-danger"
+            >
+              <i class="fa fa-times"></i> Acesso Proibido
+            </li>
+          @endif
+        </ul>
+      </div>
+      <footer class="sys-actions">
+        <a href="{{ route('users.show') }}?u={{ user.username }}" class="btn btn-primary btn-sm">
+          <i class="fa fa-eye"></i>
+          <span>Ver Perfil</span>
+        </a>
+        @if(hasGroup('ADMIN') || user.id == $userdata.id)
+          <a href="{{ route('admin:users.edit', { id: user.id }) }}" class="btn btn-danger btn-sm">
+            <i class="fa fa-pencil"></i>
+            <span>Editar Perfil</span>
+          </a>
+        @endif
+      </footer>
+    </div>
+  </div>
+</div>

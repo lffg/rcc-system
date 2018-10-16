@@ -1,0 +1,57 @@
+@layout('partials.layouts.master')
+
+@section('title')
+  Usuários na Posição &middot; {{ position.name }}
+@endsection
+
+@section('breadcrumb')
+  <li class="breadcrumb-item">
+    <a href="{{ route('positions.index') }}">Posições</a>
+  </li>
+  <li class="breadcrumb-item">
+    <a href="{{ route('positions.users') }}">Policial Por Patente</a>
+  </li>
+  <li class="breadcrumb-item">{{ position.name }}</li>
+  <li class="breadcrumb-item">Todos</li>
+@endsection
+
+@section('content')
+  <div class="sys-upp-all-zone">
+    <div class="text-center" style="font-size: 22px;">
+      <i class="fa fa-refresh fa-spin"></i> Carregando...
+      <small class="text-muted d-block mt-2">Isso pode levar alguns segundos.</small>
+    </div>
+  </div>
+@endsection
+
+@section('scripts')
+<script>
+(function ($) {
+  'use strict';
+
+  $(function () {
+    var $zone = $('.sys-upp-all-zone');
+
+    function showAlert (message) {
+      $zone.html([
+        '<div class="text-danger text-center">',
+        '  <i class="fa fa-exclamation-triangle"></i>', message,
+        '</div>'
+      ].join(' '))
+    }
+
+    $.get(location.pathname, { data: true, _now_: Date.now() })
+      .done(function (response) {
+        if (response === '') {
+          return showAlert('Não há usuários nessa posição.');
+        }
+
+        $zone.html('<samp class="d-block">' + response + '</samp>');
+      })
+      .fail(function () {
+        showAlert('Whoops! Houve um erro ao tentar carregar as posições.');
+      });
+  });
+})(jQuery);
+</script>
+@endsection

@@ -1,0 +1,26 @@
+<div class="sys-widget sys-online">
+  <div class="card">
+    <header class="card-header">
+      <i class="fa fa-info"></i>
+      Quem está on-line?
+    </header>
+    <div class="card-body">
+      <p>Há {{ online_users.length }} usuário(s) on-line neste momento.</p>
+      <div>
+        @each(user in online_users)
+          <a
+            href="{{ route('users.show') }}?u={{ user.username }}"
+            style="color: {{ user.groups[0].color }}; font-weight: 500;">
+            @if(user.groups[0].icon)
+              <i class="{{ user.groups[0].icon }}"></i>
+            @endif
+            {{ user.username }}
+          </a>
+          {{{ ! $loop.last ? '&middot;' : '' }}}
+        @else
+          Não há usuários online.
+        @endeach
+      </div>
+    </div>
+  </div>
+</div>

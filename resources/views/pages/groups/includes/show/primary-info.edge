@@ -1,0 +1,39 @@
+<h5 class="my-4">Informações Primárias:</h5>
+
+<div class="card sys-data mb-3">
+  <table>
+    <tbody>
+      <tr>
+        <td>Nome</td>
+        <td>
+          <strong style="color: {{ group.color }}; font-weight: 500;">
+            @if(group.icon)
+              <i class="{{ group.icon }}"></i>
+            @endif
+            {{ group.name }}
+          </strong>
+        </td>
+      </tr>
+      <tr>
+        <td>Membros</td>
+        <td>{{ group.__meta__.users_count }}</td>
+      </tr>
+      <tr>
+        <td>Moderadores</td>
+        <td>{{ moderators.length }}</td>
+      </tr>
+      @if(group.is_hidden)
+        <tr>
+          <td>Estado</td>
+          <td class="text-danger">
+            <i class="fa fa-eye-slash"></i> Grupo Oculto
+          </td>
+        </tr>
+      @endif
+      <tr>
+        <td>Criação do Grupo</td>
+        <td>{{ moment(group.created_at).format('DD/MM/YYYY') }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

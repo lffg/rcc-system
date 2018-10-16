@@ -1,0 +1,36 @@
+@layout('partials.layouts.admin')
+
+@section('title')
+  Gerenciar &middot; {{ group.name }}
+@endsection
+
+@section('breadcrumb')
+  <li class="breadcrumb-item">
+    <a href="{{ route('admin') }}">Administração</a>
+  </li>
+  <li class="breadcrumb-item">
+    <a href="{{ route('admin:groups.index') }}">Grupos</a>
+  </li>
+  <li class="breadcrumb-item">{{ group.name }}</li>
+@endsection
+
+@section('content')
+  <div class="sys-admin-inactives-list">
+    <div class="card mb-3">
+      <div class="card-body text-justify">
+        Através dessa página, você pode gerenciar o grupo {{ group.name }}. <br />
+        Clique <a href="{{ route('groups.show', { id: group.id }) }}">aqui</a> para acessar este grupo no system.
+      </div>
+    </div>
+
+    @include('admin.groups.includes.show.form')
+    @include('admin.groups.includes.show.members')
+    @unless(group.alias === 'USERS')
+      @include('admin.groups.includes.show.moderators')
+    @endunless
+  </div>
+@endsection
+
+@section('scripts')
+  {{ script('vendor/js/color-picker.min') }}
+@endsection

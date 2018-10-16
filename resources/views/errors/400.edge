@@ -1,0 +1,28 @@
+@layout('partials.layouts.error')
+
+@section('title')
+  Requisição Inválida
+@endsection
+
+@section('content')
+  <span class="sys-error-emoticon">°Д°</span>
+  <h1 class="sys-error-title">
+    Requisição Inválida
+  </h1>
+  <p class="sys-error-desc">
+    Whooops! Essa requisição é inválida.
+    <br />
+    <small class="d-block mt-2">
+      O nosso servidor se recusou a responder a sua requisição pois notou alguma irregularidade ou modificação de algum campo protegido.<br />
+      Tente novamente mais tarde.
+    </small>
+  </p>
+  <div>
+    <a href="{{ route('index') }}" class="btn btn-light mr-3 sys-error-button">
+      <i class="fa fa-home"></i> Página Inicial
+    </a>
+    <a href="javascript:window.history.back()" class="btn btn-light mr-3 sys-error-button">
+      <i class="fa fa-long-arrow-left"></i> Voltar à Página Anterior
+    </a>
+  </div>
+@endsection

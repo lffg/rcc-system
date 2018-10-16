@@ -1,0 +1,40 @@
+<ul class="nav nav-pills flex-column">
+  <li class="nav-item">
+    <a
+      href="javascript:void(0);"
+      class="nav-link active"
+      data-wiz-goto="1"
+      data-wiz-link-uri="{{ route('requests.create:part-1') }}"
+      data-wiz-required-fields="controller_id"
+    >
+      <i class="fa fa-check-circle-o fa-fw"></i> Abrir o Requerimento
+    </a>
+  </li>
+    <a
+      href="javascript:void(0);"
+      class="nav-link disabled"
+      data-wiz-goto="2"
+      data-wiz-link-uri="{{ route('requests.create:part-2') }}"
+      data-wiz-required-fields="author_id, controller_id, type_id, receivers"
+    >
+      <i class="fa fa-fw fa-circle-o"></i> Tipo do Requerimento
+    </a>
+  </li>
+  <li class="nav-item">
+    <a href="javascript:void(0);" class="nav-link disabled" data-wiz-goto="3">
+      <i class="fa fa-fw fa-circle-o"></i> Detalhes
+    </a>
+  </li>
+</ul>
+
+<hr style="margin: 1rem -1rem !important;" />
+
+<small class="d-block text-muted text-center">
+  Clique
+  <a
+    href="{{ route('requests.create') }}"
+    title="Todos os dados serão resetados."
+    data-toggle="tooltip"
+  >aqui</a>
+  para voltar à primeira parte.
+</small>

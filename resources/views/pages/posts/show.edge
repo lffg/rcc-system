@@ -1,0 +1,22 @@
+@layout('partials.layouts.master')
+
+@section('title')
+  @set('skip_title', 'true')
+  {{ post.title }}
+@endsection
+
+@section('breadcrumb')
+  @set('skip_breadcrumb', 'true')
+@endsection
+
+@section('content')
+  <div class="sys-post-page row">
+    <div class="col-lg-8">
+      @include('pages.posts.includes.show.main')
+    </div>
+
+    <div class="col-lg-4">
+      @include('pages.posts.includes.show.lateral')
+    </d>
+  </div>
+@endsection

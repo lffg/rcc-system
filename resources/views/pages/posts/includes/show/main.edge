@@ -1,0 +1,19 @@
+<article class="sys-post-content">
+  <h1 class="sys-post-title">{{ post.title }}</h1>
+
+  @if(post.description)
+    <p class="sys-post-description">{{ post.description }}</p>
+  @endif
+
+  <div class="sys-post-body">{{ post.body }}</div>
+
+  <div class="sys-post-tags">
+    @if(post.tags.length > 0)
+  <h4>Tags:</h4>
+
+      @each(tag in post.tags)
+        <span class="sys-post-tag">{{ tag.tag }}</span>
+      @endeach
+    @endif
+  </div>
+</article>

@@ -1,0 +1,17 @@
+<ul class="nav nav-pills sys-nav">
+  <li class="nav-item">
+    <a class="nav-link {{ mode === 'main' ? 'active' : '' }}" href="{{ route('user-config.index') }}" role="tab">
+      Configurações Gerais
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link {{ mode === 'email' ? 'active' : '' }}" href="{{ route('user-config.email') }}" role="tab">
+      E-Mail
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link {{ mode === 'password' ? 'active' : '' }}" href="{{ route('user-config.password') }}" role="tab">
+      Senha
+    </a>
+  </li>
+</ul>

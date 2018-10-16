@@ -1,0 +1,353 @@
+<form action="{{ route('requests.store') }}" method="POST">
+  <div data-wiz-meta-wrapper="true">
+    {{ csrfField() }}
+    <input type="hidden" name="author_id" value="{{ data.author_id }}" />
+    <input type="hidden" name="controller_id" value="{{ data.controller_id }}" />
+    <input type="hidden" name="type_id" value="{{ data.type_id }}" />
+    <input type="hidden" name="receivers" value="{{ nicks.string }}" />
+  </div>
+
+  <h4 class="display-4 mb-4" style="font-size: 30px;">Detalhes</h4>
+
+  <nav class="sys-breadcrumbs">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item text-muted">{{ controller.name }}</li>
+      <li class="breadcrumb-item text-muted">
+        <strong>{{ type.name }}</strong>
+      </li>
+    </ol>
+  </nav>
+
+  <p>Ao{{ nicks.entries.length > 1 ? 's' : '' }} usuário{{ nicks.entries.length > 1 ? 's' : '' }}:</p>
+  <ul>
+    @each(nick in nicks.entries)
+      <li><samp>{{ nick }}</samp></li>
+    @endeach
+  </ul>
+
+  <hr />
+
+  {{-- Info Text --}}
+  @if(type.info_text)
+    <div class="alert alert-info">
+      <i class="fa fa-info"></i> {{{ type.info_text }}}
+    </div>
+  @endif
+
+  {{-- Fields --}}
+  @unless(type.field_before_position === 'HIDE')
+    <div class="form-group">
+      <label for="before_position_id">
+        @if(type.field_before_position === 'REQUIRED')
+          <span
+            style="color: red; font-weight: bold;"
+            title="Campo obrigatório"
+            data-toggle="tooltip"
+          >*</span>
+        @endif
+        Patente/cargo atual:
+      </label>
+      <select
+        name="before_position_id"
+        id="before_position_id"
+        class="form-control"
+        {{ type.field_before_position === 'REQUIRED' ? 'required' : '' }}
+      >
+        <option value="" selected disabled>Selecione...</option>
+        @each(group in type.positions.before)
+          <optgroup label="{{ group.name }}">
+            @each(position in group.positions)
+              <option value="{{ position.id }}">{{ position.name }}</option>
+            @endeach
+          </optgroup>
+        @endeach
+      </select>
+      <small class="form-help text-muted">
+        A patente/cargo <strong>atual</strong> dos usuários afetados por este requerimento.
+      </small>
+    </div>
+  @endunless
+
+  @unless(type.field_after_position === 'HIDE')
+    <div class="form-group">
+      <label for="after_position_id">
+        @if(type.field_after_position === 'REQUIRED')
+          <span
+            style="color: red; font-weight: bold;"
+            title="Campo obrigatório"
+            data-toggle="tooltip"
+          >*</span>
+        @endif
+        Patente/cargo seguinte:
+      </label>
+      <select
+        name="after_position_id"
+        id="after_position_id"
+        class="form-control"
+        {{ type.field_after_position === 'REQUIRED' ? 'required' : '' }}
+      >
+        <option value="" selected disabled>Selecione...</option>
+        @each(group in type.positions.after)
+          <optgroup label="{{ group.name }}">
+            @each(position in group.positions)
+              <option value="{{ position.id }}">{{ position.name }}</option>
+            @endeach
+          </optgroup>
+        @endeach
+      </select>
+      <small class="form-help text-muted">
+        A patente/cargo que será aplicada <strong>após o requerimento</strong> ser aprovado pelo CRH.
+      </small>
+    </div>
+  @endunless
+
+  @unless(type.field_tag === 'HIDE')
+    <div class="form-group">
+      <label for="tag">
+        @if(type.field_tag === 'REQUIRED')
+          <span
+            style="color: red; font-weight: bold;"
+            title="Campo obrigatório"
+            data-toggle="tooltip"
+          >*</span>
+        @endif
+        Tag:
+      </label>
+      <input
+        type="text"
+        name="tag"
+        id="tag"
+        class="form-control"
+        minlength="3"
+        maxlength="3"
+        autocomplete="off"
+        {{ type.field_tag === 'REQUIRED' ? 'required' : '' }}
+      />
+      <small class="form-help text-muted">
+        Insira somente os caracteres da tag. Os colchetes não são necesários.
+      </small>
+    </div>
+  @endunless
+
+  @unless(type.field_price === 'HIDE')
+    <div class="form-group">
+      <label for="price">
+        @if(type.field_price === 'REQUIRED')
+          <span
+            style="color: red; font-weight: bold;"
+            title="Campo obrigatório"
+            data-toggle="tooltip"
+          >*</span>
+        @endif
+        Preço da venda:
+      </label>
+      <textarea
+        name="price"
+        id="price"
+        class="form-control"
+        autocomplete="off"
+        {{ type.field_price === 'REQUIRED' ? 'required' : '' }}
+      ></textarea>
+    </div>
+  @endunless
+
+  @unless(type.field_banned_days === 'HIDE')
+    <div class="form-group">
+      <label for="banned_days">
+        @if(type.field_banned_days === 'REQUIRED')
+          <span
+            style="color: red; font-weight: bold;"
+            title="Campo obrigatório"
+            data-toggle="tooltip"
+          >*</span>
+        @endif
+        Banir por quantos dias:
+      </label>
+      <input
+        type="number"
+        name="banned_days"
+        id="banned_days"
+        min="1"
+        max="500"
+        class="form-control"
+        autocomplete="off"
+        {{ type.field_banned_days === 'REQUIRED' ? 'required' : '' }}
+      />
+    </div>
+  @endunless
+
+  @unless(type.field_bonuses === 'HIDE')
+    <div class="form-group">
+      <label for="bonuses">
+        @if(type.field_bonuses === 'REQUIRED')
+          <span
+            style="color: red; font-weight: bold;"
+            title="Campo obrigatório"
+            data-toggle="tooltip"
+          >*</span>
+        @endif
+        Quantidade de medalhas:
+      </label>
+      <input
+        type="number"
+        name="bonuses"
+        id="bonuses"
+        min="-1000"
+        max="1000"
+        class="form-control"
+        autocomplete="off"
+        title="Leia a mensagem informativa acima sobre a forma de atribuir medalhas."
+        data-toggle="tooltip"
+        {{ type.field_bonuses === 'REQUIRED' ? 'required' : '' }}
+      />
+    </div>
+  @endunless
+
+  @unless(type.field_absence_days === 'HIDE')
+    <div class="form-group">
+      <label for="absence_days">
+        @if(type.field_absence_days === 'REQUIRED')
+          <span
+            style="color: red; font-weight: bold;"
+            title="Campo obrigatório"
+            data-toggle="tooltip"
+          >*</span>
+        @endif
+        Dias de ausência a partir de hoje, dia {{ moment().format('DD/MM/YYYY') }}:
+      </label>
+      <input
+        type="number"
+        name="absence_days"
+        id="absence_days"
+        min="1"
+        class="form-control"
+        autocomplete="off"
+        {{ type.field_absence_days === 'REQUIRED' ? 'required' : '' }}
+      />
+    </div>
+  @endunless
+
+  @unless(type.field_reason === 'HIDE')
+    <div class="form-group">
+      <label for="reason">
+        @if(type.field_reason === 'REQUIRED')
+          <span
+            style="color: red; font-weight: bold;"
+            title="Campo obrigatório"
+            data-toggle="tooltip"
+          >*</span>
+        @endif
+        Motivo para o requerimento:
+      </label>
+      <textarea
+        name="reason"
+        id="reason"
+        class="form-control"
+        maxlength="5000"
+        minlength="50"
+        autocomplete="off"
+        {{ type.field_reason === 'REQUIRED' ? 'required' : '' }}
+      ></textarea>
+    </div>
+  @endunless
+
+  @unless(type.field_permission === 'HIDE')
+    <div class="form-group">
+      <label for="permission">
+        @if(type.field_permission === 'REQUIRED')
+          <span
+            style="color: red; font-weight: bold;"
+            title="Campo obrigatório"
+            data-toggle="tooltip"
+          >*</span>
+        @endif
+        Permissão:
+      </label>
+      <input
+        type="text"
+        name="permission"
+        id="permission"
+        class="form-control"
+        autocomplete="off"
+        {{ type.field_permission === 'REQUIRED' ? 'required' : '' }}
+      />
+      <small class="form-help text-muted">
+        Nick de quem deu a permissão para a solicitação deste requerimento.
+      </small>
+    </div>
+  @endunless
+
+  @unless(type.field_notes === 'HIDE')
+    <div class="form-group">
+      <label for="notes">
+        @if(type.field_notes === 'REQUIRED')
+          <span
+            style="color: red; font-weight: bold;"
+            title="Campo obrigatório"
+            data-toggle="tooltip"
+          >*</span>
+        @endif
+        Notas sobre o requerimento:
+      </label>
+      <textarea
+        name="notes"
+        id="notes"
+        class="form-control"
+        maxlength="5000"
+        autocomplete="off"
+        {{ type.field_notes === 'REQUIRED' ? 'required' : '' }}
+      ></textarea>
+    </div>
+  @endunless
+
+  @unless(type.field_asked_by === 'HIDE')
+    <div class="form-group">
+      <div class="custom-control custom-checkbox">
+        <input
+          type="checkbox"
+          class="custom-control-input"
+          id="asked_byCheckbox"
+          onchange="$(this).parent().next().slideToggle(200);" />
+        <label class="custom-control-label" for="asked_byCheckbox">
+          @if(type.field_asked_by === 'REQUIRED')
+            <span
+              style="color: red; font-weight: bold;"
+              title="Campo obrigatório"
+              data-toggle="tooltip"
+            >*</span>
+          @endif
+          Postado a pedido de outro policial?
+        </label>
+      </div>
+      <div class="mt-2" style="display: none;">
+        <label for="asked_by">Postado a pedido de:</label>
+        <input type="text" name="asked_by" id="asked_by" class="form-control" autocomplete="off" />
+      </div>
+    </div>
+  @endunless
+
+  <div class="form-group">
+    <div class="custom-control custom-checkbox">
+      <input type="checkbox" class="custom-control-input" id="agree" required />
+      <label class="custom-control-label" for="agree">
+        Atesto ter lido todos os regimentos da Polícia RCC e que estou ciente das minhas responsabilidades após a aprovação deste requerimento.
+      </label>
+    </div>
+  </div>
+
+  <hr />
+
+  <div class="form-group mb-0">
+    <small class="d-block form-help text-muted text-justify mb-3">
+      Ao enviar, o seu requerimento será automaticamente marcado como "<strong>pendente</strong>", até que um membro do Centro de Recursos Humanos marque-o como "<strong>aprovado</strong>". Se sua requisição estiver fora dos conformes, ela será marcada como "<strong>recusada</strong>".
+    </small>
+
+    <button type="submit" class="js-submit btn btn-primary d-md-inline-block d-block mb-md-0 mb-3">
+      <i class="fa fa-check"></i> Concluir Requerimento e Enviar
+    </button>
+    <span class="d-none d-mb-inline-block">&nbsp;</span>
+    <a href="{{ route('requests.create') }}" class="btn btn-danger d-md-inline-block d-block">
+      <i class="fa fa-ban"></i> Cancelar Requerimento
+    </a>
+  </div>
+</form>

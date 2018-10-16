@@ -1,0 +1,22 @@
+{{ script('vendor/js/jquery-popper-bs.min') }}
+{{ script('vendor/js/nprogress.min') }}
+
+<script>
+  (function ($, window) {
+    'use strict';
+
+    $(function () {
+      NProgress.start();
+    });
+
+    $(window).on('load', function () {
+      NProgress.done();
+
+      setTimeout(function () {
+        if ($('html').is('.nprogress-busy')) NProgress.done();
+      }, 1000);
+    });
+  })(jQuery, window);
+</script>
+
+{{ script('js/index') }}

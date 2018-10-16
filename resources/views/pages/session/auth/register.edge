@@ -1,0 +1,86 @@
+@layout('partials.layouts.session')
+
+@section('title')
+  Registro
+@endsection
+
+@section('content')
+  <form action="{{ route('register') }}" method="POST">
+    <div class="form-group">
+      <label for="username">Nome de usuário:</label>
+      <input
+        type="text"
+        id="username"
+        name="username"
+        class="form-control {{ elIf('$self', 'is-invalid', hasErrorFor('username')) }}"
+        value="{{ old('username', '') }}"
+        data-toggle="tooltip"
+        data-html="true"
+        data-placement="right"
+        title="O nome de usuário deve ser o <b>mesmo</b> nick que você usa no Habbo."
+        autocomplete="off"
+        required />
+      {{ elIf('<span class="invalid-feedback">$self</span>', getErrorFor('username'), hasErrorFor('username')) }}
+    </div>
+
+    <div class="form-group">
+      <label for="email">E-Mail:</label>
+      <input
+        type="text"
+        id="email"
+        name="email"
+        class="form-control {{ elIf('$self', 'is-invalid', hasErrorFor('email')) }}"
+        value="{{ old('email', '') }}"
+        data-toggle="tooltip"
+        data-html="true"
+        data-placement="right"
+        title="Este e-mail <b>deverá ser verificado</b> na próxima etapa do registro para que você possa criar a sua conta."
+        data-html="true"
+        autocomplete="off"
+        required />
+      {{ elIf('<span class="invalid-feedback">$self</span>', getErrorFor('email'), hasErrorFor('email')) }}
+    </div>
+
+    <div class="form-group">
+      <label for="password">Senha:</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        class="form-control {{ elIf('$self', 'is-invalid', hasErrorFor('password')) }}"
+        value="{{ old('password', '') }}"
+        data-toggle="tooltip"
+        data-html="true"
+        data-placement="right"
+        title="A senha <strong>não pode começar ou terminar com espaços</strong>."
+        autocomplete="off"
+        required />
+      {{ elIf('<span class="invalid-feedback">$self</span>', getErrorFor('password'), hasErrorFor('password')) }}
+    </div>
+
+    <div class="alert alert-primary text-center">
+      <span style="user-select: none;">
+        Para confirmar a sua identidade, <strong>copie</strong> o código a seguir e cole na sua missão no Habbo:
+      </span>
+
+      <samp class="d-block mt-1"><strong>{{ motto }}</strong></samp>
+    </div>
+
+    <div class="form-group mb-0">
+      <button class="btn btn-primary btn-block js-submit" type="submit">
+        Continuar
+      </button>
+      <small class="d-block text-center form-help text-muted mt-3">
+        Ao se registrar, clicando em "Continuar", você automaticamente concorda com os <a href="{{ route('site-terms') }}">termos de serviço</a> e <a href="{{ route('site-privacy') }}">política de privacidade</a> do site.
+      </small>
+    </div>
+
+    {{ csrfField() }}
+  </form>
+@endsection
+
+@section('footer')
+  <a href="{{ route('login') }}">Login</a> &middot;
+  <a href="#">Recuperar Senha</a> &middot;
+  <a href="{{ route('site-about') }}">Sobre</a>
+@endsection

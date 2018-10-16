@@ -1,0 +1,38 @@
+@layout('partials.layouts.session')
+
+@section('title')
+  Sair
+@endsection
+
+@section('content')
+  <p>Você tem certeza que deseja finalizar a sua sessão?</p>
+
+  <form action="{{ route('logout') }}" method="GET">
+    <button type="submit" class="btn btn-danger js-submit">Sim</button>
+    <a href="{{ route('index') }}" class="btn btn-secondary" id="back-btn">
+      Não
+    </a>
+
+    <input type="hidden" name="confirm" value="on" />
+  </form>
+@endsection
+
+@section('footer')
+  <a href="{{ route('index') }}">Página Inicial</a> &middot;
+  <a href="{{ route('site-about') }}">Sobre</a> &middot;
+  <a href="javascript:alert('Em breve...');">Central de Ajuda</a>
+@endsection
+
+@section('scripts')
+  <script>
+    (function ($) {
+      'use strict';
+
+      $('#back-btn').on('click', function (event) {
+        event.preventDefault();
+
+        window.history.back();
+      });
+    })(jQuery);
+  </script>
+@endsection

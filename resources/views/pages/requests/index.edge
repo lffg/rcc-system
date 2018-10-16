@@ -1,0 +1,65 @@
+@layout('partials.layouts.master')
+
+@section('title')
+  Centro de Recursos Humanos &middot; Início
+@endsection
+
+@section('breadcrumb')
+  <li class="breadcrumb-item">Centro de Recursos Humanos</li>
+@endsection
+
+@section('content')
+  <div class="card card-body mb-3">
+    <a href="{{ route('requests.create') }}" class="btn btn-primary">
+      <i class="fa fa-plus"></i> Novo Requerimento
+    </a>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-book"></i> Listagens do CRH
+        </div>
+        <div class="list-group list-group-flush">
+          @each(controller in controllers)
+            <li class="list-group-item">
+              <a
+                href="{{ route('requests.list', { slug: controller.slug }) }}"
+                style="font-weight: 600; color: {{ controller.color }};"
+              >
+                Listagem de {{ controller.name }}
+              </a>
+            </li>
+          @endeach
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-clock-o"></i> Últimos Requerimentos
+        </div>
+        <div class="card-body">
+          @each(lastRequest in lastRequests)
+            <span>
+              <span
+                class="badge badge-info"
+                style="color: #fff; background-color: {{ lastRequest.type.color }};"
+                title="{{ lastRequest.type.timeline_title }}. Requerido por {{ lastRequest.author.username }}"
+                data-toggle="tooltip"
+              >
+                <i class="{{ lastRequest.type.icon }} fa-fw"></i>
+              </span>
+              <a href="{{ route('users.show') }}?u={{ lastRequest.receiver.username }}">
+                {{ lastRequest.receiver.username }}
+              </a>
+            </span> {{{ !$loop.last ? '&nbsp;&nbsp;|&nbsp;&nbsp;' : '' }}}
+          @else
+            -x-
+          @endeach
+        </div>
+      </div>
+    </div>
+  </div>
+@endsection

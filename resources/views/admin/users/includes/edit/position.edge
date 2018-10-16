@@ -1,0 +1,24 @@
+<div class="card">
+  <div class="card-header">Posição</div>
+  <div class="card-body">
+    <div class="form-group mb-0">
+      <label for="position">Posição:</label>
+      <select name="position_id" id="position_id" class="form-control">
+        <option value="" selected disabled>Selecione...</option>
+        @each(group in positions)
+          <optgroup label="{{ group.name }}">
+            @each(position in group.positions)
+              <option value="{{ position.id }}">{{ position.name }}</option>
+            @endeach
+          </optgroup>
+        @endeach
+      </select>
+      <script>
+        (function () {
+          'use strict';
+          document.getElementById('position_id').value = '{{ user.position_id }}';
+        })();
+      </script>
+    </div>
+  </div>
+</div>

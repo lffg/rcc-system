@@ -1,0 +1,29 @@
+@layout('partials.layouts.master')
+
+@section('title')
+  Posições &middot; Índice
+@endsection
+
+@section('breadcrumb')
+  <li class="breadcrumb-item">Posições</li>
+  <li class="breadcrumb-item">Índice</li>
+@endsection
+
+@section('content')
+  <p class="lead">Selecione a página que deseja visualizar:</p>
+
+  <ol>
+    <li class="mb-4">
+      <a href="{{ route('positions.list') }}" class="btn btn-secondary mb-2">
+        Lista de Posições <i class="fa fa-long-arrow-right"></i>
+      </a>
+      <p>Visualize uma lista com todas as posições (patentes e cargos) cadastrados no System.</p>
+    </li>
+    <li>
+      <a href="{{ route('positions.users') }}" class="btn btn-secondary mb-2">
+        Policial por Patente <i class="fa fa-long-arrow-right"></i>
+      </a>
+      <p>Selecione uma patente ou cargo presente no System e veja os usuários que fazem parte dessa posição.</p>
+    </li>
+  </ol>
+@endsection

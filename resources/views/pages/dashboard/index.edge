@@ -1,0 +1,28 @@
+@layout('partials.layouts.master')
+
+@section('title')
+  @set('skip_title', 'true')
+
+  Dashboard
+@endsection
+
+@section('content')
+  <div class="sys-dashboard">
+    {{-- @include('pages.dashboard.includes.cards') --}}
+
+    <div class="row sys-widgets-wrapper">
+      <div class="col-md-6">
+        @include('pages.dashboard.includes.find-user')
+        @include('pages.dashboard.includes.news')
+        @include('pages.dashboard.includes.best-users')
+      </div>
+      <div class="col-md-6">
+        @include('pages.dashboard.includes.profile')
+        @include('pages.dashboard.includes.shortcuts')
+        @include('pages.dashboard.includes.online')
+      </div>
+    </div>
+
+    <pre class="bg-dark text-white my-3 p-3 rounded">{{ toJSON($userdata) }}</pre>
+  </div>
+@endsection

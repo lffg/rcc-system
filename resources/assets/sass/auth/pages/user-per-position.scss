@@ -1,0 +1,17 @@
+.sys-user-per-position {
+  .sys-upp-position-badges {
+    border: solid 1px #ddd !important;
+    margin-bottom: .5rem;
+    margin-right: .25rem;
+
+    .sys-upp-dot {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border-radius: 100px;
+      vertical-align: middle;
+      position: relative;
+      top: -1px;
+    }
+  }
+}

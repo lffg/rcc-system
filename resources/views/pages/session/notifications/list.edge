@@ -1,0 +1,25 @@
+@unless(notifications.length == 0)
+  <ul class="mb-1">
+    @each(notification in notifications)
+      <li
+        class="sys-notification-item"
+        @if(notification.description)
+          title="{{{ notification.description }}}"
+          data-toggle="tooltip"
+          data-html="true"
+        @endif
+      >
+        @if(action_uri)
+          <a href="{{ action_uri }}" class="sys-notification-title">{{ notification.title }}</a>
+        @else
+          <span class="sys-notification-title">{{ notification.title }}</span>
+        @endif
+      </li>
+    @endeach
+  </ul>
+@else
+  <span class="d-block text-center">
+    <i class="fa fa-info d-block mb-1"></i>
+    Você não tem nenhuma notificação não lida. Bom trabalho!
+  </span>
+@endunless

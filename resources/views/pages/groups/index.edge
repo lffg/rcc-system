@@ -1,0 +1,19 @@
+@layout('partials.layouts.master')
+
+@section('title')
+  Grupos
+@endsection
+
+@section('breadcrumb')
+  <li class="breadcrumb-item">
+    Grupos
+  </li>
+@endsection
+
+@section('content')
+  <div class="card">
+    <div class="card-body">
+      @include('pages.groups.includes.index.table')
+    </div>
+  </div>
+@endsection

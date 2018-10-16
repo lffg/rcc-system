@@ -1,0 +1,59 @@
+@unless(users.length === 0)
+  <form class="p-3">
+    <input
+      type="text"
+      class="form-control"
+      data-find-field="true"
+      data-find-selector=".sys-upp-user-row"
+      placeholder="Filtrar por usuário..."
+    />
+  </form>
+@endunless
+
+<table class="table mb-0">
+  @unless(users.length === 0)
+    <thead>
+      <th><samp>#</samp></th>
+      <th colspan="2">Usuário</th>
+    </thead>
+  @endunless
+  <tbody>
+    @each(user in users)
+      <tr class="sys-upp-user-row" data-find-param="{{ user.username }}">
+        <td>
+          <samp>{{ user.id }}</samp>
+        </td>
+        <td>
+          <img src="https://www.habbo.com.br/habbo-imaging/avatarimage?img_format=gif&user={{ user.username }}&direction=2&head_direction=3&size=s&headonly=1" />
+          <span>{{ user.username }}</span>
+        </td>
+        <td class="text-center">
+          <a
+            href="{{ route('users.show') }}?u={{ user.username }}"
+            class="btn btn-sm btn-dark btn-outline-dark"
+            title="Ver perfil de {{ user.username }}"
+            data-toggle="tooltip"
+            data-placement="right"
+          >
+            <i class="fa fa-eye"></i> Ver Perfil
+          </a>
+        </td>
+      </tr>
+      @if($loop.last && $loop.index === 149)
+        <tr>
+          <td colspan="3" class="text-center">
+            <i class="fa fa-info-circle d-block mb-2"></i>
+            Há um limite de 150 usuários para esta posção. Clique em "ver arquivo completo" para consultar todos os usuários.
+          </td>
+        </tr>
+      @endif
+    @else
+      <tr class="text-center text-danger">
+        <td colspan="3">
+          <i class="fa fa-exclamation-triangle"></i>
+          Não há usuários cadastrados nesta posição. :(
+        </td>
+      </tr>
+    @endeach
+  </tbody>
+</table>

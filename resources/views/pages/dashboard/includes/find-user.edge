@@ -1,0 +1,27 @@
+<div class="card mb-3">
+  <div class="card-header">
+    <label for="find-username" class="mb-0">
+      <i class="fa fa-search"></i>
+      Verifique um Usuário
+    </label>
+  </div>
+  <div class="card-body">
+    <form method="POST" action="{{ route('users.find') }}">
+      <div class="form-group">
+        <input
+          type="text"
+          name="username"
+          id="find-username"
+          class="form-control js-username"
+          autocomplete="off"
+          required />
+      </div>
+
+      <button type="submit" class="btn btn-primary js-submit">
+        <i class="fa fa-search"></i> Pesquisar
+      </button>
+
+      {{ csrfField() }}
+    </form>
+  </div>
+</div>

@@ -1,0 +1,163 @@
+<div class="card mb-3">
+  <div class="card-body">
+    <div class="alert sys-profile-active-info alert-{{ user.allowed ? 'success' : 'danger' }}">
+      @if(user.allowed)
+        <i class="fa fa-check-circle"></i>
+        <div>
+          <div>Este usuário é confirmado e pode ter acesso às dependências da Polícia RCC.</div>
+          <div>
+            <samp>[RCC] {{ user.position.name }} [{{ user.promoter.tag || 'RCC' }}]</samp>
+          </div>
+        </div>
+      @else
+        <i class="fa fa-exclamation-triangle"></i>
+        <div>
+          <div>Este usuário <strong>não deve</strong> ter acesso às dependências da Polícia RCC.</div>
+          @if(user.disallowReason)
+            <div>Razão: <strong>{{ user.disallowReason }}</strong></div>
+          @endif
+        </div>
+      @endif
+    </div>
+  </div>
+</div>
+
+<div class="card sys-data mb-3">
+  <table>
+    <tr role="heading">
+      <th colspan="2">Informações Primárias:</th>
+    </tr>
+    <tr>
+      <td>Nome de Usuário</td>
+      <td>{{ user.username }}</td>
+    </tr>
+    <tr>
+      <td>Tag</td>
+      <td>
+        <samp>[{{ user.tag }}]</samp>
+      </td>
+    </tr>
+    <tr>
+      <td>Patente/cargo</td>
+      <td>{{ user.position.name }}</td>
+    </tr>
+    <tr>
+      <td>Tag do Promotor</td>
+      <td>
+        <samp>[{{ user.promoter.tag || 'RCC' }}]</samp>
+      </td>
+    </tr>
+    <tr>
+      <td>Criação da Conta (no System)</td>
+      <td>{{ moment(user.created_at).format('DD/MM/YYYY') }}</td>
+    </tr>
+    <tr>
+      <td>Última visita (no System)</td>
+      @if(user.last_visit != 0)
+        <td
+          title="Visto por último em {{ moment(user.last_visit).format('DD/MM/YYYY [às] HH:mm:ss') }}"
+          data-toggle="tooltip"
+          data-placement="left">
+          {{ moment(user.last_visit).format('DD/MM/YYYY [às] HH:mm') }}
+        </td>
+      @else
+        <td>Jamais</td>
+      @endif
+    </tr>
+    <tr role="heading">
+      <th colspan="2">Salário & Gratificações:</th>
+    </tr>
+    @unless(user.position.alias === 'SUPR')
+      <tr>
+        <td>Salário <strong>total</strong> (em câmbios)</td>
+        <td>
+          <samp><strong>{{ user.fullSalary }}</strong></samp>
+        </td>
+      </tr>
+      <tr>
+        <td>Salário fixo (em câmbios)</td>
+        <td>
+          <samp>{{ user.fixSalary }}</samp>
+        </td>
+      </tr>
+      <tr>
+        <td>Número de medalhas (total)</td>
+        <td>
+          <samp>
+            {{ user.temporary_bonuses + user.effective_bonuses }}
+          </samp>
+        </td>
+      </tr>
+      <tr>
+        <td>Medalhas Temporárias</td>
+        <td>
+          <samp>{{ user.temporary_bonuses }}</samp>
+        </td>
+      </tr>
+      <tr>
+        <td>Medalhas Efetivas</td>
+        <td>
+          <samp>{{ user.effective_bonuses }}</samp>
+        </td>
+      </tr>
+    @else
+      <tr>
+        <td colspan="2">Por ser Supremo, este usuário não tem uma contagem mensurável de gratificações.</td>
+      </tr>
+    @endunless
+    <tr role="heading">
+      <th colspan="2">Segurança:</th>
+    </tr>
+    <tr>
+      <td>Permissão de Acesso ao System</td>
+      @if(user.allowed)
+        <td class="text-success">
+          <i class="fa fa-check"></i> Acesso Permitido
+        </td>
+      @else
+        <td class="text-danger">
+          @if(user.disallowReason)
+            <span title="Razão: {{ user.disallowReason }}" data-toggle="tooltip">
+              <i class="fa fa-exclamation-triangle"></i> Acesso Proibido
+            </span>
+          @else
+            <i class="fa fa-exclamation-triangle"></i> Acesso Proibido
+          @endif
+        </td>
+      @endif
+    </tr>
+  </table>
+</div>
+
+<div class="card sys-data mb-3">
+  <table>
+    <tr role="heading">
+      <th colspan="2">Informações Adicionais:</th>
+    </tr>
+    <tr>
+      <td>Gênero</td>
+      <td>{{ user.gender }}</td>
+    </tr>
+    <tr>
+      <td>Localização</td>
+      <td>{{ user.location }}</td>
+    </tr>
+  </table>
+</div>
+
+<div class="card sys-user-images">
+  <div class="card-body">
+    <div class="row">
+      <div class="col-6">
+        <div class="sys-image">
+          <img src="https://www.habbo.com.br/habbo-imaging/avatarimage?user={{ user.username }}&action=std&direction=3&head_direction=3&gesture=std&size=l&__time__={{ now() }}" alt="Avatar #1" />
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="sys-image">
+          <img src="https://www.habbo.com.br/habbo-imaging/avatarimage?user={{ user.username }}&action=std&direction=7&head_direction=7&gesture=std&size=l&__time__={{ now() }}" alt="Avatar #2" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

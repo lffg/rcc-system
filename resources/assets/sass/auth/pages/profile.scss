@@ -1,0 +1,280 @@
+.sys-profile {
+  @media screen and (max-width: map-get($grid-breakpoints, $key: lg)) {
+    .sys-nav {
+      display: block;
+      text-align: center;
+    }
+  }
+
+  .sys-lateral {
+    @media screen and (min-width: map-get($grid-breakpoints, $key: lg)) {
+      position: sticky;
+      top: 90px;
+    }
+
+    .sys-avatar {
+      display: block;
+      width: 140px;
+      height: 140px;
+      border: solid 2px #ddd;
+      border-radius: 200px;
+      margin: .5rem auto 1rem auto;
+      overflow: hidden;
+      box-shadow: inset -2px -3px rgba(0, 0, 0, .05);
+    }
+
+    .sys-avatar-image {
+      display: block;
+      width: 100%;
+      height: 100%;
+      background-position-x: center;
+      background-position-y: -20px;
+      background-size: initial;
+      transition: all 120ms linear;
+
+      &:hover {
+        background-position-y: -25px;
+      }
+    }
+
+    @media screen and (max-width: map-get($grid-breakpoints, $key: lg)) {
+      text-align: center;
+    }
+
+    .sys-username-bar {
+      font-size: 2.1rem;
+      letter-spacing: 1px;
+      margin: 0;
+      font-weight: 300;
+
+      .sys-online-indicator {
+        display: inline-block;
+        width: 15px;
+        height: 15px;
+        background-image: linear-gradient(lighten($success, 20%), darken($success, 10%));
+        border: 2px solid #fff;
+        border-radius: 50%;
+      }
+    }
+
+    .sys-position {
+      font-weight: 300;
+    }
+
+    .sys-groups {
+      margin: 0;
+      padding: 0;
+      list-style-type: none;
+
+      a {
+        text-decoration: none;
+      }
+    }
+
+    .sys-group-bar {
+      margin-bottom: .75rem;
+      padding: .5rem 1rem;
+      text-align: center;
+      border-radius: .175rem;
+      text-shadow: 1px 2px rgba(0, 0, 0, .2);
+      background-color: $secondary;
+    }
+
+    .sys-groups-show-more-groups {
+      display: block;
+      color: $secondary;
+      text-align: center;
+      font-size: 80%;
+      line-height: 1;
+
+      &:hover,
+      &:active {
+        color: darken($secondary, 7%);
+      }
+    }
+  }
+
+  .sys-tabs {
+    .sys-profile-active-info {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0;
+
+      > .fa {
+        margin-right: .9rem;
+      }
+    }
+
+    .sys-entrance {
+      &-status {
+        margin: (-$card-spacer-x) (-$card-spacer-x) $card-spacer-x (-$card-spacer-x);
+        padding: .75rem $card-spacer-x;
+        border-bottom: solid 1px #ddd;
+        text-align: center;
+        font-weight: 500;
+      }
+
+      &-ok {
+        color: $success;
+      }
+
+      &-forbidden {
+        color: $danger;
+      }
+    }
+
+    .sys-user-images {
+      text-align:  center;
+
+      @media screen and (max-width: map-get($grid-breakpoints, $key: lg)) {
+        display: none;
+      }
+
+      .sys-image {
+        border: solid 1px #d8d4d4;
+        border-radius: .25rem;
+        background-color: #f7f7f7;
+      }
+    }
+  }
+
+  .sys-timeline {
+    a {
+      color: inherit;
+      text-decoration: underline;
+
+      &:hover {
+        color: #222;
+      }
+    }
+
+    .sys-timeline-row {
+      display: flex;
+      margin-bottom: 1.1rem;
+    }
+
+    .sys-timeline-icon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-width: 40px;
+      width: 40px;
+      padding: 10px 0;
+      border-radius: .25rem;
+      color: #fff;
+      font-size: 18px;
+      box-shadow: 0px 3px 0 0px rgba(0,0,0,0.1);
+
+      @media screen and (max-width: map-get($grid-breakpoints, $key: sm)) {
+        min-width: 30px;
+      }
+    }
+
+    .sys-timeline-info {
+      padding: 1rem;
+      margin-left: 1.1rem;
+      border: solid 1px #d0d0d0;
+      border-radius: .25rem;
+      flex-grow: 1;
+      box-shadow: 0px 3px 0 0px rgba(0,0,0,0.1);
+      position: relative;
+      z-index: 2;
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: -13.6px;
+        z-index: 3;
+        transform: rotate(45deg) translateY(-50%);
+        background-color: #fff;
+        border: solid 1px #c1c1c1;
+        border-top: 0;
+        border-right: 0;
+        border-bottom-left-radius: .15rem;
+        display: inline-block;
+        width: 15px;
+        height: 15px;
+      }
+    }
+
+    .sys-timeline-title {
+      font-weight: 300;
+      font-size: 20px;
+      margin-bottom: 7px;
+    }
+
+    .sys-timeline-description {
+      color: #69767b;
+      font-size: 80%;
+    }
+
+    .sys-timeline-footer {
+      display: flex;
+      align-items: center;
+      margin: 1rem -1rem -1rem -1rem;
+      padding: .8rem 1rem;
+      border-top: dashed 1px #d0d0d0;
+      color: #676767;
+      font-size: 90%;
+
+      > .sys-timeline-footer-item {
+        margin-right: 1rem;
+
+        &:last-child {
+          margin-right: 0;
+        }
+
+        @media screen and (max-width: map-get($grid-breakpoints, $key: sm)) {
+          display: block;
+          margin-right: 0;
+          margin-bottom: 1rem;
+
+          &:last-child {
+            margin-bottom: 0;
+          }
+        }
+      }
+
+      > .sys-timeline-details {
+        margin-left: auto;
+        color: #fff;
+        text-decoration: none;
+
+        @media screen and (max-width: map-get($grid-breakpoints, $key: sm)) {
+          margin-left: initial;
+          width: 100%;
+          display: block;
+        }
+      }
+
+      @media screen and (max-width: map-get($grid-breakpoints, $key: sm)) {
+        flex-wrap: wrap;
+      }
+    }
+  }
+}
+
+.sys-timeline-details-data {
+  dl {
+    margin-left: -1rem;
+    margin-right: -1rem;
+    padding: 0 1rem 1rem 1rem;
+    border-bottom: dashed 1px #e6e6e6;
+
+    &:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    dt {
+      margin-bottom: .15rem;
+    }
+
+    dd {
+      margin: 0;
+      padding: 0;
+    }
+  }
+}

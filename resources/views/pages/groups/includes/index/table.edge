@@ -1,0 +1,56 @@
+<div class="table-responsive">
+  <table class="table table-hover text-center mb-0">
+    <thead class="thead-light">
+      <th>ID</th>
+      <th>Nome do Grupo</th>
+      <th>Membros</th>
+      <th>Mais</th>
+    </thead>
+    <tbody>
+      @each(group in groups)
+        @if(! group.is_hidden || hasGroup('ADMIN') || isModerator(group.alias))
+          <tr>
+            <td>{{ group.id }}</td>
+            <td>
+              <a
+                style="color: {{ group.color }}; font-weight: 500;"
+                href="{{ route('groups.show', { id: group.id }) }}"
+              >
+                @if(group.icon)
+                  <i class="{{ group.icon }}"></i>
+                @endif
+                {{ group.name }}
+              </a>
+              @if(group.is_hidden)
+                <small
+                  class="d-block"
+                  title="Você vê este grupo pois é um moderador dele ou administrador do system"
+                  data-toggle="tooltip" data-placement="bottom"
+                >
+                  <i class="fa fa-eye-slash"></i> Grupo Oculto
+                </small>
+              @endif
+            </td>
+            <td>{{ group.__meta__.users_count }}</td>
+            <td>
+              <a
+                href="{{ route('groups.show', { id: group.id }) }}" class="btn btn-info btn-sm"
+                title="Visualizar dados do grupo"
+                data-toggle="tooltip">
+                <i class="fa fa-eye"></i>
+              </a>
+              @if(hasGroup('ADMIN'))
+                <a
+                  href="{{ route('admin:groups.show', { id: group.id }) }}" class="btn btn-warning btn-sm"
+                  title="Editar dados do grupo"
+                  data-toggle="tooltip">
+                  <i class="fa fa-cog"></i>
+                </a>
+              @endif
+            </td>
+          </tr>
+        @endif
+      @endeach
+    </tbody>
+  </table>
+</div>

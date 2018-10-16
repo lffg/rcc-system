@@ -1,0 +1,70 @@
+{
+  "name": "adonis-start",
+  "version": "2.0.0",
+  "adonis-version": "4.1.0",
+  "description": "lffg's boilerplate for AdonisJs.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node ace test",
+    "dev": "concurrently --kill-others -p \"[{name}]\" -n \"SERVER,ASSETS\" -c \"bgGreen.bold,bgMagenta.bold\" \"npm run serve:dev\" \"npm run build:dev\"",
+    "serve": "./node_modules/.bin/adonis serve",
+    "serve:dev": "npm run serve -- --dev",
+    "build": "./node_modules/.bin/gulp build",
+    "build:dev": "./node_modules/.bin/gulp dev",
+    "lint": "node_modules/.bin/eslint **/*.js"
+  },
+  "keywords": [
+    "adonisjs",
+    "adonis-app",
+    "adonis start",
+    "gulp",
+    "boilerplate"
+  ],
+  "author": "lffg",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "@adonisjs/ace": "^5.0.2",
+    "@adonisjs/auth": "^3.0.5",
+    "@adonisjs/bodyparser": "^2.0.3",
+    "@adonisjs/cors": "^1.0.6",
+    "@adonisjs/fold": "^4.0.8",
+    "@adonisjs/framework": "^5.0.7",
+    "@adonisjs/ignitor": "^2.0.6",
+    "@adonisjs/lucid": "^5.0.4",
+    "@adonisjs/lucid-slugify": "^1.0.2",
+    "@adonisjs/mail": "^3.0.8",
+    "@adonisjs/session": "^1.0.25",
+    "@adonisjs/shield": "^1.0.6",
+    "@adonisjs/validator": "^5.0.3",
+    "fa-icon-list": "^1.0.0",
+    "got": "^8.3.1",
+    "gulp-concat": "^2.6.1",
+    "lodash": "^4.17.10",
+    "moment": "^2.22.1",
+    "mysql": "^2.15.0",
+    "shortid": "^2.2.8",
+    "sprintf-js": "^1.1.1",
+    "yiq": "^1.0.0"
+  },
+  "devDependencies": {
+    "@adonisjs/cli": "^4.0.4",
+    "concurrently": "^3.5.1",
+    "eslint": "^4.19.1",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.12.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.8.0",
+    "eslint-plugin-standard": "^3.1.0",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^5.0.0",
+    "gulp-cli": "^2.0.1",
+    "gulp-plumber": "^1.2.0",
+    "gulp-sass": "^4.0.1",
+    "gulp-sourcemaps": "^2.6.4"
+  },
+  "autoload": {
+    "App": "./app"
+  }
+}

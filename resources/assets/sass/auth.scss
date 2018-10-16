@@ -1,0 +1,57 @@
+/**
+ * ---------------------------------------------------------------------
+ * Variables.
+ * ---------------------------------------------------------------------
+ */
+
+$white:             #fff;
+$dark:              #2c353b;
+
+$primary:           #39c; // #ecc608
+$secondary:         #2c353b;
+
+$np-bg:             $secondary;
+$np-wt:             3px;
+$np-ss:             true;
+
+$enable-shadows:    false;
+$enable-gradients:  true;
+$trans:             all 125ms ease-in-out;
+
+/**
+ * ---------------------------------------------------------------------
+ * Bootstrap & NProgress
+ * ---------------------------------------------------------------------
+ */
+
+@import "./vendor/bootstrap/bootstrap.scss";
+@import "./vendor/nprogress.scss";
+@import "./main/extra/reset.scss";
+@import "./main/extra/utils.scss";
+@import "./main/extra/select.scss";
+
+/**
+ * ---------------------------------------------------------------------
+ * Imports
+ * ---------------------------------------------------------------------
+ */
+
+// Layout:
+@import "./main/layout/main.scss";
+@import "./main/layout/navbar.scss";
+@import "./main/layout/menu.scss";
+@import "./main/layout/content.scss";
+@import "./main/layout/footer.scss";
+
+// Pages:
+@import "./auth/pages/dashboard.scss";
+@import "./auth/pages/userlist.scss";
+@import "./auth/pages/profile.scss";
+@import "./auth/pages/config.scss";
+@import "./auth/pages/user-per-position.scss";
+@import "./auth/pages/crh.scss";
+
+::selection {
+  background-color: $secondary;
+  color: $white;
+}

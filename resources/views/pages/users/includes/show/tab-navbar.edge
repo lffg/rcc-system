@@ -1,0 +1,41 @@
+<ul class="nav nav-pills sys-nav">
+  <li class="nav-item">
+    <a class="nav-link active" href="#sys-main-tab" data-toggle="pill" role="tab">Informações</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="timeline-btn" href="#sys-timeline-tab" data-toggle="pill" role="tab">Linha do Tempo</a>
+  </li>
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Mais</a>
+    <div class="dropdown-menu">
+      <span class="dropdown-header">Abrir Requerimento:</span>
+      <a class="dropdown-item" href="{{ route('requests.create') }}">Novo Requerimento</a>
+      <div class="dropdown-divider"></div>
+      <span class="dropdown-header">Mais:</span>
+      <a class="dropdown-item" href="#">Histórico</a>
+      <a class="dropdown-item" href="#">Enviar MP</a>
+      <a class="dropdown-item" href="#">Denunciar</a>
+    </div>
+  </li>
+  @if(hasGroup('ADMIN'))
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Gerenciar</a>
+      <div class="dropdown-menu">
+        @if(user.id === $userdata.id)
+          <span class="dropdown-header">Pessoal:</span>
+          <a class="dropdown-item" href="{{ route('user-config.index') }}">Configurações</a>
+          <div class="dropdown-divider"></div>
+          <span class="dropdown-header">Administrativo:</span>
+        @endif
+        <a class="dropdown-item" href="{{ route('admin:users.show', { id: user.id }) }}">Ver Perfil</a>
+        <a class="dropdown-item" href="{{ route('admin:users.edit', { id: user.id }) }}">Editar Perfil</a>
+      </div>
+    </li>
+  @elseif(user.id === $userdata.id)
+    <li class="nav-item">
+      <a class="nav-link" href="{{ route('user-config.index') }}">
+        Configurações
+      </a>
+    </li>
+  @endif
+</ul>

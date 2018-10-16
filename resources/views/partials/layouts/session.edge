@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  @include('partials.layout.session.head')
+  @!section('styles')
+</head>
+<body>
+  <div class="sys-session-page">
+    <div class="sys-background"></div>
+    <div class="sys-container">
+      <div class="sys-box --primary">
+        <header class="sys-header">
+          <img src="/img/logo-1.png" alt="RCC System" />
+        </header>
+
+        <div class="text-center">
+          @include('partials.utils.flash-message')
+        </div>
+
+        <h1 class="sys-main-title">
+          @!section('title')
+        </h1>
+        <div>
+          @!section('content')
+        </div>
+      </div>
+
+      @include('partials.layout.session.footer')
+    </div>
+  </div>
+
+  @!section('before-end')
+  @include('partials.layout.session.scripts')
+  @!section('scripts')
+</body>
+</html>

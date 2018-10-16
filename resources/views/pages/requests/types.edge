@@ -1,0 +1,48 @@
+@layout('partials.layouts.master')
+
+@section('title')
+  Tipos
+@endsection
+
+@section('content')
+  @each(type in types)
+    <div style="
+      margin-bottom: 7px;
+      display: flex;
+      align-items: center;
+    ">
+      <span style="
+          width: 230px;
+          text-align: right;
+          margin-right: 5px;
+      ">{{ type.description }} ></span>
+      <span style="
+        background-color: {{ type.color }};
+        color: #fff;
+        padding: 5px 10px;
+        border-radius: .25rem;
+        display: inline-block;
+      ">
+        <i class="{{ type.icon }}"></i>
+        {{ type.name }}
+      </span>
+    </div>
+    <div class="row">
+
+      <div class="col-md-4">
+        <label for="">ON_CREATE</label>
+        <textarea class="form-control"></textarea>
+      </div>
+      <div class="col-md-4">
+        <label for="">ON_APPROVE</label>
+        <textarea class="form-control"></textarea>
+      </div>
+      <div class="col-md-4">
+        <label for="">ON_REJECT</label>
+        <textarea class="form-control"></textarea>
+      </div>
+
+    </div>
+    <hr>
+  @endeach
+@endsection

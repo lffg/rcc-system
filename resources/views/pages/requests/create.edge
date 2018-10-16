@@ -1,0 +1,32 @@
+@layout('partials.layouts.master')
+
+@section('title')
+  Abrir um Requerimento
+@endsection
+
+@section('breadcrumb')
+  <li class="breadcrumb-item">
+    <a href="{{ route('requests.index') }}">Centro de Recursos Humanos</a>
+  </li>
+  <li class="breadcrumb-item">Abrir Requerimento</li>
+@endsection
+
+@section('content')
+  <div class="row">
+    <div class="col-lg-4">
+      <div class="card p-3" style="position: sticky; top: calc(65px + 1.65rem);">
+        @include('pages.requests.includes.create.nav')
+      </div>
+    </div>
+    <div class="col-lg-8">
+      <div data-wiz="error"></div>
+      <div data-wiz="wrapper">
+        @include('pages.requests.ajax-first-part')
+      </div>
+    </div>
+  </div>
+@endsection
+
+@section('scripts')
+  @include('pages.requests.includes.create.script')
+@endsection

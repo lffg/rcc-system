@@ -1,0 +1,77 @@
+<footer class="sys-footer">
+  <nav class="sys-footer-linklist">
+    <div class="container">
+      <a href="{{ route('index') }}">Página Inicial</a>
+      <a href="{{ route('site-about') }}">Sobre</a>
+      <a href="javascript:alert('Em breve...');">Central de Ajuda</a>
+      <a href="#error-modal" data-toggle="modal">Informar Erro</a>
+    </div>
+  </nav>
+  <div class="sys-footer-attr">
+    <div class="container">
+      <div class="sys-footer-copyright">
+        Copyright &copy; Revolução Contra o Crime. Todos os direitos reservados.
+        <small class="d-block">
+          Este site web não é de propriedade e/ou mantido pela <em>Sulake Corporation Oy.</em> e nem pelo <em>Habbo Hotel</em>.
+        </small>
+      </div>
+      <div class="sys-made-by">
+        <i class="fa fa-code"></i> com <i class="fa fa-heart"></i> por <a href="https://lffg.github.io/" target="_blank" rel="noopener">luuuiiiz.</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+{{-- Report Error Modal --}}
+<div class="modal fade" id="error-modal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <form class="modal-content" action="{{ route('error-ticket') }}" method="POST">
+      <div class="modal-header">
+        <h5 class="modal-title">Informar Erro</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="error-modal-username">Seu usuário:</label>
+          <input type="text" id="error-modal-username" value="{{ $userdata.username }}" class="form-control" readonly />
+        </div>
+        <div class="form-group">
+          <label for="error-modal-error_type">Tipo de problema:</label>
+          <select name="type" id="error-modal-error_type" class="form-control" required>
+            <option value="" selected disabled>Selecione</option>
+            <option value="BUG">Bug ou erro técnico</option>
+            <option value="SPELLING">Erro de ortografia</option>
+            <option value="OTHER">Outro tipo de erro</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="error-modal-img">Imagem do problema (opcional):</label>
+          <input type="text" name="img" id="error-modal-img" class="form-control" />
+          <small class="form-help text-muted">Sugerimos que utilize o serviço <a href="https://imgur.com/upload" target="_blank" rel="noopener">Imgur</a> para servir a imagem.</small>
+        </div>
+        <div class="form-group">
+          <label for="error-modal-message">Explicação:</label>
+          <textarea name="message" id="error-modal-message" class="form-control" style="height: 120px;" required></textarea>
+          <small class="form-help text-muted">Por favor, esplique o erro com o máximo de detalhes possível.</small>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        <button type="submit" class="btn btn-primary">Enviar</button>
+      </div>
+
+      <input type="hidden" name="url" id="error-modal-url" class="form-control" value="" />
+      {{ csrfField() }}
+    </form>
+  </div>
+</div>
+<script>
+  (function () {
+    'use strict';
+
+    var el = document.getElementById('error-modal-url');
+    el.value = window.location.href;
+  })();
+</script>

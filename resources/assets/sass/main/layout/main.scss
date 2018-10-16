@@ -1,0 +1,38 @@
+html {
+  min-height: 100vh;
+}
+
+body {
+  font-size: 16.5px;
+  color: #212121;
+  // navbar fixed:
+  padding-top: 65px;
+  min-height: calc(100vh - 65px);
+}
+
+.sys-wrapper {
+  // navbar fixed (fix):
+  min-height: calc(100vh - 65px);
+  display: flex;
+  flex-direction: column;
+
+  .sys-content {
+    display: flex;
+    flex-direction: row;
+    background-color: #02081e;
+    background-image: url("/img/bg-floor.png");
+
+    .sys-content-inner {
+      flex-grow: 1;
+      background-color: $white;
+      border: solid 1px #ddd;
+      border-top: none;
+      border-bottom: none;
+    }
+  }
+}
+
+.--admin .sys-content {
+  background-image: none;
+  background-color: #e9ecef;
+}

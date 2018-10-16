@@ -1,0 +1,37 @@
+<div class="card mb-3">
+  <div class="card-header">Senha</div>
+  <div class="card-body">
+    <label for="password">Senha:</label>
+    <input type="password" name="password" id="password" class="form-control" />
+    <small class="form-text text-muted">Complete este campo somente se você desejar alterar a senha deste usuário.</small>
+  </div>
+</div>
+
+<div class="card mb-3">
+  <div class="card-header">Segurança</div>
+  <div class="card-body">
+    <div class="form-group">
+      <label for="state">Estado do usuário:</label>
+      <select name="state" id="state" class="form-control">
+        <option value="ACTIVE" {{ user.state === 'ACTIVE' ? 'selected' : '' }}>Ativo</option>
+        <option value="INACTIVE" {{ user.state === 'INACTIVE' ? 'selected' : '' }}>Inativo</option>
+        <option value="RETIRED" {{ user.state === 'RETIRED' ? 'selected' : '' }}>Reformado</option>
+        <option value="VETERAN" {{ user.state === 'VETERAN' ? 'selected' : '' }}>Veterano</option>
+      </select>
+    </div>
+
+    <hr class="fw" />
+
+    <div class="form-group mb-0">
+      <div class="custom-control custom-checkbox">
+        <input class="custom-control-input" id="is_verified_email" name="is_verified_email" value="on" type="checkbox" {{ user.is_verified_email ? 'checked' : '' }} />
+        <label class="custom-control-label" for="is_verified_email">
+          E-Mail verificado?
+          <small class="form-help text-muted d-block">
+            Verifica manualmente o e-mail deste usuário.
+          </small>
+        </label>
+      </div>
+    </div>
+  </div>
+</div>

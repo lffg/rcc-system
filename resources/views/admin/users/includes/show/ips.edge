@@ -1,0 +1,30 @@
+<div class="card">
+  <div class="card-header">
+    <i class="fa fa-globe"></i> IP's do Usuário
+  </div>
+  <div class="sys-data overflow-control" style="max-height: 280px;">
+    <table>
+      <tbody>
+        @each(ip in user.ips)
+          <tr>
+            <td>
+              <a
+                href="https://ipgetinfo.com/?mode=ip&lang=en&ip={{ urlEncode(ip.ip) }}"
+                target="_blank"
+                rel="noopener">{{ ip.ip }}</a>
+            </td>
+            <td>{{ moment(ip.created_at).format('DD/MM/YY [às] HH:mm') }}</td>
+          </tr>
+        @else
+          <tr>
+            <td colspan="2">
+              <div class="alert alert-info mb-0">
+                <i class="fa fa-info"></i> Nenhum IP cadastrado.
+              </div>
+            </td>
+          </tr>
+        @endeach
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,108 @@
+@layout('partials.layouts.master')
+
+@section('title')
+  Procurar Usuário
+@endsection
+
+@section('breadcrumb')
+  <li class="breadcrumb-item">
+    <a href="{{ route('users.index') }}">Usuários</a>
+  </li>
+  <li class="breadcrumb-item">Procurar</li>
+@endsection
+
+@section('content')
+  <div class="row">
+    <div class="col-md-6">
+      @include('pages.users.includes.find.form')
+      @include('pages.users.includes.find.sugestions')
+    </div>
+    <div class="col-md-6">
+      @include('pages.users.includes.find.last-items')
+    </div>
+  </div>
+@endsection
+
+@section('scripts')
+  <script>
+    (function ($, debounce) {
+      'use strict';
+
+      function showResult (message, $zone, level) {
+        if (! level) level = 'info'
+
+        var $alert = $('<li>', {
+          'class': 'list-group-item',
+          'html': $('<div>', {
+            'class': 'alert mb-0 alert-' + level,
+            'html': message
+          }).prop('outerHTML')
+        }).hide();
+
+        $zone.html($alert);
+        $alert.slideDown();
+      }
+
+      function append (username, $zone) {
+        var $item = $('<a>', {
+          'class': 'list-group-item',
+          'data-user': username,
+          'href': '{{ route('users.show') }}?u=' + username,
+          'text': username
+        }).hide();
+
+        $zone.append($item);
+        $item.slideDown();
+      }
+
+      $(function () {
+        var $zone = $('#autocomplete-zone');
+        var lastValue = '';
+
+        $('#username').on('keyup', debounce(function (event) {
+          var $this = $(this);
+
+          if ($this.val() === lastValue) return;
+          lastValue = $this.val();
+
+          $.getJSON('{{ route('users.find-autocomplete') }}', {
+            query: $this.val(),
+            _: Date.now()
+          })
+            .done(function (response) {
+              if (response.length === 0) {
+                showResult('<i class="fa fa-exclamation-triangle"></i> Nenhuma sugestão.', $zone);
+                return;
+              }
+
+              $zone.html('');
+              $.each(response, function (index, username) {
+                append(username, $zone);
+              });
+            })
+            .fail(function () {
+              showResult('<i class="fa fa-exclamation-triangle"></i> Houve um erro AJAX.', $zone, 'danger');
+            });
+        }, 300));
+
+        $zone.on('click', '[data-user]', function (event) {
+          event.preventDefault();
+          $('#username').val($(this).attr('data-user')).trigger('focus');
+        });
+      });
+    })(jQuery, function debounce (func, wait, immediate) {
+      var timeout;
+      return function () {
+        var context = this, args = arguments;
+        var later = function () {
+          timeout = null;
+          if (! immediate) func.apply(context, args);
+        };
+        var callNow = immediate && ! timeout;
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+        if (callNow) func.apply(context, args);
+      };
+    })
+  </script>
+@endsection

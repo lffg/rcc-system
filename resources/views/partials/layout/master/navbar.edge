@@ -1,0 +1,74 @@
+<nav class="navbar fixed-top navbar-expand sys-navbar">
+  <div class="container">
+
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="javascript:toggleMenu(true);">
+          <i class="fa fa-bars"></i> Menu
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ route('index') }}">
+          <i class="fa fa-home"></i> Início
+        </a>
+      </li>
+      <li class="nav-item d-none d-md-inline-block">
+        <a class="nav-link" href="{{ route('posts.index') }}">
+          <i class="fa fa-newspaper-o"></i> Notícias
+        </a>
+      </li>
+    </ul>
+
+    <ul class="navbar-nav">
+      @if(hasGroup('ADMIN'))
+        <li class="navbar-item d-none d-md-inline-block">
+          <a class="nav-link" href="{{ route('admin') }}">
+            <i class="fa fa-cog"></i> Admin
+          </a>
+        </li>
+      @endif
+      <li class="navbar-item sys-notification-menu">
+        <a class="nav-link" href="{{ route('notifications') }}">
+          <i class="fa fa-envelope"></i>
+          <span class="sr-only">Mensagens Privadas</span>
+        </a>
+      </li>
+      <li
+        class="navbar-item sys-notification-menu {{ $userdata.__meta__.notifications_count > 0 ? 'sys-has-notification' : '' }}"
+        data-toggle="tooltip"
+        @if($userdata.__meta__.notifications_count > 0)
+          title="Você tem {{ $userdata.__meta__.notifications_count }} notificaç{{ $userdata.__meta__.notifications_count > 1 ? 'ões' : 'ão' }} não lida{{ $userdata.__meta__.notifications_count > 1 ? 's' : '' }}."
+        @else
+          title="Você não tem novas notificações."
+        @endif
+        data-placement="left"
+      >
+        <a class="nav-link" href="#notifications-modal" data-toggle="modal">
+          <i class="fa fa-bell"></i>
+          <span class="sr-only">Notificações</span>
+        </a>
+      </li>
+      <li class="nav-item dropdown d-none d-md-inline-block">
+        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
+          <i class="fa fa-user-circle"></i> {{ $userdata.username }}
+          <span class="sr-only">Menu do Usuário</span>
+        </a>
+        <div class="dropdown-menu">
+          <div class="dropdown-header">Conta:</div>
+          <a class="dropdown-item" href="{{ route('users.show') }}?u={{ $userdata.username }}">
+            Meu Perfil
+          </a>
+          <a class="dropdown-item" href="{{ route('user-config.index') }}">
+            Configurações
+          </a>
+          <hr class="dropdown-divider" />
+          <div class="dropdown-header">Sessão:</div>
+          <a class="dropdown-item" href="{{ route('logout') }}">
+            Sair
+          </a>
+        </div>
+      </li>
+    </ul>
+
+  </div>
+</nav>

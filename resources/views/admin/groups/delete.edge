@@ -1,0 +1,73 @@
+@layout('partials.layouts.admin')
+
+@section('title')
+  Excluir &middot; {{ group.name }}
+@endsection
+
+@section('breadcrumb')
+  <li class="breadcrumb-item">
+    <a href="{{ route('admin') }}">Administração</a>
+  </li>
+  <li class="breadcrumb-item">
+    <a href="{{ route('admin:groups.index') }}">Grupos</a>
+  </li>
+  <li class="breadcrumb-item">
+    <a href="{{ route('admin:groups.show', { id: group.id }) }}">{{ group.name }}</a>
+  </li>
+  <li class="breadcrumb-item">Excluir</li>
+@endsection
+
+@section('content')
+  <div class="sys-admin-inactives-list">
+    <div class="card mb-3">
+      <div class="card-body text-justify">
+        Através dessa página, você pode apagar o grupo {{ group.name }}.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-body">
+        <form method="POST">
+          <div class="alert alert-danger">
+            Você está prestes a remover o grupo <strong>{{ group.name }}</strong>. Antes de prosseguir, pedimos que atente-se aos detalhes a seguir.
+          </div>
+
+          <p>Ao excluir um grupo:</p>
+          <ul>
+            <li>Todos as permissões deste grupo serão <strong>excluídas</strong>;</li>
+            <li>Todas as páginas deste grupo serão <strong>excluídas</strong>;</li>
+            <li>Todos os usuários deste grupo serão desanexados do grupo.</li>
+          </ul>
+
+          <p>
+            Você tem certeza que deseja continuar? Essa ação não poderá ser desfeita.
+          </p>
+
+          <hr class="fw" />
+
+          <button {{ ! group.is_permanent ? 'type="submit"' : 'disabled' }} class="btn btn-danger">
+            <i class="fa fa-exclamation-triangle"></i> Apagar Grupo
+          </button>
+
+          <a href="{{ route('admin:groups.show', { id: group.id }) }}" class="btn btn-secondary">
+            Cancelar
+          </a>
+
+          @if(group.is_permanent)
+            <div class="alert alert-info mt-3 mb-0">
+              <i class="fa fa-info"></i>
+              Este grupo não pode ser deletado, já que possui um atributo de grupo permanente.
+            </div>
+          @endif
+
+          <input type="hidden" name="group" value="{{ group.id }}" />
+          {{ csrfField() }}
+        </form>
+      </div>
+    </div>
+  </div>
+@endsection
+
+@section('scripts')
+  {{ script('vendor/js/color-picker.min') }}
+@endsection

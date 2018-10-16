@@ -1,0 +1,24 @@
+@if(url === '/' || url === '/index.html')
+  {{-- Main Banner --}}
+  <section class="sys-header-banner">
+    <div class="container">
+      <h1 class="sys-header-title">RCC System</h1>
+      <h4 class="sys-header-subtitle">Revolucionando</h4>
+    </div>
+  </section>
+
+  {{-- Header Bar --}}
+  <section class="sys-header-bar">
+    <div class="container">
+
+      <div style="text-align: center;">
+        <span style="font-size: 18px; display: block;">
+          <i class="fa fa-user"></i>
+          Olá, {{ $userdata.username }}! Seja bem vindo(a) ao RCC System!
+        </span>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sit amet dui ut leo imperdiet.
+      </div>
+
+    </div>
+  </section>
+@endif

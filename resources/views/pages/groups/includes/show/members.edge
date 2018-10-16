@@ -1,0 +1,33 @@
+<h5 class="my-4">Membros do Grupo:</h5>
+
+<div class="card sys-data">
+  <table>
+    @each(user in group.users)
+      <tr>
+        <td>
+          <a
+            href="{{ route('users.show') }}?u={{ user.username }}"
+            style="color: {{ user.groups[0].color }}; font-weight: 500;">
+            @if(user.groups[0].icon)
+              <i class="{{ user.groups[0].icon }}"></i>
+            @endif
+            {{ user.username }}
+          </a>
+        </td>
+        <td>
+          @if(user.pivot.is_moderator)
+            <i class="fa fa-cog"></i> Moderador
+          @else
+            Membro
+          @endif
+        </td>
+      </tr>
+    @else
+      <tr>
+        <td colspan="2">
+          <i class="fa fa-info"></i> Este grupo não possui membros.
+        </td>
+      </tr>
+    @endeach
+  </table>
+</div>

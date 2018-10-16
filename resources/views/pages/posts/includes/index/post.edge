@@ -1,0 +1,14 @@
+<div class="card">
+  <div class="card-header">
+    {{ post.title }}
+  </div>
+  <div class="card-body">
+    {{ post.description }}
+
+    <hr class="fw" />
+
+    <a href="{{ route('posts.show', { slug: post.slug }) }}" class="btn btn-primary btn-sm">
+      <i class="fa fa-eye"></i> Ler Tudo
+    </a>
+  </div>
+</div>

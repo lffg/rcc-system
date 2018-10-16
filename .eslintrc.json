@@ -1,0 +1,17 @@
+{
+  "extends": "standard",
+  "env": {
+    "es6": true,
+    "node": true
+  },
+  "globals": {
+    "use": true
+  },
+  "rules": {
+    "arrow-parens": "error",
+    "no-multi-spaces": "off",
+    "key-spacing": "off",
+    "padded-blocks": "off",
+    "no-unused-vars": ["error", { "vars": "all" }]
+  }
+}

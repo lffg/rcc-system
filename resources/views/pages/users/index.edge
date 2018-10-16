@@ -1,0 +1,71 @@
+@layout('partials.layouts.master')
+
+@section('title')
+  @if(data.page == 1)
+    Usuários
+  @else
+    Usuários - Página {{ data.page }}
+  @endif
+@endsection
+
+@section('breadcrumb')
+  <li class="breadcrumb-item">
+    Usuários
+  </li>
+@endsection
+
+@section('content')
+  {{-- TODO: Tópico do adonis --}}
+
+  @if(hasGroup('ADMIN'))
+    <p class="alert alert-info">
+      Clique <a href="{{ route('admin:users.index') }}" class="alert-link">aqui</a> para acessar a listagem de usuários do Painel de Controle.
+    </p>
+  @endif
+  <form class="sys-userlist" method="GET">
+    @include('pages.users.includes.index.find-options')
+
+    @if(data.data.length !== 0)
+      <div class="sys-list">
+        @!each(user in data.data, include = 'pages.users.includes.index.user-card')
+      </div>
+
+      {{-- Pagination --}}
+      @!component('partials.components.pagination-with-query',
+        href = route('users.index') + pagination,
+        page = data.page,
+        lastPage = data.lastPage
+      )
+    @else
+      <div class="alert alert-info">
+        Whoops! Nenhum resultado foi encontrado de acordo com os parâmetros de sua busca. <br />
+        Clique <a href="{{ route('users.index') }}" class="alert-link">aqui</a> para voltar à lista de usuários.
+      </div>
+    @endif
+  </form>
+@endsection
+
+@section('scripts')
+  <script>
+    (function ($) {
+      'use strict';
+
+      var change = function (from, to, $el) {
+        from = new RegExp('action=' + from, 'i');
+        to = 'action=' + to;
+
+        $el.attr('style', $el.attr('style').replace(from, to));
+      };
+
+      $(function () {
+        $('.sys-avatar-image').on('mouseenter mouseleave', function () {
+          var $this = $(this);
+
+          if ($this.parents('.sys-card').is('.--badged-card')) return;
+          if ($this.is(':hover')) return change('std', 'wav', $this);
+          change('wav', 'std', $this);
+        });
+      });
+    })(jQuery);
+  </script>
+@endsection

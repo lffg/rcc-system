@@ -1,0 +1,41 @@
+@layout('emails._layout')
+
+@section('title')
+  Confirmação do E-Mail
+@endsection
+
+@section('content')
+  <p>
+    Olá, <strong>{{ user.username }}</strong>,
+  </p>
+  <p>
+    Você está recebendo este e-mail pois acabou de solicitar um link para confirmar a sua conta no System da Polícia RCC.
+    <br />
+    Para começar a utilizar o site e finalizar o processo de ativação, acesse o link disponibilizado a seguir:
+  </p>
+  <p>
+  <a href="{{ absolute(route('verify-email.confirm', { id: user.id, token: token })) }}" style="
+    background-color: #ecc608;
+    color: #fff;
+    padding: 1rem;
+    margin: 1.5rem 0;
+    display:  block;
+    border-radius:  .25rem;
+    text-decoration:  none;
+    font-weight: 500;
+    text-transform:  uppercase;
+    letter-spacing:  1px;
+    text-align:  center;
+  ">Confirmar Conta</a>
+  </p>
+  <p>
+    Ou, clique <strong><a href="{{ absolute(route('verify-email.confirm', { id: user.id, token: token })) }}" style="color: #fff;">aqui</a></strong>.
+  </p>
+  <p>
+    Em caso de dúvidas, não hesite em entrar em contato com um dos desenvolvedores ou administradores do System.
+  </p>
+  <p>
+    Esperamos vê-lo em breve, <br />
+    Administração do RCC System.
+  </p>
+@endsection

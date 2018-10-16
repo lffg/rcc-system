@@ -1,0 +1,27 @@
+<div class="card">
+  <div class="card-header">Medalhas e Gratificações</div>
+  <div class="card-body">
+    <div class="form-group">
+      <label for="temporary_bonuses">Gratificações temporárias:</label>
+      <input
+        type="number"
+        name="temporary_bonuses"
+        id="temporary_bonuses"
+        class="form-control"
+        value="{{ user.temporary_bonuses || '0' }}"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="effective_bonuses">Gratificações efetivas:</label>
+      <input
+        type="number"
+        name="effective_bonuses"
+        id="effective_bonuses"
+        class="form-control"
+        value="{{ user.effective_bonuses || '0' }}"
+        required
+      />
+    </div>
+  </div>
+</div>

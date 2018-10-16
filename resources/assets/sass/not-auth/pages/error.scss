@@ -1,0 +1,50 @@
+body.sys-error {
+  background-color: $danger;
+  color: #fff;
+  padding: 1.5rem;
+  padding-top: 0;
+
+  .sys-error-body {
+    margin-top: 15vh;
+    max-width: 800px;
+
+    .sys-error-emoticon {
+      font-size: 5rem;
+      font-weight: 300;
+
+      @media screen and (max-width: 645px) {
+        font-size: 40px;
+      }
+    }
+
+    .sys-error-title {
+      font-size: 35px;
+      font-weight: 400;
+      margin-top: .75rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .sys-error-desc {
+      font-size: 18px;
+    }
+
+    .sys-error-button {
+      font-weight: 500;
+      color: $danger !important;
+      margin-bottom: 1rem;
+    }
+
+    @media screen and (max-width: 645px) {
+      text-align: center;
+    }
+  }
+
+  a:not(.btn) {
+    color: $white;
+    text-decoration: underline;
+  }
+
+  a:not(.btn):hover {
+    color: #ccc;
+  }
+}

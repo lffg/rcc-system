@@ -1,0 +1,24 @@
+@layout('partials.layouts.admin')
+
+@section('title')
+  @set('skip_title', 'true')
+  Início
+@endsection
+
+@section('content')
+  <div class="jumbotron">
+    <h1 class="display-4" style="font-size: 3rem;">Olá, {{ $userdata.username }}!</h1>
+    <p class="lead">Seja bem-vindo ao Painel Administrativo do RCC System!</p>
+
+    <a class="btn btn-primary btn-lg mt-4" href="{{ route('index') }}">
+      <i class="fa fa-long-arrow-left"></i> Voltar ao System
+    </a>
+  </div>
+
+  <div class="alert alert-info">
+    <h5 class="table-heading">
+      <i class="fa fa-info"></i> Nota de compatibilidade
+    </h5>
+    Pela enorme quantidade de tabelas, é preferível que as páginas deste painel de controle sejam acessadas usando um dispositivo com tela maior, como um <em>laptop</em> ou <em>computador</em>.
+  </div>
+@endsection

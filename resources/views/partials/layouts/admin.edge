@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt" class="--admin">
+<head>
+  @include('partials.layout.admin.head')
+  @!section('styles')
+</head>
+<body>
+
+  <div class="sys-wrapper">
+
+    {{-- Header > Navbar --}}
+    <header class="sys-header">
+      @include('partials.layout.admin.navbar')
+    </header>
+
+    {{-- Main Content --}}
+    <main class="sys-content">
+      <div class="sys-content-inner container py-3">
+
+        {{-- Breadcrumb --}}
+        @include('partials.layout.admin.breadcrumbs')
+
+        {{-- Flash Messages --}}
+        <div class="sys-flash-message-zone">
+          @include('partials.utils.flash-message')
+        </div>
+
+        <div class="sys-page">
+          @unless(skip_title == 'true')
+            <h1 class="sys-title">
+              @!section('title')
+            </h1>
+          @endunless
+
+          @!section('content')
+        </div>
+      </div>
+    </main>
+
+    {{-- Footer --}}
+    @include('partials.layout.admin.footer')
+  </div>
+
+  {{-- Admin Main Menu --}}
+  @include('partials.layout.admin.menu')
+
+  @!section('before-end')
+  @include('partials.layout.admin.scripts')
+  @!section('scripts')
+</body>
+</html>

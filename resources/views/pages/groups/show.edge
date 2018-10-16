@@ -1,0 +1,18 @@
+@layout('partials.layouts.master')
+
+@section('title')
+  {{ group.name }}
+@endsection
+
+@section('breadcrumb')
+  <li class="breadcrumb-item">
+    <a href="{{ route('groups.index') }}">Grupos</a>
+  </li>
+  <li class="breadcrumb-item">{{ group.name }}</li>
+@endsection
+  
+@section('content')
+  @include('pages.groups.includes.show.mod-actions')
+  @include('pages.groups.includes.show.primary-info')
+  @include('pages.groups.includes.show.members')
+@endsection

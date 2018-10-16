@@ -1,0 +1,166 @@
+@import "./hightlights.scss";
+
+.modal-body {
+  &.modal-body-limit {
+    @media screen and (min-width: map-get($grid-breakpoints, $key: md)) {
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+  }
+}
+
+[readonly],
+[disabled],
+.disabled {
+  cursor: not-allowed !important;
+  pointer-events: none;
+  touch-action: none;
+}
+
+[readonly],
+[disabled] {
+  background-color: #e9ecef !important;
+  pointer-events: none;
+  cursor: not-allowed !important;
+  touch-action: none;
+}
+
+table {
+  th,
+  td {
+    vertical-align: middle;
+  }
+
+  tr .data-hidden {
+    opacity: 0;
+    visibility: hidden;
+    transition: all 120ms linear;
+  }
+
+  tr:hover .data-hidden {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.sys-data {
+  overflow: hidden;
+
+  table {
+    width: 100%;
+    border: none;
+    border-collapse: collapse;
+    color: lighten(#212121, 10%);
+
+    tr {
+      border-bottom: solid 1px #ddd;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      th {
+        font-weight: 500;
+        color: #212121;
+        background-color: #f0f0f0;
+      }
+
+      td,
+      th {
+        border-right: solid 1px #ddd;
+        padding: .5rem;
+
+        &:first-child {
+          width: 60%;
+        }
+
+        &:last-child {
+          border-right: none;
+          width: 40%;
+        }
+      }
+    }
+  }
+}
+
+.overflow-control {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.fu {
+  &-1 {
+    display: flex;
+    justify-content: space-between;
+    align-self: center;
+    width: 100%;
+  }
+}
+
+.sys-breadcrumbs .breadcrumb {
+  background-color: #fff;
+  border: solid 1px #d0d0d0;
+  box-shadow: 0px 3px 0 0px rgba(0, 0, 0, 0.1);
+}
+
+.sys-page > .sys-title,
+.sys-page > div > .sys-title {
+  display: table;
+  margin: 1.65rem -1rem;
+  padding: .75rem 1.5rem;
+  border-top-right-radius: .25rem;
+  border-bottom-right-radius: .25rem;
+  border-bottom: solid 3px $primary;
+  background-color: $secondary;
+  background-image: linear-gradient(to bottom, lighten($secondary, 5%), darken($secondary, 8%));
+  color: $white;
+  font-size: 20px;
+  font-family: "Trebuchet MS", -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  text-transform: uppercase;
+
+  @media screen and (max-width: map-get($grid-breakpoints, $key: md)) {
+    display: block;
+    margin: 1.65rem 0;
+    border: solid 1px $secondary !important;
+    border-radius: .25rem;
+    background-color: transparent;
+    background-image: none;
+    text-align: center;
+    color: $secondary;
+    font-size: 17px;
+  }
+}
+
+@media screen and (max-width: map-get($grid-breakpoints, $key: sm)) {
+  .card-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+
+    > *:not(:last-child) {
+      margin-bottom: .75rem;
+    }
+  }
+}
+
+.card-section {
+  margin: 1.25rem -1.25rem -1.25rem -1.25rem;
+  padding: 1.5rem 1.25rem;
+  border-top: solid 1px #d0d0d0;
+
+  &:first-child {
+    margin-top: -1.25rem;
+    border-top: none;
+  }
+
+  &:last-child {
+    margin-bottom: -1.25rem;
+  }
+
+  > .title {
+    margin-bottom: 1rem;
+    color: #61666a;
+  }
+}

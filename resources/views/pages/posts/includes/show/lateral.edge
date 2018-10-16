@@ -1,0 +1,20 @@
+<aside class="sys-post-author card">
+  <header class="sys-top">
+    <div class="sys-avatar">
+
+      <span class="sys-avatar-image" style="background-image: url(https://www.habbo.com.br/habbo-imaging/avatarimage?user={{ user.username }}&action=std&direction=2&head_direction=3&gesture=sml&size=l);"></span>
+
+    </div>
+
+    <div class="sys-primary-userinfo">
+      <h1 class="sys-username-bar">
+        <a href="{{ route('users.show') }}?u={{ post.user.username }}">
+          {{ post.user.username }} <span class="sr-only">- Ver Perfil</span>
+        </a>
+      </h1>
+      <div class="sys-position">
+        {{ post.user.position.name }}
+      </div>
+    </div>
+  </header>
+</aside>

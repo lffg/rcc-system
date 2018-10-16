@@ -1,0 +1,26 @@
+<div class="card">
+  <div class="card-header"><i class="fa fa-users"></i> Grupos</div>
+  <ul class="list-group list-group-flush overflow-control" style="max-height: 280px;">
+    @each(group in user.groups)
+      <li class="list-group-item">
+        @if(group.is_hidden)
+          <span
+            style="text-decoration: line-through;"
+            title="Grupo oculto"
+            data-toggle="tooltip">
+        @endif
+        <a
+          href="{{ route('admin:groups.show', { id: group.id }) }}"
+          style="color: {{ group.color }}; font-weight: 500;">
+          @if(group.icon)
+            <i class="{{ group.icon }}"></i>
+          @endif
+          {{ group.name }}
+        </a>
+        @if(group.is_hidden)
+          </span>
+        @endif
+      </li>
+    @endeach
+  </ul>
+</div>

@@ -1,0 +1,31 @@
+@layout('partials.layouts.admin')
+
+@section('title')
+  Criar Grupo
+@endsection
+
+@section('breadcrumb')
+  <li class="breadcrumb-item">
+    <a href="{{ route('admin') }}">Administração</a>
+  </li>
+  <li class="breadcrumb-item">
+    <a href="{{ route('admin:groups.index') }}">Grupos</a>
+  </li>
+  <li class="breadcrumb-item">Criar Grupo</li>
+@endsection
+
+@section('content')
+  <div class="sys-admin-inactives-list">
+    <div class="card mb-3">
+      <div class="card-body text-justify">
+        Através dessa página, você pode criar um novo grupo. Para isso, complete o formulário a seguir.
+      </div>
+    </div>
+
+    @include('admin.groups.includes.create.form')
+  </div>
+@endsection
+
+@section('scripts')
+  {{ script('vendor/js/color-picker.min') }}
+@endsection

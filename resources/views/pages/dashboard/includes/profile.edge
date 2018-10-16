@@ -1,0 +1,24 @@
+<div class="sys-widget sys-profile">
+  <div class="card">
+    <header class="card-header">
+      <i class="fa fa-user-circle"></i>
+      Meu Perfil
+    </header>
+    <div class="card-body">
+      <div class="sys-user-avatar">
+        <span class="sys-user-avatar-inner" style="background-image: url(https://www.habbo.com.br/habbo-imaging/avatarimage?user={{ $userdata.username }}&action=std&direction=2&head_direction=3&gesture=sml&size=l);"></span>
+      </div>
+      <div class="sys-user-info">
+        <div>
+          <i class="fa fa-user"></i> {{ $userdata.username }}
+        </div>
+        <div>
+          <i class="fa fa-address-card-o"></i> {{ $userdata.position.name }}
+        </div>
+      </div>
+      <div class="sys-buttons">
+        <a href="{{ route('users.show') }}?u={{ $userdata.username }}" class="btn btn-block btn-outline-secondary">Meu Perfil</a>
+      </div>
+    </div>
+  </div>
+</div>

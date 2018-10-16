@@ -1,0 +1,59 @@
+@layout('partials.layouts.admin')
+
+@section('title')
+  @set('title_override', 'Perfil Adm. — ' + user.username)
+  <i class="fa fa-user-circle"></i> {{ user.username }}
+@endsection
+
+@section('breadcrumb')
+  <li class="breadcrumb-item">
+    <a href="{{ route('admin') }}">Administração</a>
+  </li>
+  <li class="breadcrumb-item">
+    <a href="{{ route('admin:users.index') }}">Usuários</a>
+  </li>
+  <li class="breadcrumb-item">{{ user.username }}</li>
+@endsection
+
+@section('content')
+  <div class="sys-admin-show-user">
+    <div class="card mb-3">
+      <div class="card-body">
+        <p class="text-justify">
+          Através dessa página, você pode ver informações de cunho administrativo em relação a um usuário. Você pode usar os botões abaixo para visitar o perfil do usuário no system ou editar as informações do usuário.
+        </p>
+        <p class="mb-0">
+          <a href="{{ route('users.show') }}?u={{ user.username }}" class="btn btn-secondary btn-sm mb-md-0 mb-3 d-md-inline-block d-block">
+            <i class="fa fa-eye"></i> Perfil no System ({{ user.username }})
+          </a>
+          <a href="{{ route('admin:users.edit', { id: user.id }) }}" class="btn btn-warning btn-sm d-md-inline-block d-block">
+            <i class="fa fa-pencil"></i> Editar Perfil ({{ user.username }})
+          </a>
+        </p>
+      </div>
+    </div>
+
+    <div class="card mb-3 sys-data">
+      <table>
+        <tbody>
+          @include('admin.users.includes.show.main')
+        </tbody>
+      </table>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        @include('admin.users.includes.show.ips')
+      </div>
+      <div class="col-md-6">
+        @include('admin.users.includes.show.groups')
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        @include('admin.users.includes.show.logs')
+      </div>
+    </div>
+  </div>
+@endsection

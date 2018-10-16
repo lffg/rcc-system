@@ -1,0 +1,60 @@
+@layout('partials.layouts.admin')
+
+@section('styles')
+  <link rel="stylesheet" href="{{ assetsUrl('vendor/datatable/datatable.min.css') }}" />
+@endsection
+
+@section('title')
+  Usuários
+@endsection
+
+@section('breadcrumb')
+  <li class="breadcrumb-item">
+    <a href="{{ route('admin') }}">Administração</a>
+  </li>
+  <li class="breadcrumb-item">Usuários</li>
+@endsection
+
+@section('content')
+<form class="sys-admin-userlist" method="GET">
+    <p class="lead">Veja abaixo a lista de usuários no System.</p>
+
+    <div class="card mb-4">
+      <div class="card-header">
+        <i class="fa fa-search"></i> Filtros de pesquisa
+      </div>
+      <div class="card-body">
+        <div class="form-group">
+          <input
+            type="text"
+            name="username"
+            id="username"
+            placeholder="Filtrar por usuário"
+            class="form-control"
+          />
+        </div>
+        <button type="submit" class="btn btn-secondary">
+          Aplicar Filtros
+        </button>
+      </div>
+    </div>
+
+    @if(data.data.length !== 0)
+      <div class="table-responsive">
+        @include('admin.users.includes.index.table')
+      </div>
+
+      {{-- Pagination --}}
+      @!component('partials.components.pagination',
+        href = route('admin:users.index'),
+        page = data.page,
+        lastPage = data.lastPage
+      )
+    @else
+      <div class="alert alert-info">
+        Whoops! Nenhum resultado foi encontrado de acordo com os parâmetros de sua busca. <br />
+        Clique <a href="{{ route('admin:users.index') }}" class="alert-link">aqui</a> para voltar à lista de usuários.
+      </div>
+    @endif
+  </form>
+@endsection

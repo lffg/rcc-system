@@ -1,0 +1,58 @@
+/**
+ * ---------------------------------------------------------------------
+ * Variables
+ * ---------------------------------------------------------------------
+ */
+
+$white:           #fff;
+$primary:         #ecc608; // #ecc608
+$secondary:       #2c353b;
+$dark:            #2c353b;
+
+$np-bg:             $secondary;
+$np-wt:             3px;
+$np-ss:             true;
+
+$enable-shadows:    false;
+$enable-gradients:  true;
+
+/**
+ * ---------------------------------------------------------------------
+ * Bootstrap & NProgress
+ * ---------------------------------------------------------------------
+ */
+
+@import "./vendor/bootstrap/_functions";
+@import "./vendor/bootstrap/_variables";
+@import "./vendor/bootstrap/_mixins";
+@import "./vendor/bootstrap/_reboot";
+@import "./vendor/bootstrap/_type";
+@import "./vendor/bootstrap/_code";
+@import "./vendor/bootstrap/_grid";
+@import "./vendor/bootstrap/_forms";
+@import "./vendor/bootstrap/_buttons";
+@import "./vendor/bootstrap/_transitions";
+@import "./vendor/bootstrap/_button-group";
+@import "./vendor/bootstrap/_input-group";
+@import "./vendor/bootstrap/_custom-forms";
+@import "./vendor/bootstrap/_alert";
+@import "./vendor/bootstrap/_tooltip";
+@import "./vendor/bootstrap/utilities/_display";
+@import "./vendor/bootstrap/utilities/_spacing";
+@import "./vendor/bootstrap/utilities/_text.scss";
+@import "./vendor/nprogress.scss";
+
+/**
+ * ---------------------------------------------------------------------
+ * Imports
+ * ---------------------------------------------------------------------
+ */
+
+@import "./main/extra/reset.scss";
+@import "./not-auth/pages/error.scss";
+@import "./not-auth/pages/session.scss";
+
+::selection {
+  background-color: $secondary;
+  color: $white;
+}

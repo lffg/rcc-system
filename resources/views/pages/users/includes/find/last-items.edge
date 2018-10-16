@@ -1,0 +1,20 @@
+<div class="card">
+  <div class="card-header">
+    <i class="fa fa-clock-o"></i> Últimas Pesquisas
+  </div>
+  <ul class="list-group list-group-flush">
+    @each(search in lastSearches)
+      <li class="list-group-item">
+        <a href="{{ route('users.show') }}?u={{ search.username }}">
+          {{ search.username }}
+        </a>
+      </li>
+    @else
+      <li class="list-group-item">
+        <div class="alert alert-info mb-0">
+          <i class="fa fa-info"></i> Você não tem um histórico de pesquisas.
+        </div>
+      </li>
+    @endeach
+  </ul>
+</div>

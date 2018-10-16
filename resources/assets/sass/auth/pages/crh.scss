@@ -1,0 +1,9 @@
+.sys-crh-list-link {
+  a {
+    color: inherit;
+
+    &:hover {
+      color: $primary;
+    }
+  }
+}

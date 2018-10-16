@@ -1,0 +1,235 @@
+<script>
+(function ($) {
+  'use strict';
+
+  listenToForm();
+  listenToBack();
+
+  /**
+   * Listens to a form submit event.
+   *
+   * @return {void}
+   */
+  function listenToForm () {
+    $('html').on('submit', '[data-wiz-form-goto]', function (event) {
+      event.preventDefault();
+
+      var $this = $(this);
+      var data = generateData($this.serializeArray());
+      var uri = $this.attr('data-wiz-uri');
+
+      $this.find('[data-toggle="tooltip"]').tooltip('hide');
+
+      loadPart(uri, data, function (error, response, isJSON) {
+        if (error) {
+          return sendError([
+            'Whoops! Parece que houve um erro.',
+            'Tente <a href="javascript:location.reload(true);" class="alert-link">atualizar a página</a>.'
+          ].join(' '), $this);
+        }
+
+        if (isJSON && typeof response.error === 'string') {
+          return sendError(response.error, $this);
+        }
+
+        showPart(response);
+        changeLinks(uri, false);
+      });
+    });
+  }
+
+  /**
+   * Listens to a link click event.
+   *
+   * @return {void}
+   */
+  function listenToBack () {
+    $('[data-wiz-link-uri]').on('click', function (event) {
+      event.preventDefault();
+
+      var $this = $(this);
+      var uri = $this.attr('data-wiz-link-uri');
+      var data = generateDataFromFields($this.attr('data-wiz-required-fields'));
+
+      $this.find('[data-toggle="tooltip"]').tooltip('hide');
+
+      loadPart(uri, data, function (error, response, isJSON) {
+        if (error) {
+          return sendError([
+            'Whoops! Parece que houve um erro.',
+            'Tente <a href="javascript:location.reload(true);" class="alert-link">atualizar a página</a>.'
+          ].join(' '), $this);
+        }
+
+        if (isJSON && typeof response.error === 'string') {
+          return sendError(response.error, $this);
+        }
+
+        showPart(response);
+        changeLinks(uri, false);
+      });
+    });
+  }
+
+  /**
+   * Generate form data.
+   *
+   * @param  {string} fields
+   * @return {object}
+   */
+  function generateDataFromFields (fieldsString) {
+    var fields = $.map(fieldsString.split(','), function (field) {
+      return field.trim();
+    }).concat('_csrf');
+
+    return fields.reduce(function (data, fieldSelector) {
+      var value = $('[data-wiz-meta-wrapper]').children('[name="' + fieldSelector + '"]').val();
+      if (!!value) {
+        data[fieldSelector] = value;
+      }
+      return data;
+    }, {});
+  }
+
+  /**
+   * Return an data serialized object.
+   *
+   * @param  {array} serializedArray
+   * @return {object}
+   */
+  function generateData (serializedArray) {
+    return serializedArray.reduce(function (obj, field) {
+      obj[field.name] = field.value;
+      return obj;
+    }, {});
+  }
+
+  /**
+   * Loads a part.
+   *
+   * @param  {string} uri
+   * @param  {object} data
+   * @param  {function} callback
+   * @return {void}
+   */
+  function loadPart (uri, data, callback) {
+    $.post(uri, $.extend({}, data, { _now_: Date.now() }))
+      .done(function (response) {
+        try {
+          var json = JSON.parse(response);
+          callback(null, json, true);
+        } catch (e) {
+          callback(null, response, false);
+        }
+      })
+      .fail(function (error) {
+        try {
+          var json = JSON.parse(error.responseText);
+          callback(null, json, true);
+        } catch (e) {
+          callback(true, null, null);
+        }
+      });
+  }
+
+  /**
+   * Show a part.
+   *
+   * @param  {string} content
+   * @return {void}
+   */
+  function showPart (content) {
+    $('[data-wiz="error"]')
+      .hide()
+      .html('');
+
+    $('[data-wiz="wrapper"]')
+      .hide()
+      .html(content)
+      .fadeIn();
+  }
+
+  /**
+   * Change the links classes.
+   *
+   * @param  {string} uri
+   * @param  {boolean} changePart
+   * @return {void}
+   */
+  function changeLinks (uri, changePart) {
+    switch (parseInt(uri.split('-').pop())) {
+      case 1:
+        toggleClasses(1, 'active');
+        toggleClasses([2, 3], 'disable');
+        break;
+      case 2:
+        toggleClasses(1, 'pass');
+        toggleClasses(2, 'active');
+        toggleClasses(3, 'disable');
+        break;
+      case 3:
+        toggleClasses([1, 2], 'pass');
+        toggleClasses(3, 'active');
+        break;
+    }
+  }
+
+  /**
+   * Toggles a link classes list.
+   *
+   * @param {string|number|string[]|number[]} ids
+   * @param {string} state
+   */
+  function toggleClasses (ids, state) {
+    function __call__ (id) {
+      var $el = $('[data-wiz-goto="' + id + '"]');
+
+      $el
+        .removeClass('active disabled')
+        .children()
+        .removeClass('fa-circle-o fa-check-circle-o');
+
+      switch (state.toLowerCase()) {
+        case 'disable':
+          $el.addClass('disabled').children().addClass('fa-circle-o');
+          break;
+        case 'active':
+          $el.addClass('active').children().addClass('fa-check-circle-o');
+          break;
+        case 'pass':
+          $el.children().addClass('fa-check-circle-o');
+          break;
+      }
+    }
+
+    $.each(Array.isArray(ids) ? ids : [].concat(ids), function () {
+      __call__(this);
+    });
+  }
+
+  /**
+   * Shows an error.
+   *
+   * @param  {string} error
+   * @param  {object<jQuery Instance>} $context
+   * @return {void}
+   */
+  function sendError (error, $context) {
+    var $alert = $('<div>', {
+      'class': 'alert alert-danger',
+      'html': [
+        '<i class="fa fa-exclamation-triangle"></i>', error
+      ].join(' ')
+    });
+
+    $context
+      .find('.js-submit')
+      .html($context.find('.js-submit').attr('data-old-html'));
+
+    return $('[data-wiz="error"]')
+      .hide()
+      .html($alert)
+      .slideDown();
+  }
+})(jQuery);
+</script>

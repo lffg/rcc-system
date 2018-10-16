@@ -1,0 +1,88 @@
+<div class="sys-menu-wrapper">
+  <div class="sys-menu-overlay"></div>
+
+  <div class="sys-menu">
+    <a href="javascript:toggleMenu(false);" class="sys-menu-close" aria-label="Fechar">
+      <span>&times;</span>
+    </a>
+
+    <div class="sys-menu-top">
+      <a href="{{ route('index') }}" class="sys-logo --admin">System ACP</a>
+    </div>
+    <nav class="sys-menu-section sys-menu-nav">
+      <label>Menu</label>
+      <ul>
+
+        <li>
+          <a href="{{ route('index') }}">
+            <i class="fa fa-angle-left fa-fw"></i> Voltar ao System
+          </a>
+        </li>
+
+        <li>
+          <a href="{{ route('admin') }}">
+            <i class="fa fa-home fa-fw"></i> Início
+          </a>
+        </li>
+
+        <li class="only-mobile">
+          <a href="#">
+            <i class="fa fa-user-circle"></i> {{ $userdata.username }}
+          </a>
+          <ul class="submenu">
+            <li><a href="{{ route('users.show') }}?u={{ $userdata.username }}">Meu Perfil</a></li>
+            <li><a href="{{ route('user-config.index') }}">Configurações</a></li>
+            <li><a href="{{ route('logout') }}">Sair</a></li>
+          </ul>
+        </li>
+
+        <li>
+          <a href="#">
+            <i class="fa fa-users fa-fw"></i> Usuários &amp; Afins
+          </a>
+          <ul class="submenu">
+            <li><a href="{{ route('admin:users.index') }}">Gestão dos usuários</a></li>
+            <li><a href="#">Gestão dos banimentos</a></li>
+            <li><a href="{{ route('admin:groups.index') }}">Gestão dos grupos</a></li>
+            <li><a href="#">Gestão das permissões</a></li>
+          </ul>
+        </li>
+
+        <li>
+          <a href="#">
+            <i class="fa fa-cog fa-fw"></i> Técnico
+          </a>
+          <ul class="submenu">
+            <li><a href="#">Ver lista de páginas</a></li>
+            <li><a href="#">Criar página</a></li>
+          </ul>
+        </li>
+
+        @if(hasGroup('DEV'))
+          <li>
+            <a href="#">
+              <i class="fa fa-code fa-fw"></i> Desenvolvedor
+            </a>
+            <ul class="submenu">
+              <li><a href="#">Folha de estilos CSS</a></li>
+              <li><a href="#">JavaScripts</a></li>
+            </ul>
+          </li>
+        @endif
+
+        <li>
+          <a href="#">
+            <i class="fa fa-info fa-fw"></i> System
+          </a>
+          <ul class="submenu">
+            <li><a href="#">Estatísticas</a></li>
+            <li><a href="#">Log de ações</a></li>
+            <li><a href="#">Log de IP's</a></li>
+            <li><a href="{{ route('admin:error-tickets.index') }}">Tickets de Erros</a></li>
+          </ul>
+        </li>
+
+      </ul>
+    </nav>
+  </div>
+</div>

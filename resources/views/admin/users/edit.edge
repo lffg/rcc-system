@@ -1,0 +1,79 @@
+@layout('partials.layouts.admin')
+
+@section('title')
+  @set('title_override', 'Editar Perfil — ' + user.username)
+  <i class="fa fa-cog"></i> {{ user.username }}
+@endsection
+
+@section('breadcrumb')
+  <li class="breadcrumb-item">
+    <a href="{{ route('admin') }}">Administração</a>
+  </li>
+  <li class="breadcrumb-item">
+    <a href="{{ route('admin:users.index') }}">Usuários</a>
+  </li>
+  <li class="breadcrumb-item">
+    <a href="{{ route('admin:users.show', { id: user.id }) }}">
+      {{ user.username }}
+    </a>
+  </li>
+  <li class="breadcrumb-item">Editar</li>
+@endsection
+
+@section('content')
+  <div class="sys-admin-user-edit">
+    <div class="card mb-3">
+      <div class="card-body">
+        <p class="text-justify">
+          Através dessa página, você pode editar as informações de cunho administrativo em relação a um usuário. Você pode usar os botões abaixo para visitar o perfil do usuário no system ou visualizar as informações administrativas do usuário.
+        </p>
+        <p class="mb-0">
+          <a
+            href="{{ route('users.show') }}?u={{ user.username }}"
+            class="btn btn-secondary btn-sm mb-md-0 mb-3 d-md-inline-block d-block">
+            <i class="fa fa-eye"></i> Perfil no System ({{ user.username }})
+          </a>
+          <a
+            href="{{ route('admin:users.show', { id: user.id }) }}"
+            class="btn btn-info btn-sm d-md-inline-block d-block">
+            <i class="fa fa-info"></i> Ver Informações Administrativas ({{ user.username }})
+          </a>
+        </p>
+      </div>
+    </div>
+
+    @if(errors())
+      <div class="alert alert-danger">
+        <h5 class="alert-heading">Whoops! Erros ao editar o usuário:</h5>
+
+        @each(error in errors())
+          <p {{{ $loop.last ? 'class="mb-0"' : '' }}}>{{ error.message }}</p>
+        @endeach
+      </div>
+    @endif
+
+    <form action="{{ route('admin:users.edit', { id: user.id }) }}" method="POST">
+      <div class="row">
+        <div class="col-lg-6">
+          @include('admin.users.includes.edit.primary-info')
+          @include('admin.users.includes.edit.position')
+          @include('admin.users.includes.edit.intervals')
+        </div>
+        <div class="col-lg-6">
+          @include('admin.users.includes.edit.security')
+          @include('admin.users.includes.edit.salary')
+        </div>
+      </div>
+
+      <div class="row mt-4 mb-0">
+        <div class="col">
+          <button type="submit" class="btn btn-primary btn-block js-submit">
+            Salvar
+          </button>
+        </div>
+      </div>
+
+      {{ csrfField() }}
+    </form>
+  </div>
+@endsection

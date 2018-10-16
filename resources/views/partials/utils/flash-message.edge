@@ -1,0 +1,41 @@
+{{-- No script warning --}}
+<noscript>
+  <div class="alert alert-danger alert-with-icon">
+    <i class="fa fa-exclamation-triangle alert-icon"></i>
+    <div>
+      <strong style="font-weight: 500;">Erro de Incompatibilidade:</strong> O seu navegador foi configurado para não usar JavaScript. Sugerimos que altere essa configuração para um melhor funcionamento do System, já que algumas páginas requerem este recurso.
+    </div>
+  </div>
+</noscript>
+
+{{-- Danger --}}
+@if(flashMessage('danger'))
+  <div class="alert alert-danger alert-with-icon">
+    <i class="fa fa-exclamation-triangle alert-icon"></i>
+    <div>{{ flashMessage('danger') }}</div>
+  </div>
+@endif
+
+{{-- Success --}}
+@if(flashMessage('success'))
+  <div class="alert alert-success alert-with-icon">
+    <i class="fa fa-check alert-icon"></i>
+    <div>{{ flashMessage('success') }}</div>
+  </div>
+@endif
+
+{{-- Info --}}
+@if(flashMessage('info'))
+  <div class="alert alert-info alert-with-icon">
+    <i class="fa fa-info alert-icon"></i>
+    <div>{{ flashMessage('info') }}</div>
+  </div>
+@endif
+
+{{-- Warning --}}
+@if(flashMessage('warning'))
+  <div class="alert alert-warning alert-with-icon">
+    <i class="fa fa-exclamation-circle alert-icon"></i>
+    <div>{{ flashMessage('warning') }}</div>
+  </div>
+@endif
