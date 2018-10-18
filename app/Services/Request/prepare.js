@@ -1,5 +1,6 @@
 'use strict'
 
+const validatePayload = require('./helpers/validatePayload')
 const getInstances = require('./helpers/getInstances')
 const validateType = require('./helpers/validateType')
 
@@ -17,6 +18,7 @@ module.exports = async function create (payload = {}) {
 
   // Valida o tipo (se o tipo pertence ao controller):
   await validateType(controller, type)
+  await validatePayload(payload)
 
   return { controller, type }
 }
