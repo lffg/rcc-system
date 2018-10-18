@@ -1,6 +1,6 @@
 'use strict'
 
-const CreateRequest = use('App/Services/Request/CreateRequest')
+const { create: createRequest, prepare } = use('App/Services/Request')
 const RequestController = use('App/Models/RequestController')
 const RequestType = use('App/Models/RequestType')
 const User = use('App/Models/User')
@@ -49,22 +49,30 @@ class RequestCreateController {
 
   async store ({ request, response, session }) {
     const data = request.all()
-    const { controller_id: cId, type_id: tId, receivers } = data
+    let controller, type
 
-    const controller = await RequestController.find(cId)
-    const type = await RequestType.find(tId)
+    // Verifica se a requisição pode ser criada:
+    try {
+      const { controller: c, type: t } = await prepare(data)
 
-    const req = new CreateRequest(controller, type)
-    delete data.receivers
+      controller = c
+      type = t
+    } catch (e) {
+      throw e
+    }
 
-    for (const username of splitNicks(receivers, true)) {
+    // Cria uma requisição a cada usuário:
+    for (const username of splitNicks(data.receivers, true)) {
+      // Pega o usuário, criando um caso nenhum existir.
       const user = await User.findOrCreate(
         { username },
         { username, synthetically_created: true }
       )
 
-      req.use({ ...data, receiver_id: user.id })
-      await req.create()
+      // Cria a requisição:
+      await createRequest(controller, type, {
+        ...data, receiver_id: user.id
+      })
     }
 
     session.flash({
