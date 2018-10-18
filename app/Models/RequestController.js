@@ -31,12 +31,6 @@ class RequestController extends Model {
    *
    */
 
-  listPositions () {
-    return this
-      .belongsToMany('App/Models/Position', 'controller_id', 'position_id')
-      .pivotTable('pivot_request_controller_position')
-  }
-
   requests () {
     return this.hasMany('App/Models/Request', 'id', 'controller_id')
   }

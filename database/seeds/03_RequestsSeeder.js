@@ -7,7 +7,6 @@ const CreateRequest = use('App/Services/Request/CreateRequest')
 const RequestController = use('App/Models/RequestController')
 const RequestAction = use('App/Models/RequestAction')
 const RequestType = use('App/Models/RequestType')
-const Position = use('App/Models/Position')
 const Request = use('App/Models/Request')
 const Database = use('Database')
 
@@ -19,7 +18,6 @@ class RequestsSeeder {
     await RequestType.truncate()
     await Request.truncate()
     await Database.raw('TRUNCATE TABLE pivot_request_action_type')
-    await Database.raw('TRUNCATE TABLE pivot_request_controller_position')
     await Database.raw('SET FOREIGN_KEY_CHECKS = 1')
 
     await this.createControllers()
@@ -55,18 +53,9 @@ class RequestsSeeder {
 
   async createControllers () {
     for (const data of controllers) {
-      const positions = data.__positions__ || []
-      delete data.__positions__
-
       const controller = new RequestController()
       controller.merge(data)
       await controller.save()
-
-      console.log('Iniciando relações entre controllers e posições.')
-      for (const positionId of positions) {
-        const position = await Position.findOrFail(positionId)
-        await controller.listPositions().attach([position.id], (row) => (row.order = 1))
-      }
     }
   }
 
