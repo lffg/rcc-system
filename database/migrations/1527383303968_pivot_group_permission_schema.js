@@ -4,7 +4,7 @@ const Schema = use('Schema')
 
 class PivotGroupPermissionSchema extends Schema {
   up () {
-    this.create('pivot_group_permissions', (table) => {
+    this.create('pivot_group_permission', (table) => {
       table.increments()
       table.timestamps()
 
@@ -17,7 +17,7 @@ class PivotGroupPermissionSchema extends Schema {
   }
 
   down () {
-    this.drop('pivot_group_permissions')
+    this.drop('pivot_group_permission')
   }
 }
 

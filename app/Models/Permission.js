@@ -14,6 +14,22 @@ class Permission extends Model {
 
     this.addHook('beforeCreate', 'AliasHook.generateAlias')
   }
+
+  /**
+   * ---------------------------------------------------------------------
+   * Relationships
+   * ---------------------------------------------------------------------
+   *
+   * The methods defined below are used to establish relationships between
+   * other models.
+   *
+   */
+
+  groups () {
+    return this
+      .belongsToMany('App/Models/Group')
+      .pivotTable('pivot_group_permission')
+  }
 }
 
 module.exports = Permission

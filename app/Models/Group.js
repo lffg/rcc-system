@@ -66,6 +66,12 @@ class Group extends Model {
       .pivotTable('pivot_group_user')
       .withPivot(['is_moderator'])
   }
+
+  permissions () {
+    return this
+      .belongsToMany('App/Models/Permission')
+      .pivotTable('pivot_group_permission')
+  }
 }
 
 module.exports = Group
