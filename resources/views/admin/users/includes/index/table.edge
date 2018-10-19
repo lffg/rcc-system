@@ -23,8 +23,10 @@
         </td>
         <td>
           <a
+            class="no-u"
             href="{{ route('admin:groups.show', { id: user.groups[0].id }) }}"
-            style="color: {{ user.groups[0].color }}; font-weight: 500;">
+            style="color: {{ user.groups[0].color }}; font-weight: 500;"
+          >
             @if(user.groups[0].icon)
               <i class="{{ user.groups[0].icon }}"></i>
             @endif

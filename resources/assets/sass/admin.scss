@@ -46,7 +46,7 @@ $trans:             all 125ms ease-in-out;
 @import "./main/layout/footer.scss";
 
 a {
-  &:not(.btn) {
+  &:not(.btn, .no-u) {
     text-decoration: underline;
   }
 

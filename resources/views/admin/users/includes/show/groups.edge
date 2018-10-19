@@ -10,8 +10,10 @@
             data-toggle="tooltip">
         @endif
         <a
+          class="no-u"
           href="{{ route('admin:groups.show', { id: group.id }) }}"
-          style="color: {{ group.color }}; font-weight: 500;">
+          style="color: {{ group.color }}; font-weight: 500;"
+        >
           @if(group.icon)
             <i class="{{ group.icon }}"></i>
           @endif

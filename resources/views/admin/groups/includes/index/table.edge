@@ -37,6 +37,7 @@
                 data-toggle="tooltip">
             @endif
             <a
+              class="no-u"
               style="color: {{ group.color }}; font-weight: 500;"
               href="{{ route('admin:groups.show', { id: group.id }) }}">
               @if(group.icon)
