@@ -45,6 +45,16 @@ $trans:             all 125ms ease-in-out;
 @import "./main/layout/content.scss";
 @import "./main/layout/footer.scss";
 
+a {
+  &:not(.btn) {
+    text-decoration: underline;
+  }
+
+  &:hover {
+    color: #39c;
+  }
+}
+
 ::selection {
   background-color: $secondary;
   color: $white;
