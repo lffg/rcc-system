@@ -15,7 +15,7 @@ const UserHook = exports = module.exports = {}
  */
 UserHook.hashPassword = async (userInstance) => {
   if (typeof userInstance.password === 'string' && userInstance.password === '') {
-    throw new FormError('Senha não pode ser um campo vazio.', 400, 'E_BLANK_PASSWORD')
+    throw new FormError('Senha inválida: a senha não pode ser vazia.', 400)
   }
 
   if (userInstance.dirty.password) {

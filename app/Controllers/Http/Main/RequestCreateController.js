@@ -3,21 +3,8 @@
 const { create: createRequest, prepare } = use('App/Services/Request')
 const RequestController = use('App/Models/RequestController')
 const RequestType = use('App/Models/RequestType')
+const splitNicks = use('App/Helpers/split-nicks')
 const User = use('App/Models/User')
-
-/**
- * Split a string with slashes.
- *
- * @param  {string} nicks
- * @param  {boolean} onlyArray
- * @return {object}
- */
-function splitNicks (nicks = '', onlyArray = false) {
-  const entries = [...new Set(nicks.split(/\\|\//).map((s) => s.trim()).filter((s) => /\S/.test(s)))]
-  const string = entries.join(' / ')
-  if (onlyArray) return entries
-  return { entries, string }
-}
 
 class RequestCreateController {
   async create ({ view }) {
@@ -25,13 +12,11 @@ class RequestCreateController {
     return view.render('pages.requests.create', { controllers })
   }
 
-  async ajaxPart ({ request, view }) {
-    const toPart = parseInt(request.url().replace(/.+?-(\d+)$/, '$1'))
+  async goto ({ request, params: { step }, view }) {
     const data = request.only(['author_id', 'controller_id', 'type_id', 'receivers'])
-
     const controller = await RequestController.getInfoFor(data.controller_id)
 
-    switch (toPart) {
+    switch (parseInt(step)) {
       case 1:
         const controllers = await RequestController.getControllers()
         return view.render('pages.requests.ajax-first-part', { controllers, data })
