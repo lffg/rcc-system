@@ -18,20 +18,28 @@
           <a href="{{ route('admin:users.show', { id: user.id }) }}">{{ user.username }}</a>
         </td>
         <td>
-          <span class="sr-only">{{ user.position.order }}</span>
-          {{ user.position.name }}
+          {{ user.position.name || 'Nenhuma posição' }}
         </td>
         <td>
-          <a
-            class="no-u"
-            href="{{ route('admin:groups.show', { id: user.groups[0].id }) }}"
-            style="color: {{ user.groups[0].color }}; font-weight: 500;"
-          >
-            @if(user.groups[0].icon)
-              <i class="{{ user.groups[0].icon }}"></i>
-            @endif
-            {{ user.groups[0].name }}
-          </a>
+          @if(user.groups[0])
+            <a
+              class="no-u"
+              href="{{ route('admin:groups.show', { id: user.groups[0].id }) }}"
+              style="color: {{ user.groups[0].color }}; font-weight: 500;"
+            >
+              @if(user.groups[0].icon)
+                <i class="{{ user.groups[0].icon }}"></i>
+              @endif
+              {{ user.groups[0].name }}
+            </a>
+          @else
+            <span
+              title="Este usuário não faz parte de nenhum grupo."
+              data-toggle="tooltip"
+            >
+              <i class="fa fa-ban"></i>
+            </span>
+          @endif
         </td>
         <td>
           @if(user.state == 'ACTIVE')
