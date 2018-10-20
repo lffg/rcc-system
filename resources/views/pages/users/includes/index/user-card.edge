@@ -48,7 +48,7 @@
           <i class="fa fa-eye"></i>
           <span>Ver Perfil</span>
         </a>
-        @if(hasGroup('ADMIN') || user.id == $userdata.id)
+        @if(hasPermission('ADMIN') || user.id == $userdata.id)
           <a href="{{ route('admin:users.edit', { id: user.id }) }}" class="btn btn-danger btn-sm">
             <i class="fa fa-pencil"></i>
             <span>Editar Perfil</span>

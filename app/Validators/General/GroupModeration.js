@@ -16,7 +16,7 @@ class GroupModeration {
       return response.redirect('back')
     }
 
-    if (!await auth.user.isModerator(id, true) && !auth.user.hasGroup('ADMIN')) {
+    if (!(await auth.user.isModerator(id) || await auth.user.hasPermission('ADMIN', true))) {
       throw new HttpException('Acesso negado.', 403)
     }
 

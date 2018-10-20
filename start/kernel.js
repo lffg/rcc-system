@@ -9,7 +9,7 @@ const globalMiddleware = [
   'Adonis/Middleware/AuthInit',
 
   'App/Middleware/View/Userdata',
-  'App/Middleware/View/Group',
+  'App/Middleware/View/AccessControl',
 
   'App/Middleware/Shield/CheckUserRequirements',
   'App/Middleware/Shield/IpCollector',

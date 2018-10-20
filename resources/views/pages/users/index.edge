@@ -15,10 +15,9 @@
 @endsection
 
 @section('content')
-  {{-- TODO: Tópico do adonis --}}
-
-  @if(hasGroup('ADMIN'))
-    <p class="alert alert-info">
+  @if(hasPermission('ADMIN'))
+    <p>
+      <i class="fa fa-link"></i>
       Clique <a href="{{ route('admin:users.index') }}" class="alert-link">aqui</a> para acessar a listagem de usuários do Painel de Controle.
     </p>
   @endif

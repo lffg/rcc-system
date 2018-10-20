@@ -8,7 +8,7 @@
     </thead>
     <tbody>
       @each(group in groups)
-        @if(! group.is_hidden || hasGroup('ADMIN') || isModerator(group.alias))
+        @if(! group.is_hidden || hasPermission('ADMIN') || isModerator(group.id))
           <tr>
             <td>{{ group.id }}</td>
             <td>
@@ -24,7 +24,7 @@
               @if(group.is_hidden)
                 <small
                   class="d-block"
-                  title="Você vê este grupo pois é um moderador dele ou administrador do system"
+                  title="Você vê este grupo pois é um moderador dele ou administrador do System."
                   data-placement="bottom"
                 >
                   <i class="fa fa-eye-slash"></i> Grupo Oculto
@@ -39,7 +39,7 @@
               >
                 <i class="fa fa-eye"></i>
               </a>
-              @if(hasGroup('ADMIN'))
+              @if(hasPermission('ADMIN'))
                 <a
                   href="{{ route('admin:groups.show', { id: group.id }) }}" class="btn btn-warning btn-sm"
                   title="Editar dados do grupo"

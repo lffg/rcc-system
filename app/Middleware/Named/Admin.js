@@ -1,6 +1,5 @@
 'use strict'
 
-const User = use('App/Models/User')
 const Log = use('Log')
 
 class Admin {
@@ -11,9 +10,7 @@ class Admin {
       return this._block(...arguments)
     }
 
-    const user = await User.findOrFail(auth.user.id)
-
-    if (!await user.hasGroup('ADMIN')) {
+    if (!await auth.user.hasPermission('ADMIN', true)) {
       return this._block(...arguments)
     }
 

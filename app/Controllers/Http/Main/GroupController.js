@@ -34,12 +34,10 @@ class GroupController {
           .select('id', 'username')
           .with('groups', (builder) => builder.select('id', 'icon', 'color').sortByOrder())
       })
-      .first()
+      .firstOrFail()
 
-    if (!group) throw new HttpException(`Grupo inexistente para ID ${id}`, 404)
-
-    if (group.is_hidden && !await auth.user.isModerator(id, true) && !await auth.user.hasGroup('ADMIN')) {
-      throw new HttpException(`Acesso negado para ver grupo de ID ${id}`, 403)
+    if (group.is_hidden && !(await auth.user.isModerator(id) || await auth.user.hasPermission('ADMIN', true))) {
+      throw new HttpException('Acesso negado.', 403)
     }
 
     const moderators = await Group.query()

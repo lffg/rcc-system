@@ -19,7 +19,7 @@
           </a>
         </li>
 
-        @if(hasGroup('ADMIN'))
+        @if(hasPermission('ADMIN'))
           <li class="only-mobile">
             <a href="{{ route('admin') }}">
               <i class="fa fa-cog"></i> Admin
