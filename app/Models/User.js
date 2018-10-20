@@ -20,6 +20,7 @@ class User extends Model {
     // this.addHook('afterCreate', 'UserHook.createAccountRegisterEvent')
     this.addTrait('UserGroup')
     this.addTrait('UserSalary')
+    this.addTrait('UserPermission')
   }
 
   /**

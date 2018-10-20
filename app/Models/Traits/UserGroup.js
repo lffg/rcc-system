@@ -61,15 +61,15 @@ class UserGroup {
      * @param  {boolean} getById
      * @return {Promise<boolean>}
      */
-    Model.prototype.hasGroup = async function (group, getById = false) {
-      if (getById && typeof group === 'string' && !isNaN(parseInt(group))) {
+    Model.prototype.hasGroup = async function (group, getByAlias = false) {
+      if (!getByAlias && typeof group === 'string' && !isNaN(parseInt(group))) {
         group = parseInt(group)
       }
 
-      const groups = await this.getGroups(getById)
+      const groups = await this.getGroups(!getByAlias)
 
-      if (getById) return groups.includes(group)
-      return groups.includes(group.toUpperCase())
+      if (getByAlias) return groups.includes(group.toUpperCase())
+      return groups.includes(group)
     }
 
     /**
@@ -79,15 +79,15 @@ class UserGroup {
      * @param  {boolean} getById
      * @return {Promise<boolean>}
      */
-    Model.prototype.isModerator = async function (group, getById = false) {
-      if (getById && typeof group === 'string' && !isNaN(parseInt(group))) {
+    Model.prototype.isModerator = async function (group, getByAlias = false) {
+      if (!getByAlias && typeof group === 'string' && !isNaN(parseInt(group))) {
         group = parseInt(group)
       }
 
       let groups = await this.getModerationGroups()
 
-      if (getById) return groups.map(({ id }) => id).includes(group)
-      return groups.map(({ alias }) => alias).includes(group.toUpperCase())
+      if (getByAlias) return groups.map(({ alias }) => alias).includes(group.toUpperCase())
+      return groups.map(({ id }) => id).includes(group)
     }
   }
 }
