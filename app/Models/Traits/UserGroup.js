@@ -1,5 +1,7 @@
 'use strict'
 
+const Database = use('Database')
+
 class UserGroup {
   register (Model) {
     /**
@@ -9,56 +11,56 @@ class UserGroup {
      */
 
     /**
-     * Retorna os grupos de que um usuário faz parte.
+     * Retorna os grupos do usuário da instância.
      *
-     * @param  {boolean} getIds
-     * @return {Promise<object[]>}
+     * @param  {string|boolean} aliases
+     * @param  {boolean} getModField
+     * @return {Promise<{ id?: number, alias?: string, is_moderador?: boolean }[]|number[]|string[]>}
      */
-    Model.prototype.getGroups = async function (getIds = false) {
-      const groups = []
+    Model.prototype.getGroups = async function (aliases = false, getModField = false) {
+      const groups = await Database
+        .distinct((aliases === 'BOTH' ? ['G.id', 'G.alias'] : (aliases ? ['G.alias'] : ['G.id'])).concat(
+          getModField ? ['PGU.is_moderator'] : []
+        ))
+        .from('users AS U')
+        .innerJoin('pivot_group_user AS PGU', 'PGU.user_id', '=', 'U.id')
+        .innerJoin('groups AS G', 'G.id', '=', 'PGU.group_id')
+        .where('U.id', this.id)
 
-      const user = await Model.query()
-        .where({ id: this.id })
-        .select('id')
-        .with('groups', (builder) => builder.select('id', 'alias'))
-        .first()
-        .then((user) => user.toJSON())
-
-      for (let { id, alias } of user.groups) {
-        if (getIds) {
-          if (groups.includes(id)) continue
-          groups.push(id)
-          continue
-        }
-
-        if (groups.includes(alias.toUpperCase())) continue
-        groups.push(alias.toUpperCase())
+      if (aliases === 'BOTH' || getModField) {
+        return groups
       }
 
-      return groups
+      return groups.map(({ id = null, alias = null }) => (
+        (aliases && !!alias) ? alias : id
+      ))
     }
 
     /**
      * Retorna os grupos de que o usuário é moderador.
      *
-     * @return {Promise<object[]>}
+     * @param  {string|boolean} aliases
+     * @return {Promise<{ id?: number, alias?: string }[]|number[]|string[]>}
      */
-    Model.prototype.getModerationGroups = async function () {
-      const groups = await Model.query()
-        .where({ id: this.id })
-        .select('id')
-        .with('groups', (builder) => builder.select('id', 'alias').wherePivot('is_moderator', true))
-        .first()
-        .then((user) => user.toJSON().groups)
+    Model.prototype.getModerationGroups = async function (aliases = false) {
+      const groups = (await this.getGroups(aliases, true))
+        .filter(({ is_moderator: isMod }) => !!isMod)
+        .map(({ id, alias }) => ({ id, alias }))
 
-      return groups.map(({ id, alias }) => ({ id, alias }))
+      if (aliases === 'BOTH') {
+        return groups
+      }
+
+      return groups.map(({ id = null, alias = null }) => (
+        (aliases && !!alias) ? alias : id
+      ))
     }
 
     /**
-     * Retorna `true` se um usuário faz parte de um determinado grupo.
+     * Verifica se um usuário faz parte do grupo.
      *
      * @param  {string|number} group
-     * @param  {boolean} getById
+     * @param  {boolean} getByAlias
      * @return {Promise<boolean>}
      */
     Model.prototype.hasGroup = async function (group, getByAlias = false) {
@@ -66,17 +68,15 @@ class UserGroup {
         group = parseInt(group)
       }
 
-      const groups = await this.getGroups(!getByAlias)
-
-      if (getByAlias) return groups.includes(group.toUpperCase())
-      return groups.includes(group)
+      const groups = await this.getGroups(getByAlias)
+      return groups.includes(getByAlias ? group.toUpperCase() : group)
     }
 
     /**
-     * Retorna `true` se um usuário é moderador de um grupo.
+     * Verifica se um usuário é moderador de um grupo.
      *
      * @param  {string|number} group
-     * @param  {boolean} getById
+     * @param  {boolean} getByAlias
      * @return {Promise<boolean>}
      */
     Model.prototype.isModerator = async function (group, getByAlias = false) {
@@ -84,10 +84,8 @@ class UserGroup {
         group = parseInt(group)
       }
 
-      let groups = await this.getModerationGroups()
-
-      if (getByAlias) return groups.map(({ alias }) => alias).includes(group.toUpperCase())
-      return groups.map(({ id }) => id).includes(group)
+      const groups = await this.getModerationGroups(getByAlias)
+      return groups.includes(getByAlias ? group.toUpperCase() : group)
     }
   }
 }

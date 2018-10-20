@@ -13,12 +13,12 @@ class UserPermission {
     /**
      * Retorna as permissões do usuário da instância.
      *
-     * @param  {boolean} getAliases
-     * @return {Promise<{ id: number, alias: string }[]>}
+     * @param  {boolean|string} aliases
+     * @return {Promise<{ id: number, alias: string }[]|number[]|string[]>}
      */
-    Model.prototype.getPermissions = async function (getAliases = false) {
+    Model.prototype.getPermissions = async function (aliases = false) {
       const permissions = await Database
-        .distinct(!getAliases ? 'P.id' : 'P.alias')
+        .distinct(aliases === 'BOTH' ? ['P.id', 'P.alias'] : (aliases ? 'P.alias' : 'P.id'))
         .from('users AS U')
         .innerJoin('pivot_group_user AS PGU', 'PGU.user_id', '=', 'U.id')
         .innerJoin('groups AS G', 'G.id', '=', 'PGU.group_id')
@@ -26,17 +26,20 @@ class UserPermission {
         .innerJoin('permissions AS P', 'P.id', '=', 'PGP.permission_id')
         .where('U.id', this.id)
 
-      // Ao invés de retornar um objeto com ID ou alias, retorne um array:
+      if (aliases === 'BOTH') {
+        return permissions
+      }
+
       return permissions.map(({ id = null, alias = null }) => (
-        !getAliases && !!id ? id : alias
+        (aliases && !!alias) ? alias : id
       ))
     }
 
     /**
      * Verifica se um usuário faz parte da permissão.
      *
-     * @param  {string|number} permission (alias ou id da permissão)
-     * @param  {boolean} getById
+     * @param  {string|number} permission
+     * @param  {boolean} getByAlias
      * @return {Promise<boolean>}
      */
     Model.prototype.hasPermission = async function (permission, getByAlias = false) {
@@ -45,9 +48,7 @@ class UserPermission {
       }
 
       const permissions = await this.getPermissions(getByAlias)
-
-      if (getByAlias) return permissions.includes(permission.toUpperCase())
-      return permissions.includes(permission)
+      return permissions.includes(getByAlias ? permission.toUpperCase() : permission)
     }
   }
 }
