@@ -43,11 +43,23 @@ class UserController {
         builder.select('id', 'user_id', 'ip', 'created_at').orderBy('created_at', 'DESC')
       })
       .with('logs', (builder) => {
-        builder.select('id', 'user_id', 'log', 'created_at').orderBy('created_at', 'DESC')
+        builder.select('id', 'user_id', 'log', 'created_at').limit(15).orderBy('created_at', 'DESC')
       })
       .firstOrFail()
 
     return view.render('admin.users.show', { user: user.toJSON() })
+  }
+
+  /**
+   * Show logs.
+   */
+  async logs ({ params: { id }, view }) {
+    const user = await User.query()
+      .where({ id })
+      .with('logs', (builder) => builder.orderBy('created_at', 'DESC'))
+      .firstOrFail()
+
+    return view.render('admin.users.logs', { user: user.toJSON() })
   }
 
   /**

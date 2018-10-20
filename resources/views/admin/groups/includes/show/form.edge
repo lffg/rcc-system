@@ -80,7 +80,7 @@
             id="is_hidden"
             class="form-control {{ elIf('$self', 'is-invalid', hasErrorFor('is_hidden')) }}"
             title="Grupos ocultos não podem ser visualizados por usuários e membros. De maneira geral, têm funções ligadas à permissões de usuários e afins."
-            data-toggle="tooltip">
+          >
             <option value="0" {{ ! group.is_hidden ? 'selected' : '' }}>Grupo Público</option>
             <option value="1" {{ group.is_hidden ? 'selected' : '' }}>Grupo Oculto</option>
           </select>

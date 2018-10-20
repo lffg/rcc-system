@@ -62,7 +62,6 @@
       @if(user.last_visit != 0)
         <td
           title="Visto por último em {{ moment(user.last_visit).format('DD/MM/YYYY [às] HH:mm:ss') }}"
-          data-toggle="tooltip"
           data-placement="left"
         >
           {{ moment(user.last_visit).format('DD/MM/YYYY [às] HH:mm') }}
@@ -124,7 +123,7 @@
       @else
         <td class="text-danger">
           @if(user.disallowReason)
-            <span title="Razão: {{ user.disallowReason }}" data-toggle="tooltip">
+            <span title="Razão: {{ user.disallowReason }}">
               <i class="fa fa-exclamation-triangle"></i> Acesso Proibido
             </span>
           @else

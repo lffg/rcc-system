@@ -7,7 +7,7 @@
           <span
             style="text-decoration: line-through;"
             title="Grupo oculto"
-            data-toggle="tooltip">
+          >
         @endif
         <a
           class="no-u"
@@ -23,6 +23,8 @@
           </span>
         @endif
       </li>
+    @else
+      <li class="list-group-item">Este usuário não pertence a nenhum grupo.</li>
     @endeach
   </ul>
 </div>

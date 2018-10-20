@@ -8,12 +8,12 @@
   'use strict';
 
   $(function () {
-    $('[data-toggle="tooltip"]').tooltip();
+    $('[title]').not('[data-tooltip="off"]').tooltip();
     $('[data-toggle="popover"]').popover();
 
     $(document).ajaxSuccess(function () {
-      $('[data-toggle="tooltip"]').tooltip('dispose');
-      $('[data-toggle="tooltip"]').tooltip();
+      $('[title]').not('[data-tooltip="off"]').tooltip('dispose');
+      $('[title]').not('[data-tooltip="off"]').tooltip();
     });
   });
 })(jQuery);

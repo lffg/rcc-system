@@ -10,7 +10,10 @@
           target="_blank"
           rel="noopener"
         >{{ ip.ip }}</a>
-        — <em title="{{ moment(ip.created_at).f() }}">{{ moment(ip.created_at).fromNow() }}</em>
+        &mdash;
+        <em>
+          {{ moment(ip.created_at).fromNow() }}</i> ({{ moment(ip.created_at).format('LLL') }})
+        </em>
       </li>
     @else
       <li class="list-group-item">

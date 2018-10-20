@@ -110,7 +110,11 @@ table {
   padding: .75rem 1.5rem;
   border-top-right-radius: .25rem;
   border-bottom-right-radius: .25rem;
-  border-bottom: solid 3px $primary;
+  @if $primary != $secondary {
+    border-bottom: solid 3px $primary;
+  } @else {
+    border-bottom: solid 3px $accent;
+  }
   background-color: $secondary;
   background-image: linear-gradient(to bottom, lighten($secondary, 5%), darken($secondary, 8%));
   color: $white;

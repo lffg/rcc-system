@@ -24,6 +24,7 @@ Route.group(() => {
 Route.group(() => {
   Route.get('/', 'UserController.index').as('admin:users.index')
   Route.get(':id', 'UserController.show').as('admin:users.show')
+  Route.get(':id/logs', 'UserController.logs').as('admin:users.logs')
 
   Route.get(':id/edit', 'UserController.edit').as('admin:users.edit')
   Route.post(':id/edit', 'UserController.update').validator('Admin/EditUser')

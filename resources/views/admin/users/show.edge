@@ -1,8 +1,7 @@
 @layout('partials.layouts.admin')
 
 @section('title')
-  @set('title_override', 'Perfil Adm. — ' + user.username)
-  <i class="fa fa-user-circle"></i> {{ user.username }}
+  Perfil &mdash; {{ user.username }}
 @endsection
 
 @section('breadcrumb')
