@@ -9,7 +9,7 @@ const Hash = use('Hash')
 const UserHook = exports = module.exports = {}
 
 /**
- * Password hasher hook.
+ * Cria um hash para a senha do usuário.
  *
  * @param {object} userInstance
  */
@@ -24,7 +24,7 @@ UserHook.hashPassword = async (userInstance) => {
 }
 
 /**
- * Hook to attach the new user to the users group.
+ * Cria a relação entre o novo usuário e o grupo-padrão de usuários.
  *
  * @param {object} userInstance
  */
@@ -34,7 +34,7 @@ UserHook.addToUsersGroup = async (userInstance) => {
 }
 
 /**
- * Hook to associate the new user to the recruit position.
+ * Associa o novo usuário à posição de recruta.
  *
  * @param {object} userInstance
  */
@@ -46,7 +46,7 @@ UserHook.addUserToPosition = async (userInstance) => {
 }
 
 /**
- * Hook to create a timeline event for account creation.
+ * Cria um evento na timeline para certificar a criação do usuário.
  *
  * @param {object} userInstance
  *

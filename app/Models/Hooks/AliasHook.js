@@ -5,7 +5,7 @@ const shortid = require('shortid')
 const AliasHook = exports = module.exports = {}
 
 /**
- * Generate an unique alias to the created group.
+ * Gera um alias único para o grupo a ser criado.
  *
  * @param {object} groupInstance
  */

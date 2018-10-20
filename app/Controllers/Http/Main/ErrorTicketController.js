@@ -5,9 +5,9 @@ const User = use('App/Models/User')
 
 class ErrorTicketController {
   /**
-   * Redirects the user to the homepage with a session message.
+   * Redireciona os usuários para o início com uma mensagem de erro.
    *
-   * @param {object} ctx
+   * @method GET
    */
   index ({ response, session }) {
     session.flash({ danger: 'Nenhum dado foi salvo. Você deve submeter os dados pelo formulário.' })
@@ -15,9 +15,9 @@ class ErrorTicketController {
   }
 
   /**
-   * Stores the ticket data.
+   * Salva o ticket de erro.
    *
-   * @param {object} ctx
+   * @method POST
    */
   async store ({ request, response, session, auth }) {
     const { type, img, message, url } = request.all()

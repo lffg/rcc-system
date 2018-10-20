@@ -5,7 +5,7 @@ const Group = use('App/Models/Group')
 const GroupHook = exports = module.exports = {}
 
 /**
- * Sets the order to the created group.
+ * Define a ordem do grupo criado.
  *
  * @param {object} groupInstance
  */
@@ -23,7 +23,7 @@ GroupHook.setOrder = async (groupInstance) => {
 }
 
 /**
- * Resets the order value of all groups after one is deleted.
+ * Reseta a ordem de todos os grupos após um deles ser removido.
  */
 GroupHook.resetOrder = async () => {
   const groups = await Group.query()

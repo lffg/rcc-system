@@ -6,7 +6,7 @@ const Model = use('Model')
 
 class Group extends Model {
   /**
-   * Boot method
+   * Método de boot (inicialização).
    *
    * @static
    * @return {void}
@@ -21,7 +21,7 @@ class Group extends Model {
   }
 
   /**
-   * Getter that defines the hidden properties.
+   * Getter que define as propriedades escondidas.
    *
    * @static
    * @return {string[]}
@@ -31,7 +31,7 @@ class Group extends Model {
   }
 
   /**
-   * Getter that defines the computed properties.
+   * Getter que define as propriedades computadas.
    *
    * @static
    * @return {string[]}
@@ -41,7 +41,7 @@ class Group extends Model {
   }
 
   /**
-   * Create the "colorYiq" computed property.
+   * Cria a propriedade computada "colorYiq".
    *
    * @param  {string} Group.color
    * @return {string}
@@ -52,11 +52,11 @@ class Group extends Model {
 
   /**
    * ---------------------------------------------------------------------
-   * Relationships
+   * Relações
    * ---------------------------------------------------------------------
    *
-   * The methods defined below are used to establish relationships between
-   * other models.
+   * Os métodos definidos abaixo são usados para estabelecer relações
+   * entre outros modelos (models).
    *
    */
 

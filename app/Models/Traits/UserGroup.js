@@ -3,9 +3,16 @@
 class UserGroup {
   register (Model) {
     /**
-     * Returns the groups that a user is a member of.
+     * ---------------------------------------------------------------------
+     * Métodos da instância:
+     * ---------------------------------------------------------------------
+     */
+
+    /**
+     * Retorna os grupos de que um usuário faz parte.
      *
-     * @return  {array}
+     * @param  {boolean} getIds
+     * @return {Promise<object[]>}
      */
     Model.prototype.getGroups = async function (getIds = false) {
       const groups = []
@@ -32,9 +39,9 @@ class UserGroup {
     }
 
     /**
-     * Returns the groups that the user is moderator.
+     * Retorna os grupos de que o usuário é moderador.
      *
-     * @return {array}
+     * @return {Promise<object[]>}
      */
     Model.prototype.getModerationGroups = async function () {
       const groups = await Model.query()
@@ -48,10 +55,11 @@ class UserGroup {
     }
 
     /**
-     * Returns true if the user is part of the group.
+     * Retorna `true` se um usuário faz parte de um determinado grupo.
      *
      * @param  {string|number} group
-     * @return {boolean}
+     * @param  {boolean} getById
+     * @return {Promise<boolean>}
      */
     Model.prototype.hasGroup = async function (group, getById = false) {
       if (getById && typeof group === 'string' && !isNaN(parseInt(group))) {
@@ -65,10 +73,11 @@ class UserGroup {
     }
 
     /**
-     * Returns true if the user is a moderator of the group.
+     * Retorna `true` se um usuário é moderador de um grupo.
      *
      * @param  {string|number} group
-     * @return {boolean}
+     * @param  {boolean} getById
+     * @return {Promise<boolean>}
      */
     Model.prototype.isModerator = async function (group, getById = false) {
       if (getById && typeof group === 'string' && !isNaN(parseInt(group))) {

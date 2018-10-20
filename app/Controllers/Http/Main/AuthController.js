@@ -6,18 +6,18 @@ const User = use('App/Models/User')
 
 class AuthController {
   /**
-   * Shows the login page.
+   * Mostra a página com o formulário de login.
    *
-   * @param {object} ctx
+   * @method GET
    */
   login ({ view }) {
     return view.render('pages.session.auth.login')
   }
 
   /**
-   * Logs in the user.
+   * Loga um usuário, criando a sua sessão.
    *
-   * @param {object} ctx
+   * @method POST
    */
   async postLogin ({ request, response, session, auth }) {
     const { username, password, remember } = request.all()
@@ -44,9 +44,9 @@ class AuthController {
   }
 
   /**
-   * Shows the register page.
+   * Mostra a página com o formulário de registro.
    *
-   * @param {object} ctx
+   * @method GET
    */
   register ({ view, session }) {
     const motto = `RCC-${shortid.generate()}`
@@ -56,9 +56,9 @@ class AuthController {
   }
 
   /**
-   * Creates an user account.
+   * Cria um novo usuário, através do formulário de registro.
    *
-   * @param {object} ctx
+   * @method POST
    */
   async postRegister ({ request, response, session }) {
     const data = request.only(['username', 'password', 'email'])
@@ -72,9 +72,9 @@ class AuthController {
   }
 
   /**
-   * Logs out the user.
+   * Remove a sessão de um usuário, deslogando-o do System.
    *
-   * @param {object} ctx
+   * @method GET
    */
   async logout ({ request, response, view, session, auth }) {
     if (request.input('confirm') !== 'on') {

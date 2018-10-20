@@ -4,9 +4,9 @@ const CrhRequest = use('App/Models/CrhRequest')
 
 class TimelineController {
   /**
-   * Shows the timeline for an user.
+   * Mostra os itens da timeline de um determinado usuário.
    *
-   * @param {object} ctx
+   * @method GET
    */
   async index ({ params: { id = null }, view }) {
     const items = await CrhRequest.query()

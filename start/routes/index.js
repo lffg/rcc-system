@@ -2,7 +2,7 @@
 
 const Route = use('Route')
 
-// Index:
+// Páginas de início:
 Route.any('index.html', 'Main/DashboardController.index')
 Route.any('/', 'Main/DashboardController.index').as('index')
 

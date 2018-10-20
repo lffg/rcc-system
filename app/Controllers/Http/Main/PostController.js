@@ -4,9 +4,9 @@ const Post = use('App/Models/Post')
 
 class PostController {
   /**
-   * Shows all the posts.
+   * Mostra todas as notícias (posts):
    *
-   * @param {object} ctx
+   * @method GET
    */
   async index ({ view }) {
     const posts = await Post.query()
@@ -18,21 +18,26 @@ class PostController {
   }
 
   /**
-   * Show the page to create a new post.
+   * Mostra a página para criar uma nova notícia.
    *
-   * @param {object} ctx
+   * @method GET
    */
   async create () {
     return 1
   }
 
+  /**
+   * Mostra a página para salvar uma notícia.
+   *
+   * @method POST
+   */
   async store () {
   }
 
   /**
-   * Shows a post.
+   * Mostra uma notícia.
    *
-   * @param {object} ctx
+   * @method GET
    */
   async show ({ params: { slug }, view }) {
     const post = await Post.query()
@@ -45,13 +50,28 @@ class PostController {
     return view.render('pages.posts.show', { post: post.toJSON() })
   }
 
+  /**
+   * Mostra a página com o formulário para editar uma notícia.
+   *
+   * @method GET
+   */
   async edit () {
     return 1
   }
 
+  /**
+   * Atualiza a notícia.
+   *
+   * @method POST
+   */
   async update () {
   }
 
+  /**
+   * Remove uma notícia.
+   *
+   * @method GET
+   */
   async destroy () {
   }
 }

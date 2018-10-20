@@ -3,6 +3,12 @@
 const User = use('App/Models/User')
 
 class UserController {
+  /**
+   * Verifica a existência de um usuário no System.
+   *
+   * @method GET
+   * @api
+   */
   async check ({ request, response }) {
     const username = request.input('u', '')
 

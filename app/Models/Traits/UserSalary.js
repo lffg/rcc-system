@@ -3,9 +3,15 @@
 class UserSalary {
   register (Model) {
     /**
-     * Returns the user salary.
+     * ---------------------------------------------------------------------
+     * Métodos da instância:
+     * ---------------------------------------------------------------------
+     */
+
+    /**
+     * Retorna o salário de um usuário.
      *
-     * @return {object}
+     * @return {Promise<{ fixSalary: number, fullSalary: number }>}
      */
     Model.prototype.getSalary = async function () {
       const fixSalary = await this.getFixSalary()
@@ -15,9 +21,9 @@ class UserSalary {
     }
 
     /**
-     * Returns the user's salary based on its position.
+     * Retorna o salário fixo de um usuário baseado em sua posição.
      *
-     * @return {number}
+     * @return {Promise<number>}
      */
     Model.prototype.getFixSalary = async function () {
       const user = await Model.query()
@@ -29,19 +35,22 @@ class UserSalary {
       return user.position ? user.position.salary || 0 : 0
     }
 
+    /**
+     * Retorna o salário de um usuário baseado em suas medalhas.
+     *
+     * @return {number}
+     */
     Model.prototype.getMedalsSalary = function () {
-      const temporary = this.temporary_bonuses
-      const effective = this.effective_bonuses
+      const temporary = this.temporary_bonuses || 0
+      const effective = this.effective_bonuses || 0
 
       return Math.floor((temporary + effective) / 20)
     }
 
     /**
-     * Returns the user's full salary.
+     * Retorna o salário completo de um usuário.
      *
-     * @param  {number} fixSalary
-     * @param  {number} medalsSalary
-     * @return {number}
+     * @return {Promise<number>}
      */
     Model.prototype.getFullSalary = async function () {
       const fixSalary = await this.getFixSalary()

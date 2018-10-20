@@ -3,12 +3,6 @@
 const { pick } = require('lodash')
 
 class UserParser {
-  /**
-   * Returns the parsed data that should be used to manage the user model.
-   *
-   * @param  {object} data
-   * @return {object}
-   */
   static parse (data = {}) {
     const userdata = pick(data, [
       'effective_bonuses',

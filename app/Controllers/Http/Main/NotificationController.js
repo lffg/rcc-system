@@ -3,6 +3,11 @@
 const Notification = use('App/Models/Notification')
 
 class NotificationController {
+  /**
+   * Mostra uma lista com as notificações.
+   *
+   * @method GET
+   */
   async list ({ params: { userId = null }, view }) {
     const notifications = await Notification.query()
       .where({ user_id: userId, is_read: false })

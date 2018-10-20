@@ -2,9 +2,9 @@
 
 class ConfigController {
   /**
-   * Shows the main configuration page.
+   * Mostra a página-índice para as configurações do usuário.
    *
-   * @param {object} ctx
+   * @method GET
    */
   main ({ view, auth: { user } }) {
     return view.render('pages.session.config.index', {
@@ -14,9 +14,24 @@ class ConfigController {
   }
 
   /**
-   * Shows the e-mail configuration page.
+   * Salva as configurações gerais.
    *
-   * @param {object} ctx
+   * @method POST
+   */
+  async saveMain ({ request, response, session, auth: { user } }) {
+    const data = request.only(['location', 'gender', 'bio'])
+
+    user.merge(data)
+    await user.save()
+
+    session.flash({ success: 'Seu perfil foi atualizado com sucesso!' })
+    return response.redirect('back')
+  }
+
+  /**
+   * Mostra a página para configurar o e-mail.
+   *
+   * @method GET
    */
   email ({ view, auth: { user } }) {
     return view.render('pages.session.config.index', {
@@ -26,9 +41,9 @@ class ConfigController {
   }
 
   /**
-   * Stores the e-mail configuration.
+   * Salva as configurações do e-mail.
    *
-   * @param {object} ctx
+   * @method POST
    */
   async saveEmail ({ request, response, session, auth: { user } }) {
     const data = request.only(['email'])
@@ -42,24 +57,9 @@ class ConfigController {
   }
 
   /**
-   * Stores the main configuration data.
+   * Mostra a página para alterar a senha.
    *
-   * @param {object} ctx
-   */
-  async saveMain ({ request, response, session, auth: { user } }) {
-    const data = request.only(['location', 'gender', 'bio'])
-
-    user.merge(data)
-    await user.save()
-
-    session.flash({ success: 'Seu perfil foi atualizado com sucesso!' })
-    return response.redirect('back')
-  }
-
-  /**
-   * Shows the password configuration page.
-   *
-   * @param {object} ctx
+   * @method GET
    */
   password ({ view, auth: { user } }) {
     return view.render('pages.session.config.index', {
@@ -69,7 +69,7 @@ class ConfigController {
   }
 
   /**
-   * Stores the password configuration.
+   * Salva a configuração de senha.
    *
    * @param {object} ctx
    */
@@ -79,7 +79,7 @@ class ConfigController {
     auth.user.merge(data)
     await auth.user.save()
 
-    // Logout:
+    // Desloga o usuário:
     await auth.logout()
     session.clear()
 

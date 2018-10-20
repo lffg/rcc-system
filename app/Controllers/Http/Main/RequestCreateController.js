@@ -7,11 +7,21 @@ const splitNicks = use('App/Helpers/split-nicks')
 const User = use('App/Models/User')
 
 class RequestCreateController {
+  /**
+   * Mostra a página (com formulário) para criar uma nova requisição.
+   * @method GET
+   */
   async create ({ view }) {
     const controllers = await RequestController.getControllers()
     return view.render('pages.requests.create', { controllers })
   }
 
+  /**
+   * Mostra uma parte específica do formulário usando um parâmetro da
+   * URL.
+   *
+   * @method GET<DevOnly>|POST
+   */
   async goto ({ request, params: { step }, view }) {
     const data = request.only(['author_id', 'controller_id', 'type_id', 'receivers'])
     const controller = await RequestController.getInfoFor(data.controller_id)
@@ -32,6 +42,12 @@ class RequestCreateController {
     }
   }
 
+  /**
+   * Salva a nova requisição, executando todos os processos da API de
+   * criação de requisições.
+   *
+   * @method POST
+   */
   async store ({ request, response, session }) {
     const data = request.all()
     let controller, type

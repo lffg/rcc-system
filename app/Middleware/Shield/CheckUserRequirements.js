@@ -2,7 +2,7 @@
 
 const Route = use('Route')
 
-// Checks the user state and e-mail confirmation state.
+// Checa se o e-mail do usuário está confirmado e se ele pode utilizar o System.
 class CheckUserRequirements {
   async handle ({ request, response, session, auth }, next) {
     try {
@@ -13,7 +13,7 @@ class CheckUserRequirements {
 
     const { allowed, disallowReason: reason = null, is_verified_email: verified } = auth.user.toJSON()
 
-    // Check if the user's login must be unset:
+    // Caso o usuário deva ser deslogado:
     if (!allowed) {
       await auth.logout()
 

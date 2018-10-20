@@ -14,10 +14,9 @@ const Log = use('Log')
 
 class GroupController {
   /**
-   * Shows all the groups
+   * Página que mostra todos os usuários, dentro do painel de controle.
    *
    * @method GET
-   * @param  {object} ctx.view
    */
   async index ({ view }) {
     const groups = await Group.query()
@@ -29,22 +28,18 @@ class GroupController {
   }
 
   /**
-   * Show the page to create a new group.
+   * Página que contém o formulário para criar um novo grupo.
    *
    * @method GET
-   * @param  {object} ctx.view
    */
   create ({ view }) {
     return view.render('admin.groups.create', { icons })
   }
 
   /**
-   * Creates a new group.
+   * Cria um novo grupo, salvando-o na base de dados.
    *
    * @method POST
-   * @param  {object} ctx.request
-   * @param  {object} ctx.response
-   * @param  {object} ctx.session
    */
   async store ({ request, response, session }) {
     const data = request.only(['name', 'color', 'icon', 'description'])
@@ -58,11 +53,9 @@ class GroupController {
   }
 
   /**
-   * Shows a group.
+   * Mostra a página com os detalhes de um grupo.
    *
    * @method GET
-   * @param  {string} ctx.params.id
-   * @param  {object} ctx.view
    */
   async show ({ params: { id }, view }) {
     const group = await Group.query()
@@ -86,14 +79,9 @@ class GroupController {
   }
 
   /**
-   * Updates a group.
+   * Atualiza as informações de um grupo.
    *
    * @method POST
-   * @param  {object} ctx.request
-   * @param  {object} ctx.response
-   * @param  {string} ctx.params.id
-   * @param  {object} ctx.session
-   * @param  {object} ctx.auth
    */
   async update ({ request, response, params: { id }, session, auth }) {
     const data = request.only(['name', 'color', 'icon', 'description', 'is_hidden'])
@@ -111,11 +99,9 @@ class GroupController {
   }
 
   /**
-   * Shows the page to delete a group.
+   * Mostra a página de confirmação para a exclusão de um grupo.
    *
    * @method GET
-   * @param  {string} ctx.params.id
-   * @param  {object} ctx.view
    */
   async delete ({ params: { id }, view }) {
     const group = await Group.findOrFail(id)
@@ -124,14 +110,9 @@ class GroupController {
   }
 
   /**
-   * Deletes a group.
+   * Remove um grupo da base de dados.
    *
-   * @method POST
-   * @param  {object} ctx.request
-   * @param  {object} ctx.response
-   * @param  {string} ctx.params.id
-   * @param  {object} ctx.session
-   * @param  {object} ctx.auth
+   * @method GET
    */
   async destroy ({ request, response, params: { id }, session, auth }) {
     if (request.input('group') !== id) {
@@ -154,13 +135,9 @@ class GroupController {
   }
 
   /**
-   * Changes the order of a group.
+   * Muda a ordem de um grupo.
    *
    * @method GET
-   * @param  {object} ctx.response
-   * @param  {string} ctx.params.mode
-   * @param  {string} ctx.params.id
-   * @param  {object} ctx.session
    */
   async order ({ response, params: { mode, id }, session }) {
     const txr = await Database.beginTransaction()
@@ -197,14 +174,9 @@ class GroupController {
   }
 
   /**
-   * Adds a new user to a group.
+   * Adiciona um novo usuário para um grupo.
    *
    * @method POST
-   * @param  {object} ctx.request
-   * @param  {object} ctx.response
-   * @param  {string} ctx.params.id
-   * @param  {object} ctx.session
-   * @param  {object} ctx.auth
    */
   async addUser ({ request, response, params: { id }, session, auth }) {
     const username = request.input('username', '')
@@ -226,14 +198,9 @@ class GroupController {
   }
 
   /**
-   * Removes an user from a group.
+   * Remove um usuário de um grupo.
    *
    * @method POST
-   * @param  {object} ctx.request
-   * @param  {object} ctx.response
-   * @param  {string} ctx.params.id
-   * @param  {object} ctx.session
-   * @param  {object} ctx.auth
    */
   async removeUser ({ request, response, params: { id }, session, auth }) {
     const username = request.input('username', '')
@@ -251,14 +218,9 @@ class GroupController {
   }
 
   /**
-   * Adds an user to the role of moderator of a group.
+   * Define um usuário como moderador de um determinado grupo.
    *
    * @method POST
-   * @param  {object} ctx.request
-   * @param  {object} ctx.response
-   * @param  {string} ctx.params.id
-   * @param  {object} ctx.session
-   * @param  {object} ctx.auth
    */
   async addModerator ({ request, response, params: { id }, session, auth }) {
     const username = request.input('username', '')
@@ -280,14 +242,9 @@ class GroupController {
   }
 
   /**
-   * Removes an user from the role of moderator of a group.
+   * Remove um usuário da posição de moderador de um determinado grupo.
    *
    * @method POST
-   * @param  {object} ctx.request
-   * @param  {object} ctx.response
-   * @param  {string} ctx.params.id
-   * @param  {object} ctx.session
-   * @param  {object} ctx.auth
    */
   async removeModerator ({ request, response, params: { id }, session, auth }) {
     const username = request.input('username', '')

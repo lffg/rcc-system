@@ -2,16 +2,14 @@
 
 const { merge } = require('lodash')
 
-const UserParser = use('App/Services/Parsers/User')
 const User = use('App/Models/User')
-const Log = use('Log')
+const Route = use('Route')
 
 class UserController {
   /**
-   * Shows all the users.
+   * Mostra a página com todos os usuários.
    *
    * @method  GET
-   * @param  {object} ctx
    */
   async index ({ request, view }) {
     let { page = 1, u = '', order, order_by: orderBy } = request.all() // , inactive
@@ -44,10 +42,9 @@ class UserController {
   }
 
   /**
-   * Shows an user.
+   * Mostra os detalhes de um usuário.
    *
    * @method GET
-   * @param  {object} ctx
    */
   async show ({ request, view }) {
     const username = request.input('u', null)
@@ -67,56 +64,9 @@ class UserController {
   }
 
   /**
-   * Shows the page for edit an user.
-   *
-   * @method  GET
-   * @param  {object} ctx
-   */
-  async edit ({ params: { id }, view }) {
-    const user = await User.query()
-      .where({ id })
-      .with('groups', (builder) => builder.select('id', 'name', 'color', 'icon'))
-      .with('position', (builder) => builder.select('id', 'name', 'alias'))
-      .firstOrFail()
-
-    return view.render('pages.users.edit', { user: user.toJSON() })
-  }
-
-  /**
-   * Updates an user.
-   *
-   * @method POST
-   * @param  {object} ctx
-   */
-  async update ({ request, response, params: { id }, session, auth }) {
-    const data  = UserParser.parse(request.all())
-    const user  = await User.findOrFail(id)
-
-    if (data.password === '') delete data.password
-
-    // Create the logs:
-    await Log.log(auth.user.id, request.ip(), {
-      message: `Alteração em campos do perfil para o usuário ${data.username || user.username}`
-    }, {
-      message: `Alteração do nome de usuário. De ${user.username} para ${data.username}`,
-      cond: (user.username !== data.username)
-    }, {
-      message: `Senha alterada para o usuário ${data.username || user.username}`,
-      cond: (!!data.password && user.password !== data.password)
-    })
-
-    user.merge(data)
-    await user.save()
-
-    session.flash({ success: 'Usuário atualizado com sucesso!' })
-    return response.redirect('back')
-  }
-
-  /**
-   * Shows the page to find an user.
+   * Mostra a página para procurar um usuário.
    *
    * @method GET
-   * @param  {object} ctx
    */
   async find ({ view, auth: { user: { id } } }) {
     const lastSearches = await User.query()
@@ -133,10 +83,9 @@ class UserController {
   }
 
   /**
-   * Shows all the users that match to the query.
+   * Mostra todos os usuários que correspondem à query.
    *
    * @method GET
-   * @param {object} ctx
    */
   async autocomplete ({ request }) {
     const query = request.input('query', '')
@@ -153,7 +102,7 @@ class UserController {
   }
 
   /**
-   * Redirect to the user page if exists.
+   * Redireciona para o perfil de um usuário, se existir.
    *
    * @method POST
    * @param  {object} ctx
@@ -171,7 +120,7 @@ class UserController {
     await auth.user.userSearches().create({ username })
 
     session.flash({ info: 'Redirecionado da página de busca.' })
-    return response.redirect(`/users/see?u=${username}`)
+    return response.redirect(`${Route.url('users.show')}?u=${username}`)
   }
 }
 

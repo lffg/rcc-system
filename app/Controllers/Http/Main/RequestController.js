@@ -4,6 +4,11 @@ const RequestController = use('App/Models/RequestController')
 const Request = use('App/Models/Request')
 
 class RequestHttpController {
+  /**
+   * Mostra a página-índice do Centro de Recursos Humanos.
+   *
+   * @method GET
+   */
   async index ({ view }) {
     const controllers = await RequestController.query()
       .select('*')

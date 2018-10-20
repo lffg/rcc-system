@@ -1,15 +1,5 @@
 'use strict'
 
-/*
-|--------------------------------------------------------------------------
-| Hooks
-|--------------------------------------------------------------------------
-|
-| For this file, check out the documentation:
-| https://adonisjs.com/docs/4.0/ignitor#_hooks
-|
-*/
-
 const moment = require('moment')
 
 const { hooks } = require('@adonisjs/ignitor')
@@ -22,7 +12,7 @@ hooks.after.providersRegistered(() => {
   const View = use('View')
 
   /**
-   * Extends validator with 'exists' rule.
+   * Extende o provider de validação com a regra "exists".
    */
   const existsFn = async (data, field, message, args, get) => {
     const value = get(data, field)
@@ -41,21 +31,21 @@ hooks.after.providersRegistered(() => {
   Validator.extend('exists', existsFn)
 
   /**
-   * Adds a "num" global method into the views:
+   * Adiciona um método "num" para as views".
    */
   View.global('num', (n) => {
     return Number(n)
   })
 
   /**
-   * Adds a "has" global method into the views:
+   * Adiciona um método "has" para as views.
    */
   View.global('has', (el, defaultValue = '') => {
     return el || defaultValue
   })
 
   /**
-   * Adds an "absolute" global method into the views:
+   * Adiciona um método "absolute" para as views".
    */
   View.global('absolute', (url = '') => {
     let base = Config.get('app.url')
@@ -67,21 +57,21 @@ hooks.after.providersRegistered(() => {
   })
 
   /**
-   * Adds a "currentTime" global method into the views:
+   * Adiciona um método "now" para as views.
    */
   View.global('now', () => {
     return Date.now()
   })
 
   /**
-   * Adds a "Date" global alias into de views:
+   * Adiciona uma instância de "Date" para as views.
    */
   View.global('Date', (...args) => {
     return new Date(...args)
   })
 
   /**
-   * Adds a moment.js global alias into the views:
+   * Adiciona a instância do Moment.JS para as views.
    */
   View.global('moment', (...args) => {
     moment.updateLocale('pt-br', require(Helpers.resourcesPath('i18n/moment')))

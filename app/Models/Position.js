@@ -6,7 +6,7 @@ const Model = use('Model')
 
 class Position extends Model {
   /**
-   * Boot method
+   * Método de boot (inicialização).
    *
    * @static
    * @return {void}
@@ -18,7 +18,7 @@ class Position extends Model {
   }
 
   /**
-   * Getter that defines the computed properties.
+   * Getter que define as propriedades computadas.
    *
    * @static
    * @return {string[]}
@@ -28,7 +28,7 @@ class Position extends Model {
   }
 
   /**
-   * Create the "colorYiq" computed property.
+   * Cria a propriedade computada "colorYiq".
    *
    * @param  {string} Group.color
    * @return {string}
@@ -39,11 +39,11 @@ class Position extends Model {
 
   /**
    * ---------------------------------------------------------------------
-   * Relationships
+   * Relações
    * ---------------------------------------------------------------------
    *
-   * The methods defined below are used to establish relationships between
-   * other models.
+   * Os métodos definidos abaixo são usados para estabelecer relações
+   * entre outros modelos (models).
    *
    */
 

@@ -7,10 +7,9 @@ const Log = use('Log')
 
 class GroupController {
   /**
-   * Gets all the groups.
+   * Mostra todos os grupos.
    *
    * @method GET
-   * @param  {object} ctx
    */
   async index ({ view }) {
     const groups = await Group.query()
@@ -22,10 +21,9 @@ class GroupController {
   }
 
   /**
-   * Shows a group.
+   * Mostra os detalhes de um grupo específico.
    *
    * @method GET
-   * @param  {object} ctx
    */
   async show ({ params: { id }, view, auth }) {
     const group = await Group.query()
@@ -54,10 +52,9 @@ class GroupController {
   }
 
   /**
-   * Adds a user to a group.
+   * Adiciona um usuário para um grupo.
    *
    * @method  POST
-   * @param  {object} ctx
    */
   async addUser ({ request, response, params: { id }, session, auth }) {
     const username = request.input('username', '')
@@ -75,10 +72,9 @@ class GroupController {
   }
 
   /**
-   * Removes an user from a group.
+   * Remove um usuário de um grupo.
    *
    * @method POST
-   * @param  {object} ctx
    */
   async removeUser ({ request, response, params: { id }, session, auth }) {
     const username = request.input('username', '')

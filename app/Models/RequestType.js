@@ -4,7 +4,7 @@ const Model = use('Model')
 
 class RequestType extends Model {
   /**
-   * Boot method
+   * Método de boot (inicialização).
    *
    * @static
    * @return {void}
@@ -17,11 +17,11 @@ class RequestType extends Model {
 
   /**
    * ---------------------------------------------------------------------
-   * Relationships
+   * Relações
    * ---------------------------------------------------------------------
    *
-   * The methods defined below are used to establish relationships between
-   * other models.
+   * Os métodos definidos abaixo são usados para estabelecer relações
+   * entre outros modelos (models).
    *
    */
 

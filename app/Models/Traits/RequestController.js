@@ -2,6 +2,18 @@
 
 class RequestController {
   register (Model) {
+    /**
+     * ---------------------------------------------------------------------
+     * Métodos estáticos:
+     * ---------------------------------------------------------------------
+     */
+
+    /**
+     * Retorna informações de um determinado controller.
+     *
+     * @param  {number} id
+     * @return {Promise<object>}
+     */
     Model.getInfoFor = async (id = null) => {
       const controller = await Model.query()
         .select('id', 'name', 'description')
@@ -15,6 +27,13 @@ class RequestController {
       return controller.toJSON()
     }
 
+    /**
+     * Seleciona todos os controllers, retornando também, os seus tipos,
+     * caso seja solicitado.
+     *
+     * @param  {boolean} getTypes
+     * @return {Promise<object>}
+     */
     Model.getControllers = async (getTypes = false) => {
       const query = Model.query()
         .select('id', 'name')

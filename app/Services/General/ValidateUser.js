@@ -3,12 +3,6 @@
 const got = require('got')
 
 class ValidateUser {
-  /**
-   * Validates an username with Habbo API.
-   *
-   * @param  {string} name
-   * @return {object}
-   */
   static async validate (name = '', motto = false) {
     const result = { status: false, error: null, refresh: true }
 

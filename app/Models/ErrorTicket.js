@@ -5,11 +5,11 @@ const Model = use('Model')
 class ErrorTicket extends Model {
   /**
    * ---------------------------------------------------------------------
-   * Relationships
+   * Relações
    * ---------------------------------------------------------------------
    *
-   * The methods defined below are used to establish relationships between
-   * other models.
+   * Os métodos definidos abaixo são usados para estabelecer relações
+   * entre outros modelos (models).
    *
    */
 

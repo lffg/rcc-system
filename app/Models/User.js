@@ -6,7 +6,7 @@ const Model = use('Model')
 
 class User extends Model {
   /**
-   * Boot method
+   * Método de boot (inicialização).
    *
    * @static
    * @return {void}
@@ -23,7 +23,7 @@ class User extends Model {
   }
 
   /**
-   * Getter that defines the computed properties.
+   * Getter que define as propriedades computadas.
    *
    * @static
    * @return {string[]}
@@ -33,7 +33,7 @@ class User extends Model {
   }
 
   /**
-   * Creates the "allowed" computed property.
+   * Cria a propriedade computada "allowed".
    *
    * @param  {string} User.state
    * @param  {number} User.banned_until
@@ -47,7 +47,7 @@ class User extends Model {
   }
 
   /**
-   * Creates the "disallowReason" computed property.
+   * Cria a propriedade computada "disallowReason".
    *
    * @param  {string} User.username
    * @param  {string} User.state
@@ -57,7 +57,7 @@ class User extends Model {
   getDisallowReason ({ username, state, banned_until: bannedUntil = 0 }) {
     if (this.getAllowed(...arguments)) return false
 
-    if (Date.now() < bannedUntil) {
+    if (this.getIsBanned(...arguments)) {
       return `O usuário ${username} está exonerado até o dia ${moment(bannedUntil).format('DD/MM/YYYY [às] HH:mm')}.`
     }
 
@@ -70,7 +70,7 @@ class User extends Model {
   }
 
   /**
-   * Creates the "isBanned" computed property.
+   * Cria a propriedade computada "isBanned".
    *
    * @param  {number} User.banned_until
    * @return {boolean}
@@ -80,7 +80,7 @@ class User extends Model {
   }
 
   /**
-   * Creates the "bannedUntilDate" computed property.
+   * Cria a propriedade computada "bannedUntilDate".
    *
    * @param  {number} User.banned_until
    * @return {string|boolean}
@@ -92,7 +92,7 @@ class User extends Model {
   }
 
   /**
-   * Creates a getter to the "tag" property.
+   * Cria a propriedade computada "tag".
    *
    * @param  {string} tag
    * @return {string}
@@ -102,7 +102,7 @@ class User extends Model {
   }
 
   /**
-   * Creates a getter to the "gender" property.
+   * Cria a propriedade computada "gender".
    *
    * @param  {string} gender
    * @return {string}
@@ -116,7 +116,7 @@ class User extends Model {
   }
 
   /**
-   * Creates a getter to the "location" property.
+   * Cria a propriedade computada "location".
    *
    * @param  {string} location
    * @return {string}
@@ -134,11 +134,11 @@ class User extends Model {
 
   /**
    * ---------------------------------------------------------------------
-   * Relationships
+   * Relações
    * ---------------------------------------------------------------------
    *
-   * The methods defined below are used to establish relationships between
-   * other models.
+   * Os métodos definidos abaixo são usados para estabelecer relações
+   * entre outros modelos (models).
    *
    */
 
@@ -148,14 +148,6 @@ class User extends Model {
       .pivotTable('pivot_group_user')
   }
 
-  /* primaryGroup () {
-    this
-      .belongsToMany('App/Models/Group')
-      .pivotTable('pivot_group_user')
-      .orderBy('order', 'asc')
-      .limit(1)
-  } */
-
   promoter () {
     return this.belongsTo('App/Models/User', 'promoter_id')
   }
@@ -164,7 +156,6 @@ class User extends Model {
     return this.hasMany('App/Models/ErrorTicket', 'id', 'author_id')
   }
 
-  // TODO: #crh
   timeline () {
     return this.hasMany('App/Models/CrhRequest', 'id', 'affected_id')
   }

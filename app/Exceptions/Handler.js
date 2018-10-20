@@ -4,15 +4,18 @@ const BaseExceptionHandler = use('BaseExceptionHandler')
 const Env = use('Env')
 
 class ExceptionHandler extends BaseExceptionHandler {
+  /**
+   * Retorna uma lista com os códigos de erro que tem uma tratativa de
+   * erro criada.
+   *
+   * @return {number[]}
+   */
   get availableStatus () {
     return [400, 401, 403, 404, 500]
   }
 
   /**
-   * Handles the HTTP errors.
-   *
-   * @param {object} error
-   * @param {object} ctx
+   * Lida com os erros HTTP.
    */
   async handle (error, ctx) {
     const handle = false
@@ -24,7 +27,7 @@ class ExceptionHandler extends BaseExceptionHandler {
     const { code, name, status } = error
     const { request, response, session } = ctx
 
-    // Handle invalid session error:
+    // Resolve o erro de sessão inválida.
     if (code === 'E_INVALID_SESSION') {
       if (request.ajax()) {
         return response.status(401).json({ reload: true })
@@ -35,36 +38,34 @@ class ExceptionHandler extends BaseExceptionHandler {
       return response.route('login')
     }
 
-    // Handle model not found error:
+    // Resolve o erro de entidade (model) não encontrada.
     if (name === 'ModelNotFoundException') {
-      return this._respond(404)
+      return this.respond(404)
     }
 
-    // Handle 400, 401, 403, 404 and 500 erros:
+    // Resolve os erros 400, 401, 403, 404 e 500:
     if (name === 'HttpException' && this.availableStatus.includes(status)) {
-      return this._respond(status)
+      return this.respond(status)
     }
 
-    // Handle others erros (in development):
+    // Resolve outros erros (DEV):
     if (Env.get('NODE_ENV') === 'development') {
       return super.handle(...arguments)
     }
 
-    // Handle 500 error if in production:
-    return this._respond(500)
+    // Resolve outros erros como 500 (PROD):
+    return this.respond(500)
   }
 
   /**
-   * Responds to a HTTP error.
-   *
-   * @param {number} status
+   * Responde a um erro HTTP.
    */
-  _respond (status = 500) {
+  respond (status = 500) {
     const { message } = this.error
     const { request, response, view } = this.ctx
 
     if (request.accepts(['json', 'html']) === 'json') {
-      return this._respondViaJSON(status)
+      return this.respondViaJSON(status)
     }
 
     response.status(status)
@@ -77,10 +78,9 @@ class ExceptionHandler extends BaseExceptionHandler {
   }
 
   /**
-   * Responds via JSON to a HTTP error.
-   * @param {number} status
+   * Responde a um erro HTTP em formato JSON.
    */
-  _respondViaJSON (status = 500) {
+  respondViaJSON (status = 500) {
     const { message: devMessage, status: devStatus } = this.error
     const { response } = this.ctx
 
@@ -89,7 +89,7 @@ class ExceptionHandler extends BaseExceptionHandler {
       401: 'Unauthorized',
       403: 'Forbidden',
       404: 'Page not found',
-      500: 'Internal server error' // default one
+      500: 'Internal server error' // Padrão
     })[status]
 
     return response.status(status).json({

@@ -7,7 +7,13 @@ const Mail = use('Mail')
 const Env = use('Env')
 
 class VerifyEmailController {
-  verify ({ response, session, auth: { user } }) {
+  /**
+   * Redireciona para o início se o usuário já tiver o e-mail
+   * verificado.
+   *
+   * @internal
+   */
+  _verify ({ response, session, auth: { user } }) {
     if (user.is_verified_email) {
       session.flash({ info: 'Seu e-mail já está verificado.' })
       response.route('index')
@@ -15,13 +21,23 @@ class VerifyEmailController {
     }
   }
 
+  /**
+   * Mostra a página para confirmar o e-mail.
+   *
+   * @method GET
+   */
   async index ({ view }) {
-    if (this.verify(...arguments)) return
+    if (this._verify(...arguments)) return
     return view.render('pages.users.verify-email')
   }
 
+  /**
+   * Envia o e-mail de confirmação.
+   *
+   * @method POST
+   */
   async send ({ request, response, session, auth: { user } }) {
-    if (this.verify(...arguments)) return
+    if (this._verify(...arguments)) return
 
     const chars = `${Env.get('APP_KEY')}-${Date.now()}-${Math.random()}`
     const token = crypto.createHash('sha1').update(chars).digest('hex')
@@ -52,6 +68,11 @@ class VerifyEmailController {
     return response.redirect('back')
   }
 
+  /**
+   * Confirma o token de verificação do e-mail.
+   *
+   * @method GET
+   */
   async confirm ({ response, params: { id, token }, session, auth }) {
     let user
     try {

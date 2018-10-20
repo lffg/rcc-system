@@ -4,9 +4,9 @@ const User = use('App/Models/User')
 
 class DashboardController {
   /**
-   * Shows the main system dashboard.
+   * Mostra a página principal do System.
    *
-   * @param {object} ctx
+   * @method GET
    */
   async index ({ view }) {
     await this._ensureAuth(...arguments)
@@ -17,10 +17,11 @@ class DashboardController {
   }
 
   /**
-   * Ensure auth.
+   * Certifica-se de que o usuário está autenticado.
    *
-   * @private
-   * @param {object} ctx
+   * @internal
+   * @param  {object} context
+   * @return {any}
    */
   async _ensureAuth ({ response, session, auth }) {
     try {
@@ -32,11 +33,10 @@ class DashboardController {
   }
 
   /**
-   * Gets the online users.
+   * Retorna os usuários on-line no System.
    *
-   * @async
-   * @private
-   * @return {object}
+   * @internal
+   * @return {Promise<object[]>}
    */
   async _getOnlineUsers () {
     const users = await User.query()

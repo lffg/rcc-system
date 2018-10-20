@@ -7,9 +7,9 @@ const Log = use('Log')
 
 class UserController {
   /**
-   * Shows all the users.
+   * Página que mostra todos os usuários, dentro do painel de controle.
    *
-   * @param {object} ctx
+   * @method GET
    */
   async index ({ request, view }) {
     const { page = 1, username = null } = request.all()
@@ -30,9 +30,9 @@ class UserController {
   }
 
   /**
-   * Shows an user.
+   * Mostra um usuário específico.
    *
-   * @param {object} ctx
+   * @method GET
    */
   async show ({ params: { id }, view }) {
     const user = await User.query()
@@ -51,7 +51,9 @@ class UserController {
   }
 
   /**
-   * Show logs.
+   * Mostra as logs para um usuário.
+   *
+   * @method GET
    */
   async logs ({ params: { id }, view }) {
     const user = await User.query()
@@ -63,9 +65,9 @@ class UserController {
   }
 
   /**
-   * Shows the page for edit an user.
+   * Mostra a página com o formulário para editar um usuário.
    *
-   * @param {object} ctx
+   * @method GET
    */
   async edit ({ params: { id }, view }) {
     const user = await User.query()
@@ -78,9 +80,9 @@ class UserController {
   }
 
   /**
-   * Updates an user.
+   * Atualiza os dados do usuário a ser modificado.
    *
-   * @param {object} ctx
+   * @method POST
    */
   async update ({ request, response, params: { id }, session, auth }) {
     const data  = UserParser.parse(request.all())

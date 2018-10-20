@@ -2,9 +2,9 @@
 
 class IndexController {
   /**
-   * Shows the admin dashboard.
+   * Mostra o dashboard do painel administrativo.
    *
-   * @param {object} ctx.view
+   * @method GET
    */
   index ({ view }) {
     return view.render('admin.dashboard.index')

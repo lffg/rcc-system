@@ -3,6 +3,13 @@
 const User = use('App/Models/User')
 
 class UserPositionController {
+  /**
+   * Mostra as posições anterior, seguinte e atual de um determinado
+   * usuário.
+   *
+   * @method GET
+   * @api
+   */
   async check ({ request, response }) {
     const username = request.input('u', '')
 

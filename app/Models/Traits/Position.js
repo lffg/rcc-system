@@ -6,7 +6,13 @@ const User = use('App/Models/User')
 class Position {
   register (Model) {
     /**
-     * Returns a detailed position list.
+     * ---------------------------------------------------------------------
+     * Métodos estáticos:
+     * ---------------------------------------------------------------------
+     */
+
+    /**
+     * Retorna uma lista de posições detalhada.
      *
      * @param  {object} config
      * @param  {number} groupId
@@ -29,7 +35,7 @@ class Position {
     }
 
     /**
-     * Returns a position list for the given group.
+     * Retorna uma lista de posições para um dado grupo.
      *
      * @param  {any} groupId
      * @return {Promise<object|object[]>}
@@ -48,7 +54,7 @@ class Position {
     }
 
     /**
-     * Get the position info for an user.
+     * Retorna as informações de posição para um determinado usuário.
      *
      * @param  {object} userId
      * @return {Promise<object>}
@@ -72,7 +78,14 @@ class Position {
     }
 
     /**
-     * Query macro to get near positions.
+     * ---------------------------------------------------------------------
+     * Macros de queries:
+     * ---------------------------------------------------------------------
+     */
+
+    /**
+     * Macro de query para carregar relações de posições anterior,
+     * próxima, equivalente; alem do grupo de posição.
      *
      * @return {object}
      */
