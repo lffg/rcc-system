@@ -44,10 +44,10 @@ class UserPermission {
         permission = parseInt(permission)
       }
 
-      const permissions = await this.getPermissions()
+      const permissions = await this.getPermissions(getByAlias)
 
-      if (getByAlias) return permissions.map(({ alias }) => alias).includes(permission.toUpperCase())
-      return permissions.map(({ id }) => id).includes(permission)
+      if (getByAlias) return permissions.includes(permission.toUpperCase())
+      return permissions.includes(permission)
     }
   }
 }
