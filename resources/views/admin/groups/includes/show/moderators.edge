@@ -1,56 +1,22 @@
 <div class="card">
-  <div class="card-header">Moderadores do Grupo ({{ group.name }})</div>
-  <div class="card-body">
-
-    <section>
-      <a href="#add-moderator" data-toggle="modal" class="btn btn-secondary btn-sm mb-3 ml-2 pull-right">
-        <i class="fa fa-plus"></i> Adicionar um Moderador
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <span>Moderadores do Grupo ({{ group.name }})</span>
+    <div>
+      <a href="#add-moderator" data-toggle="modal" class="btn btn-secondary btn-sm">
+        <i class="fa fa-plus"></i> Adicionar Moderador
       </a>
-    </section>
-
-    <div class="table-responsive">
-      <table class="table table-hover text-center mb-0">
-        <thead class="thead-light">
-          <th>ID</th>
-          <th>Nome de Usuário</th>
-          <th>Ações</th>
-        </thead>
-        <tbody>
-          @each(user in moderators)
-            <tr>
-              <td>{{ user.id }}</td>
-              <td>
-                <a href="{{ route('admin:users.show', { id: user.id }) }}">{{ user.username }}</a>
-              </td>
-              <td>
-                <form
-                  action="{{ route('admin:groups.remove-moderator', { id: group.id }) }}"
-                  method="POST">
-                    <input type="hidden" name="username" value="{{ user.username }}" />
-                    <button
-                      type="submit"
-                      class="btn btn-danger btn-sm"
-                      title="Remover este usuário da moderação do grupo"
-                    >
-                      <i class="fa fa-minus"></i>
-                    </button>
-
-                    {{ csrfField() }}
-                  </form>
-              </td>
-            </tr>
-          @else
-            <tr>
-              <td colspan="3">
-                <div class="alert alert-info mb-0">
-                  <i class="fa fa-info"></i> Não há moderadores.
-                </div>
-              </td>
-            </tr>
-          @endeach
-        </tbody>
-      </table>
+      <a href="#remove-moderator" data-toggle="modal" class="btn btn-secondary btn-sm ml-2">
+        <i class="fa fa-minus"></i> Remover Moderador
+      </a>
     </div>
+  </div>
+  <div class="card-body">
+    @each(user in moderators)
+      <a href="{{ route('admin:users.show', { id: user.id }) }}">{{ user.username }}</a>{{ $loop.last ? '' : ', ' }}
+    @else
+      <i class="fa fa-info"></i>
+      Este grupo não possui moderadores.
+    @endeach
   </div>
 </div>
 
@@ -59,7 +25,7 @@
   <form class="modal-dialog" action="{{ route('admin:groups.add-moderator', { id: group.id }) }}" method="POST">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Adicionar Moderador</h5>
+        <h5 class="modal-title">Adicionar Moderador</h5>
         <button type="button" class="close" data-dismiss="modal">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -83,3 +49,34 @@
     {{ csrfField() }}
   </form>
 </div>
+
+{{-- Remove Moderator Modal --}}
+<div class="modal fade" id="remove-moderator" tabindex="-1">
+  <form class="modal-dialog" action="{{ route('admin:groups.remove-moderator', { id: group.id }) }}" method="POST">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Remover Moderador</h5>
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="username">Usuário:</label>
+          <input type="text" name="username" id="username" class="form-control js-username" autocomplete="off" required />
+        </div>
+
+        <div class="alert alert-warning alert-fw text-justify">
+          Ao remover um membro da moderação de um grupo, ele não será mais capaz de adicionar/remover membros do grupo.
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        <button type="submit" class="btn btn-danger">Remover</button>
+      </div>
+    </div>
+
+    {{ csrfField() }}
+  </form>
+</div>
+
