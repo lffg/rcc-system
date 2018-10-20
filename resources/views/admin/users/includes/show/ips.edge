@@ -2,29 +2,21 @@
   <div class="card-header">
     <i class="fa fa-globe"></i> IP's do Usuário
   </div>
-  <div class="sys-data overflow-control" style="max-height: 280px;">
-    <table>
-      <tbody>
-        @each(ip in user.ips)
-          <tr>
-            <td>
-              <a
-                href="https://ipgetinfo.com/?mode=ip&lang=en&ip={{ urlEncode(ip.ip) }}"
-                target="_blank"
-                rel="noopener">{{ ip.ip }}</a>
-            </td>
-            <td>{{ moment(ip.created_at).format('DD/MM/YY [às] HH:mm') }}</td>
-          </tr>
-        @else
-          <tr>
-            <td colspan="2">
-              <div class="alert alert-info mb-0">
-                <i class="fa fa-info"></i> Nenhum IP cadastrado.
-              </div>
-            </td>
-          </tr>
-        @endeach
-      </tbody>
-    </table>
-  </div>
+  <ul class="list-group list-group-flush overflow-control" style="max-height: 280px;">
+    @each(ip in user.ips)
+      <li class="list-group-item">
+        <a
+          href="https://ipgetinfo.com/?mode=ip&lang=en&ip={{ urlEncode(ip.ip) }}"
+          target="_blank"
+          rel="noopener"
+        >{{ ip.ip }}</a>
+        — <em title="{{ moment(ip.created_at).f() }}">{{ moment(ip.created_at).fromNow() }}</em>
+      </li>
+    @else
+      <li class="list-group-item">
+        Nenhum IP cadastrado. <br />
+        Este usuário nunca fez login no System.
+      </li>
+    @endeach
+  </ul>
 </div>
