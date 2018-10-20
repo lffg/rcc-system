@@ -16,8 +16,8 @@ Route.group(() => {
   Route.post('create', 'PostController.store').as('posts.store').middleware(['admin'])
 
   Route.get('edit/:slug', 'PostController.edit').as('posts.edit').middleware(['admin'])
-  Route.put('edit/:slug', 'PostController.update').as('posts.update').middleware(['admin'])
-  Route.delete('delete/:slug', 'PostController.destroy').as('posts.delete').middleware(['admin'])
+  Route.post('edit/:slug', 'PostController.update').as('posts.update').middleware(['admin'])
+  Route.get('delete/:slug', 'PostController.destroy').as('posts.delete').middleware(['admin'])
 })
   .middleware(['auth'])
   .namespace('Main')
