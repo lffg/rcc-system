@@ -34,9 +34,10 @@
               <span
                 style="text-decoration: line-through;"
                 title="Grupo oculto"
-                data-toggle="tooltip">
+              >
             @endif
             <a
+              class="no-u"
               style="color: {{ group.color }}; font-weight: 500;"
               href="{{ route('admin:groups.show', { id: group.id }) }}">
               @if(group.icon)
@@ -54,14 +55,14 @@
               href="{{ route('groups.show', { id: group.id }) }}"
               class="btn btn-info btn-sm"
               title="Ver grupo no system"
-              data-toggle="tooltip">
+            >
               <i class="fa fa-eye"></i>
             </a>
             <a
               href="{{ route('admin:groups.show', { id: group.id }) }}"
               class="btn btn-warning btn-sm"
               title="Gerenciar grupo"
-              data-toggle="tooltip">
+            >
               <i class="fa fa-cog"></i>
             </a>
             @unless(group.is_permanent)
@@ -69,7 +70,7 @@
                 href="{{ route('admin:groups.delete', { id: group.id }) }}"
                 class="btn btn-danger btn-sm"
                 title="Remover grupo"
-                data-toggle="tooltip">
+              >
                 <i class="fa fa-trash-o"></i>
               </a>
             @else

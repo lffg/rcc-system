@@ -1,4 +1,4 @@
-<form data-wiz-form-goto="3" data-wiz-uri="{{ route('requests.create:part-3') }}">
+<form data-wiz-form-goto="3" data-wiz-uri="{{ route('requests.create:goto', { step: 3 }) }}">
   <div data-wiz-meta-wrapper="true">
     {{ csrfField() }}
     <input type="hidden" name="author_id" value="{{ data.author_id }}" />
@@ -9,7 +9,8 @@
 
   <nav class="sys-breadcrumbs">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item text-muted">{{ controller.name }}</li>
+      <li class="breadcrumb-item text-muted">Requerimento de {{ controller.name }}</li>
+      <li class="breadcrumb-item text-muted">Selecionar o Tipo</li>
     </ol>
   </nav>
 
@@ -51,11 +52,11 @@
       name="receivers"
       id="receivers"
       class="form-control"
-      data-toggle="tooltip"
       data-html="true"
       title="Separe os nicks usando o caractere da barra (<code>/</code>).<br>Por exemplo:<br><code>luuuiiiz. / Dean.Santos</code>"
       autocomplete="off"
-      required />
+      required
+    />
     <small class="text-muted form-help">
       Se desejar, você pode inserir mais de um policial. Para isso, separe os nicks usando uma barra (<kbd>/</kbd>).
     </small>

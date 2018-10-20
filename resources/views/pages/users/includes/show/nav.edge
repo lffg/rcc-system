@@ -15,13 +15,12 @@
         <span
           class="sys-online-indicator"
           title="Este usuário está on-line."
-          data-toggle="tooltip"
           data-placement="right"
           aria-label="Este usuário está on-line."></span>
       @endif
     </h1>
     <div class="sys-position">
-      {{ user.position.name }}
+      {{ post.user.position.name || 'Nenhuma posição' }}
     </div>
   </div>
 </header>

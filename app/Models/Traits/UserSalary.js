@@ -26,7 +26,7 @@ class UserSalary {
         .first()
         .then((user) => user.toJSON())
 
-      return user.position.salary
+      return user.position ? user.position.salary || 0 : 0
     }
 
     Model.prototype.getMedalsSalary = function () {

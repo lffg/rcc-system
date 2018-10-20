@@ -11,7 +11,7 @@
           <label>Alias:</label>
           <input type="text" class="form-control" value="{{ group.alias }}" disabled />
           <small class="form-text text-muted">
-            Este valor único é criado automaticamente durante a criação do grupo.
+            Este valor único é criado automaticamente durante a criação do grupo. Não pode, portanto, ser alterado.
           </small>
         </div>
         <div class="col-sm-4">
@@ -24,7 +24,7 @@
             @endif
           </span>
           <small class="form-text text-muted">
-            Grupos permanentes não podem ser excluídos; grupos em estado padrão, sim.
+            Grupos permanentes não podem ser excluídos; grupos em estado padrão, sim. O estado só pode ser modificado por um desenvolvedor.
           </small>
         </div>
       </div>
@@ -80,7 +80,7 @@
             id="is_hidden"
             class="form-control {{ elIf('$self', 'is-invalid', hasErrorFor('is_hidden')) }}"
             title="Grupos ocultos não podem ser visualizados por usuários e membros. De maneira geral, têm funções ligadas à permissões de usuários e afins."
-            data-toggle="tooltip">
+          >
             <option value="0" {{ ! group.is_hidden ? 'selected' : '' }}>Grupo Público</option>
             <option value="1" {{ group.is_hidden ? 'selected' : '' }}>Grupo Oculto</option>
           </select>

@@ -1,13 +1,12 @@
 'use strict'
 
 const { controllers, actions, types } = require('../seeds-data/requests')
-const requests = require('../seeds-data/requests-entries')
+// const requests = require('../seeds-data/requests-entries')
 
-const CreateRequest = use('App/Services/Request/CreateRequest')
+// const CreateRequest = use('App/Services/Request/CreateRequest')
 const RequestController = use('App/Models/RequestController')
 const RequestAction = use('App/Models/RequestAction')
 const RequestType = use('App/Models/RequestType')
-const Position = use('App/Models/Position')
 const Request = use('App/Models/Request')
 const Database = use('Database')
 
@@ -19,7 +18,6 @@ class RequestsSeeder {
     await RequestType.truncate()
     await Request.truncate()
     await Database.raw('TRUNCATE TABLE pivot_request_action_type')
-    await Database.raw('TRUNCATE TABLE pivot_request_controller_position')
     await Database.raw('SET FOREIGN_KEY_CHECKS = 1')
 
     await this.createControllers()
@@ -34,8 +32,8 @@ class RequestsSeeder {
     await this.relations()
     console.log('Relações das requisições criadas.')
 
-    await this.createRequests()
-    console.log('Requisições criadas.')
+    // await this.createRequests()
+    // console.log('Requisições criadas.')
     // await this.createReviews()
   }
 
@@ -55,18 +53,11 @@ class RequestsSeeder {
 
   async createControllers () {
     for (const data of controllers) {
-      const positions = data.__positions__ || []
       delete data.__positions__
 
       const controller = new RequestController()
       controller.merge(data)
       await controller.save()
-
-      console.log('Iniciando relações entre controllers e posições.')
-      for (const positionId of positions) {
-        const position = await Position.findOrFail(positionId)
-        await controller.listPositions().attach([position.id], (row) => (row.order = 1))
-      }
     }
   }
 
@@ -86,7 +77,7 @@ class RequestsSeeder {
     }
   }
 
-  async createRequests () {
+  /* async createRequests () {
     const wait = (t = 0) => new Promise((resolve) => setTimeout(resolve, t))
 
     for (const data of requests) {
@@ -98,7 +89,7 @@ class RequestsSeeder {
       req.use(data)
       await req.create()
     }
-  }
+  } */
 }
 
 module.exports = RequestsSeeder

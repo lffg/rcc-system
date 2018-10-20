@@ -35,7 +35,6 @@
       </li>
       <li
         class="navbar-item sys-notification-menu {{ $userdata.__meta__.notifications_count > 0 ? 'sys-has-notification' : '' }}"
-        data-toggle="tooltip"
         @if($userdata.__meta__.notifications_count > 0)
           title="Você tem {{ $userdata.__meta__.notifications_count }} notificaç{{ $userdata.__meta__.notifications_count > 1 ? 'ões' : 'ão' }} não lida{{ $userdata.__meta__.notifications_count > 1 ? 's' : '' }}."
         @else

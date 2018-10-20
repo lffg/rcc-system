@@ -28,12 +28,10 @@ Route.group(() => {
     .validator('General/RequestCreate').as('requests.store')
 
   // AJAX calls:
-  Route.post('part-1', 'RequestCreateController.ajaxPart')
-    .as('requests.create:part-1')
-  Route.post('part-2', 'RequestCreateController.ajaxPart')
-    .validator('General/RequestCreate').as('requests.create:part-2')
-  Route.post('part-3', 'RequestCreateController.ajaxPart')
-    .validator('General/RequestCreate').as('requests.create:part-3')
+  Route.route('goto/:step', 'RequestCreateController.goto', [
+    'POST', ...(process.env.NODE_ENV === 'development' ? ['GET'] : [])
+  ])
+    .validator('General/RequestCreate').as('requests.create:goto')
 })
   .middleware(['auth'])
   .namespace('Main')

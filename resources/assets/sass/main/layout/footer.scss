@@ -51,7 +51,11 @@
         text-decoration: none;
 
         &:hover {
-          color: $primary;
+          @if $primary != $secondary {
+            color: $primary;
+          } @else {
+            color: $accent;
+          }
         }
       }
     }

@@ -1,0 +1,57 @@
+@layout('partials.layouts.admin')
+
+@section('title')
+  Logs :: {{ user.username }}
+@endsection
+
+@section('breadcrumb')
+  <li class="breadcrumb-item">
+    <a href="{{ route('admin') }}">Administração</a>
+  </li>
+  <li class="breadcrumb-item">
+    <a href="{{ route('admin:users.index') }}">Usuários</a>
+  </li>
+  <li class="breadcrumb-item">
+    <a href="{{ route('admin:users.show', { id: user.id }) }}">
+      {{ user.username }}
+    </a>
+  </li>
+  <li class="breadcrumb-item">Logs</li>
+@endsection
+
+@section('content')
+  <div class="card mb-3">
+    <div class="card-body">
+      Através dessa página, você pode consultar as logs para o usuário {{ user.username }}. <br />
+      <strong>Mostrando um total de {{ user.logs.length }} entidades.</strong>
+    </div>
+  </div>
+
+  <table class="table table-hover table-bordered text-center table-sm table-striped">
+    <thead class="thead-light">
+      <th>#</th>
+      <th>Ação Executada</th>
+      <th>IP da Ação</th>
+      <th>Data</th>
+    </thead>
+    <tbody>
+      @each(log in user.logs)
+        <tr>
+          <td><samp>{{ log.id }}</samp></td>
+          <td>{{ log.log }}</td>
+          <td><samp>{{ log.ip }}</samp></td>
+          <td
+            class="text-capitalize"
+            title="{{ moment(log.created_at).f() }}"
+          >
+            {{ moment(log.created_at).fromNow() }}
+          </td>
+        </tr>
+      @else
+        <tr>
+          <td colspan="4">Este usuário não tem nenhum log administrativo.</td>
+        </tr>
+      @endeach
+    </tbody>
+  </table>
+@endsection

@@ -2,7 +2,7 @@
 
 const Model = use('Model')
 
-class RequestController extends Model {
+class Permission extends Model {
   /**
    * Boot method
    *
@@ -12,13 +12,7 @@ class RequestController extends Model {
   static boot () {
     super.boot()
 
-    this.addTrait('RequestController')
-
-    this.addTrait('@provider:Lucid/Slugify', {
-      fields: { slug: 'name' },
-      strategy: 'dbIncrement',
-      disableUpdates: false
-    })
+    this.addHook('beforeCreate', 'AliasHook.generateAlias')
   }
 
   /**
@@ -31,13 +25,11 @@ class RequestController extends Model {
    *
    */
 
-  requests () {
-    return this.hasMany('App/Models/Request', 'id', 'controller_id')
-  }
-
-  types () {
-    return this.hasMany('App/Models/RequestType', 'id', 'controller_id')
+  groups () {
+    return this
+      .belongsToMany('App/Models/Group')
+      .pivotTable('pivot_group_permission')
   }
 }
 
-module.exports = RequestController
+module.exports = Permission

@@ -1,8 +1,7 @@
 @layout('partials.layouts.admin')
 
 @section('title')
-  @set('title_override', 'Editar Perfil — ' + user.username)
-  <i class="fa fa-cog"></i> {{ user.username }}
+  Editar Perfil &mdash; {{ user.username }}
 @endsection
 
 @section('breadcrumb')

@@ -14,12 +14,12 @@
         name="username"
         class="form-control {{ elIf('$self', 'is-invalid', hasErrorFor('username')) }}"
         value="{{ old('username', '') }}"
-        data-toggle="tooltip"
         data-html="true"
         data-placement="right"
         title="O nome de usuário deve ser o <b>mesmo</b> nick que você usa no Habbo."
         autocomplete="off"
-        required />
+        required
+      />
       {{ elIf('<span class="invalid-feedback">$self</span>', getErrorFor('username'), hasErrorFor('username')) }}
     </div>
 
@@ -31,13 +31,13 @@
         name="email"
         class="form-control {{ elIf('$self', 'is-invalid', hasErrorFor('email')) }}"
         value="{{ old('email', '') }}"
-        data-toggle="tooltip"
         data-html="true"
         data-placement="right"
         title="Este e-mail <b>deverá ser verificado</b> na próxima etapa do registro para que você possa criar a sua conta."
         data-html="true"
         autocomplete="off"
-        required />
+        required
+      />
       {{ elIf('<span class="invalid-feedback">$self</span>', getErrorFor('email'), hasErrorFor('email')) }}
     </div>
 
@@ -49,12 +49,12 @@
         name="password"
         class="form-control {{ elIf('$self', 'is-invalid', hasErrorFor('password')) }}"
         value="{{ old('password', '') }}"
-        data-toggle="tooltip"
         data-html="true"
         data-placement="right"
         title="A senha <strong>não pode começar ou terminar com espaços</strong>."
         autocomplete="off"
-        required />
+        required
+      />
       {{ elIf('<span class="invalid-feedback">$self</span>', getErrorFor('password'), hasErrorFor('password')) }}
     </div>
 

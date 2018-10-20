@@ -18,7 +18,7 @@
       var data = generateData($this.serializeArray());
       var uri = $this.attr('data-wiz-uri');
 
-      $this.find('[data-toggle="tooltip"]').tooltip('hide');
+      $this.find('[title]').not('[data-tooltip="off"]').tooltip('hide');
 
       loadPart(uri, data, function (error, response, isJSON) {
         if (error) {
@@ -51,7 +51,7 @@
       var uri = $this.attr('data-wiz-link-uri');
       var data = generateDataFromFields($this.attr('data-wiz-required-fields'));
 
-      $this.find('[data-toggle="tooltip"]').tooltip('hide');
+      $this.find('[title]').not('[data-tooltip="off"]').tooltip('hide');
 
       loadPart(uri, data, function (error, response, isJSON) {
         if (error) {

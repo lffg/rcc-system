@@ -12,16 +12,16 @@ class PositionSeeder {
     await PositionGroup.truncate()
     await Position.truncate()
 
-    await this._createGroups()
+    await this.createPositionGroups()
     console.log('Grupos de posições criados.')
 
-    await this._createPositions()
+    await this.createPositions()
     console.log('Posições criadas.')
 
     await Database.raw('SET FOREIGN_KEY_CHECKS = 1')
   }
 
-  async _createGroups () {
+  async createPositionGroups () {
     for (const data of positionGroups) {
       const group = new PositionGroup()
       group.merge(data)
@@ -29,7 +29,7 @@ class PositionSeeder {
     }
   }
 
-  async _createPositions () {
+  async createPositions () {
     for (const data of positions) {
       switch (data.type.toUpperCase()) {
         case 'CM': data.group_id = 1; break

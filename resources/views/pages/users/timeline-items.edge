@@ -26,7 +26,7 @@
               class="badge badge-dark"
               style="background-color: {{ item.state.color }};"
               title="{{ item.state.message }}"
-              data-toggle="tooltip">
+
               <i class="{{ item.state.icon }}"></i> {{ item.state.name }}
             </span>
           </span>
@@ -34,7 +34,7 @@
           <span
             class="sys-timeline-footer-item"
             title="Este requerimento foi aberto por {{ item.author.username }}."
-            data-toggle="tooltip">
+          >
             <i class="fa fa-user"></i> Por:
             <a href="{{ route('users.show') }}?u={{ item.author.username }}">{{ item.author.username }}</a>
           </span>

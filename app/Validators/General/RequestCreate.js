@@ -4,19 +4,10 @@ const { sprintf } = require('sprintf-js')
 
 const { HttpException } = use('@adonisjs/generic-exceptions')
 const RequestController = use('App/Models/RequestController')
-const RequestException = use('App/Exceptions/Request')
 const RequestType = use('App/Models/RequestType')
+const splitNicks = use('App/Helpers/split-nicks')
+const FormError = use('App/Exceptions/FormError')
 const Route = use('Route')
-
-/**
- * Divide uma string de nomes de usuários pela barra.
- *
- * @param  {string} nicks
- * @return {string}
- */
-function splitNicks (nicks = '') {
-  return [...new Set(nicks.split(/\\|\//).map((s) => s.trim()).filter((s) => /\S/.test(s)))]
-}
 
 class RequestCreate {
   /**
@@ -51,7 +42,7 @@ class RequestCreate {
     error = sprintf(error, params)
 
     if (/\/save$/i.test(request.url())) {
-      throw new RequestException(`Erro ao tentar criar a requisição: ${error}`, 400, uri)
+      throw new FormError(`Erro ao tentar criar a requisição: ${error}`, 400, uri)
     }
 
     response.status(status).json({ error })
@@ -126,7 +117,7 @@ class RequestCreate {
   async checkUsers (type) {
     const { request } = this.ctx
     const receivers = request.input('receivers')
-    const users = splitNicks(receivers)
+    const users = splitNicks(receivers, true)
 
     const { status, code, params = [] } = await type.validateUsers(users)
 

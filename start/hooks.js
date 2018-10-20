@@ -17,6 +17,7 @@ const { hooks } = require('@adonisjs/ignitor')
 hooks.after.providersRegistered(() => {
   const Validator = use('Validator')
   const Database = use('Database')
+  const Helpers = use('Helpers')
   const Config = use('Config')
   const View = use('View')
 
@@ -83,6 +84,16 @@ hooks.after.providersRegistered(() => {
    * Adds a moment.js global alias into the views:
    */
   View.global('moment', (...args) => {
+    moment.updateLocale('pt-br', require(Helpers.resourcesPath('i18n/moment')))
+    moment.locale('pt-br')
+
+    moment.prototype.f = function (short = false) {
+      if (!short) {
+        return this.format('LLLL')
+      }
+
+      return this.format('DD MMM YYYY')
+    }
     return moment(...args)
   })
 })

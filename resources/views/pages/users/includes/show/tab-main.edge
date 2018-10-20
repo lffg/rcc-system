@@ -39,7 +39,7 @@
     </tr>
     <tr>
       <td>Patente/cargo</td>
-      <td>{{ user.position.name }}</td>
+      <td>{{ user.position.name || 'Nenhuma posição' }}</td>
     </tr>
     <tr>
       <td>Tag do Promotor</td>
@@ -49,15 +49,21 @@
     </tr>
     <tr>
       <td>Criação da Conta (no System)</td>
-      <td>{{ moment(user.created_at).format('DD/MM/YYYY') }}</td>
+      <td>
+        @if(user.created_at)
+          {{ moment(user.created_at).format('DD/MM/YYYY') }}
+        @else
+          Data não especificada
+        @endif
+      </td>
     </tr>
     <tr>
       <td>Última visita (no System)</td>
       @if(user.last_visit != 0)
         <td
           title="Visto por último em {{ moment(user.last_visit).format('DD/MM/YYYY [às] HH:mm:ss') }}"
-          data-toggle="tooltip"
-          data-placement="left">
+          data-placement="left"
+        >
           {{ moment(user.last_visit).format('DD/MM/YYYY [às] HH:mm') }}
         </td>
       @else
@@ -117,7 +123,7 @@
       @else
         <td class="text-danger">
           @if(user.disallowReason)
-            <span title="Razão: {{ user.disallowReason }}" data-toggle="tooltip">
+            <span title="Razão: {{ user.disallowReason }}">
               <i class="fa fa-exclamation-triangle"></i> Acesso Proibido
             </span>
           @else

@@ -2,24 +2,23 @@
 
 const Schema = use('Schema')
 
-class RequestActionSchema extends Schema {
+class PermissionSchema extends Schema {
   up () {
-    this.create('request_actions', (table) => {
+    this.create('permissions', (table) => {
       table.increments()
+      table.timestamps()
 
       table.string('alias', 80).notNullable().unique().index('alias')
-      table.enum('execute_on', ['CREATE', 'UPDATE', 'APPROVE', 'REJECT'])
+      table.boolean('is_permanent').notNullable().defaultTo(false)
 
       table.string('name', 100).notNullable()
       table.text('description').defaultTo(null)
-
-      table.timestamps()
     })
   }
 
   down () {
-    this.drop('request_actions')
+    this.drop('permissions')
   }
 }
 
-module.exports = RequestActionSchema
+module.exports = PermissionSchema
