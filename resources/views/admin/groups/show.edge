@@ -15,20 +15,18 @@
 @endsection
 
 @section('content')
-  <div class="sys-admin-inactives-list">
-    <div class="card mb-3">
-      <div class="card-body text-justify">
-        Através dessa página, você pode gerenciar o grupo {{ group.name }}. <br />
-        Clique <a href="{{ route('groups.show', { id: group.id }) }}">aqui</a> para acessar este grupo no system.
-      </div>
+  <div class="card mb-3">
+    <div class="card-body text-justify">
+      Através dessa página, você pode gerenciar o grupo {{ group.name }}. <br />
+      Clique <a href="{{ route('groups.show', { id: group.id }) }}">aqui</a> para acessar este grupo no system.
     </div>
-
-    @include('admin.groups.includes.show.form')
-    @include('admin.groups.includes.show.members')
-    @unless(group.alias === 'USERS')
-      @include('admin.groups.includes.show.moderators')
-    @endunless
   </div>
+
+  @include('admin.groups.includes.show.form')
+  @include('admin.groups.includes.show.members')
+  @unless(group.alias === 'USERS')
+    @include('admin.groups.includes.show.moderators')
+  @endunless
 @endsection
 
 @section('scripts')

@@ -12,18 +12,16 @@
 @endsection
 
 @section('content')
-  <div class="sys-admin-inactives-list">
-    <div class="card mb-3">
-      <div class="card-body text-justify">
-        Através dessa página, você pode criar, gerenciar e apagar grupos. Note que para gerenciar grupos aninhados, você deve estar na página de gestão do grupo em questão. <br />
-        Clique <a href="{{ route('groups.index') }}">aqui</a> para acessar esta página no system.
-      </div>
+  <div class="card mb-3">
+    <div class="card-body text-justify">
+      Através dessa página, você pode criar, gerenciar e apagar grupos. Note que para gerenciar grupos aninhados, você deve estar na página de gestão do grupo em questão. <br />
+      Clique <a href="{{ route('groups.index') }}">aqui</a> para acessar esta página no system.
     </div>
-
-    <a href="{{ route('admin:groups.create') }}" class="btn btn-primary btn-sm mb-3 pull-right">
-      <i class="fa fa-plus"></i> Criar Novo Grupo
-    </a>
-
-    @include('admin.groups.includes.index.table')
   </div>
+
+  <a href="{{ route('admin:groups.create') }}" class="btn btn-primary btn-sm mb-3 pull-right">
+    <i class="fa fa-plus"></i> Criar Novo Grupo
+  </a>
+
+  @include('admin.groups.includes.index.table')
 @endsection

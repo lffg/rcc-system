@@ -15,15 +15,13 @@
 @endsection
 
 @section('content')
-  <div class="sys-admin-inactives-list">
-    <div class="card mb-3">
-      <div class="card-body text-justify">
-        Através dessa página, você pode criar um novo grupo. Para isso, complete o formulário a seguir.
-      </div>
+  <div class="card mb-3">
+    <div class="card-body text-justify">
+      Através dessa página, você pode criar um novo grupo. Para isso, complete o formulário a seguir.
     </div>
-
-    @include('admin.groups.includes.create.form')
   </div>
+
+  @include('admin.groups.includes.create.form')
 @endsection
 
 @section('scripts')
