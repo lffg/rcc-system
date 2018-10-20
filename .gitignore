@@ -1,6 +1,10 @@
 # Node modules
 node_modules
 
+# Bundles:
+public/css
+public/js
+
 # Adonis directory for storing tmp files
 tmp/sessions
 
