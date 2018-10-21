@@ -5,6 +5,8 @@
   @!section('styles')
 </head>
 <body>
+  {{-- Flash Messages --}}
+  @include('partials.utils.flash-message')
 
   <div class="sys-wrapper">
 
@@ -19,11 +21,6 @@
 
         {{-- Breadcrumb --}}
         @include('partials.layout.admin.breadcrumbs')
-
-        {{-- Flash Messages --}}
-        <div class="sys-flash-message-zone">
-          @include('partials.utils.flash-message')
-        </div>
 
         <div class="sys-page">
           @unless(skip_title == 'true')

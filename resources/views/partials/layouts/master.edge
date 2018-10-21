@@ -5,6 +5,9 @@
   @!section('styles')
 </head>
 <body>
+  {{-- Flash Messages --}}
+  @include('partials.utils.flash-message')
+
   <div class="sys-wrapper">
     {{-- Header > Navbar + Banner --}}
     <header class="sys-header">
@@ -21,11 +24,6 @@
 
         {{-- Pre-title --}}
         @!section('pre-title')
-
-        {{-- Flash Messages --}}
-        <div class="sys-flash-message-zone">
-          @include('partials.utils.flash-message')
-        </div>
 
         <div class="sys-page">
           @if(skip_title != 'true')
