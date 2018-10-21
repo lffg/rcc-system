@@ -16,17 +16,28 @@
 
 @section('content')
   <div class="card mb-3">
-    <div class="card-body text-justify">
-      Através dessa página, você pode gerenciar o grupo {{ group.name }}. <br />
-      Clique <a href="{{ route('groups.show', { id: group.id }) }}">aqui</a> para acessar este grupo no system.
+    <div class="card-body">
+      <p class="text-justify mb-0">
+        Através dessa página, você pode gerenciar o grupo {{ group.name }}.
+      </p>
+
+      <hr class="fw" />
+
+      <div>
+        <a href="{{ route('groups.show', { id: group.id }) }}" class="btn btn-info btn-sm">
+          <i class="fa fa-eye"></i> Ver no System
+        </a>
+        <a href="{{ route('admin:groups.members', { id: group.id }) }}" class="btn btn-secondary btn-sm">
+          <i class="fa fa-users"></i> Membros do Grupo
+        </a>
+        <a href="{{ route('admin:groups.permissions', { id: group.id }) }}" class="btn btn-secondary btn-sm">
+          <i class="fa fa-ban"></i> Permissões do Grupo
+        </a>
+      </div>
     </div>
   </div>
 
   @include('admin.groups.includes.show.form')
-  @include('admin.groups.includes.show.members')
-  @unless(group.alias === 'USERS')
-    @include('admin.groups.includes.show.moderators')
-  @endunless
 @endsection
 
 @section('scripts')

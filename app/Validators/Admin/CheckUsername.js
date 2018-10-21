@@ -1,18 +1,25 @@
 'use strict'
 
-const User = use('App/Models/User')
+const Database = use('Database')
 
 class CheckUsername {
   async authorize () {
     const { request, response, session } = this.ctx
 
-    const username = request.input('username', '')
+    const users = request.collect(['username'])
+      .map(({ username }) => username.trim())
+      .filter((username) => !!username && typeof username === 'string')
 
-    try {
-      await User.findByOrFail('username', username)
-    } catch (e) {
-      session.flash({ danger: `O usuário ${username} não existe.` })
-      return response.redirect('back')
+    const query = await Database.from('users')
+      .select('username')
+      .whereIn('username', users)
+      .then((users) => users.map(({ username }) => username.toLowerCase()))
+
+    for (const user of users) {
+      if (!query.includes(user.toLowerCase())) {
+        session.flash({ danger: `O usuário ${user} não existe.` })
+        return response.redirect('back')
+      }
     }
 
     return true

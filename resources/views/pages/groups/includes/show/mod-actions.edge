@@ -1,13 +1,15 @@
-<div>
-  <i class="fa fa-info"></i>
-  @if(hasGroup(group.id))
-    Você faz parte deste grupo.
-    @if(isModerator(group.id))
-      E é moderador deste grupo.
+<div class="card card-body mb-3">
+  <p class="mb-0">
+    <i class="fa fa-info"></i>
+    @if(hasGroup(group.id))
+      Você faz parte deste grupo.
+      @if(isModerator(group.id))
+        E é moderador deste grupo.
+      @endif
+    @else
+      Você não é membro deste grupo.
     @endif
-  @else
-    Você não é membro deste grupo.
-  @endif
+  </p>
 </div>
 
 @if(group.is_hidden)
@@ -20,18 +22,17 @@
 @if(isModerator(group.id) || hasPermission('ADMIN'))
   <div class="card mb-3">
     <div class="card-body card-btn">
-      @if(hasPermission('ADMIN'))
-        <a href="{{ route('admin:groups.show', { id: group.id }) }}" class="btn btn-secondary btn-sm">
-          <i class="fa fa-cog"></i> Gerenciar Grupo
-        </a>
-      @endif
-
       <a href="#add-user" data-toggle="modal" class="btn btn-primary btn-sm">
         <i class="fa fa-user-plus"></i> Adicionar Membro
       </a>
       <a href="#remove-user" data-toggle="modal" class="btn btn-danger btn-sm">
         <i class="fa fa-user-times"></i> Remover Membro
       </a>
+      @if(hasPermission('ADMIN'))
+        <a href="{{ route('admin:groups.show', { id: group.id }) }}" class="btn btn-secondary btn-sm">
+          <i class="fa fa-cog"></i> Gerenciar Grupo (ADMIN)
+        </a>
+      @endif
     </div>
   </div>
 

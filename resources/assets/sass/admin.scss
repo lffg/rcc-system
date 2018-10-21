@@ -50,7 +50,9 @@ a {
 
   &.btn,
   &.no-u,
-  &.dropdown-item {
+  &.dropdown-item,
+  &.nav-link,
+  &.page-link {
     text-decoration: none;
   }
 

@@ -48,6 +48,9 @@ Route.group(() => {
   Route.get(':id', 'GroupController.show').as('admin:groups.show')
   Route.post(':id', 'GroupController.update').validator('Admin/UpdateGroup')
 
+  Route.get(':id/members', 'GroupController.members').as('admin:groups.members')
+  Route.get(':id/permissions', 'GroupController.permissions').as('admin:groups.permissions')
+
   Route.get('delete/:id', 'GroupController.delete').as('admin:groups.delete')
   Route.post('delete/:id', 'GroupController.destroy')
 

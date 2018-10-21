@@ -10,6 +10,7 @@ const { HttpException } = use('@adonisjs/generic-exceptions')
 const Group = use('App/Models/Group')
 const User = use('App/Models/User')
 const Database = use('Database')
+const Route = use('Route')
 const Log = use('Log')
 
 class GroupController {
@@ -58,23 +59,21 @@ class GroupController {
    * @method GET
    */
   async show ({ params: { id }, view }) {
-    const group = await Group.query()
-      .where({ id })
-      .with('users', (builder) => builder.select('id', 'username').limit(10))
-      .first()
+    const group = await Group.findOrFail(id).then((group) => group.toJSON())
+    return view.render('admin.groups.show', { group, icons })
+  }
 
-    if (!group) throw new HttpException(`Grupo inexistente para ID ${id}.`, 404)
+  async members ({ request, params: { id }, view }) {
+    const page = Math.abs(request.input('page', 1))
 
-    const moderators = await Group.query()
-      .where({ id })
-      .with('users', (builder) => builder.wherePivot('is_moderator', true).select('id', 'username'))
-      .first()
-      .then((moderator) => moderator.toJSON().users)
+    const group = await Group.findOrFail(id)
+    const users = await group.users().select('id', 'username').paginate(page, 25)
+    const mods = await group.users().wherePivot('is_moderator', true).fetch()
 
-    return view.render('admin.groups.show', {
+    return view.render('admin.groups.members', {
       group: group.toJSON(),
-      moderators,
-      icons
+      users: users.toJSON(),
+      mods: mods.toJSON()
     })
   }
 
@@ -203,17 +202,21 @@ class GroupController {
    * @method POST
    */
   async removeUser ({ request, response, params: { id }, session, auth }) {
-    const username = request.input('username', '')
+    const users = request.collect(['username'])
+      .map(({ username }) => username)
 
     const group = await Group.findOrFail(id)
-    const user = await User.findByOrFail('username', username)
-    await user.groups().detach([group.id])
 
-    await Log.log(auth.user.id, request.ip(), {
-      message: `Removeu o usuário ${user.username} do grupo ${group.name}`
-    })
+    for (const username of users) {
+      const user = await User.findByOrFail('username', username)
+      await user.groups().detach([group.id])
 
-    session.flash({ success: `Usuário ${user.username} removido do grupo ${group.name} com sucesso.` })
+      await Log.log(auth.user.id, request.ip(), {
+        message: `Removeu o usuário ${user.username} do grupo ${group.name}`
+      })
+    }
+
+    session.flash({ success: `Usuário(s) "${users.join(', ')}" removido(s) do grupo ${group.name} com sucesso.` })
     return response.redirect('back')
   }
 
@@ -238,7 +241,7 @@ class GroupController {
     })
 
     session.flash({ success: `Usuário ${user.username} adicionado à moderação do grupo ${group.name}.` })
-    return response.redirect('back')
+    return response.redirect(`${Route.url('admin:groups.members', { id: group.id })}#$tab/mods`)
   }
 
   /**
@@ -247,22 +250,26 @@ class GroupController {
    * @method POST
    */
   async removeModerator ({ request, response, params: { id }, session, auth }) {
-    const username = request.input('username', '')
+    const users = request.collect(['username'])
+      .map(({ username }) => username)
 
     const group = await Group.findOrFail(id)
-    const user = await User.findByOrFail('username', username)
 
-    await user.groups().detach([group.id])
-    await user.groups().attach([group.id], (row) => {
-      row.is_moderator = false
-    })
+    for (const username of users) {
+      const user = await User.findByOrFail('username', username)
 
-    await Log.log(auth.user.id, request.ip(), {
-      message: `Removeu o usuário ${user.username} da moderação do grupo ${group.name}`
-    })
+      await user.groups().detach([group.id])
+      await user.groups().attach([group.id], (row) => {
+        row.is_moderator = false
+      })
 
-    session.flash({ success: `Usuário ${user.username} removido da moderação do grupo ${group.name}.` })
-    return response.redirect('back')
+      await Log.log(auth.user.id, request.ip(), {
+        message: `Removeu o usuário ${user.username} da moderação do grupo ${group.name}`
+      })
+    }
+
+    session.flash({ success: `Usuário(s) "${users.join(', ')}" removido(s) da moderação do grupo ${group.name}.` })
+    return response.redirect(`${Route.url('admin:groups.members', { id: group.id })}#$tab/mods`)
   }
 }
 
