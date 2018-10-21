@@ -15,5 +15,6 @@
     }
 
     $tab.tab('show');
+    location.hash = '#';
   });
 })(jQuery);
