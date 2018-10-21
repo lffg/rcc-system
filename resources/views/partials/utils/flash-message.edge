@@ -1,16 +1,11 @@
 <div class="sys-toast-zone">
   {{-- No script warning --}}
-  <div class="sys-toast --danger">
+  <noscript class="sys-toast --danger">
     <i class="fa fa-exclamation-triangle alert-icon"></i>
     <div>
       <strong style="font-weight: 500;">Erro de Incompatibilidade:</strong> O seu navegador foi configurado para não usar JavaScript. Sugerimos que altere essa configuração para um melhor funcionamento do System, já que algumas páginas requerem este recurso.
     </div>
-  </div>
-
-  <div class="sys-toast --success">
-    <i class="fa fa-check alert-icon"></i>
-    <div>Seja bem-vindo novamente ao RCC System, luuuiiiz.!</div>
-  </div>
+  </noscript>
 
   {{-- Danger --}}
   @if(flashMessage('danger'))
@@ -43,4 +38,4 @@
       <div>{{ flashMessage('warning') }}</div>
     </div>
   @endif
-</div>
+</noscript>
