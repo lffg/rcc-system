@@ -43,9 +43,8 @@
   .sys-toast {
     max-width: map-get($grid-breakpoints, $key: md);
     pointer-events: initial !important;
-    display: inline-flex;
-    justify-content: space-between;
-    align-items: center;
+    display: table;
+    margin: 0 auto;
     padding: calc(1.15rem + 2px) calc(2.5rem + 2px);
     overflow: hidden;
     position: relative;
