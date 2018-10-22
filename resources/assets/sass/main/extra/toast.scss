@@ -45,7 +45,7 @@
     pointer-events: initial !important;
     display: table;
     margin: 0 auto;
-    padding: calc(1.15rem + 2px) calc(2.5rem + 2px);
+    padding: 0;
     overflow: hidden;
     position: relative;
     border-radius: .25rem;
@@ -86,13 +86,20 @@
       opacity: 0 !important;
     }
 
-    > i {
-      font-size: 30px;
-      margin-right: 1.75rem;
-    }
+    & > .sys-toast-inner {
+      display: inline-flex;
+      align-content: center;
+      justify-content: space-between;
+      padding: calc(1.15rem + 2px) calc(2.5rem + 2px);
 
-    & > div {
-      text-align: justify;
+      > i {
+        font-size: 30px;
+        margin-right: 1.75rem;
+      }
+
+      & > div {
+        text-align: justify;
+      }
     }
 
     & > .sys-toast-bar {

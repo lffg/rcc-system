@@ -8,8 +8,8 @@
 
   /**
    * Cria uma barrinha de contagem.
-   * 
-   * @param  {object <jQuery Element>} $context 
+   *
+   * @param  {object <jQuery Element>} $context
    * @return {object<jQueryElement>}
    */
   function createBar ($context) {
@@ -30,6 +30,9 @@
       easing: 'linear',
       complete: function () {
         $toast.addClass('--hidden');
+        setTimeout(function () {
+          $toast.find('.sys-toast-bar').remove();
+        }, 200);
       }
     });
   }
@@ -41,7 +44,7 @@
       if ($this.is(':hidden')) {
         return;
       }
-    
+
       var text = $this.text().trim();
       var words = text.split(/\s/g).length;
       var time = (words / 3.33) >= 7 ? words / 3.25 : 7;
@@ -55,7 +58,9 @@
         }
 
         $bar.stop();
-        $bar.fadeOut(150);
+        $bar.fadeOut(150, function () {
+          $this.find('.sys-toast-bar').remove();
+        });
       });
 
       $this.on('mouseleave', function () {
@@ -66,6 +71,9 @@
       $this.on('click', function () {
         $bar.stop();
         $this.addClass('--hidden');
+        setTimeout(function () {
+          $this.find('.sys-toast-bar').remove();
+        }, 200);
       });
     });
   });
