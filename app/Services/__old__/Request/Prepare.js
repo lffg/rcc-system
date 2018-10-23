@@ -2,7 +2,7 @@
 
 const validatePayload = require('./helpers/validatePayload')
 const getInstances = require('./helpers/getInstances')
-const validateType = require('./helpers/validateType')
+const validateType = require('./validators/type')
 
 /**
  * Interface para o preparamento e validação de requisições.

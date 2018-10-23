@@ -4,7 +4,7 @@
       href="javascript:void(0);"
       class="nav-link active"
       data-wiz-goto="1"
-      data-wiz-link-uri="route('requests.create:goto', { step: 1 })"
+      data-wiz-link-uri="{{ route('requests.create:goto', { step: 1 }) }}"
       data-wiz-required-fields="controller_id"
     >
       <i class="fa fa-check-circle-o fa-fw"></i> Abrir o Requerimento
@@ -14,7 +14,7 @@
       href="javascript:void(0);"
       class="nav-link disabled"
       data-wiz-goto="2"
-      data-wiz-link-uri="route('requests.create:goto', { step: 1 })"
+      data-wiz-link-uri="{{ route('requests.create:goto', { step: 2 }) }}"
       data-wiz-required-fields="author_id, controller_id, type_id, receivers"
     >
       <i class="fa fa-fw fa-circle-o"></i> Tipo do Requerimento

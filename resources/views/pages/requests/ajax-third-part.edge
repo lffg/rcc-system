@@ -21,7 +21,20 @@
   <p>Ao{{ nicks.entries.length > 1 ? 's' : '' }} usuário{{ nicks.entries.length > 1 ? 's' : '' }}:</p>
   <ul>
     @each(nick in nicks.entries)
-      <li><samp>{{ nick }}</samp></li>
+      <li>
+        @if(nick.profile_link)
+          <a href="{{ nick.profile_link }}"><samp>{{ nick.username }}</samp></a>
+        @else
+          <span
+            class="badge badge-info"
+            title="Este usuário será criado após a postagem deste requerimento."
+          >A ser criado</span>
+          <samp>{{ nick.username }}</samp>
+        @endif
+        <span>
+          ({{ nick.position_name ? nick.position_name : 'Recruta' }})
+        </span>
+      </li>
     @endeach
   </ul>
 

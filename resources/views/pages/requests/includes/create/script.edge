@@ -153,11 +153,13 @@
    * Change the links classes.
    *
    * @param  {string} uri
-   * @param  {boolean} changePart
    * @return {void}
    */
-  function changeLinks (uri, changePart) {
-    switch (parseInt(uri.split('-').pop())) {
+  function changeLinks (uri) {
+    var regex = new RegExp('(?:\\\\|\\/)$', 'gi')
+    var step = uri.replace(regex, '').split('/').pop()
+
+    switch (parseInt(step)) {
       case 1:
         toggleClasses(1, 'active');
         toggleClasses([2, 3], 'disable');

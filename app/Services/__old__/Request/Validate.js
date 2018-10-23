@@ -1,20 +1,45 @@
 'use strict'
 
+const validateController = require('./validators/controller')
+
 const { HttpException } = use('@adonisjs/generic-exceptions')
 const RequestType = use('App/Models/RequestType')
 
 module.exports = validate
 
 /**
+ * Retorna um objeto sinalizando um erro de validação.
+ *
+ * @param  {string} code
+ * @param  {string[]} params
+ * @return {{ status: false, code: string, params: string[] }}
+ */
+function error (code, params = []) {
+  return {
+    status: false,
+    code,
+    params
+  }
+}
+
+/**
  * Valida um payload para requisição, de acordo com a parte informada.
  *
  * @param  {object} payload
  * @param  {1|2|3|'POST'} step
- * @return {Promise<boolean>}
+ * @return {Promise<{ status: boolean, code? string, params?: string[] }>}
  */
 async function validate (payload, step) {
-  if (![1, 2, 3, 'POST'].includes(step)) {
-    throw new HttpException('Argumento inválido.')
+  if (![1, 2, 3].includes(step)) {
+    return error('INVALID_STEP')
+  }
+
+  if (!(await validateController(payload.controller_id))) {
+    return error('INVALID_CONTROLLER')
+  }
+
+  if (step === 1) {
+    return { status: true }
   }
 
   // Parte 01 -> 02.

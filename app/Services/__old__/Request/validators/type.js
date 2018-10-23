@@ -17,7 +17,7 @@ async function validateType (controller, type) {
   const types = await RequestType.findTypesFor(controller.id)
 
   if (!types.map(({ id }) => id).includes(parseInt(type.id))) {
-    throw new HttpException('Tipo inválido para controller.', 400)
+    throw new HttpException(`Tipo (${type.id}) inválido para controller (${controller.id}).`, 400)
   }
 
   return true

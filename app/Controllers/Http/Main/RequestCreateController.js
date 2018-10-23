@@ -1,9 +1,9 @@
 'use strict'
 
-const { create: createRequest, prepare } = use('App/Services/Request')
 const RequestController = use('App/Models/RequestController')
+const { fullSplitNicks } = use('App/Helpers/split-nicks')
+const { CreateInterface } = use('App/Services/Request')
 const RequestType = use('App/Models/RequestType')
-const splitNicks = use('App/Helpers/split-nicks')
 const User = use('App/Models/User')
 
 class RequestCreateController {
@@ -20,7 +20,7 @@ class RequestCreateController {
    * Mostra uma parte específica do formulário usando um parâmetro da
    * URL.
    *
-   * @method GET<DevOnly>|POST
+   * @method GET|POST
    */
   async goto ({ request, params: { step }, view }) {
     const data = request.only(['author_id', 'controller_id', 'type_id', 'receivers'])
@@ -37,7 +37,7 @@ class RequestCreateController {
         const type = await RequestType.getInfoFor(data.type_id, true)
 
         return view.render('pages.requests.ajax-third-part', {
-          controller, type, data, nicks: splitNicks(data.receivers)
+          controller, type, data, nicks: await fullSplitNicks(data.receivers, undefined, true)
         })
     }
   }
@@ -50,20 +50,12 @@ class RequestCreateController {
    */
   async store ({ request, response, session }) {
     const data = request.all()
-    let controller, type
 
-    // Verifica se a requisição pode ser criada:
-    try {
-      const { controller: c, type: t } = await prepare(data)
-
-      controller = c
-      type = t
-    } catch (e) {
-      throw e
-    }
+    const { controller, type } = await CreateInterface.getInstances(data.controller_id, data.type_id)
 
     // Cria uma requisição a cada usuário:
-    for (const username of splitNicks(data.receivers, true)) {
+    const splittedNicks = await fullSplitNicks(data.receivers, true)
+    for (const username of splittedNicks) {
       // Pega o usuário, criando um caso nenhum existir.
       const user = await User.findOrCreate(
         { username },
@@ -71,7 +63,7 @@ class RequestCreateController {
       )
 
       // Cria a requisição:
-      await createRequest(controller, type, {
+      await CreateInterface.create(controller, type, {
         ...data, receiver_id: user.id
       })
     }

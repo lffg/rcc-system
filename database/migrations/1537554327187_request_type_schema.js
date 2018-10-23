@@ -24,11 +24,11 @@ class RequestTypeSchema extends Schema {
 
       // --- POSITION FIELDS
       table.integer('before_position_group_id').defaultTo(null).unsigned()
-      table.foreign('before_position_group_id').references('positions.id').onDelete('set null')
+      table.foreign('before_position_group_id').references('position_groups.id').onDelete('set null')
       table.integer('after_position_group_id').defaultTo(null).unsigned()
-      table.foreign('after_position_group_id').references('positions.id').onDelete('set null')
+      table.foreign('after_position_group_id').references('position_groups.id').onDelete('set null')
       table.integer('strict_to_position_group').defaultTo(null).unsigned()
-      table.foreign('strict_to_position_group').references('positions.id').onDelete('set null')
+      table.foreign('strict_to_position_group').references('position_groups.id').onDelete('set null')
 
       // --- FIELDS
       table.enum('field_before_position', ['HIDE', 'OPT', 'REQUIRED']).notNullable().defaultTo('HIDE')

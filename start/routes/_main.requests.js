@@ -24,14 +24,14 @@ Route.group(() => {
 
 Route.group(() => {
   Route.get('/', 'RequestCreateController.create').as('requests.create')
-  Route.post('save', 'RequestCreateController.store')
-    .validator('General/RequestCreate').as('requests.store')
 
   // AJAX calls:
-  Route.route('goto/:step', 'RequestCreateController.goto', [
-    'POST', ...(process.env.NODE_ENV === 'development' ? ['GET'] : [])
-  ])
+  Route.route('goto/:step', 'RequestCreateController.goto', ['GET', 'POST'])
     .validator('General/RequestCreate').as('requests.create:goto')
+
+  // Save:
+  Route.post('save', 'RequestCreateController.store')
+    .validator('General/RequestCreate').as('requests.store')
 })
   .middleware(['auth'])
   .namespace('Main')

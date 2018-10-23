@@ -1,11 +1,7 @@
 'use strict'
 
-const validate = require('./validate')
-const prepare = require('./prepare')
-const create = require('./create')
+const CreateInterface = require('./Create')
 
 module.exports = {
-  validate,
-  prepare,
-  create
+  CreateInterface
 }

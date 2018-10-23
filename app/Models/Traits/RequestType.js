@@ -88,33 +88,6 @@ class RequestType {
     }
 
     /**
-     * Retorna `true` se um tipo for permitido para um determinado
-     * usuário.
-     *
-     * @param  {object<User Model Instance>} userInstance
-     * @return {Promise<boolean>}
-     */
-    Model.prototype.isValidUser = async function (userInstance) {
-      if (!(userInstance instanceof User)) {
-        throw new TypeError('Instância de usuário inválida para `RequestType.isValidUser`')
-      }
-
-      if (!this.strict_to_position_group) return true
-
-      try {
-        const position = await userInstance.position().fetch()
-
-        if (position.group_id !== this.strict_to_position_group) {
-          return false
-        }
-      } catch (e) {
-        return true
-      }
-
-      return true
-    }
-
-    /**
      * Valida os usuários para o tipo da instância.
      *
      * @param  {string[]} users
@@ -134,6 +107,9 @@ class RequestType {
       }
 
       if (!this.allow_unregistered_users) {
+        const $default = Symbol('Default')
+        let lastPositionId = $default
+
         for (const username of users) {
           const user = await User.findBy('username', username)
 
@@ -141,8 +117,20 @@ class RequestType {
             return { status: false, code: 'NO_USER', params: [username] }
           }
 
-          if (!await this.isValidUser(user)) {
-            return { status: false, code: 'INVALID_POSITION', params: [username] }
+          if (this.strict_to_position_group) {
+            const position = await user.position().fetch()
+
+            // Verifica se a posição é a mesma do grupo definido no esquema do tipo:
+            if (position.group_id !== this.strict_to_position_group) {
+              return { status: false, code: 'INVALID_POSITION', params: [position.name, username] }
+            }
+
+            // Verifica se todos os afetados têm a mesma posição:
+            if ((lastPositionId !== $default) && (lastPositionId !== user.position_id)) {
+              return { status: false, code: 'DIF_POSITIONS' }
+            }
+
+            lastPositionId = user.position_id
           }
         }
       }
