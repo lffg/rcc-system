@@ -2,7 +2,7 @@
 
 const RequestController = use('App/Models/RequestController')
 const { fullSplitNicks } = use('App/Helpers/split-nicks')
-const { CreateInterface } = use('App/Services/Request')
+const { RequestInterface } = use('App/Services/Request')
 const RequestType = use('App/Models/RequestType')
 const User = use('App/Models/User')
 
@@ -51,8 +51,6 @@ class RequestCreateController {
   async store ({ request, response, session }) {
     const data = request.all()
 
-    const { controller, type } = await CreateInterface.getInstances(data.controller_id, data.type_id)
-
     // Cria uma requisição a cada usuário:
     const splittedNicks = await fullSplitNicks(data.receivers, true)
     for (const username of splittedNicks) {
@@ -63,7 +61,7 @@ class RequestCreateController {
       )
 
       // Cria a requisição:
-      await CreateInterface.create(controller, type, {
+      await RequestInterface.create({
         ...data, receiver_id: user.id
       })
     }

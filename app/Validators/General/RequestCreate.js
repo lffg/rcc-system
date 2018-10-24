@@ -3,7 +3,7 @@
 const { sprintf } = require('sprintf-js')
 
 const { HttpException } = use('@adonisjs/generic-exceptions')
-const { CreateInterface } = use('App/Services/Request')
+const { RequestInterface } = use('App/Services/Request')
 const { splitNicks } = use('App/Helpers/split-nicks')
 const FormError = use('App/Exceptions/FormError')
 const Route = use('Route')
@@ -28,8 +28,8 @@ class RequestCreate {
       'INVALID_POSITION'   : 'A posição "%s" do usuário %s não é válida para este requerimento.',
       'DIF_POSITIONS'      : `Os usuários afetados (${affecteds.join(', ')}) devem ser da mesma patente/cargo.`,
       'MISSING_VALUES'     : 'Você deve completar todos os campos obrigatórios. [%s]',
-      'FORBIDDEN_FIELDS'   : 'Você forneceu dados adicionais proibidos. [%s]',
-      '$default'           : 'Houve um erro desconhecido.'
+      'FORBIDDEN_FIELDS'   : 'Você forneceu dados adicionais proibidos para este tipo de requerimento. [%s]',
+      '$default'           : 'Houve um erro desconhecido ao tentar criar o requerimento.'
     }
   }
 
@@ -77,7 +77,7 @@ class RequestCreate {
 
     const {
       status, code, params = []
-    } = await CreateInterface.validate(step, request.all())
+    } = await RequestInterface.validate(step, request.all())
 
     if (!status) {
       return this.error(this.messages[code], params)

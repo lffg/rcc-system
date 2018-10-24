@@ -1,9 +1,11 @@
 'use strict'
 
-const create = require('./_create')
 const validate = require('./_validate')
+const create = require('./_create')
+const update = require('./_update')
 
 const { HttpException } = use('@adonisjs/generic-exceptions')
+const RequestType = use('App/Models/RequestType')
 
 class CreateInterface {
   /**
@@ -20,8 +22,19 @@ class CreateInterface {
   /**
    * @alias create
    */
-  static async create (controllerId, typeId, payload) {
-    return create(controllerId, typeId, payload)
+  static async create (payload) {
+    return create(payload)
+  }
+
+  /**
+   * @alias update
+   */
+  static async update (type, payload) {
+    if (!(type instanceof RequestType)) {
+      throw new TypeError('`type` deve ser uma instância de RequestType para update.')
+    }
+
+    return update(type, payload)
   }
 }
 

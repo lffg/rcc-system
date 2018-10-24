@@ -1,7 +1,9 @@
 'use strict'
 
-const CreateInterface = require('./Create')
+const ActionsInterface = require('./ActionsInterface')
+const RequestInterface = require('./RequestInterface')
 
 module.exports = {
-  CreateInterface
+  ActionsInterface,
+  RequestInterface
 }

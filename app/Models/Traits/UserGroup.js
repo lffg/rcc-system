@@ -22,9 +22,9 @@ class UserGroup {
         .distinct((aliases === 'BOTH' ? ['G.id', 'G.alias'] : (aliases ? ['G.alias'] : ['G.id'])).concat(
           getModField ? ['PGU.is_moderator'] : []
         ))
-        .from('users AS U')
-        .innerJoin('pivot_group_user AS PGU', 'PGU.user_id', '=', 'U.id')
-        .innerJoin('groups AS G', 'G.id', '=', 'PGU.group_id')
+        .from('users as U')
+        .innerJoin('pivot_group_user as PGU', 'PGU.user_id', '=', 'U.id')
+        .innerJoin('groups as G', 'G.id', '=', 'PGU.group_id')
         .where('U.id', this.id)
 
       if (aliases === 'BOTH' || getModField) {

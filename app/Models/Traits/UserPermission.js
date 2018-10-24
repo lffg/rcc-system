@@ -19,11 +19,11 @@ class UserPermission {
     Model.prototype.getPermissions = async function (aliases = false) {
       const permissions = await Database
         .distinct(aliases === 'BOTH' ? ['P.id', 'P.alias'] : (aliases ? 'P.alias' : 'P.id'))
-        .from('users AS U')
-        .innerJoin('pivot_group_user AS PGU', 'PGU.user_id', '=', 'U.id')
-        .innerJoin('groups AS G', 'G.id', '=', 'PGU.group_id')
-        .innerJoin('pivot_group_permission AS PGP', 'PGP.group_id', '=', 'G.id')
-        .innerJoin('permissions AS P', 'P.id', '=', 'PGP.permission_id')
+        .from('users as U')
+        .innerJoin('pivot_group_user as PGU', 'PGU.user_id', '=', 'U.id')
+        .innerJoin('groups as G', 'G.id', '=', 'PGU.group_id')
+        .innerJoin('pivot_group_permission as PGP', 'PGP.group_id', '=', 'G.id')
+        .innerJoin('permissions as P', 'P.id', '=', 'PGP.permission_id')
         .where('U.id', this.id)
 
       if (aliases === 'BOTH') {

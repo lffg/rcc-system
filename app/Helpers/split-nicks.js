@@ -46,9 +46,9 @@ async function fullSplitNicks (nicks = '', onlyEntries = false, complex = false)
   const { entries: usernames, string } = splitNicks(nicks, onlyEntries)
 
   const entries = await Database
-    .select('U.username', 'P.name AS position_name')
-    .from('users AS U')
-    .innerJoin('positions AS P', 'P.id', '=', 'U.position_id')
+    .select('U.username', 'P.name as position_name')
+    .from('users as U')
+    .innerJoin('positions as P', 'P.id', '=', 'U.position_id')
     .whereIn('U.username', usernames)
     .map((user) => ({ ...user, profile_link: `${Route.url('users.show')}?u=${user.username}` }))
 

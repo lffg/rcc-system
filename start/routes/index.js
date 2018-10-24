@@ -13,6 +13,9 @@ require('./_main.requests')
 require('./_main.session')
 require('./_main.users')
 
-Route.get('/tests', async ({ auth }) => {
-  return auth.user.getModerationGroups('BOTH')
+const { RequestInterface } = require('../../app/Services/Request')
+
+Route.get('/tests', async ({ request }) => {
+  await RequestInterface.create(request.all())
+  return 'OK'
 })
