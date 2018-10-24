@@ -11,6 +11,7 @@ class RequestHttpController {
    */
   async index ({ view }) {
     const controllers = await RequestController.query()
+      .whereNot('is_crh', false)
       .select('*')
       .fetch()
 
