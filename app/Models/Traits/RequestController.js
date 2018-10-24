@@ -38,8 +38,6 @@ class RequestController {
       const query = Model.query()
         .select('id', 'name')
 
-      console.log(typeof onlyForCrh, onlyForCrh)
-
       if (onlyForCrh) {
         query.whereNot('is_crh', false)
       }
