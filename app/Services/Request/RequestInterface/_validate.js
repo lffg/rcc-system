@@ -71,7 +71,7 @@ function error (code, params = []) {
  */
 async function validateController (controllerId = null) {
   const controller = await RequestController.find(controllerId)
-  if (!controller) return false
+  if (!controller || !controller.is_crh) return false
   return controller
 }
 

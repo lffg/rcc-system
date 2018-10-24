@@ -34,9 +34,15 @@ class RequestController {
      * @param  {boolean} getTypes
      * @return {Promise<object>}
      */
-    Model.getControllers = async (getTypes = false) => {
+    Model.getControllers = async (onlyForCrh = true, getTypes = false) => {
       const query = Model.query()
         .select('id', 'name')
+
+      console.log(typeof onlyForCrh, onlyForCrh)
+
+      if (onlyForCrh) {
+        query.whereNot('is_crh', false)
+      }
 
       if (getTypes) {
         query.with('types', (builder) => builder.select('id', 'controller_id', 'name'))

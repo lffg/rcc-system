@@ -20,7 +20,7 @@ class RequestCreate {
 
     return {
       'INVALID_AUTHOR'     : 'O campo "requerente" está inválido. Atualize a página e tente novamente.',
-      'INVALID_CONTROLLER' : 'O requerimento selecionado não existe.',
+      'INVALID_CONTROLLER' : 'O requerimento selecionado não existe ou é inválido para este contexto.',
       'NO_USERS'           : 'Você deve fornecer usuários que serão afetados pelo requerimento.',
       'INVALID_TYPE'       : 'O tipo para o requerimento escolhido não existe ou está inválido.',
       'MORE_THAN_ONE_USER' : 'Este requerimento só aceita um usuário afetado por vez.',
