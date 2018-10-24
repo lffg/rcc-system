@@ -35,27 +35,36 @@
         </div>
       </div>
     </div>
+
     <div class="col-lg-6">
       <div class="card">
         <div class="card-header">
           <i class="fa fa-clock-o"></i> Últimos Requerimentos
         </div>
-        <div class="card-body">
+        <div class="card-body sys-last-requests">
           @each(lastRequest in lastRequests)
-            <span>
-              <span
-                class="badge badge-info"
-                style="color: #fff; background-color: {{ lastRequest.type.color }};"
-                title="{{ lastRequest.type.timeline_title }}. Requerido por {{ lastRequest.author.username }}"
+            <div class="sys-last-request-item">
+              <div
+                class="sys-last-request-item-icon"
+                style="color: #fff; background-color: {{ lastRequest.color }};"
               >
-                <i class="{{ lastRequest.type.icon }} fa-fw"></i>
-              </span>
-              <a href="{{ route('users.show') }}?u={{ lastRequest.receiver.username }}">
-                {{ lastRequest.receiver.username }}
-              </a>
-            </span> {{{ !$loop.last ? '&nbsp;&nbsp;|&nbsp;&nbsp;' : '' }}}
-          @else
-            -x-
+                <i class="{{ lastRequest.icon }}"></i>
+              </div>
+              <div class="sys-last-request-item-info">
+                <span class="d-block">
+                  <a href="{{ route('users.show') }}?u={{ lastRequest.receiver }}">
+                    {{ lastRequest.receiver }}
+                  </a>
+                  <i class="fa fa-arrow-right"></i>
+                  {{ lastRequest.title }}
+                </span>
+                <i class="fa fa-clock-o"></i> {{ moment(lastRequest.date).fromNow() }}
+                por
+                <a href="{{ route('users.show') }}?u={{ lastRequest.author }}">
+                  {{ lastRequest.author }}
+                </a>
+              </div>
+            </div>
           @endeach
         </div>
       </div>

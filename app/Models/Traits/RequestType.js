@@ -1,6 +1,7 @@
 'use strict'
 
 const RequestController = use('App/Models/RequestController')
+const existsHabboUser = use('App/Helpers/exists-habbo-user')
 const { getPositions } = use('App/Models/Position')
 const User = use('App/Models/User')
 
@@ -104,6 +105,14 @@ class RequestType {
 
       if (!this.allow_multiple_users && users.length > 1) {
         return { status: false, code: 'MORE_THAN_ONE_USER' }
+      }
+
+      if (this.allow_unregistered_users) {
+        for (const username of users) {
+          if (!(await existsHabboUser(username))) {
+            return { status: false, code: 'UNDEFINED_HABBO_USER', params: [username] }
+          }
+        }
       }
 
       if (!this.allow_unregistered_users) {

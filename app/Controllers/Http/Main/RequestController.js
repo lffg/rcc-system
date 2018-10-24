@@ -1,7 +1,7 @@
 'use strict'
 
 const RequestController = use('App/Models/RequestController')
-const Request = use('App/Models/Request')
+const Database = use('Database')
 
 class RequestHttpController {
   /**
@@ -15,18 +15,27 @@ class RequestHttpController {
       .select('*')
       .fetch()
 
-    const lastRequests = await Request.query()
-      .select(['type_id', 'receiver_id', 'author_id'])
-      .with('type', (builder) => builder.select('id', 'timeline_title', 'color', 'icon'))
-      .with('author', (builder) => builder.select('id', 'username'))
-      .with('receiver', (builder) => builder.select('id', 'username'))
+    const lastRequests = await Database
+      .select([
+        'req.created_at as date',
+        'A.username as author',
+        'R.username as receiver',
+        'T.timeline_title as title',
+        'T.color',
+        'T.icon'
+      ])
+      .from('requests as req')
+      .innerJoin('request_controllers as C', 'C.id', '=', 'req.controller_id')
+      .innerJoin('request_types as T', 'T.id', '=', 'req.type_id')
+      .innerJoin('users as A', 'A.id', '=', 'req.author_id')
+      .innerJoin('users as R', 'R.id', '=', 'req.receiver_id')
+      .whereNot('C.is_crh', false)
+      .orderBy('req.created_at', 'DESC')
       .limit(20)
-      .orderBy('created_at', 'DESC')
-      .fetch()
 
     return view.render('pages.requests.index', {
-      lastRequests: lastRequests.toJSON(),
-      controllers: controllers.toJSON()
+      controllers: controllers.toJSON(),
+      lastRequests
     })
   }
 }

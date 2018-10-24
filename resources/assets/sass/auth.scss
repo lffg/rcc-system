@@ -54,6 +54,7 @@ $trans:             all 125ms ease-in-out;
 @import "./auth/pages/config.scss";
 @import "./auth/pages/user-per-position.scss";
 @import "./auth/pages/crh.scss";
+@import "./auth/pages/requests-index.scss";
 
 ::selection {
   background-color: $secondary;
