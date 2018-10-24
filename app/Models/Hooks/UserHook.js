@@ -1,8 +1,10 @@
 'use strict'
 
+const RequestController = use('App/Models/RequestController')
+const { RequestInterface } = use('App/Services/Request')
+const RequestType = use('App/Models/RequestType')
 const FormError = use('App/Exceptions/FormError')
 const Position = use('App/Models/Position')
-// const CrhRequest = use('App/Services/Crh')
 const Group = use('App/Models/Group')
 const Hash = use('Hash')
 
@@ -49,22 +51,17 @@ UserHook.addUserToPosition = async (userInstance) => {
  * Cria um evento na timeline para certificar a criação do usuário.
  *
  * @param {object} userInstance
- *
+ */
 UserHook.createAccountRegisterEvent = async (userInstance) => {
-  const controller_id = await CrhRequest.helpers.controller.findByAlias('REGISTRO', true)
-  const type_id = await CrhRequest.helpers.type.findByAlias('CREATE_ACC', true)
+  const controller = await RequestController.findByOrFail('alias', 'SYS_METADATA')
+  const type = await RequestType.findByOrFail('alias', 'REGISTER')
 
-  const request = new CrhRequest()
-
-  request.controller_id = controller_id
-  request.crhHasReview = false
-  request.type_id = type_id
-  request.title = 'Criação da Conta'
-  request.description = `Criação da conta do usuário ${userInstance.username} efetivada.`
-
-  request.affectedId = userInstance.id
-  request.affectedPositionBefore = userInstance.position_id
-  request.author_id = userInstance.id
-
-  await request.save()
-} */
+  await RequestInterface.create({
+    controller_id: controller.id,
+    type_id: type.id,
+    author_id: userInstance.id,
+    receiver_id: userInstance.id,
+    is_reviewable: false,
+    crh_state: 'APPROVED'
+  })
+}

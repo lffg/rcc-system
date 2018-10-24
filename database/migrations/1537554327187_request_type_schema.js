@@ -8,6 +8,9 @@ class RequestTypeSchema extends Schema {
       table.increments()
       table.timestamps()
 
+      table.string('alias', 80).notNullable().unique().index('alias')
+      table.boolean('is_permanent').notNullable().defaultTo(false)
+
       table.integer('controller_id').unsigned().index('controller_id').notNullable()
       table.foreign('controller_id').references('request_controllers.id').onDelete('cascade')
 

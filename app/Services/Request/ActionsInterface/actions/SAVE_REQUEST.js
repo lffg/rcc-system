@@ -14,7 +14,7 @@ async function caller ({ payload }) {
   let data = {}
 
   for (const [key, { name, required = false }] of requiredFields.entries()) {
-    if (!payload[name]) {
+    if (payload[name] === null || typeof payload[name] === 'undefined') {
       delete payload[name]
     }
 

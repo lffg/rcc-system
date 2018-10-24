@@ -12,6 +12,7 @@ class RequestController extends Model {
   static boot () {
     super.boot()
 
+    this.addHook('beforeCreate', 'AliasHook.generateAlias')
     this.addTrait('RequestController')
 
     this.addTrait('@provider:Lucid/Slugify', {

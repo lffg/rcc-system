@@ -12,6 +12,7 @@ class RequestType extends Model {
   static boot () {
     super.boot()
 
+    this.addHook('beforeCreate', 'AliasHook.generateAlias')
     this.addTrait('RequestType')
   }
 

@@ -17,7 +17,7 @@ class User extends Model {
     this.addHook('beforeSave', 'UserHook.hashPassword')
     this.addHook('afterCreate', 'UserHook.addUserToPosition')
     this.addHook('afterCreate', 'UserHook.addToUsersGroup')
-    // this.addHook('afterCreate', 'UserHook.createAccountRegisterEvent')
+    this.addHook('afterCreate', 'UserHook.createAccountRegisterEvent')
     this.addTrait('UserGroup')
     this.addTrait('UserSalary')
     this.addTrait('UserPermission')

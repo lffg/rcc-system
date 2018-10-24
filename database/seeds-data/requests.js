@@ -1,57 +1,56 @@
 exports.controllers = [
   {
     id: 1,
-    name: 'Soldados',
-    color: '#663300',
-    __positions__: [2]
+    alias: 'SYS_METADATA',
+    is_permanent: true,
+    name: 'System Metadata',
+    color: '#3399cc',
+    is_crh: false
   },
   {
     id: 2,
-    name: 'Praças',
-    color: '#2196f3',
-    __positions__: [3, 4, 5, 6]
+    name: 'Soldados',
+    color: '#663300'
   },
   {
     id: 3,
-    name: 'Oficiais',
-    color: '#000099',
-    __positions__: [7, 8, 9, 10, 11, 12, 13, 38]
+    name: 'Praças',
+    color: '#2196f3'
   },
   {
     id: 4,
-    name: 'Executivos',
-    color: '#6600ff',
-    __positions__: [14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36]
+    name: 'Oficiais',
+    color: '#000099'
   },
   {
     id: 5,
-    name: 'Tags',
-    color: '#000000',
-    allow_any_position: true
+    name: 'Executivos',
+    color: '#6600ff'
   },
   {
     id: 6,
-    name: 'Gratificados',
-    color: '#660000',
-    allow_any_position: true
+    name: 'Tags',
+    color: '#000000'
   },
   {
     id: 7,
-    name: 'Desligados',
-    color: '#000000',
-    allow_any_position: true
+    name: 'Gratificados',
+    color: '#660000'
   },
   {
     id: 8,
-    name: 'Reformados',
-    color: '#ff9933',
-    allow_any_position: true
+    name: 'Desligados',
+    color: '#000000'
   },
   {
     id: 9,
+    name: 'Reformados',
+    color: '#ff9933'
+  },
+  {
+    id: 10,
     name: 'Exonerados',
-    color: '#ff0000',
-    allow_any_position: true
+    color: '#ff0000'
   }
 ]
 
@@ -66,10 +65,23 @@ exports.actions = [
 ]
 
 exports.types = [
-  // --- INSTRUÇÕES INICIAIS
+  // --- REGISTRO:
   {
     id: 1,
+    alias: 'REGISTER',
+    is_permanent: true,
     controller_id: 1,
+    name: 'Criação da Conta',
+    timeline_title: 'Criou a Conta',
+    description: 'Evento de criação da conta no System.',
+    color: '#3399cc',
+    icon: 'fa fa-user-plus',
+    allow_unregistered_users: true
+  },
+  // --- INSTRUÇÕES INICIAIS
+  {
+    id: 2,
+    controller_id: 2,
     name: 'Aprovação em CFSd',
     timeline_title: 'Aprovado(a) em CFSd',
     description: '(Instruções Iniciais)',
@@ -81,8 +93,8 @@ exports.types = [
   },
   // --- PRAÇAS
   {
-    id: 2,
-    controller_id: 2,
+    id: 3,
+    controller_id: 3,
     name: 'Promoção',
     timeline_title: 'Promovido(a)',
     description: '(Praças)',
@@ -99,8 +111,8 @@ exports.types = [
     field_asked_by: 'OPT'
   },
   {
-    id: 3,
-    controller_id: 2,
+    id: 4,
+    controller_id: 3,
     name: 'Rebaixamento',
     timeline_title: 'Rebaixado(a)',
     description: '(Praças)',
@@ -117,8 +129,8 @@ exports.types = [
     field_asked_by: 'OPT'
   },
   {
-    id: 4,
-    controller_id: 2,
+    id: 5,
+    controller_id: 3,
     name: 'Reintegração',
     timeline_title: 'Reintegrado(a)',
     description: '(Praças)',
@@ -133,8 +145,8 @@ exports.types = [
   },
   // --- OFICIAIS
   {
-    id: 5,
-    controller_id: 3,
+    id: 6,
+    controller_id: 4,
     name: 'Promoção',
     timeline_title: 'Promovido(a)',
     description: '(Oficiais)',
@@ -151,8 +163,8 @@ exports.types = [
     field_asked_by: 'OPT'
   },
   {
-    id: 6,
-    controller_id: 3,
+    id: 7,
+    controller_id: 4,
     name: 'Rebaixamento',
     timeline_title: 'Rebaixado(a)',
     description: '(Oficiais)',
@@ -169,8 +181,8 @@ exports.types = [
     field_asked_by: 'OPT'
   },
   {
-    id: 7,
-    controller_id: 3,
+    id: 8,
+    controller_id: 4,
     name: 'Licença',
     timeline_title: 'Solicitou Licença',
     description: '(Oficiais)',
@@ -183,8 +195,8 @@ exports.types = [
     field_absence_days: 'OPT'
   },
   {
-    id: 8,
-    controller_id: 3,
+    id: 9,
+    controller_id: 4,
     name: 'Reserva',
     timeline_title: 'Solicitou Reserva',
     description: '(Oficiais)',
@@ -197,8 +209,8 @@ exports.types = [
     field_absence_days: 'OPT'
   },
   {
-    id: 9,
-    controller_id: 3,
+    id: 10,
+    controller_id: 4,
     name: 'Advertência',
     timeline_title: 'Advertido(a)',
     description: '(Oficiais)',
@@ -212,8 +224,8 @@ exports.types = [
   },
   // --- EXECUTIVOS
   {
-    id: 10,
-    controller_id: 4,
+    id: 11,
+    controller_id: 5,
     name: 'Promoção',
     timeline_title: 'Promovido(a)',
     description: '(Executivos)',
@@ -230,8 +242,8 @@ exports.types = [
     field_asked_by: 'OPT'
   },
   {
-    id: 11,
-    controller_id: 4,
+    id: 12,
+    controller_id: 5,
     name: 'Compra de Cargo',
     timeline_title: 'Comprou cargo',
     description: '(Executivos)',
@@ -249,8 +261,8 @@ exports.types = [
     field_price: 'REQUIRED'
   },
   {
-    id: 12,
-    controller_id: 4,
+    id: 13,
+    controller_id: 5,
     name: 'Rebaixamento',
     timeline_title: 'Rebaixado(a)',
     description: '(Executivos)',
@@ -267,8 +279,8 @@ exports.types = [
     field_asked_by: 'OPT'
   },
   {
-    id: 13,
-    controller_id: 4,
+    id: 14,
+    controller_id: 5,
     name: 'Reintegração',
     timeline_title: 'Reintegrado(a)',
     description: '(Executivos)',
@@ -282,8 +294,8 @@ exports.types = [
     field_asked_by: 'OPT'
   },
   {
-    id: 14,
-    controller_id: 4,
+    id: 15,
+    controller_id: 5,
     name: 'Licença',
     timeline_title: 'Solicitou Licença',
     description: '(Executivos)',
@@ -296,8 +308,8 @@ exports.types = [
     field_absence_days: 'OPT'
   },
   {
-    id: 15,
-    controller_id: 4,
+    id: 16,
+    controller_id: 5,
     name: 'Reserva',
     timeline_title: 'Solicitou Reserva',
     description: '(Oficiais)',
@@ -310,8 +322,8 @@ exports.types = [
     field_absence_days: 'OPT'
   },
   {
-    id: 16,
-    controller_id: 4,
+    id: 17,
+    controller_id: 5,
     name: 'Advertência',
     timeline_title: 'Advertido(a)',
     description: '(Executivos)',
@@ -325,8 +337,8 @@ exports.types = [
   },
   // --- TAG
   {
-    id: 17,
-    controller_id: 5,
+    id: 18,
+    controller_id: 6,
     name: 'Solicitar Criação de TAG',
     timeline_title: 'Solicitou uma nova TAG',
     description: '(TAG)',
@@ -341,8 +353,8 @@ exports.types = [
   },
   // --- GRATIFICAÇÕES
   {
-    id: 18,
-    controller_id: 6,
+    id: 19,
+    controller_id: 7,
     name: 'Solicitar Gratificações Efetivas',
     timeline_title: 'Gratificado(a) com Medalhas Efetivas',
     description: '(Gratificações)',
@@ -356,8 +368,8 @@ exports.types = [
     field_bonuses: 'REQUIRED'
   },
   {
-    id: 19,
-    controller_id: 6,
+    id: 20,
+    controller_id: 7,
     name: 'Solicitar Gratificações Temporárias',
     timeline_title: 'Gratificado(a) com Medalhas Negativas',
     description: '(Gratificações)',
@@ -372,8 +384,8 @@ exports.types = [
   },
   // --- DESLIGAMENTOS
   {
-    id: 20,
-    controller_id: 7,
+    id: 21,
+    controller_id: 8,
     name: 'Solicitar um Desligamento Honroso',
     timeline_title: 'Desligou-se',
     description: '(Desligamentos)',
@@ -386,8 +398,8 @@ exports.types = [
     field_asked_by: 'OPT'
   },
   {
-    id: 21,
-    controller_id: 7,
+    id: 22,
+    controller_id: 8,
     name: 'Solicitar um Desligamento Desonroso',
     timeline_title: 'Desligado(a)',
     description: '(Desligamentos)',
@@ -401,8 +413,8 @@ exports.types = [
   },
   // --- REFORMA
   {
-    id: 22,
-    controller_id: 8,
+    id: 23,
+    controller_id: 9,
     name: 'Solicitar uma Reforma',
     timeline_title: 'Reformou-se',
     description: '(Reformas)',
@@ -416,8 +428,8 @@ exports.types = [
   },
   // --- EXONERAÇÃO
   {
-    id: 23,
-    controller_id: 9,
+    id: 24,
+    controller_id: 10,
     name: 'Solicitar uma Exoneração',
     timeline_title: 'Exonerado(a)',
     description: '(Exonerações)',
