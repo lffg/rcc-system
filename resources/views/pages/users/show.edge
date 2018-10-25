@@ -48,96 +48,73 @@
 @endsection
 
 @section('scripts')
-  <script>
-    (function ($) {
-      'use strict';
+<script>
+(function ($) {
+  'use strict';
 
-      $(function () {
-        $('.sys-groups-show-more-groups').on('click', function (event) {
-          event.preventDefault();
+  $(function () {
+    $('.sys-groups-show-more-groups').on('click', function (event) {
+      event.preventDefault();
 
-          var $this = $(this);
-          var $el = $this.prev();
+      var $this = $(this);
+      var $el = $this.prev();
 
-          $this.toggleClass('is-opened');
-          $el.slideToggle();
+      $this.toggleClass('is-opened');
+      $el.slideToggle();
 
-          if ($this.is('.is-opened')) {
-            $this.html([
-              '<i class="fa fa-angle-up"></i>',
-              'Mostrar Menos'
-            ].join(' '));
-          } else {
-            $this.html([
-              '<i class="fa fa-angle-down"></i>',
-              'Mostrar Mais'
-            ].join(' '));
-          }
-        });
+      if ($this.is('.is-opened')) {
+        $this.html([
+          '<i class="fa fa-angle-up"></i>',
+          'Mostrar Menos'
+        ].join(' '));
+      } else {
+        $this.html([
+          '<i class="fa fa-angle-down"></i>',
+          'Mostrar Mais'
+        ].join(' '));
+      }
+    });
+  });
+})(jQuery);
 
-        var timeline = false;
-        var loading = false;
+(function ($) {
+  'use strict';
 
-        function toggleState () {
-          loading = ! loading;
-          $('#timeline-refresh').prop('disabled', loading);
-          $('#timeline-refresh .fa').toggleClass('fa-spin', loading);
-        }
+  var TIMELINE_URI = '{{ route('users.timeline', { id: user.id }) }}';
 
-        function loadTimeline (reloading) {
-          toggleState();
-
-          $.ajax({
-            url: '{{ route('timeline.index', { id: user.id }) }}',
-            method: 'GET',
-            cache: false,
-
-            beforeSend: function () {
-              function animate () {
-                $('#timeline-zone')
-                  .find('.sys-timeline-component')
-                  .stop()
-                  [reloading ? 'fadeOut' : 'hide'](reloading ? 180 : undefined)
-                  .end()
-                  .find('#loading-alert')
-                  .stop()
-                  [reloading ? 'fadeIn' : 'show'](reloading ? 180 : undefined);
-              }
-
-              if (reloading) {
-                $('#response-zone').fadeOut(200, function () {
-                  animate();
-                });
-              } else {
-                animate();
-              }
-            },
-
-            success: function (response) {
-              $('#timeline-zone').find('.sys-timeline-component').hide();
-              $('#timeline-zone').find('#response-zone').html(response).stop().fadeIn(200);
-
-              timeline = true;
-              toggleState();
-            },
-
-            error: function () {
-              $('#timeline-zone').find('.sys-timeline-component').hide();
-              $('#timeline-zone').find('#error-alert').show();
-              toggleState();
-            }
-          });
-        }
-
-        $('#timeline-btn, #timeline-refresh').on('click', function () {
-          if ($(this).is('#timeline-btn')) {
-            if (timeline) return;
-            return loadTimeline();
-          }
-
-          loadTimeline(true);
-        });
+  function loadTimeline (callback) {
+    $.get(TIMELINE_URI, { _now_: Date.now() })
+      .done(function (response) {
+        callback(null, response);
+      })
+      .fail(function () {
+        callback(true, null);
       });
-    })(jQuery);
-  </script>
+  }
+
+  $(function () {
+    var $zone = $('#timeline-zone');
+    var $loading = $zone.find('#loading-alert');
+    var $error = $zone.find('#error-alert');
+    var $timelineZone = $zone.find('#response-zone');
+
+    $('#timeline-btn').on('show.bs.tab', function () {
+      $timelineZone.hide();
+      $error.hide();
+      $loading.show();
+
+      loadTimeline(function (err, response) {
+        $loading.hide();
+        $timelineZone.hide();
+
+        if (err) {
+          return $error.fadeIn();
+        }
+
+        $timelineZone.html(response).slideDown(300);
+      });
+    });
+  });
+})(jQuery);
+</script>
 @endsection

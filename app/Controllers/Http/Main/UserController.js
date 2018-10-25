@@ -2,6 +2,7 @@
 
 const { merge } = require('lodash')
 
+const Request = use('App/Models/Request')
 const User = use('App/Models/User')
 const Route = use('Route')
 
@@ -61,6 +62,26 @@ class UserController {
 
     const user = merge(userData.toJSON(), userSalary)
     return view.render('pages.users.show', { user })
+  }
+
+  /**
+   * Mostra a timeline de um determinado usuário.
+   *
+   * @method GET
+   */
+  async timeline ({ params: { id }, view }) {
+    const wait = (t = 0) => new Promise((resolve) => setTimeout(resolve, t))
+    await wait(1000)
+
+    const items = await Request.query()
+      .where({ receiver_id: id })
+      .with('type', (builder) => builder.select('id', 'timeline_title', 'color', 'icon'))
+      .with('receiver', (builder) => builder.select('id', 'username'))
+      .with('author', (builder) => builder.select('id', 'username'))
+      .orderByRaw('created_at DESC, id DESC')
+      .fetch()
+
+    return view.render('pages.users.timeline-items', { items: items.toJSON() })
   }
 
   /**

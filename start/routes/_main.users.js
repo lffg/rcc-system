@@ -12,11 +12,11 @@ Route.group(() => {
   Route.get('/', 'UserController.index').as('users.index')
   Route.get('see', 'UserController.show').as('users.show')
 
+  Route.get('timeline/:id', 'UserController.timeline').as('users.timeline')
+
   Route.get('find', 'UserController.find').as('users.find')
   Route.post('find', 'UserController.findAction')
   Route.get('find/autocomplete', 'UserController.autocomplete').as('users.find-autocomplete')
-
-  Route.get('timeline/:id', 'TimelineController.index').as('timeline.index')
 })
   .middleware(['auth'])
   .namespace('Main')

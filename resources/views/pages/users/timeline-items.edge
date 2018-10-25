@@ -1,7 +1,7 @@
 <div class="sys-timeline">
   @each(item in items)
     <div class="sys-timeline-row">
-      <aside class="sys-timeline-icon" title="{{ item.type.name }}" data-placement="right" style="
+      <aside class="sys-timeline-icon" title="{{ item.type.timeline_title }}" data-placement="right" style="
         background-color: {{ item.type.color }};
         color: #fff;
       ">
@@ -10,38 +10,76 @@
 
       <div class="sys-timeline-info">
         <h5 class="sys-timeline-title">
-          {{ item.request_title || 'Não Especificado' }}
+          {{ item.type.timeline_title || 'Título Não Especificado' }}
         </h5>
 
-        @if(item.request_description)
+        @if(item.reason)
           <div class="sys-timeline-description">
-            {{ truncate(item.request_description, 350, '...') }}
+            {{ truncate(item.reason, 350, '...') }}
+          </div>
+        @elseif(item.notes)
+          <div class="sys-timeline-description">
+            {{ truncate(item.notes, 350, '...') }}
+          </div>
+        @else
+          <div class="sys-timeline-description">
+            Este requerimento não possui motivo, notas ou informações adicionais.
           </div>
         @endif
 
         <footer class="sys-timeline-footer">
-        @if(item.crh_has_review)
-          <span class="sys-timeline-footer-item">
-            <span
-              class="badge badge-dark"
-              style="background-color: {{ item.state.color }};"
-              title="{{ item.state.message }}"
-
-              <i class="{{ item.state.icon }}"></i> {{ item.state.name }}
+          @if(item.is_reviewable && item.crh_state !== 'NON_CRH')
+            <span class="sys-timeline-footer-item">
+              @if(item.crh_state === 'APPROVED')
+                <span
+                  class="badge badge-dark"
+                  style="background-color: #43a047; color: #fff;"
+                  title="Requerimento aprovado pelo CRH."
+                  data-placement="right"
+                >
+                  <i class="fa fa-check"></i> Aprovado
+                </span>
+              @elseif(item.crh_state === 'REJECTED')
+                <span
+                  class="badge badge-dark"
+                  style="background-color: #d32f2f; color: #fff;"
+                  title="Requerimento recusado pelo CRH."
+                  data-placement="right"
+                >
+                  <i class="fa fa-ban"></i> Recusado
+                </span>
+              @elseif(item.crh_state === 'PENDING')
+                <span
+                  class="badge badge-dark"
+                  style="background-color: #ffa000; color: #fff;"
+                  title="Aguardando a aprovação de um membro do CRH."
+                  data-placement="right"
+                >
+                  <i class="fa fa-refresh"></i> Pendente
+                </span>
+              @endif
             </span>
-          </span>
-        @endif
+          @endif
           <span
             class="sys-timeline-footer-item"
             title="Este requerimento foi aberto por {{ item.author.username }}."
+            data-placement="right"
           >
             <i class="fa fa-user"></i> Por:
-            <a href="{{ route('users.show') }}?u={{ item.author.username }}">{{ item.author.username }}</a>
+            <a href="{{ route('users.show') }}?u={{ item.author.username }}">
+              {{ item.author.username }}
+            </a>
           </span>
 
           <span class="sys-timeline-footer-item">
             <i class="fa fa-clock-o"></i>
-            {{ moment(item.created_at).format('DD/MM/YYYY [às] HH:mm')}}
+            <span
+              style="text-transform: capitalize;"
+              title="{{ moment(item.created_at).f() }}"
+              data-placement="right"
+            >
+              {{ moment(item.created_at).fromNow() }}
+            </span>
           </span>
 
           <a href="{{ route('crh-requests.show', { id: item.id }) }}" class="btn btn-primary btn-sm sys-timeline-details">

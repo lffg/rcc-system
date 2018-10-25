@@ -62,6 +62,7 @@ UserHook.createAccountRegisterEvent = async (userInstance) => {
     author_id: userInstance.id,
     receiver_id: userInstance.id,
     is_reviewable: false,
-    crh_state: 'APPROVED'
+    crh_state: 'NON_CRH',
+    notes: `Criação da conta para o usuário ${userInstance.username} efetivada.`
   })
 }
