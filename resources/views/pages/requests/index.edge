@@ -38,18 +38,25 @@
 
     <div class="col-lg-6">
       <div class="card">
-        <div class="card-header">
-          <i class="fa fa-clock-o"></i> Últimos Requerimentos
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <span>
+            <i class="fa fa-clock-o"></i> Últimos Requerimentos
+          </span>
+          <a href="#">
+            <i class="fa fa-eye"></i> Ver Todos
+          </a>
         </div>
         <div class="card-body sys-last-requests">
           @each(lastRequest in lastRequests)
             <div class="sys-last-request-item">
-              <div
-                class="sys-last-request-item-icon"
+              <a
+                href="#"
+                class="no-u sys-last-request-item-icon"
                 style="color: #fff; background-color: {{ lastRequest.color }};"
+                title="Clique para ver todas as informações relativas a esse requerimento."
               >
-                <i class="{{ lastRequest.icon }}"></i>
-              </div>
+                <i class="fa-fw {{ lastRequest.icon }}"></i>
+              </a>
               <div class="sys-last-request-item-info">
                 <span class="d-block">
                   <a href="{{ route('users.show') }}?u={{ lastRequest.receiver }}">
