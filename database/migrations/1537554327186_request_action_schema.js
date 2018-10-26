@@ -8,7 +8,13 @@ class RequestActionSchema extends Schema {
       table.increments()
 
       table.string('alias', 80).notNullable().unique().index('alias')
-      table.enum('execute_on', ['CREATE', 'UPDATE', 'APPROVE', 'REJECT'])
+      table.enum('execute_on', [
+        'CREATE',
+        'UPDATE',
+        'REVIEW',
+        'APPROVE',
+        'REJECT'
+      ])
 
       table.string('name', 100).notNullable()
       table.text('description').defaultTo(null)
