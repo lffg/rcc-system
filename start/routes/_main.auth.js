@@ -25,7 +25,6 @@ Route.group(() => {
     .middleware(['guest']).validator('General/AuthRegister')
 })
   .namespace('Auth')
-  .prefix('auth')
 
 /**
  * ---------------------------------------------------------------------
@@ -47,4 +46,4 @@ Route.group(() => {
     .as('verify-email.confirm')
 })
   .namespace('Auth')
-  .prefix('auth/verify-email')
+  .prefix('session/auth/verify-email')
