@@ -4,32 +4,7 @@ const Route = use('Route')
 
 /**
  * ---------------------------------------------------------------------
- * Autênticação
- * ---------------------------------------------------------------------
- */
-
-Route.group(() => {
-  Route.get('login', 'AuthController.login')
-    .middleware(['guest']).as('login')
-
-  Route.post('login', 'AuthController.postLogin')
-    .middleware(['guest']).validator('General/AuthLogin')
-
-  Route.get('register', 'AuthController.register')
-    .middleware(['guest']).as('register')
-
-  Route.post('register', 'AuthController.postRegister')
-    .middleware(['guest']).validator('General/AuthRegister')
-
-  Route.get('logout', 'AuthController.logout')
-    .middleware(['auth']).as('logout')
-})
-  .namespace('Main')
-  .prefix('session')
-
-/**
- * ---------------------------------------------------------------------
- * Configurações
+ * Configurações.
  * ---------------------------------------------------------------------
  */
 
@@ -73,25 +48,3 @@ Route.group(() => {
   .middleware(['auth'])
   .namespace('Main')
   .prefix('notifications')
-
-/**
- * ---------------------------------------------------------------------
- * Confirmação do E-Mail.
- * ---------------------------------------------------------------------
- */
-
-Route.group(() => {
-  Route.get('/', 'VerifyEmailController.index')
-    .middleware(['auth'])
-    .as('verify-email')
-
-  Route.post('send', 'VerifyEmailController.send')
-    .middleware(['auth'])
-    .validator('General/ConfirmEmail')
-    .as('verify-email.send')
-
-  Route.get('confirm/:token/:id', 'VerifyEmailController.confirm')
-    .as('verify-email.confirm')
-})
-  .namespace('Main')
-  .prefix('session/verify-email')
