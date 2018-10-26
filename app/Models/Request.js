@@ -4,6 +4,18 @@ const Model = use('Model')
 
 class Request extends Model {
   /**
+  * Método de boot (inicialização).
+  *
+  * @static
+  * @return {void}
+  */
+  static boot () {
+    super.boot()
+
+    this.addHook('beforeSave', 'RequestHook.createIntegrityToken')
+  }
+
+  /**
    * ---------------------------------------------------------------------
    * Relações
    * ---------------------------------------------------------------------

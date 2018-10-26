@@ -7,6 +7,7 @@ class RequestSchema extends Schema {
     this.create('requests', (table) => {
       table.increments()
       table.timestamps()
+      table.string('integrity_token', 40).defaultTo(null)
 
       table.integer('controller_id').unsigned().index('controller_id').notNullable()
       table.foreign('controller_id').references('request_controllers.id').onDelete('cascade')
