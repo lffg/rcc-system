@@ -28,7 +28,7 @@ class VerifyEmailController {
    */
   async index ({ view }) {
     if (this._verify(...arguments)) return
-    return view.render('pages.users.verify-email')
+    return view.render('pages.session.auth.verify-email')
   }
 
   /**

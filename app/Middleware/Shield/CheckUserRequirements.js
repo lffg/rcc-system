@@ -34,7 +34,7 @@ class CheckUserRequirements {
     }
 
     // Check if the user's e-mail must be verified:
-    if (!(new RegExp(Route.url('verify-email'))).test(request.url())) {
+    if (!(new RegExp(`(${Route.url('verify-email')}|${Route.url('logout')})`)).test(request.url())) {
       if (!verified) {
         session.flash({ danger: 'Para usar o System, você deve confirmar o seu e-mail.' })
         return response.route('verify-email')

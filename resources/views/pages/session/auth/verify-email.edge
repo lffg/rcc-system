@@ -57,7 +57,14 @@
 @endsection
 
 @section('footer')
-  <span style="display: block; margin: -10px;"></span>
+  @loggedIn
+  Logado como {{ $userdata.username }} &middot;
+  <a href="{{ route('logout') }}?confirm=on">
+    Sair
+  </a>
+  @else
+    <span style="display: block; margin: -10px;"></span>
+  @endloggedIn
 @endsection
 
 @section('scripts')
