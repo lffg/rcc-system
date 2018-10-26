@@ -42,7 +42,7 @@
           <span>
             <i class="fa fa-clock-o"></i> Últimos Requerimentos
           </span>
-          <a href="#">
+          <a href="{{ route('requests.all') }}">
             <i class="fa fa-eye"></i> Ver Todos
           </a>
         </div>
@@ -50,7 +50,7 @@
           @each(lastRequest in lastRequests)
             <div class="sys-last-request-item">
               <a
-                href="#"
+                href="{{ route('requests.show', { id: lastRequest.id }) }}"
                 class="no-u sys-last-request-item-icon"
                 style="color: #fff; background-color: {{ lastRequest.color }};"
                 title="Clique para ver o requerimento completo..."
