@@ -6,12 +6,13 @@ const Route = use('Route')
 Route.any('index.html', 'Main/DashboardController.index')
 Route.any('/', 'Main/DashboardController.index').as('index')
 
-require('./_admin')
 require('./_api')
 require('./_main')
-require('./_main.requests')
-require('./_main.session')
+require('./_admin')
+require('./_main.auth')
 require('./_main.users')
+require('./_main.session')
+require('./_main.requests')
 
 const { RequestInterface } = require('../../app/Services/Request')
 
