@@ -7,7 +7,8 @@ class RequestActionSchema extends Schema {
     this.create('request_actions', (table) => {
       table.increments()
 
-      table.string('alias', 80).notNullable().unique().index('alias')
+      table.string('alias', 80).notNullable().index('alias')
+
       table.enum('execute_on', [
         'CREATE',
         'UPDATE',
