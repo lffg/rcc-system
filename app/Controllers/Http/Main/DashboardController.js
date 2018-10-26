@@ -8,28 +8,17 @@ class DashboardController {
    *
    * @method GET
    */
-  async index ({ view }) {
-    await this._ensureAuth(...arguments)
-
-    return view.render('pages.dashboard.index', {
-      online_users: await this._getOnlineUsers()
-    })
-  }
-
-  /**
-   * Certifica-se de que o usuário está autenticado.
-   *
-   * @internal
-   * @param  {object} context
-   * @return {any}
-   */
-  async _ensureAuth ({ response, session, auth }) {
+  async index ({ response, view, session, auth }) {
     try {
       await auth.check()
     } catch (e) {
       session.flash({ danger: 'Você precisa estar autenticado para acessar a página principal.' })
       return response.route('login')
     }
+
+    return view.render('pages.dashboard.index', {
+      online_users: await this._getOnlineUsers()
+    })
   }
 
   /**
