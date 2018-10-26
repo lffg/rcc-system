@@ -30,10 +30,6 @@ class PermissionSeeder {
 
       for (const groupId of groups) {
         const group = await Group.findOrFail(groupId)
-        console.log('-'.repeat(50))
-        console.log(`Grupo: ${group.name} (${group.id})`)
-        console.log(`Permissão: ${permission.name} (${permission.id})`)
-        console.log('-'.repeat(50))
         await permission.groups().attach([group.id])
       }
     }
