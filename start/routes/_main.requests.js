@@ -10,7 +10,15 @@ const Route = use('Route')
 
 Route.group(() => {
   Route.get('/', 'RequestController.index').as('requests.index')
-  Route.get('list/:slug', 'RequestController.list').as('requests.list')
+  Route.get('all', 'RequestController.all').as('requests.all')
+  Route.get('search', 'RequestController.search').as('requests.search')
+
+  Route.get(':id', 'RequestInstanceController.show').as('requests.show')
+  Route.post(':id/comment', 'RequestInstanceController.comment').as('requests.comment')
+  Route.get(':id/edit', 'RequestInstanceController.edit').as('requests.edit')
+  Route.post(':id/edit', 'RequestInstanceController.update')
+  Route.get(':id/review', 'RequestInstanceController.review').as('requests.review')
+  Route.post(':id/review', 'RequestInstanceController.review')
 })
   .middleware(['auth'])
   .namespace('Main')
@@ -35,7 +43,7 @@ Route.group(() => {
 })
   .middleware(['auth'])
   .namespace('Main')
-  .prefix('crh/requests/create')
+  .prefix('crh/requests/new')
 
 const RequestType = use('App/Models/RequestType')
 Route.get('request-types', async ({ view }) => {

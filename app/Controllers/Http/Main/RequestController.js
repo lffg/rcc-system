@@ -17,6 +17,7 @@ class RequestHttpController {
 
     const lastRequests = await Database
       .select([
+        'req.id',
         'req.created_at as date',
         'A.username as author',
         'R.username as receiver',
