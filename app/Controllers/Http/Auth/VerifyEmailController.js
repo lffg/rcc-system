@@ -89,7 +89,8 @@ class VerifyEmailController {
         user.email_token = null
         await user.save()
 
-        session.flash({ success: 'E-mail confirmado com sucesso! Seja bem-vindo ao System. =)' })
+        session.flash({ success: `E-mail confirmado com sucesso! Seja bem-vindo ao System, ${user.username}. =)` })
+
         try {
           await auth.check()
           return response.route('index')
