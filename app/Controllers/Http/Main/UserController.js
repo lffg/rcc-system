@@ -2,8 +2,8 @@
 
 const { merge } = require('lodash')
 
-const Request = use('App/Models/Request')
 const User = use('App/Models/User')
+const Database = use('Database')
 const Route = use('Route')
 
 class UserController {
@@ -70,18 +70,23 @@ class UserController {
    * @method GET
    */
   async timeline ({ params: { id }, view }) {
-    const wait = (t = 0) => new Promise((resolve) => setTimeout(resolve, t))
-    await wait(1000)
+    const events = await Database
+      .select([
+        'req.*',
+        'T.timeline_title as type_title',
+        'T.color as type_color',
+        'T.icon as type_icon',
+        'R.username as receiver',
+        'A.username as author'
+      ])
+      .from('requests as req')
+      .innerJoin('request_types as T', 'T.id', '=', 'req.type_id')
+      .innerJoin('users as R', 'R.id', '=', 'req.receiver_id')
+      .innerJoin('users as A', 'A.id', '=', 'req.author_id')
+      .where('R.id', id)
+      .orderByRaw('req.created_at DESC, req.id DESC')
 
-    const items = await Request.query()
-      .where({ receiver_id: id })
-      .with('type', (builder) => builder.select('id', 'timeline_title', 'color', 'icon'))
-      .with('receiver', (builder) => builder.select('id', 'username'))
-      .with('author', (builder) => builder.select('id', 'username'))
-      .orderByRaw('created_at DESC, id DESC')
-      .fetch()
-
-    return view.render('pages.users.timeline-items', { items: items.toJSON() })
+    return view.render('pages.users.timeline-items', { events })
   }
 
   /**

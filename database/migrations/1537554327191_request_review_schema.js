@@ -13,6 +13,7 @@ class RequestReviewSchema extends Schema {
       table.integer('author_id').unsigned()
       table.foreign('author_id').references('users.id').onDelete('set null')
 
+      table.boolean('is_dominant').notNullable().defaultTo(false)
       table.enum('type', ['COMMENT', 'REVIEW', 'LOG']).notNullable().defaultTo('COMMENT')
 
       table.string('body').notNullable()

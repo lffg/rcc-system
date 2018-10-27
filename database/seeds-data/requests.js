@@ -81,6 +81,7 @@ exports.types = [
   // --- INSTRUÇÕES INICIAIS
   {
     id: 2,
+    alias: 'CFSD_A',
     controller_id: 2,
     name: 'Aprovação em CFSd',
     timeline_title: 'Aprovado(a) em CFSd',
@@ -94,6 +95,7 @@ exports.types = [
   // --- PRAÇAS
   {
     id: 3,
+    alias: 'P_PRO',
     controller_id: 3,
     name: 'Promoção',
     timeline_title: 'Promovido(a)',
@@ -112,6 +114,7 @@ exports.types = [
   },
   {
     id: 4,
+    alias: 'P_REB',
     controller_id: 3,
     name: 'Rebaixamento',
     timeline_title: 'Rebaixado(a)',
@@ -130,6 +133,7 @@ exports.types = [
   },
   {
     id: 5,
+    alias: 'P_REJOIN',
     controller_id: 3,
     name: 'Reintegração',
     timeline_title: 'Reintegrado(a)',
@@ -146,6 +150,7 @@ exports.types = [
   // --- OFICIAIS
   {
     id: 6,
+    alias: 'O_PRO',
     controller_id: 4,
     name: 'Promoção',
     timeline_title: 'Promovido(a)',
@@ -164,6 +169,7 @@ exports.types = [
   },
   {
     id: 7,
+    alias: 'O_REB',
     controller_id: 4,
     name: 'Rebaixamento',
     timeline_title: 'Rebaixado(a)',
@@ -182,6 +188,7 @@ exports.types = [
   },
   {
     id: 8,
+    alias: 'O_ABS',
     controller_id: 4,
     name: 'Licença',
     timeline_title: 'Solicitou Licença',
@@ -196,6 +203,7 @@ exports.types = [
   },
   {
     id: 9,
+    alias: 'O_RES',
     controller_id: 4,
     name: 'Reserva',
     timeline_title: 'Solicitou Reserva',
@@ -210,6 +218,7 @@ exports.types = [
   },
   {
     id: 10,
+    alias: 'O_ADV',
     controller_id: 4,
     name: 'Advertência',
     timeline_title: 'Advertido(a)',
@@ -225,6 +234,7 @@ exports.types = [
   // --- EXECUTIVOS
   {
     id: 11,
+    alias: 'E_PRO',
     controller_id: 5,
     name: 'Promoção',
     timeline_title: 'Promovido(a)',
@@ -243,6 +253,7 @@ exports.types = [
   },
   {
     id: 12,
+    alias: 'E_BUY_P',
     controller_id: 5,
     name: 'Compra de Cargo',
     timeline_title: 'Comprou cargo',
@@ -262,6 +273,7 @@ exports.types = [
   },
   {
     id: 13,
+    alias: 'E_REB',
     controller_id: 5,
     name: 'Rebaixamento',
     timeline_title: 'Rebaixado(a)',
@@ -280,6 +292,7 @@ exports.types = [
   },
   {
     id: 14,
+    alias: 'E_REJOIN',
     controller_id: 5,
     name: 'Reintegração',
     timeline_title: 'Reintegrado(a)',
@@ -295,6 +308,7 @@ exports.types = [
   },
   {
     id: 15,
+    alias: 'E_ABS',
     controller_id: 5,
     name: 'Licença',
     timeline_title: 'Solicitou Licença',
@@ -309,6 +323,7 @@ exports.types = [
   },
   {
     id: 16,
+    alias: 'E_RES',
     controller_id: 5,
     name: 'Reserva',
     timeline_title: 'Solicitou Reserva',
@@ -323,6 +338,7 @@ exports.types = [
   },
   {
     id: 17,
+    alias: 'E_ADV',
     controller_id: 5,
     name: 'Advertência',
     timeline_title: 'Advertido(a)',
@@ -338,6 +354,7 @@ exports.types = [
   // --- TAG
   {
     id: 18,
+    alias: 'TAG_REQUEST',
     controller_id: 6,
     name: 'Solicitar Criação de TAG',
     timeline_title: 'Solicitou uma nova TAG',
@@ -354,6 +371,7 @@ exports.types = [
   // --- GRATIFICAÇÕES
   {
     id: 19,
+    alias: 'GRAT_E',
     controller_id: 7,
     name: 'Solicitar Gratificações Efetivas',
     timeline_title: 'Gratificado(a) com Medalhas Efetivas',
@@ -369,6 +387,7 @@ exports.types = [
   },
   {
     id: 20,
+    alias: 'GRAT_T',
     controller_id: 7,
     name: 'Solicitar Gratificações Temporárias',
     timeline_title: 'Gratificado(a) com Medalhas Negativas',
@@ -385,6 +404,7 @@ exports.types = [
   // --- DESLIGAMENTOS
   {
     id: 21,
+    alias: 'DESL_H',
     controller_id: 8,
     name: 'Solicitar um Desligamento Honroso',
     timeline_title: 'Desligou-se',
@@ -399,6 +419,7 @@ exports.types = [
   },
   {
     id: 22,
+    alias: 'DESL_D',
     controller_id: 8,
     name: 'Solicitar um Desligamento Desonroso',
     timeline_title: 'Desligado(a)',
@@ -414,6 +435,7 @@ exports.types = [
   // --- REFORMA
   {
     id: 23,
+    alias: 'REF_REQUEST',
     controller_id: 9,
     name: 'Solicitar uma Reforma',
     timeline_title: 'Reformou-se',
@@ -429,6 +451,7 @@ exports.types = [
   // --- EXONERAÇÃO
   {
     id: 24,
+    alias: 'EXO_REQUEST',
     controller_id: 10,
     name: 'Solicitar uma Exoneração',
     timeline_title: 'Exonerado(a)',

@@ -25,15 +25,14 @@ class FormErrorException extends HttpException {
    */
   get messages () {
     return {
-      'E_VIOLATED_REQUEST' : 'Requisição violada: um ou mais campos protegidos foram violados.',
-      'E_DEFAULT'          : 'Houve um erro de formulário desconhecido. Atualize a página e tente novamente.'
+      'E_VIOLATED_REQUEST' : 'Requisição violada: um ou mais campos protegidos foram violados.'
     }
   }
 
   /**
    * Lida com os erros.
    */
-  async handle ({ message = null, code = 'E_DEFAULT' }, { response, session }) {
+  async handle ({ message = null, code }, { response, session }) {
     session.flash({ danger: this.messages[code] || message || this.messages['E_DEFAULT'] })
     await session.commit()
     return response.redirect(this.path || 'back')

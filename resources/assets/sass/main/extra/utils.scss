@@ -10,6 +10,15 @@
   }
 }
 
+blockquote {
+  border: solid 1px #e7edf3;
+  background-color: #e7edf3;
+  color: #7089a9;
+  padding: 1rem;
+  border-radius: .25rem;
+  margin: 1rem 0;
+}
+
 [readonly],
 [disabled],
 .disabled {

@@ -1,0 +1,158 @@
+{{-- ---------- DEFINIR TÍTULO COMPUTADO ---------- --}}
+@if(type === 'TITLE')
+  @if(request.type_alias === 'REGISTER')
+    Criação da Conta
+  @endif
+
+  @if(/^(?:P|O|E)_PRO$/.test(request.type_alias))
+    Promoção ({{ request.before_position }} para {{ request.after_position }})
+  @endif
+
+  @if(/^(?:P|O|E)_REB$/.test(request.type_alias))
+    Rebaixamento ({{ request.before_position }} para {{ request.after_position }})
+  @endif
+
+  @if(/^(?:P|E)_REJOIN$/.test(request.type_alias))
+    Reintegração à RCC (como {{ request.after_position }})
+  @endif
+
+  @if(/^(?:O|E)_ABS$/.test(request.type_alias))
+    Solicitação de Licença
+  @endif
+
+  @if(/^(?:O|E)_RES$/.test(request.type_alias))
+    Solicitação de Reserva
+  @endif
+
+  @if(/^(?:O|E)_ADV$/.test(request.type_alias))
+    Advertência
+  @endif
+
+  @if(request.type_alias === 'E_BUY_P')
+    Compra de Cargo ({{ request.after_position }})
+  @endif
+
+  @if(request.type_alias === 'TAG_REQUEST')
+    Solicitação de TAG (<samp>{{ request.tag }}</samp>)
+  @endif
+
+  @if(request.type_alias === 'GRAT_E')
+    Medalhas Efetivas
+  @endif
+
+  @if(request.type_alias === 'GRAT_T')
+    Medalhas Temporárias
+  @endif
+
+  @if(request.type_alias === 'DESL_H')
+    Desligamento Honroso
+  @endif
+
+  @if(request.type_alias === 'DESL_D')
+    Desligamento Desonroso
+  @endif
+
+  @if(request.type_alias === 'REF_REQUEST')
+    Reforma
+  @endif
+
+  @if(request.type_alias === 'EXO_REQUEST')
+    Exoneração
+  @endif
+@endif
+
+{{-- ---------- DEFINIR CORPO COMPUTADO ---------- --}}
+@if(type === 'BODY')
+  @if(request.type_alias === 'REGISTER')
+    Criação da conta para o usuário {{ request.receiver }} efetivada.
+  @endif
+
+  @if(/^(?:P|O|E)_PRO$/.test(request.type_alias))
+    Promoção de {{ request.before_position }} para <strong>{{ request.after_position }}</strong>, por <a href="{{ route('users.show') }}?u={{ request.author }}">{{ request.author }}</a>.
+    <blockquote style="padding: .75rem;">
+      {{ truncate(request.reason, 400, '...') }}
+    </blockquote>
+  @endif
+
+  @if(/^(?:P|O|E)_REB$/.test(request.type_alias))
+    Rebaixamento de {{ request.before_position }} para <strong>{{ request.after_position }}</strong>, por <a href="{{ route('users.show') }}?u={{ request.author }}">{{ request.author }}</a>.
+    <blockquote style="padding: .75rem;">
+      {{ truncate(request.reason, 400, '...') }}
+    </blockquote>
+  @endif
+
+  @if(/^(?:P|E)_REJOIN$/.test(request.type_alias))
+    Reintegrado à Polícia RCC como <strong>{{ request.after_position }}</strong>, por <a href="{{ route('users.show') }}?u={{ request.author }}">{{ request.author }}</a>.
+  @endif
+
+  @if(/^(?:O|E)_ABS$/.test(request.type_alias))
+    Solicitou licença por <strong>{{ request.absence_days }} dias</strong>, pelo seguinte motivo:
+    <blockquote style="padding: .75rem;">
+      {{ truncate(request.reason, 400, '...') }}
+    </blockquote>
+    Início da licença: {{ moment(request.created_at).format('LLL') }}. Término:
+    <strong>{{ moment(request.created_at).add(request.absence_days, 'days').format('LLL') }}</strong>.
+  @endif
+
+  @if(/^(?:O|E)_RES$/.test(request.type_alias))
+    Solicitou uma reserva por <strong>{{ request.absence_days }} dias</strong>, pelo seguinte motivo:
+    <blockquote style="padding: .75rem;">
+      {{ truncate(request.reason, 400, '...') }}
+    </blockquote>
+    Início da reserva: {{ moment(request.created_at).format('LLL') }}. Término:
+    <strong>{{ moment(request.created_at).add(request.absence_days, 'days').format('LLL') }}</strong>.
+  @endif
+
+  @if(/^(?:O|E)_ADV$/.test(request.type_alias))
+    Advertido por <a href="{{ route('users.show') }}?u={{ request.author }}">{{ request.author }}</a>:
+    <blockquote style="padding: .75rem;">
+      {{ truncate(request.reason, 400, '...') }}
+    </blockquote>
+  @endif
+
+  @if(request.type_alias === 'E_BUY_P')
+    Comprou o cargo <strong>{{ request.after_position }}</strong>.
+  @endif
+
+  @if(request.type_alias === 'TAG_REQUEST')
+    Solicitou a criação da TAG [<strong>{{ request.tag }}</strong>].
+  @endif
+
+  @if(request.type_alias === 'GRAT_E')
+    Atribuição de {{ bonuses }} gratificações efetivas.
+  @endif
+
+  @if(request.type_alias === 'GRAT_T')
+    Atribuição de {{ bonuses }} gratificações temporárias.
+  @endif
+
+  @if(request.type_alias === 'DESL_H')
+    Desligamento <strong>honroso</strong> solicitado. Por <a href="{{ route('users.show') }}?u={{ request.author }}">{{ request.author }}</a>:
+    <blockquote style="padding: .75rem;">
+      {{ request.reason }}
+    </blockquote>
+  @endif
+
+  @if(request.type_alias === 'DESL_D')
+    Desligamento <strong>desonroso</strong> solicitado. Por <a href="{{ route('users.show') }}?u={{ request.author }}">{{ request.author }}</a>:
+    <blockquote style="padding: .75rem;">
+      {{ request.reason }}
+    </blockquote>
+  @endif
+
+  @if(request.type_alias === 'REF_REQUEST')
+    Reforma solicitada por <a href="{{ route('users.show') }}?u={{ request.author }}">{{ request.author }}</a>:
+    <blockquote style="padding: .75rem;">
+      {{ request.reason }}
+    </blockquote>
+  @endif
+
+  @if(request.type_alias === 'EXO_REQUEST')
+    Exoneração do policial <strong>{{ request.receiver }}</strong>. Solicitada por <a href="{{ route('users.show') }}?u={{ request.author }}">{{ request.author }}</a>, pelo motivo:
+    <blockquote style="padding: .75rem;">
+      {{ request.reason }}
+    </blockquote>
+    Início do banimento: {{ moment(request.created_at).format('LLL') }}. Término:
+    <strong>{{ moment(request.created_at).add(request.banned_days, 'days').format('LLL') }}</strong>.
+  @endif
+@endif

@@ -14,7 +14,7 @@ class RequestSchema extends Schema {
       table.integer('type_id').unsigned().index('type_id')
       table.foreign('type_id').references('request_types.id').onDelete('set null')
 
-      // --- Config
+      // --- CRH
       table.boolean('is_reviewable').notNullable().defaultTo(true)
       table.enum('crh_state', ['APPROVED', 'PENDING', 'REJECTED', 'NON_CRH']).notNullable().defaultTo('PENDING')
 
@@ -23,6 +23,10 @@ class RequestSchema extends Schema {
       table.foreign('author_id').references('users.id').onDelete('set null')
       table.integer('receiver_id').index('receiver_id').unsigned().defaultTo(null)
       table.foreign('receiver_id').references('users.id').onDelete('set null')
+
+      // --- COMPUTED FIELDS
+      table.text('computed_title').defaultTo(null)
+      table.text('computed_body').defaultTo(null)
 
       // --- FIELDS
       table.integer('before_position_id').unsigned().index('before_position_id').defaultTo(null)

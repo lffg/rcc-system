@@ -1,7 +1,8 @@
 'use strict'
 
-const { HttpException } = use('@adonisjs/generic-exceptions')
+const FormError = use('App/Exceptions/FormError')
 const Request = use('App/Models/Request')
+const Route = use('Route')
 
 module.exports = () => ({
   requiresController: false,
@@ -30,7 +31,7 @@ async function caller ({ payload }) {
     request.merge(data)
     await request.save()
   } catch ({ message }) {
-    throw new HttpException(`Erro ao criar a requisição: ${message}`, 500)
+    throw new FormError('Houve um erro ao tentar criar este requerimento.', 500, Route.url('requests.create'))
   }
 }
 
