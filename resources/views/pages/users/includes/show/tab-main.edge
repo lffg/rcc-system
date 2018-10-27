@@ -51,7 +51,9 @@
       <td>Criação da Conta (no System)</td>
       <td>
         @if(user.created_at)
-          {{ moment(user.created_at).format('DD/MM/YYYY') }}
+          <span title="{{ moment(user.created_at).fromNow() }}">
+            {{ moment(user.created_at).format('DD/MM/YYYY') }}
+          </span>
         @else
           Data não especificada
         @endif
@@ -60,16 +62,60 @@
     <tr>
       <td>Última visita (no System)</td>
       @if(user.last_visit != 0)
-        <td
-          title="Visto por último em {{ moment(user.last_visit).format('DD/MM/YYYY [às] HH:mm:ss') }}"
-          data-placement="left"
-        >
-          {{ moment(user.last_visit).format('DD/MM/YYYY [às] HH:mm') }}
+        <td>
+            <span title="{{ moment(user.last_visit).format('LLLL') }}">
+              {{ moment(user.last_visit).fromNow() }}
+            </span>
         </td>
       @else
         <td>Jamais</td>
       @endif
     </tr>
+  </table>
+</div>
+
+<div class="card sys-data mb-3">
+  <table>
+    <tr role="heading">
+      <th colspan="2">Segurança:</th>
+    </tr>
+    <tr>
+      <td>Estado de Ativação</td>
+      <td>
+        @if(user.state === 'ACTIVE')
+          <span class="text-success"><i class="fa fa-check"></i> Ativo</span>
+        @elseif(user.state === 'INACTIVE')
+          <span class="text-danger"><i class="fa fa-exclamation-triangle"></i> Inativo</span>
+        @elseif(user.state === 'RETIRED')
+          <span class="text-success"><i class="fa fa-check"></i> Oficial Reformado</span>
+        @elseif(user.state === 'VETERAN')
+          <span class="text-success"><i class="fa fa-check"></i> Veterano</span>
+        @endif
+      </td>
+    </tr>
+    <tr>
+      <td>Permissão de Acesso ao System</td>
+      @if(user.allowed)
+        <td class="text-success">
+          <i class="fa fa-check"></i> Acesso Permitido
+        </td>
+      @else
+        <td class="text-danger">
+          @if(user.disallowReason)
+            <span title="Razão: {{ user.disallowReason }}">
+              <i class="fa fa-exclamation-triangle"></i> Acesso Proibido
+            </span>
+          @else
+            <i class="fa fa-exclamation-triangle"></i> Acesso Proibido
+          @endif
+        </td>
+      @endif
+    </tr>
+  </table>
+</div>
+
+<div class="card sys-data mb-3">
+  <table>
     <tr role="heading">
       <th colspan="2">Salário & Gratificações:</th>
     </tr>
@@ -111,27 +157,6 @@
         <td colspan="2">Por ser Supremo, este usuário não tem uma contagem mensurável de gratificações.</td>
       </tr>
     @endunless
-    <tr role="heading">
-      <th colspan="2">Segurança:</th>
-    </tr>
-    <tr>
-      <td>Permissão de Acesso ao System</td>
-      @if(user.allowed)
-        <td class="text-success">
-          <i class="fa fa-check"></i> Acesso Permitido
-        </td>
-      @else
-        <td class="text-danger">
-          @if(user.disallowReason)
-            <span title="Razão: {{ user.disallowReason }}">
-              <i class="fa fa-exclamation-triangle"></i> Acesso Proibido
-            </span>
-          @else
-            <i class="fa fa-exclamation-triangle"></i> Acesso Proibido
-          @endif
-        </td>
-      @endif
-    </tr>
   </table>
 </div>
 
