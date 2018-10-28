@@ -5,14 +5,9 @@ const { users } = require('../seeds-data/users')
 const Position = use('App/Models/Position')
 const Group = use('App/Models/Group')
 const User = use('App/Models/User')
-const Database = use('Database')
 
 class UserSeeder {
   async run () {
-    await Database.raw('SET FOREIGN_KEY_CHECKS = 0')
-    await User.truncate()
-    await Database.raw('SET FOREIGN_KEY_CHECKS = 1')
-
     await this.createUsers()
     console.log('Usuários criados.')
 

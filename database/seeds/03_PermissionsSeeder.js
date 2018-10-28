@@ -9,8 +9,6 @@ const Database = use('Database')
 class PermissionSeeder {
   async run () {
     await Database.raw('SET FOREIGN_KEY_CHECKS = 0')
-    await Permission.truncate()
-    await Database.raw('TRUNCATE TABLE pivot_group_permission')
 
     await this.createPermissions()
     console.log('Permissões criadas.')

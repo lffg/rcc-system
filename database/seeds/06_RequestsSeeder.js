@@ -7,19 +7,9 @@ const RequestController = use('App/Models/RequestController')
 const { RequestInterface } = use('App/Services/Request')
 const RequestAction = use('App/Models/RequestAction')
 const RequestType = use('App/Models/RequestType')
-const Request = use('App/Models/Request')
-const Database = use('Database')
 
 class RequestsSeeder {
   async run () {
-    await Database.raw('SET FOREIGN_KEY_CHECKS = 0')
-    await RequestController.truncate()
-    await RequestAction.truncate()
-    await RequestType.truncate()
-    await Request.truncate()
-    await Database.raw('TRUNCATE TABLE pivot_request_action_type')
-    await Database.raw('SET FOREIGN_KEY_CHECKS = 1')
-
     await this.createControllers()
     console.log('Controllers de requisições criados.')
 

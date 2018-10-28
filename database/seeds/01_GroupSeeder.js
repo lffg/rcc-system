@@ -1,15 +1,9 @@
 'use strict'
 
 const Group = use('App/Models/Group')
-const Database = use('Database')
 
 class GroupSeeder {
   async run () {
-    await Database.raw('SET FOREIGN_KEY_CHECKS = 0')
-    await Group.truncate()
-    await Database.raw('TRUNCATE TABLE pivot_group_user')
-    await Database.raw('SET FOREIGN_KEY_CHECKS = 1')
-
     for (const [index, data] of [
       { name: 'Desenvolvedores', icon: 'fa fa-code', alias: 'DEV', color: '#4080ff', is_permanent: true },
       { name: 'Administradores', icon: 'fa fa-star', alias: 'ADMIN', color: '#e53935', is_permanent: true },

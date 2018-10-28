@@ -9,8 +9,6 @@ const Database = use('Database')
 class PositionSeeder {
   async run () {
     await Database.raw('SET FOREIGN_KEY_CHECKS = 0')
-    await PositionGroup.truncate()
-    await Position.truncate()
 
     await this.createPositionGroups()
     console.log('Grupos de posições criados.')

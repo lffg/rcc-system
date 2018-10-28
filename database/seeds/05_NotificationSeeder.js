@@ -2,14 +2,9 @@
 
 const Notification = use('App/Models/Notification')
 const User = use('App/Models/User')
-const Database = use('Database')
 
 class UserSeeder {
   async run () {
-    await Database.raw('SET FOREIGN_KEY_CHECKS = 0')
-    await Notification.truncate()
-    await Database.raw('SET FOREIGN_KEY_CHECKS = 1')
-
     await this.createNotifications()
     console.log('Notificações de teste criadas.')
   }
