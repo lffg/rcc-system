@@ -76,33 +76,33 @@
   @endif
 
   @if(request.type_alias === 'CFSD_A')
-    Aprovado no Curso de Formação de Soldados.
+    {{ request.receiver }} foi aprovado no Curso de Formação de Soldados.
   @endif
 
   @if(request.type_alias === 'SUP-REPR')
-    Reprovado na Supervisão de Soldados, ocasionando o desligamento automático deste policial.
+    {{ request.receiver }} foi reprovado na supervisão de soldados, e por este motivo foi desligado da Policia RCC.
   @endif
 
   @if(/^(?:P|O|E)_PRO$/.test(request.type_alias))
-    Promoção de {{ request.before_position }} para <strong>{{ request.after_position }}</strong>, por <a href="{{ route('users.show') }}?u={{ request.author }}">{{ request.author }}</a>.
+    Promoção de {{ request.before_position }} para <strong>{{ request.after_position }}</strong> do policial {{ request.receiver }}, por <a href="{{ route('users.show') }}?u={{ request.author }}">{{ request.author }}</a>.
     <blockquote style="padding: .75rem;">
       {{ truncate(request.reason, 400, '...') }}
     </blockquote>
   @endif
 
   @if(/^(?:P|O|E)_REB$/.test(request.type_alias))
-    Rebaixamento de {{ request.before_position }} para <strong>{{ request.after_position }}</strong>, por <a href="{{ route('users.show') }}?u={{ request.author }}">{{ request.author }}</a>.
+    Rebaixamento de {{ request.before_position }} para <strong>{{ request.after_position }}</strong> do policial {{ request.receiver }}, por <a href="{{ route('users.show') }}?u={{ request.author }}">{{ request.author }}</a>.
     <blockquote style="padding: .75rem;">
       {{ truncate(request.reason, 400, '...') }}
     </blockquote>
   @endif
 
   @if(/^(?:P|E)_REJOIN$/.test(request.type_alias))
-    Reintegrado à Polícia RCC como <strong>{{ request.after_position }}</strong>, por <a href="{{ route('users.show') }}?u={{ request.author }}">{{ request.author }}</a>.
+    {{ request.receiver }} foi reintegrado à Polícia RCC como <strong>{{ request.after_position }}</strong>, por <a href="{{ route('users.show') }}?u={{ request.author }}">{{ request.author }}</a>.
   @endif
 
   @if(/^(?:O|E)_ABS$/.test(request.type_alias))
-    Solicitou licença por <strong>{{ request.absence_days }} dias</strong>, pelo seguinte motivo:
+    {{ request.receiver }} solicitou licença por <strong>{{ request.absence_days }} dias</strong>, pelo seguinte motivo:
     <blockquote style="padding: .75rem;">
       {{ truncate(request.reason, 400, '...') }}
     </blockquote>
@@ -111,7 +111,7 @@
   @endif
 
   @if(/^(?:O|E)_RES$/.test(request.type_alias))
-    Solicitou uma reserva por <strong>{{ request.absence_days }} dias</strong>, pelo seguinte motivo:
+    {{ request.receiver }} solicitou uma reserva por <strong>{{ request.absence_days }} dias</strong>, pelo seguinte motivo:
     <blockquote style="padding: .75rem;">
       {{ truncate(request.reason, 400, '...') }}
     </blockquote>
@@ -120,37 +120,37 @@
   @endif
 
   @if(/^(?:O|E)_ADV$/.test(request.type_alias))
-    Advertido por <a href="{{ route('users.show') }}?u={{ request.author }}">{{ request.author }}</a>:
+    {{ request.receiver }} foi advertido por <a href="{{ route('users.show') }}?u={{ request.author }}">{{ request.author }}</a>:
     <blockquote style="padding: .75rem;">
       {{ truncate(request.reason, 400, '...') }}
     </blockquote>
   @endif
 
   @if(request.type_alias === 'E_BUY_P')
-    Comprou o cargo <strong>{{ request.after_position }}</strong>.
+    {{ request.receiver }} comprou o cargo <strong>{{ request.after_position }}</strong>.
   @endif
 
   @if(request.type_alias === 'TAG_REQUEST')
-    Solicitou a criação da TAG [<strong>{{ request.tag }}</strong>].
+    {{ request.receiver }} solicitou a criação da TAG [<strong>{{ request.tag }}</strong>].
   @endif
 
   @if(request.type_alias === 'GRAT_E')
-    Atribuição de {{ bonuses }} gratificações efetivas.
+    {{ request.receiver }} recebeu {{ bonuses }} gratificações efetivas.
   @endif
 
   @if(request.type_alias === 'GRAT_T')
-    Atribuição de {{ bonuses }} gratificações temporárias.
+    {{ request.receiver }} recebeu {{ bonuses }} gratificações temporárias.
   @endif
 
   @if(request.type_alias === 'DESL_H')
-    Desligamento <strong>honroso</strong> solicitado. Por <a href="{{ route('users.show') }}?u={{ request.author }}">{{ request.author }}</a>:
+    Desligamento <strong>honroso</strong> para o policial {{ request.receiver }} solicitado por <a href="{{ route('users.show') }}?u={{ request.author }}">{{ request.author }}</a>:
     <blockquote style="padding: .75rem;">
       {{ request.reason }}
     </blockquote>
   @endif
 
   @if(request.type_alias === 'DESL_D')
-    Desligamento <strong>desonroso</strong> solicitado. Por <a href="{{ route('users.show') }}?u={{ request.author }}">{{ request.author }}</a>:
+    Desligamento <strong>desonroso</strong> para o policial {{ request.receiver }} solicitado por <a href="{{ route('users.show') }}?u={{ request.author }}">{{ request.author }}</a>:
     <blockquote style="padding: .75rem;">
       {{ request.reason }}
     </blockquote>
