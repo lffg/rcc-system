@@ -4,6 +4,10 @@
     Criação da Conta
   @endif
 
+  @if(request.type_alias === 'CFSD_A')
+    Aprovação em CFSd
+  @endif
+
   @if(/^(?:P|O|E)_PRO$/.test(request.type_alias))
     Promoção ({{ request.before_position }} para {{ request.after_position }})
   @endif
@@ -65,6 +69,10 @@
 @if(type === 'BODY')
   @if(request.type_alias === 'REGISTER')
     Criação da conta para o usuário {{ request.receiver }} efetivada.
+  @endif
+
+  @if(request.type_alias === 'CFSD_A')
+    Aprovado no Curso de Formação de Soldados.
   @endif
 
   @if(/^(?:P|O|E)_PRO$/.test(request.type_alias))
