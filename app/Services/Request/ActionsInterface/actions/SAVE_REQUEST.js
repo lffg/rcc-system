@@ -92,5 +92,5 @@ async function saveData (data) {
     $data.push(data)
   }
 
-  await writeFile(join(path, 'requests.json'), JSON.stringify($data))
+  await writeFile(join(path, 'requests.json'), JSON.stringify($data, null, 2))
 }
