@@ -45,6 +45,10 @@ class Request extends Model {
   receiver () {
     return this.belongsTo('App/Models/User', 'receiver_id')
   }
+
+  reviwer () {
+    return this.belongsTo('App/Models/User', 'reviwer_id')
+  }
 }
 
 module.exports = Request
