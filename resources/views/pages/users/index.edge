@@ -15,12 +15,6 @@
 @endsection
 
 @section('content')
-  @if(hasPermission('ADMIN'))
-    <p>
-      <i class="fa fa-link"></i>
-      Clique <a href="{{ route('admin:users.index') }}" class="alert-link">aqui</a> para acessar a listagem de usuários do Painel de Controle.
-    </p>
-  @endif
   <form class="sys-userlist" method="GET">
     @include('pages.users.includes.index.find-options')
 
