@@ -20,7 +20,7 @@ async function caller ({ payload }) {
     }
 
     if (required && !payload[name]) {
-      throw new HttpException(`Erro ao criar a requisição: '${name}' está faltando.`, 400)
+      throw new FormError(`Erro ao criar a requisição: '${name}' está faltando.`, 400)
     }
 
     data = Object.assign(data, { [key]: payload[name] })
