@@ -13,7 +13,6 @@ class UserController {
    */
   async index ({ request, view }) {
     const { page = 1, username = null } = request.all()
-
     const query = User.query()
 
     if (username) {

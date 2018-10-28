@@ -30,21 +30,21 @@ exports.users = [
   {
     id: 4,
     username: 'surfjoseca39',
-    state: 'VETERAN',
+    state: 'ACTIVE',
     tag: 'S39',
     password: '123',
     email: 'surf@rccsystem.com'
   },
   {
     id: 5,
-    state: 'RETIRED',
+    state: 'ACTIVE',
     username: '@WooD',
     password: '123',
     email: 'wd@test.com'
   },
   {
     id: 6,
-    state: 'INACTIVE',
+    state: 'ACTIVE',
     username: '@isaacels',
     password: '123',
     email: 'is@test.com'
@@ -74,7 +74,7 @@ exports.users = [
   },
   {
     id: 11,
-    state: 'INACTIVE',
+    state: 'ACTIVE',
     username: ',SrGabriel',
     password: '123',
     email: 'bm@test.com'

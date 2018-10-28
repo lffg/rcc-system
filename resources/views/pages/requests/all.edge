@@ -1,0 +1,31 @@
+@layout('partials.layouts.master')
+
+@section('title')
+  Requerimentos &middot; Centro de Recursos Humanos
+@endsection
+
+@section('breadcrumb')
+  <li class="breadcrumb-item">
+    <a href="{{ route('requests.index') }}">Centro de Recursos Humanos</a>
+  </li>
+  <li class="breadcrumb-item">Todos</li>
+@endsection
+
+@section('content')
+  @if(requests.data.length > 0)
+    <div class="mb-3">
+      @each(request in requests.data)
+        @include('pages.requests.includes.all.request')
+      @endeach
+    </div>
+    @!component('partials.components.pagination',
+      href = route('requests.all'),
+      page = requests.page,
+      lastPage = requests.lastPage
+    )
+  @else
+    <div class="alert alert-info">
+      <i class="fa fa-info"></i> Não há resultados de pesquisa para os parâmetros fornecidos.
+    </div>
+  @endif
+@endsection
