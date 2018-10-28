@@ -1,10 +1,8 @@
 'use strict'
 
 const { controllers, actions, types } = require('../seeds-data/requests')
-const requests = require('../seeds-data/requests-entries')
 
 const RequestController = use('App/Models/RequestController')
-const { RequestInterface } = use('App/Services/Request')
 const RequestAction = use('App/Models/RequestAction')
 const RequestType = use('App/Models/RequestType')
 
@@ -21,9 +19,6 @@ class RequestsSeeder {
 
     await this.relations()
     console.log('Relações das requisições criadas.')
-
-    await this.createRequests()
-    console.log('Requisições criadas.')
   }
 
   async relations () {
@@ -63,12 +58,6 @@ class RequestsSeeder {
       const type = new RequestType()
       type.merge(data)
       await type.save()
-    }
-  }
-
-  async createRequests () {
-    for (const data of requests) {
-      await RequestInterface.create(data)
     }
   }
 }
