@@ -1,10 +1,10 @@
 'use strict'
 
 const { controllers, actions, types } = require('../seeds-data/requests')
-// const requests = require('../seeds-data/requests-entries')
+const requests = require('../seeds-data/requests-entries')
 
-// const CreateRequest = use('App/Services/Request/CreateRequest')
 const RequestController = use('App/Models/RequestController')
+const { RequestInterface } = use('App/Services/Request')
 const RequestAction = use('App/Models/RequestAction')
 const RequestType = use('App/Models/RequestType')
 const Request = use('App/Models/Request')
@@ -32,8 +32,9 @@ class RequestsSeeder {
     await this.relations()
     console.log('Relações das requisições criadas.')
 
-    // await this.createRequests()
-    // console.log('Requisições criadas.')
+    await this.createRequests()
+    console.log('Requisições criadas.')
+
     // await this.createReviews()
   }
 
@@ -77,19 +78,11 @@ class RequestsSeeder {
     }
   }
 
-  /* async createRequests () {
-    const wait = (t = 0) => new Promise((resolve) => setTimeout(resolve, t))
-
+  async createRequests () {
     for (const data of requests) {
-      await wait(1000)
-      const controller = await RequestController.find(data.controller_id)
-      const type = await RequestType.find(data.type_id)
-
-      const req = new CreateRequest(controller, type)
-      req.use(data)
-      await req.create()
+      await RequestInterface.create(data)
     }
-  } */
+  }
 }
 
 module.exports = RequestsSeeder

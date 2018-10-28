@@ -1,76 +1,93 @@
+'use strict'
+
 module.exports = [
   {
-    controller_id: 1,
-    type_id: 1,
-    is_reviewable: true,
-    crh_state: 'PENDING',
-    author_id: 2,
-    receiver_id: 11
-  },
-  {
-    controller_id: 2,
-    type_id: 2,
-    is_reviewable: true,
+    controller_id: '3',
+    type_id: '3',
+    author_id: '1',
+    receiver_id: '3',
+    before_position_id: '5',
+    after_position_id: '6',
     crh_state: 'APPROVED',
-    author_id: 4,
-    receiver_id: 3,
-    before_position_id: 5,
-    after_position_id: 6,
-    reason: 'Excelente.'
+    reason: 'Excelente policial.'
   },
   {
-    controller_id: 2,
-    type_id: 3,
-    is_reviewable: true,
-    crh_state: 'PENDING',
-    author_id: 2,
-    receiver_id: 3,
-    before_position_id: 6,
-    after_position_id: 5,
-    reason: 'Mau comportamento.'
-  },
-  {
-    controller_id: 3,
-    type_id: 6,
-    is_reviewable: true,
-    crh_state: 'PENDING',
-    author_id: 2,
-    receiver_id: 4,
-    before_position_id: 13,
-    after_position_id: 12,
-    reason: 'Mau comportamento (Reb de surf).'
-  },
-  {
-    controller_id: 4,
-    type_id: 11,
-    is_reviewable: true,
+    controller_id: '5',
+    type_id: '12',
+    author_id: '1',
+    receiver_id: '10',
+    before_position_id: '1',
+    after_position_id: '32',
     crh_state: 'APPROVED',
-    author_id: 2,
-    receiver_id: 10,
-    before_position_id: 1,
-    after_position_id: 32,
-    price: '1k'
+    price: '1000c em câmbios.',
+    asked_by: 'Dean.Santos'
   },
   {
-    controller_id: 4,
-    type_id: 12,
-    is_reviewable: true,
+    controller_id: '6',
+    type_id: '18',
+    author_id: '10',
     crh_state: 'APPROVED',
-    author_id: 2,
-    receiver_id: 10,
-    before_position_id: 32,
-    after_position_id: 31,
-    reason: 'Desacato.'
+    receiver_id: '10',
+    tag: 'fmi'
   },
   {
-    controller_id: 4,
-    type_id: 11,
-    is_reviewable: true,
-    crh_state: 'PENDING',
-    author_id: 2,
-    receiver_id: 10,
-    before_position_id: 31,
-    after_position_id: 32,
-    price: '1k'
+    controller_id: '2',
+    type_id: '2',
+    author_id: '10',
+    crh_state: 'APPROVED',
+    receiver_id: '11',
+    notes: 'Excelente aula.'
+  },
+  {
+    controller_id: '2',
+    type_id: '2',
+    author_id: '10',
+    crh_state: 'APPROVED',
+    receiver_id: '12',
+    notes: 'Excelente aula.'
+  },
+  {
+    controller_id: '8',
+    type_id: '22',
+    author_id: '3',
+    crh_state: 'APPROVED',
+    receiver_id: '11',
+    before_position_id: '2',
+    reason: 'Reprovado na Supervisão.'
+  },
+  {
+    controller_id: '3',
+    type_id: '3',
+    author_id: '3',
+    crh_state: 'APPROVED',
+    receiver_id: '12',
+    before_position_id: '2',
+    after_position_id: '3',
+    reason: 'Bom policial. :)'
+  },
+  {
+    controller_id: '4',
+    type_id: '7',
+    author_id: '2',
+    receiver_id: '4',
+    before_position_id: '13',
+    after_position_id: '12',
+    reason: 'Decisão da Corregedoria em conjunto à Supremacia.'
+  },
+  {
+    controller_id: '6',
+    type_id: '18',
+    author_id: '1',
+    receiver_id: '1',
+    tag: 'LUI'
+  },
+  {
+    controller_id: '3',
+    type_id: '3',
+    author_id: '1',
+    receiver_id: '12',
+    before_position_id: '3',
+    after_position_id: '4',
+    reason: 'Excelente policial. :)'
   }
 ]
