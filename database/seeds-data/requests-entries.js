@@ -52,14 +52,12 @@ module.exports = [
     notes: 'Excelente aula.'
   },
   {
-    controller_id: '8',
-    type_id: '22',
+    controller_id: '2',
+    type_id: '25',
     author_id: '3',
     crh_state: 'APPROVED',
     reviwer_id: 4,
-    receiver_id: '11',
-    before_position_id: '2',
-    reason: 'Reprovado na Supervisão.'
+    receiver_id: '11'
   },
   {
     controller_id: '3',

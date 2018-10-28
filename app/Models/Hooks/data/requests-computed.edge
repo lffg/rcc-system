@@ -8,6 +8,10 @@
     Aprovação em CFSd
   @endif
 
+  @if(request.type_alias === 'SUP-REPR')
+    Reprovação na Supervisão
+  @endif
+
   @if(/^(?:P|O|E)_PRO$/.test(request.type_alias))
     Promoção ({{ request.before_position }} para {{ request.after_position }})
   @endif
@@ -73,6 +77,10 @@
 
   @if(request.type_alias === 'CFSD_A')
     Aprovado no Curso de Formação de Soldados.
+  @endif
+
+  @if(request.type_alias === 'SUP-REPR')
+    Reprovado na Supervisão de Soldados, ocasionando o desligamento automático deste policial.
   @endif
 
   @if(/^(?:P|O|E)_PRO$/.test(request.type_alias))

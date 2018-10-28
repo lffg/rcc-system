@@ -92,6 +92,21 @@ exports.types = [
     field_notes: 'OPT',
     field_asked_by: 'OPT'
   },
+  {
+    id: 25,
+    alias: 'SUP-REPR',
+    controller_id: 2,
+    name: 'Reprovação em Supervisão',
+    timeline_title: 'Reprovou na Supervisão',
+    description: '(Instruçòes Iniciais)',
+    color: '#d32f2f',
+    icon: 'fa fa-times',
+    info_text:
+      'Assim que este requerimento for aprovado por um membro do Centro de Recursos Humanos, o(s) soldado(s) será(ão) desligado(s) da Polícia RCC automaticamente.',
+    allow_unregistered_users: false,
+    field_notes: 'OPT',
+    field_asked_by: 'OPT'
+  },
   // --- PRAÇAS
   {
     id: 3,
