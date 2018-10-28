@@ -27,9 +27,6 @@ async function caller ({ payload }) {
   }
 
   try {
-    // @todo REMOVER
-    await saveData(data)
-
     const request = new Request()
     request.merge(data)
     await request.save()
@@ -57,40 +54,3 @@ const requiredFields = new Map([
   ['notes',              { name: 'notes' }],
   ['asked_by',           { name: 'asked_by' }]
 ])
-
-// @todo REMOVER
-async function saveData (data) {
-  const fs = require('fs')
-  const { promisify } = require('util')
-  const { join } = require('path')
-
-  const writeFile = promisify(fs.writeFile)
-  const readFile = promisify(fs.readFile)
-
-  const Helpers = use('Helpers')
-  const path = Helpers.publicPath()
-
-  async function read () {
-    try {
-      const contents = await readFile(join(path, 'requests.json'), 'utf8')
-      return { status: true, contents }
-    } catch (e) {
-      return { status: false }
-    }
-  }
-
-  const $data = []
-  const file = await read()
-
-  if (file.status) {
-    for (const entry of JSON.parse(file.contents)) {
-      $data.push(entry)
-    }
-  }
-
-  if (data.crh_state !== 'NON_CRH') {
-    $data.push(data)
-  }
-
-  await writeFile(join(path, 'requests.json'), JSON.stringify($data, null, 2))
-}
