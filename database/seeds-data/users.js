@@ -78,5 +78,12 @@ exports.users = [
     username: ',SrGabriel',
     password: '123',
     email: 'bm@test.com'
+  },
+  {
+    id: 12,
+    state: 'ACTIVE',
+    username: 'Goufix',
+    password: '123',
+    email: 'go@test.com'
   }
 ]

@@ -34,8 +34,6 @@ class RequestsSeeder {
 
     await this.createRequests()
     console.log('Requisições criadas.')
-
-    // await this.createReviews()
   }
 
   async relations () {

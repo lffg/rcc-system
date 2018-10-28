@@ -2,6 +2,7 @@
 
 const FormError = use('App/Exceptions/FormError')
 const Request = use('App/Models/Request')
+const Logger = use('Logger')
 const Route = use('Route')
 
 module.exports = () => ({
@@ -31,6 +32,7 @@ async function caller ({ payload }) {
     request.merge(data)
     await request.save()
   } catch ({ message }) {
+    Logger.error(`[ERRO] Ao tentar criar uma requisição: ${message}`)
     throw new FormError('Houve um erro ao tentar criar este requerimento.', 500, Route.url('requests.create'))
   }
 }
