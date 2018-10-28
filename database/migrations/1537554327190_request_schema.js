@@ -17,12 +17,14 @@ class RequestSchema extends Schema {
       // --- CRH
       table.boolean('is_reviewable').notNullable().defaultTo(true)
       table.enum('crh_state', ['APPROVED', 'PENDING', 'REJECTED', 'NON_CRH']).notNullable().defaultTo('PENDING')
+      table.integer('reviwer_id').index('reviwer_id').unsigned()
+      table.foreign('reviwer_id').references('users.id').onDelete('set null')
 
       // --- USER FIELDS
       table.integer('author_id').index('author_id').unsigned()
       table.foreign('author_id').references('users.id').onDelete('set null')
-      table.integer('receiver_id').index('receiver_id').unsigned().defaultTo(null)
-      table.foreign('receiver_id').references('users.id').onDelete('set null')
+      table.integer('receiver_id').index('receiver_id').unsigned().notNullable()
+      table.foreign('receiver_id').references('users.id').onDelete('cascade')
 
       // --- COMPUTED FIELDS
       table.text('computed_title').defaultTo(null)
