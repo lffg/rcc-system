@@ -27,7 +27,7 @@
 
 @if(user.bio)
   <hr class="sys-separator" />
-  <blockquote style="color: #424242;">{{ user.bio }}</blockquote>
+  <div style="color: #424242;">{{ user.bio }}</div>
 @elseif(user.id === $userdata.id)
   <hr class="sys-separator" />
   <a href="{{ route('user-config.index') }}" class="btn btn-secondary btn-sm">
