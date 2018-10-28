@@ -8,6 +8,8 @@ const globalMiddleware = [
   'Adonis/Middleware/Shield',
   'Adonis/Middleware/AuthInit',
 
+  'App/Middleware/General/TrimRequestBody',
+
   'App/Middleware/View/Userdata',
   'App/Middleware/View/AccessControl',
 
