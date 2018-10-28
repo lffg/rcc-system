@@ -69,7 +69,7 @@
         @each(group in type.positions.before)
           <optgroup label="{{ group.name }}">
             @each(position in group.positions)
-              <option value="{{ position.id }}">{{ position.name }}</option>
+              <option value="{{ position.id }}" data-position="{{ position.name }}">{{ position.name }}</option>
             @endeach
           </optgroup>
         @endeach
@@ -77,6 +77,21 @@
       <small class="form-help text-muted">
         A patente/cargo <strong>atual</strong> dos usuários afetados por este requerimento.
       </small>
+      <script>
+        (function () {
+          var elm = document.getElementById('before_position_id');
+          var options = elm.getElementsByTagName('option')
+
+          for (var i = 0; i < options.length; i++) {
+            var current = options[i];
+            if (current.getAttribute('data-position') === '{{ nicks.entries[0].position_name || 'Recruta' }}') {
+              var value = current.getAttribute('value');
+              elm.value = value;
+              elm.setAttribute('readonly', 'readonly');
+            }
+          }
+        })();
+      </script>
     </div>
   @endunless
 
