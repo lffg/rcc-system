@@ -97,7 +97,7 @@ exports.types = [
     alias: 'SUP-REPR',
     controller_id: 2,
     name: 'Reprovação em Supervisão',
-    timeline_title: 'Reprovou na Supervisão',
+    timeline_title: 'Reprovado(a) na Supervisão',
     description: '(Instruçòes Iniciais)',
     color: '#d32f2f',
     icon: 'fa fa-times',

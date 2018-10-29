@@ -15,7 +15,8 @@ class RequestTypeSchema extends Schema {
       table.foreign('controller_id').references('request_controllers.id').onDelete('cascade')
 
       table.string('name', 90).notNullable()
-      table.string('timeline_title', 90).defaultTo(null)
+      table.string('timeline_title', 90).notNullable()
+
       table.text('description').defaultTo(null)
       table.string('icon', 100).defaultTo('fa fa-circle-o').notNullable()
       table.string('color', 30).defaultTo('#37474f').notNullable()
