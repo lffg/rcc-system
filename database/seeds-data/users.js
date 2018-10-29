@@ -86,7 +86,7 @@ exports.users = [
     email: 'fm@test.com',
     is_verified_email: true,
     promoter_id: 1,
-    position_id: 13
+    position_id: 32
   },
   {
     id: 11,

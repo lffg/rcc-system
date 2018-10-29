@@ -37,8 +37,8 @@ class UserSeeder {
     const wait = (t = 0) => new Promise((resolve) => setTimeout(resolve, t))
 
     for (const data of requests) {
-      await wait(50)
       await RequestInterface.create(data)
+      await wait(1000)
     }
   }
 
