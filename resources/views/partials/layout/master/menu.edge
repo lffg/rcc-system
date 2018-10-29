@@ -52,18 +52,14 @@
 
         <li>
           <a>
-            <i class="fa fa-list fa-fw"></i> Listagens
+            <i class="fa fa-id-card-o fa-fw"></i> Setor Administrativo <span class="d-none d-sm-none">(CRH)</span>
           </a>
           <ul class="submenu">
-            <li><a href="#">Soldados</a></li>
-            <li><a href="#">Praças</a></li>
-            <li><a href="#">Oficiais</a></li>
-            <li><a href="#">Corpo Executivo</a></li>
-            <li><a href="#">Desligados</a></li>
-            <li><a href="#">Exonerados</a></li>
-            <li><a href="#">TAG's</a></li>
-            <li><a href="#">Gratificações</a></li>
-            <li><a href="#">Cursos Concluídos</a></li>
+            <li><a href="{{ route('requests.index') }}">Início</a></li>
+            <li><a href="{{ route('requests.all') }}">Requerimentos Recentes</a></li>
+            <li><a href="#">Categorias</a></li>
+            <li><a href="{{ route('users.find') }}">Conferir Policial</a></li>
+            <li><a href="{{ route('requests.create') }}">Abrir Requerimento</a></li>
           </ul>
         </li>
 
@@ -95,7 +91,7 @@
 
         <li>
           <a>
-            <i class="fa fa-book"></i> System
+            <i class="fa fa-cog"></i> System
           </a>
           <ul class="submenu">
             <li><a href="#">Estatísticas</a></li>
