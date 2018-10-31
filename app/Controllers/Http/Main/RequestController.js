@@ -18,13 +18,9 @@ class RequestHttpController {
 
     const lastRequests = await Database
       .select([
-        'req.id',
-        'req.created_at as date',
-        'A.username as author',
-        'R.username as receiver',
-        'T.timeline_title as title',
-        'T.color',
-        'T.icon'
+        'req.id', 'req.crh_state as state', 'req.created_at as date',
+        'A.username as author', 'R.username as receiver',
+        'T.timeline_title as title', 'T.color', 'T.icon'
       ])
       .from('requests as req')
       .innerJoin('request_controllers as C', 'C.id', '=', 'req.controller_id')
@@ -66,7 +62,7 @@ class RequestHttpController {
       }))
       .whereHas('author', (builder) => Filters.username(builder, author))
       .whereHas('receiver', (builder) => Filters.username(builder, receiver))
-      .with('type', (builder) => builder.select('id', 'timeline_title', 'icon', 'color'))
+      .with('type', (builder) => builder.select('id', 'timeline_title', 'name', 'icon', 'color'))
       .with('author', (builder) => builder.select('id', 'username'))
       .with('receiver', (builder) => builder.select('id', 'username'))
       .orderBy('created_at', 'DESC')

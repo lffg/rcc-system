@@ -5,9 +5,10 @@
   &__item {
     display: flex;
     align-items: center;
+    margin: 0 -1.25rem;
     padding: .75rem 1.25rem;
     border-bottom: solid 1px #faf8f8;
-    margin: 0 -1.25rem;
+    position: relative;
 
     &:first-child {
       margin-top: -1.25rem;
@@ -16,6 +17,29 @@
     &:last-child {
       margin-bottom: -1.25rem;
       border-bottom: none;
+    }
+
+    &::before {
+      content: "";
+      border-radius: 0 .25rem .25rem 0;
+      width: 3px;
+      height: 80%;
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+    }
+
+    &.--state-PENDING::before {
+      background-color: #ffa000;
+    }
+
+    &.--state-APPROVED::before {
+      background-color: #43a047;
+    }
+
+    &.--state-REJECTED::before {
+      background-color: #d32f2f;
     }
   }
 

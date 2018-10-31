@@ -1,5 +1,10 @@
 <div class="sys-requests__item --state-{{ request.crh_state }}">
-  <span class="sys-requests__icon" style="background-color: {{ request.type.color }};">
+  <span
+    class="sys-requests__icon"
+    style="background-color: {{ request.type.color }};"
+    title="{{ request.type.name }}"
+    data-placement="right"
+  >
     <i class="fa-fw {{ request.type.icon }}"></i>
   </span>
   <div class="sys-requests__main">
