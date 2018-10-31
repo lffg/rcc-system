@@ -1,0 +1,76 @@
+<div style="position: -webkit-sticky; position: sticky; top: 90px;">
+  @if(hasPermission('CRH'))
+    <div class="card mb-3">
+      <div class="card-body">
+        <a
+          class="btn btn-primary btn-block"
+          href="{{ route('requests.review-all') }}"
+          title="Acessar as ferramentas do C.R.H."
+        >
+          <i class="fa fa-cog"></i> Gestão
+        </a>
+      </div>
+    </div>
+  @endif
+
+  <div class="card mb-3">
+    <div class="card-body">
+      <p class="lead">Ir para:</p>
+
+      <select class="form-control" onchange="window.location.href = this.value;">
+        <option value="{{ route('requests.all') }}" {{ !currentController ? 'selected' : '' }}>
+          Todos
+        </option>
+        @each(controller in controllers)
+          <option
+            value="{{ route('requests.all', { controllerSlug: controller.slug }) }}"
+            {{ currentController === controller.name ? 'selected' : '' }}
+          >
+            Requerimentos de {{ controller.name }}
+          </option>
+        @endeach
+      </select>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <p class="lead">Filtro:</p>
+
+      <form method="GET" >
+        <div class="form-group">
+          <label for="receiver">Buscar por afetado:</label>
+          <input
+            type="text"
+            name="receiver"
+            id="receiver"
+            class="form-control"
+            autocomplete="off"
+            value="{{ request.input('receiver', '') }}"
+          />
+        </div>
+        <div class="form-group">
+          <label for="author">Buscar por requerente:</label>
+          <input
+            type="text"
+            name="author"
+            id="author"
+            class="form-control"
+            autocomplete="off"
+            value="{{ request.input('author', '') }}"
+          />
+        </div>
+        <div
+          class="form-group mb-0 d-flex align-items-center flex-sm-nowrap flex-wrap justify-content-center justify-content-sm-start"
+        >
+          <button class="btn btn-secondary w-100">
+            <i class="fa fa-search"></i> Buscar
+          </button>
+          <a href="#" class="btn btn-link">
+            <small>Ou acesse a página de busca avançada.</small>
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

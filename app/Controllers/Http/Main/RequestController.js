@@ -1,6 +1,9 @@
 'use strict'
 
+const { HttpException } = use('@adonisjs/generic-exceptions')
 const RequestController = use('App/Models/RequestController')
+const Filters = use('App/Services/Request/Filters')
+const Request = use('App/Models/Request')
 const Database = use('Database')
 
 class RequestHttpController {
@@ -11,9 +14,7 @@ class RequestHttpController {
    */
   async index ({ view }) {
     const controllers = await RequestController.query()
-      .whereNot('is_crh', false)
-      .select('*')
-      .fetch()
+      .where('is_crh', true).select('*').fetch()
 
     const lastRequests = await Database
       .select([
@@ -45,28 +46,37 @@ class RequestHttpController {
    *
    * @method GET
    */
-  async all ({ request, view }) {
-    const page = Math.abs(request.input('page', 1))
+  async all ({ request, params: { controllerSlug = null }, view }) {
+    const { author, receiver, page = 1 } = request.all()
 
-    const requests = await Database
-      .select([
-        'req.*',
-        'A.username as author',
-        'R.username as receiver',
-        'T.timeline_title as title',
-        'T.color',
-        'T.icon'
-      ])
-      .from('requests as req')
-      .innerJoin('request_controllers as C', 'C.id', '=', 'req.controller_id')
-      .innerJoin('request_types as T', 'T.id', '=', 'req.type_id')
-      .innerJoin('users as A', 'A.id', '=', 'req.author_id')
-      .innerJoin('users as R', 'R.id', '=', 'req.receiver_id')
-      .whereNot('C.is_crh', false)
-      .orderBy('req.created_at', 'DESC')
-      .paginate(page, 50)
+    const controllers = await RequestController.query()
+      .select(['name', 'slug']).where('is_crh', true)
+      .fetch().then((controllers) => controllers.toJSON())
 
-    return view.render('pages.requests.all', { requests })
+    const { name: currentController } = (controllerSlug === null) ? {} : controllers
+      .find(({ slug }) => slug === controllerSlug) || {}
+
+    if (controllerSlug !== null && !currentController) {
+      throw new HttpException('Controller não encontrado.', 404)
+    }
+
+    const requests = await Request.query()
+      .whereHas('controller', (builder) => builder.where({
+        is_crh: true, ...(controllerSlug ? { slug: controllerSlug } : {})
+      }))
+      .whereHas('author', (builder) => Filters.username(builder, author))
+      .whereHas('receiver', (builder) => Filters.username(builder, receiver))
+      .with('type', (builder) => builder.select('id', 'timeline_title', 'icon', 'color'))
+      .with('author', (builder) => builder.select('id', 'username'))
+      .with('receiver', (builder) => builder.select('id', 'username'))
+      .orderBy('created_at', 'DESC')
+      .paginate(Math.abs(page), 35)
+
+    return view.render('pages.requests.all', {
+      requests: requests.toJSON(),
+      currentController,
+      controllers
+    })
   }
 }
 

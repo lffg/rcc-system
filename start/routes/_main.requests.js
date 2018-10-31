@@ -9,16 +9,21 @@ const Route = use('Route')
  */
 
 Route.group(() => {
+  // Geral:
   Route.get('/', 'RequestController.index').as('requests.index')
-  Route.get('all', 'RequestController.all').as('requests.all')
+  Route.get('all/:controllerSlug?', 'RequestController.all').as('requests.all')
   Route.get('search', 'RequestController.search').as('requests.search')
 
-  Route.get(':id', 'RequestInstanceController.show').as('requests.show')
-  Route.post(':id/comment', 'RequestInstanceController.comment').as('requests.comment')
-  Route.get(':id/edit', 'RequestInstanceController.edit').as('requests.edit')
-  Route.post(':id/edit', 'RequestInstanceController.update')
-  Route.get(':id/review', 'RequestInstanceController.review').as('requests.review')
-  Route.post(':id/review', 'RequestInstanceController.review')
+  // Revisão (CRH):
+  Route.get('review/all/:controllerSlug?', 'RequestManagerController.all').as('requests.review-all')
+  Route.get('review/req/:id', 'RequestManagerController.review').as('requests.review')
+  Route.post('review/req/:id', 'RequestManagerController.review')
+
+  // Entidade:
+  Route.get('req/:id', 'RequestEntityController.show').as('requests.show')
+  Route.post('req/:id/comment', 'RequestEntityController.comment').as('requests.comment')
+  Route.get('req/:id/edit', 'RequestEntityController.edit').as('requests.edit')
+  Route.post('req/:id/edit', 'RequestEntityController.update')
 })
   .middleware(['auth'])
   .namespace('Main')

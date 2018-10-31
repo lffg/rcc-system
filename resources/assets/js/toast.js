@@ -18,7 +18,7 @@
    * @param  {'success'|'warning'|'danger'|'info'} type
    * @return {void}
    */
-  window.Sys.Toast = window.Sys.Toast || function Toast (message, type) {
+  window.Sys.Toast = window.Sys.Toast || function Toast (message, type, id) {
     var attributes = {
       className: '',
       icon: 'fa fa-info'
@@ -44,13 +44,15 @@
     }
 
     var $toast = $([
-      '<div class="--hidden sys-toast ' + (attributes.className || '') + '">',
+      '<div class="--hidden sys-toast">',
       '  <div class="sys-toast-inner">',
       '    <i class="fa alert-icon ' + (attributes.icon || '') + '"></i>',
       '    <div>' + message + '</div>',
       '  </div>',
       '</div>'
-    ].join(''));
+    ].join(''))
+      .addClass(attributes.className || '')
+      .addClass(id || '');
 
     $toast.appendTo('.sys-toast-zone');
     setTimeout(function () {
@@ -150,7 +152,7 @@
         if ($this.find('.sys-toast-bar').length) {
           $this.find('.sys-toast-bar').remove();
           setTimeout(function () {
-            $this.remove();
+            $this.find('.sys-toast-bar').remove();
           }, 20);
         }
 

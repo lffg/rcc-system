@@ -8,24 +8,67 @@
   <li class="breadcrumb-item">
     <a href="{{ route('requests.index') }}">Centro de Recursos Humanos</a>
   </li>
-  <li class="breadcrumb-item">Todos</li>
+  @if(currentController)
+    <li class="breadcrumb-item">
+      <a href="{{ route('requests.all') }}">Requerimentos</a>
+    </li>
+    <li class="breadcrumb-item">{{ currentController }}</li>
+  @else
+    <li class="breadcrumb-item">Requerimentos</li>
+  @endif
 @endsection
 
 @section('content')
-  @if(requests.data.length > 0)
-    <div class="mb-3">
-      @each(request in requests.data)
-        @include('pages.requests.includes.all.request')
-      @endeach
+  <h4 class="display-4 mb-4 text-center text-md-left" style="font-size: 30px;">
+    @if(currentController)
+      Requerimentos de {{ currentController }}
+    @else
+      <span class="d-none d-md-block">Todos os Requerimentos</span>
+    @endif
+  </h4>
+
+  <div class="row mb-0" id="requests-wrapper">
+    <aside class="col-md-4 order-last order-md-first mt-3 mt-md-0 mb-0 mb-md-3">
+      @include('pages.requests.includes.all.sidebar')
+    </aside>
+    <div class="col-md-8">
+      @if(requests.data.length > 0)
+        <div class="sys-requests mb-3">
+          @each(request in requests.data)
+            @include('pages.requests.includes.all.request')
+          @endeach
+        </div>
+
+        @!component('partials.components.pagination',
+          href = route('requests.all'),
+          querystring = '&' + toQueryString(request.only('receiver', 'author')),
+          page = requests.page,
+          lastPage = requests.lastPage,
+          prev_text = 'Mais Recentes',
+          next_text = 'Mais Antigos',
+          mb = '0'
+        )
+      @else
+        <div class="alert alert-info">
+          <i class="fa fa-info"></i> Não há resultados de pesquisa para os parâmetros fornecidos.
+        </div>
+      @endif
     </div>
-    @!component('partials.components.pagination',
-      href = route('requests.all'),
-      page = requests.page,
-      lastPage = requests.lastPage
-    )
-  @else
-    <div class="alert alert-info">
-      <i class="fa fa-info"></i> Não há resultados de pesquisa para os parâmetros fornecidos.
-    </div>
-  @endif
+  </div>
+@endsection
+
+@section('scripts')
+<script>
+(function($) {
+  'use strict';
+
+  $(function() {
+    $('.sys-requests__item').on('dblclick', function () {
+      var regex = new RegExp('\\/1$', 'g');
+      var path = '{{ route('requests.show', { id: 1 }) }}'.replace(regex, '');
+      window.location.href = (path + '/' + $(this).attr('data-request-id'));
+    });
+  });
+})(jQuery);
+</script>
 @endsection

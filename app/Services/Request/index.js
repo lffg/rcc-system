@@ -2,8 +2,8 @@
 
 const ActionsInterface = require('./ActionsInterface')
 const RequestInterface = require('./RequestInterface')
+const Filters = require('./Filters')
 
-module.exports = {
-  ActionsInterface,
-  RequestInterface
-}
+exports.ActionsInterface = ActionsInterface
+exports.RequestInterface = RequestInterface
+exports.Filters = Filters
