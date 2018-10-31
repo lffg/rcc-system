@@ -1,5 +1,6 @@
 'use strict'
 
+const { stringify } = require('querystring')
 const moment = require('moment')
 
 const { hooks } = require('@adonisjs/ignitor')
@@ -68,6 +69,19 @@ hooks.after.providersRegistered(() => {
    */
   View.global('Date', (...args) => {
     return new Date(...args)
+  })
+
+  /**
+   * Adiciona um método global "toQueryString" nas views.
+   */
+  View.global('toQueryString', (...objects) => {
+    let main = {}
+
+    for (const object of objects) {
+      main = Object.assign(main, object)
+    }
+
+    return stringify(main)
   })
 
   /**
