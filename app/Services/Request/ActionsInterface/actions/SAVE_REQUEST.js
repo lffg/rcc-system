@@ -1,5 +1,8 @@
 'use strict'
 
+const sanitize = require('sanitize-html')
+
+const htmlifyLineBreaks = use('App/Helpers/htmlify-line-breaks')
 const FormError = use('App/Exceptions/FormError')
 const Request = use('App/Models/Request')
 const Logger = use('Logger')
@@ -24,7 +27,19 @@ async function caller ({ payload }) {
       throw new FormError(`Erro ao criar a requisição: '${name}' está faltando.`, 400)
     }
 
-    data = Object.assign(data, { [key]: payload[name] })
+    // Transforma quebra de linhas em <br>:
+    if (['reason', 'notes', 'price'].includes(name)) {
+      payload[name] = !payload[name] ? null : sanitize(htmlifyLineBreaks(payload[name]), {
+        allowedTags: ['b', 'i', 'em', 'strong', 'a', 'br'],
+        allowedAttributes: {
+          'a': ['href']
+        }
+      }).trim()
+    }
+
+    data = Object.assign(data, {
+      [key]: payload[name]
+    })
   }
 
   try {
@@ -32,7 +47,7 @@ async function caller ({ payload }) {
     request.merge(data)
     await request.save()
   } catch ({ message }) {
-    Logger.error(`[ERRO] Ao tentar criar uma requisição: ${message}`)
+    Logger.error(`[DEBUG] [ERRO] Ao tentar criar uma requisição: ${message}`)
     throw new FormError('Houve um erro ao tentar criar este requerimento.', 500, Route.url('requests.create'))
   }
 }
