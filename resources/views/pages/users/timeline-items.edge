@@ -76,12 +76,14 @@
             </span>
           </span>
 
-          <a
-            href="{{ route('requests.show', { id: event.id }) }}"
-            class="btn btn-primary btn-sm sys-timeline-details"
-          >
-            Detalhes <i class="fa fa-angle-right"></i>
-          </a>
+          @if(event.is_crh)
+            <a
+              href="{{ route('requests.show', { id: event.id }) }}"
+              class="btn btn-primary btn-sm sys-timeline-details"
+            >
+              Detalhes <i class="fa fa-angle-right"></i>
+            </a>
+          @endif
         </footer>
       </div>
     </div>

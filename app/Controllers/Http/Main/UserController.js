@@ -73,6 +73,7 @@ class UserController {
     const events = await Database
       .select([
         'req.*',
+        'C.is_crh',
         'T.timeline_title as type_title',
         'T.color as type_color',
         'T.icon as type_icon',
@@ -80,6 +81,7 @@ class UserController {
         'A.username as author'
       ])
       .from('requests as req')
+      .innerJoin('request_controllers as C', 'C.id', '=', 'req.controller_id')
       .innerJoin('request_types as T', 'T.id', '=', 'req.type_id')
       .innerJoin('users as R', 'R.id', '=', 'req.receiver_id')
       .innerJoin('users as A', 'A.id', '=', 'req.author_id')
