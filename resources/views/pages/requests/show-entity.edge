@@ -1,0 +1,21 @@
+@layout('partials.layouts.master')
+
+@section('title')
+  Requerimento &middot; {{ entity.type_name }} de {{ entity.receiver }}
+@endsection
+
+@section('breadcrumb')
+  <li class="breadcrumb-item">
+    <a href="{{ route('requests.index') }}">Centro de Recursos Humanos</a>
+  </li>
+  <li class="breadcrumb-item">
+    <a href="{{ route('requests.all') }}">Requerimentos</a>
+  </li>
+  <li class="breadcrumb-item">Ver Requerimento</li>
+@endsection
+
+@section('content')
+  <div class="sys-request-timeline">
+    @include('pages.requests.includes.show-entity.primary-message')
+  </div>
+@endsection

@@ -7,6 +7,7 @@ class RequestSchema extends Schema {
     this.create('requests', (table) => {
       table.increments()
       table.timestamps()
+      table.timestamp('modified_at').notNullable().defaultTo(this.fn.now())
       table.string('integrity_token', 40).defaultTo(null)
 
       table.integer('controller_id').unsigned().index('controller_id').notNullable()
@@ -29,6 +30,7 @@ class RequestSchema extends Schema {
       // --- COMPUTED FIELDS
       table.text('computed_title').defaultTo(null)
       table.text('computed_body').defaultTo(null)
+      table.text('computed_template').defaultTo(null)
 
       // --- FIELDS
       table.integer('before_position_id').unsigned().index('before_position_id').defaultTo(null)

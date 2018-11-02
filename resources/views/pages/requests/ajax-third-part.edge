@@ -57,7 +57,7 @@
             title="Campo obrigatório"
           >*</span>
         @endif
-        Patente/cargo atual:
+        {{{ type.label_field_before_position || 'Patente/cargo atual:' }}}
       </label>
       <select
         name="before_position_id"
@@ -103,7 +103,7 @@
             title="Campo obrigatório"
           >*</span>
         @endif
-        Patente/cargo seguinte:
+        {{{ type.label_field_after_position || 'Patente/cargo seguinte:' }}}
       </label>
       <select
         name="after_position_id"
@@ -190,7 +190,7 @@
         name="banned_days"
         id="banned_days"
         min="1"
-        max="500"
+        max="999999"
         class="form-control"
         autocomplete="off"
         {{ type.field_banned_days === 'REQUIRED' ? 'required' : '' }}
@@ -255,7 +255,7 @@
             title="Campo obrigatório"
           >*</span>
         @endif
-        Motivo para o requerimento:
+        {{{ type.label_field_reason || 'Motivo para o requerimento:' }}}
       </label>
       <textarea
         name="reason"
@@ -303,7 +303,7 @@
             title="Campo obrigatório"
           >*</span>
         @endif
-        Notas sobre o requerimento:
+        Notas e/ou observações:
       </label>
       <textarea
         name="notes"

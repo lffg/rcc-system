@@ -6,6 +6,7 @@ class RequestReviewSchema extends Schema {
   up () {
     this.create('request_reviews', (table) => {
       table.increments()
+      table.timestamps()
 
       table.integer('request_id').unsigned().index('request_id').notNullable()
       table.foreign('request_id').references('requests.id').onDelete('cascade')
@@ -17,8 +18,6 @@ class RequestReviewSchema extends Schema {
       table.enum('type', ['COMMENT', 'REVIEW', 'LOG']).notNullable().defaultTo('COMMENT')
 
       table.string('body').notNullable()
-
-      table.timestamps()
     })
   }
 

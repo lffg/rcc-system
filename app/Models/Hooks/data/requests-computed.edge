@@ -69,6 +69,12 @@
   @endif
 @endif
 
+
+
+
+
+
+
 {{-- ---------- DEFINIR CORPO COMPUTADO ---------- --}}
 @if(type === 'BODY')
   @if(request.type_alias === 'REGISTER')
@@ -84,21 +90,21 @@
   @endif
 
   @if(/^(?:P|O|E)_PRO$/.test(request.type_alias))
-    Promoção de {{ request.before_position }} para <strong>{{ request.after_position }}</strong> do policial {{ request.receiver }}, por <a href="{{ route('users.show') }}?u={{ request.author }}">{{ request.author }}</a>.
+    Promoção de {{ request.before_position }} para <strong>{{ request.after_position }}</strong> do policial {{ request.receiver }}, por {{ userLink(request.author) }}.
     <blockquote style="padding: .75rem;">
       {{ truncate(request.reason, 400, '...') }}
     </blockquote>
   @endif
 
   @if(/^(?:P|O|E)_REB$/.test(request.type_alias))
-    Rebaixamento de {{ request.before_position }} para <strong>{{ request.after_position }}</strong> do policial {{ request.receiver }}, por <a href="{{ route('users.show') }}?u={{ request.author }}">{{ request.author }}</a>.
+    Rebaixamento de {{ request.before_position }} para <strong>{{ request.after_position }}</strong> do policial {{ request.receiver }}, por {{ userLink(request.author) }}.
     <blockquote style="padding: .75rem;">
       {{ truncate(request.reason, 400, '...') }}
     </blockquote>
   @endif
 
   @if(/^(?:P|E)_REJOIN$/.test(request.type_alias))
-    {{ request.receiver }} foi reintegrado à Polícia RCC como <strong>{{ request.after_position }}</strong>, por <a href="{{ route('users.show') }}?u={{ request.author }}">{{ request.author }}</a>.
+    {{ request.receiver }} foi reintegrado à Polícia RCC como <strong>{{ request.after_position }}</strong>, por {{ userLink(request.author) }}.
   @endif
 
   @if(/^(?:O|E)_ABS$/.test(request.type_alias))
@@ -120,7 +126,7 @@
   @endif
 
   @if(/^(?:O|E)_ADV$/.test(request.type_alias))
-    {{ request.receiver }} foi advertido por <a href="{{ route('users.show') }}?u={{ request.author }}">{{ request.author }}</a>:
+    {{ request.receiver }} foi advertido por {{ userLink(request.author) }}:
     <blockquote style="padding: .75rem;">
       {{ truncate(request.reason, 400, '...') }}
     </blockquote>
@@ -143,32 +149,295 @@
   @endif
 
   @if(request.type_alias === 'DESL_H')
-    Desligamento <strong>honroso</strong> para o policial {{ request.receiver }} solicitado por <a href="{{ route('users.show') }}?u={{ request.author }}">{{ request.author }}</a>:
+    Desligamento <strong>honroso</strong> para o policial {{ request.receiver }} solicitado por {{ userLink(request.author) }}:
     <blockquote style="padding: .75rem;">
       {{ request.reason }}
     </blockquote>
   @endif
 
   @if(request.type_alias === 'DESL_D')
-    Desligamento <strong>desonroso</strong> para o policial {{ request.receiver }} solicitado por <a href="{{ route('users.show') }}?u={{ request.author }}">{{ request.author }}</a>:
+    Desligamento <strong>desonroso</strong> para o policial {{ request.receiver }} solicitado por {{ userLink(request.author) }}:
     <blockquote style="padding: .75rem;">
       {{ request.reason }}
     </blockquote>
   @endif
 
   @if(request.type_alias === 'REF_REQUEST')
-    Reforma solicitada por <a href="{{ route('users.show') }}?u={{ request.author }}">{{ request.author }}</a>:
+    Reforma solicitada por {{ userLink(request.author) }}:
     <blockquote style="padding: .75rem;">
       {{ request.reason }}
     </blockquote>
   @endif
 
   @if(request.type_alias === 'EXO_REQUEST')
-    Exoneração do policial <strong>{{ request.receiver }}</strong>. Solicitada por <a href="{{ route('users.show') }}?u={{ request.author }}">{{ request.author }}</a>, pelo motivo:
+    Exoneração do policial <strong>{{ request.receiver }}</strong>. Solicitada por {{ userLink(request.author) }}, pelo motivo:
     <blockquote style="padding: .75rem;">
       {{ request.reason }}
     </blockquote>
     Início do banimento: {{ moment(request.created_at).format('LLL') }}. Término:
     <strong>{{ moment(request.created_at).add(request.banned_days, 'days').format('LLL') }}</strong>.
+  @endif
+@endif
+
+
+
+
+
+
+
+{{-- ---------- DEFINIR PARA A PÁGINA DA ENTIDADE ---------- --}}
+@if(type === 'ENTITY_TEMPLATE')
+  @if(request.type_alias === 'CFSD_A')
+    <div><b>Nick do Instrutor:</b> {{ userLink(request.author) }}</div>
+    <div><b>Recruta aprovado:</b> {{ userLink(request.receiver) }}</div>
+    @if(request.asked_by)
+      <div><b>Postado a pedido de:</b> {{ request.asked_by }}</div>
+    @endif
+    @if(request.notes)
+      <br /><div><b>Notas:</b><blockquote>{{ request.notes }}</blockquote></div>
+    @endif
+  @endif
+
+  @if(request.type_alias === 'SUP-REPR')
+    <div><b>Nick do Supervisor:</b> {{ userLink(request.author) }}</div>
+    <div><b>Nick do reprovado (demitido):</b> {{ userLink(request.receiver) }}</div>
+    @if(request.asked_by)
+      <div><b>Postado a pedido de:</b> {{ request.asked_by }}</div>
+    @endif
+    @if(request.notes)
+      <br /><div><b>Notas:</b><blockquote>{{ request.notes }}</blockquote></div>
+    @endif
+  @endif
+
+  @if(/^(?:P|O|E)_PRO$/.test(request.type_alias))
+    <div><b>Promotor:</b> {{ userLink(request.author) }}</div>
+    @if(request.permission)
+      <div><b>Permissão:</b> {{ request.permission }}</div>
+    @endif
+    @if(request.asked_by)
+      <div><b>Postado a pedido de:</b> {{ request.asked_by }}</div>
+    @endif
+    <br />
+    <div><b>Promoção:</b> {{ request.before_position }} para {{ request.after_position }}</div>
+    <div><b>Policial promovido:</b> {{ userLink(request.receiver) }}</div>
+    <br />
+    <div><b>Motivo:</b><blockquote>{{ request.reason }}</blockquote></div>
+    @if(request.notes)
+      <br /><div><b>Notas:</b><blockquote>{{ request.notes }}</blockquote></div>
+    @endif
+  @endif
+
+  @if(/^(?:P|O|E)_REB$/.test(request.type_alias))
+    <div><b>Responsável pelo rebaixamento:</b> {{ userLink(request.author) }}</div>
+    @if(request.permission)
+      <div><b>Permissão:</b> {{ request.permission }}</div>
+    @endif
+    @if(request.asked_by)
+      <div><b>Postado a pedido de:</b> {{ request.asked_by }}</div>
+    @endif
+    <br />
+    <div><b>Rebaixamento:</b> {{ request.before_position }} para {{ request.after_position }}</div>
+    <div><b>Policial rebaixado:</b> {{ userLink(request.receiver) }}</div>
+    <br />
+    <div><b>Motivo:</b><blockquote>{{ request.reason }}</blockquote></div>
+    @if(request.notes)
+      <br /><div><b>Notas:</b><blockquote>{{ request.notes }}</blockquote></div>
+    @endif
+  @endif
+
+  @if(/^(?:P|E)_REJOIN$/.test(request.type_alias))
+    <div><b>Responsável pela reintegração:</b> {{ userLink(request.author) }}</div>
+    @if(request.permission)
+      <div><b>Permissão:</b> {{ request.permission }}</div>
+    @endif
+    @if(request.asked_by)
+      <div><b>Postado a pedido de:</b> {{ request.asked_by }}</div>
+    @endif
+    <br />
+    <div><b>Reintegração:</b> Reintegrado como {{ request.after_position }}</div>
+    <div><b>Policial reintegrado:</b> {{ userLink(request.receiver) }}</div>
+    <br />
+    @if(request.notes)
+      <br /><div><b>Notas:</b><blockquote>{{ request.notes }}</blockquote></div>
+    @endif
+  @endif
+
+  @if(/^(?:O|E)_ABS$/.test(request.type_alias))
+    <div><b>Policial que solicitou a licença:</b> {{ userLink(request.receiver) }}</div>
+    <div><b>Dias de licença:</b> {{ request.absence_days }}</div>
+    <br />
+    <div>
+      Início da licença: {{ moment(request.created_at).format('LLL') }}. Término:
+      <strong>{{ moment(request.created_at).add(request.absence_days, 'days').format('LLL') }}</strong>.
+    </div>
+    <br />
+    <div><b>Motivo:</b><blockquote>{{ request.reason }}</blockquote></div>
+    @if(request.notes)
+      <br /><div><b>Notas:</b><blockquote>{{ request.notes }}</blockquote></div>
+    @endif
+  @endif
+
+  @if(/^(?:O|E)_RES$/.test(request.type_alias))
+    <div><b>Policial que solicitou a reserva:</b> {{ userLink(request.receiver) }}</div>
+    <div><b>Dias de reserva:</b> {{ request.absence_days }}</div>
+    <br />
+    <div>
+      Início da reserva: {{ moment(request.created_at).format('LLL') }}. Término:
+      <strong>{{ moment(request.created_at).add(request.absence_days, 'days').format('LLL') }}</strong>.
+    </div>
+    <br />
+    <div><b>Motivo:</b><blockquote>{{ request.reason }}</blockquote></div>
+    @if(request.notes)
+      <br /><div><b>Notas:</b><blockquote>{{ request.notes }}</blockquote></div>
+    @endif
+  @endif
+
+  @if(/^(?:O|E)_ADV$/.test(request.type_alias))
+    <div><b>Responsável pela advertência:</b> {{ userLink(request.author) }}</div>
+    @if(request.permission)
+      <div><b>Permissão:</b> {{ request.permission }}</div>
+    @endif
+    @if(request.asked_by)
+      <div><b>Postado a pedido de:</b> {{ request.asked_by }}</div>
+    @endif
+    <br />
+    <div><b>Policial advertido:</b> {{ userLink(request.receiver) }}</div>
+    <br />
+    <div><b>Motivo:</b><blockquote>{{ request.reason }}</blockquote></div>
+    @if(request.notes)
+      <br /><div><b>Notas:</b><blockquote>{{ request.notes }}</blockquote></div>
+    @endif
+  @endif
+
+  @if(request.type_alias === 'E_BUY_P')
+    <div><b>Vendedor:</b> {{ userLink(request.author) }}</div>
+    @if(request.asked_by)
+      <div><b>Postado a pedido de:</b> {{ request.asked_by }}</div>
+    @endif
+    <br />
+    <div><b>Venda do cargo:</b> {{ request.after_position }}</div>
+    <div><b>Comprador:</b> {{ userLink(request.receiver) }}</div>
+    <br />
+    <div><b>Preço:</b><blockquote>{{ request.price }}</blockquote></div>
+    @if(request.notes)
+      <br /><div><b>Notas:</b><blockquote>{{ request.notes }}</blockquote></div>
+    @endif
+  @endif
+
+  @if(request.type_alias === 'TAG_REQUEST')
+    <div><b>Usuário:</b> {{ userLink(request.receiver) }}</div>
+    <div><b>Tag:</b> <samp>[{{ request.tag }}]</samp></div>
+    @if(request.notes)
+      <br /><div><b>Notas:</b><blockquote>{{ request.notes }}</blockquote></div>
+    @endif
+  @endif
+
+  @if(request.type_alias === 'GRAT_E')
+    @if(request.asked_by)
+      <div><b>Postado a pedido de:</b> {{ request.asked_by }}</div>
+    @endif
+    <div><b>Policial gratificado:</b> {{ userLink(request.receiver) }}</div>
+    <div><b>Quantidade de medalhas <u>efetivas</u>:</b> <samp>{{ request.bonuses }}</samp></div>
+    <br>
+    <div><b>Motivo:</b><blockquote>{{ request.reason }}</blockquote></div>
+    @if(request.notes)
+      <br /><div><b>Notas:</b><blockquote>{{ request.notes }}</blockquote></div>
+    @endif
+  @endif
+
+  @if(request.type_alias === 'GRAT_T')
+    @if(request.asked_by)
+      <div><b>Postado a pedido de:</b> {{ request.asked_by }}</div>
+    @endif
+    <div><b>Policial gratificado:</b> {{ userLink(request.receiver) }}</div>
+    <div><b>Quantidade de medalhas <u>temporárias</u>:</b> <samp>{{ request.bonuses }}</samp></div>
+    <br>
+    <div><b>Motivo:</b><blockquote>{{ request.reason }}</blockquote></div>
+    @if(request.notes)
+      <br /><div><b>Notas:</b><blockquote>{{ request.notes }}</blockquote></div>
+    @endif
+  @endif
+
+  @if(request.type_alias === 'DESL_H')
+    <div><b>Requerente:</b> {{ userLink(request.author) }}</div>
+    @if(request.permission)
+      <div><b>Permissão:</b> {{ request.permission }}</div>
+    @endif
+    @if(request.asked_by)
+      <div><b>Postado a pedido de:</b> {{ request.asked_by }}</div>
+    @endif
+    <br />
+    <div>
+      <b>Desligamento <u>honroso</u>:</b>
+      (ex-{{ request.before_position }}) {{ userLink(request.receiver) }}
+    </div>
+    <br />
+    <div><b>Motivo:</b><blockquote>{{ request.reason }}</blockquote></div>
+    @if(request.notes)
+      <br /><div><b>Notas:</b><blockquote>{{ request.notes }}</blockquote></div>
+    @endif
+  @endif
+
+  @if(request.type_alias === 'DESL_D')
+    <div><b>Requerente:</b> {{ userLink(request.author) }}</div>
+    @if(request.permission)
+      <div><b>Permissão:</b> {{ request.permission }}</div>
+    @endif
+    @if(request.asked_by)
+      <div><b>Postado a pedido de:</b> {{ request.asked_by }}</div>
+    @endif
+    <br />
+    <div>
+      <b>Desligamento <u>desonroso</u>:</b>
+      (ex-{{ request.before_position }}) {{ userLink(request.receiver) }}
+    </div>
+    <br />
+    <div><b>Motivo:</b><blockquote>{{ request.reason }}</blockquote></div>
+    @if(request.notes)
+      <br /><div><b>Notas:</b><blockquote>{{ request.notes }}</blockquote></div>
+    @endif
+  @endif
+
+  @if(request.type_alias === 'REF_REQUEST')
+    <div><b>Requerente:</b> {{ userLink(request.author) }}</div>
+    @if(request.permission)
+      <div><b>Permissão:</b> {{ request.permission }}</div>
+    @endif
+    @if(request.asked_by)
+      <div><b>Postado a pedido de:</b> {{ request.asked_by }}</div>
+    @endif
+    <br />
+    <div>
+      <b>Solicitação de reforma para:</b>
+      ({{ request.before_position }}) {{ userLink(request.receiver) }}
+    </div>
+    <br />
+    <div><b>Motivo:</b><blockquote>{{ request.reason }}</blockquote></div>
+    @if(request.notes)
+      <br /><div><b>Notas:</b><blockquote>{{ request.notes }}</blockquote></div>
+    @endif
+  @endif
+
+  @if(request.type_alias === 'EXO_REQUEST')
+    <div><b>Responsável pela exoneração:</b> {{ userLink(request.author) }}</div>
+    @if(request.permission)
+      <div><b>Permissão:</b> {{ request.permission }}</div>
+    @endif
+    @if(request.asked_by)
+      <div><b>Postado a pedido de:</b> {{ request.asked_by }}</div>
+    @endif
+    <br />
+    <div><b>Policial exonerado:</b> (ex-{{ request.prev_position }}) {{ userLink(request.receiver) }}</div>
+    <div><b>Dias:</b> {{ request.banned_days }}</div>
+    <br />
+    <blockquote>
+      <b>Início:</b> {{ moment(request.created_at).format('LLL') }}. <br />
+      <b>Término:</b> {{ moment(request.created_at).add(request.banned_days, 'days').format('LLL') }}.
+    </blockquote>
+    <br />
+    <div><b>Motivo:</b><blockquote>{{ request.reason }}</blockquote></div>
+    @if(request.notes)
+      <br /><div><b>Notas:</b><blockquote>{{ request.notes }}</blockquote></div>
+    @endif
   @endif
 @endif

@@ -46,11 +46,13 @@ RequestHook.setComputedFields = async (requestInstance) => {
 
   const computedBody = View.renderString(template, { request, type: 'BODY' })
   const computedTitle = View.renderString(template, { request, type: 'TITLE' })
+  const computedTemplate = View.renderString(template, { request, type: 'ENTITY_TEMPLATE' })
 
   await Request.query()
     .update({
       computed_body: computedBody.trim() || 'Tipo não definido.',
-      computed_title: computedTitle.trim() || 'Corpo não definido.'
+      computed_title: computedTitle.trim() || 'Corpo não definido.',
+      computed_template: computedTemplate.trim() || 'Dados indisponíveis para este requerimento.'
     })
     .where({ id: requestInstance.id })
 }

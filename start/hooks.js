@@ -10,6 +10,7 @@ hooks.after.providersRegistered(() => {
   const Database = use('Database')
   const Helpers = use('Helpers')
   const Config = use('Config')
+  const Route = use('Route')
   const View = use('View')
 
   /**
@@ -82,6 +83,13 @@ hooks.after.providersRegistered(() => {
     }
 
     return stringify(main)
+  })
+
+  /**
+   * Método para inserir link para usuário.
+   */
+  View.global('userLink', function (username) {
+    return this.safe(`<a href="${Route.url('users.show')}?u=${username}">${username}</a>`)
   })
 
   /**

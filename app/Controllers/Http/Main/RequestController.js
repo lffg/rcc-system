@@ -18,9 +18,14 @@ class RequestHttpController {
 
     const lastRequests = await Database
       .select([
-        'req.id', 'req.crh_state as state', 'req.created_at as date',
-        'A.username as author', 'R.username as receiver',
-        'T.timeline_title as title', 'T.color', 'T.icon'
+        'req.id',
+        'req.crh_state as state',
+        'req.created_at as date',
+        'A.username as author',
+        'R.username as receiver',
+        'T.timeline_title as title',
+        'T.color',
+        'T.icon'
       ])
       .from('requests as req')
       .innerJoin('request_controllers as C', 'C.id', '=', 'req.controller_id')
@@ -28,7 +33,7 @@ class RequestHttpController {
       .innerJoin('users as A', 'A.id', '=', 'req.author_id')
       .innerJoin('users as R', 'R.id', '=', 'req.receiver_id')
       .whereNot('C.is_crh', false)
-      .orderBy('req.created_at', 'DESC')
+      .orderBy('req.modified_at', 'DESC')
       .limit(20)
 
     return view.render('pages.requests.index', {
@@ -65,7 +70,7 @@ class RequestHttpController {
       .with('type', (builder) => builder.select('id', 'timeline_title', 'name', 'icon', 'color'))
       .with('author', (builder) => builder.select('id', 'username'))
       .with('receiver', (builder) => builder.select('id', 'username'))
-      .orderBy('created_at', 'DESC')
+      .orderBy('modified_at', 'DESC')
       .paginate(Math.abs(page), 35)
 
     return view.render('pages.requests.all', {

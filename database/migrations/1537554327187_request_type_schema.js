@@ -34,6 +34,11 @@ class RequestTypeSchema extends Schema {
       table.integer('strict_to_position_group').defaultTo(null).unsigned()
       table.foreign('strict_to_position_group').references('position_groups.id').onDelete('set null')
 
+      // --- LABELS
+      table.text('label_field_before_position').defaultTo(null)
+      table.text('label_field_after_position').defaultTo(null)
+      table.text('label_field_reason').defaultTo(null)
+
       // --- FIELDS
       table.enum('field_before_position', ['HIDE', 'OPT', 'REQUIRED']).notNullable().defaultTo('HIDE')
       table.enum('field_after_position', ['HIDE', 'OPT', 'REQUIRED']).notNullable().defaultTo('HIDE')
