@@ -1,7 +1,8 @@
 @layout('partials.layouts.master')
 
 @section('title')
-  Requerimento &middot; {{ entity.type_name }} de {{ entity.receiver }}
+  @set('skip_title', 'true')
+  Requerimento: {{ entity.type_name }} de {{ entity.receiver }}
 @endsection
 
 @section('breadcrumb')
@@ -15,7 +16,11 @@
 @endsection
 
 @section('content')
+  @include('pages.requests.includes.show-entity.top-zone')
+
   <div class="sys-request-timeline">
     @include('pages.requests.includes.show-entity.primary-message')
   </div>
+
+  @include('pages.requests.includes.show-entity.reply-zone')
 @endsection

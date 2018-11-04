@@ -26,8 +26,8 @@
         @!section('pre-title')
 
         <div class="sys-page">
-          @if(skip_title != 'true')
-            <h1 class="sys-title">
+          @if(skip_title !== 'true')
+            <h1 class="sys-title --{{ title_style ? title_style : 'default' }}">
               @!section('title')
             </h1>
           @endif

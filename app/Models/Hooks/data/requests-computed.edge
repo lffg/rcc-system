@@ -151,28 +151,28 @@
   @if(request.type_alias === 'DESL_H')
     Desligamento <strong>honroso</strong> para o policial {{ request.receiver }} solicitado por {{ userLink(request.author) }}:
     <blockquote style="padding: .75rem;">
-      {{ request.reason }}
+      {{{ request.reason }}}
     </blockquote>
   @endif
 
   @if(request.type_alias === 'DESL_D')
     Desligamento <strong>desonroso</strong> para o policial {{ request.receiver }} solicitado por {{ userLink(request.author) }}:
     <blockquote style="padding: .75rem;">
-      {{ request.reason }}
+      {{{ request.reason }}}
     </blockquote>
   @endif
 
   @if(request.type_alias === 'REF_REQUEST')
     Reforma solicitada por {{ userLink(request.author) }}:
     <blockquote style="padding: .75rem;">
-      {{ request.reason }}
+      {{{ request.reason }}}
     </blockquote>
   @endif
 
   @if(request.type_alias === 'EXO_REQUEST')
     Exoneração do policial <strong>{{ request.receiver }}</strong>. Solicitada por {{ userLink(request.author) }}, pelo motivo:
     <blockquote style="padding: .75rem;">
-      {{ request.reason }}
+      {{{ request.reason }}}
     </blockquote>
     Início do banimento: {{ moment(request.created_at).format('LLL') }}. Término:
     <strong>{{ moment(request.created_at).add(request.banned_days, 'days').format('LLL') }}</strong>.
@@ -194,7 +194,7 @@
       <div><b>Postado a pedido de:</b> {{ request.asked_by }}</div>
     @endif
     @if(request.notes)
-      <br /><div><b>Notas:</b><blockquote>{{ request.notes }}</blockquote></div>
+      <br /><div><b>Notas:</b><blockquote>{{{ request.notes }}}</blockquote></div>
     @endif
   @endif
 
@@ -205,7 +205,7 @@
       <div><b>Postado a pedido de:</b> {{ request.asked_by }}</div>
     @endif
     @if(request.notes)
-      <div><b>Notas:</b><blockquote>{{ request.notes }}</blockquote></div>
+      <div><b>Notas:</b><blockquote>{{{ request.notes }}}</blockquote></div>
     @endif
   @endif
 
@@ -221,9 +221,9 @@
     <div><b>Promoção:</b> {{ request.before_position }} para {{ request.after_position }}</div>
     <div><b>Policial promovido:</b> {{ userLink(request.receiver) }}</div>
     <br />
-    <div><b>Motivo:</b><blockquote>{{ request.reason }}</blockquote></div>
+    <div><b>Motivo:</b><blockquote>{{{ request.reason }}}</blockquote></div>
     @if(request.notes)
-      <div><b>Notas:</b><blockquote>{{ request.notes }}</blockquote></div>
+      <div><b>Notas:</b><blockquote>{{{ request.notes }}}</blockquote></div>
     @endif
   @endif
 
@@ -239,9 +239,9 @@
     <div><b>Rebaixamento:</b> {{ request.before_position }} para {{ request.after_position }}</div>
     <div><b>Policial rebaixado:</b> {{ userLink(request.receiver) }}</div>
     <br />
-    <div><b>Motivo:</b><blockquote>{{ request.reason }}</blockquote></div>
+    <div><b>Motivo:</b><blockquote>{{{ request.reason }}}</blockquote></div>
     @if(request.notes)
-      <div><b>Notas:</b><blockquote>{{ request.notes }}</blockquote></div>
+      <div><b>Notas:</b><blockquote>{{{ request.notes }}}</blockquote></div>
     @endif
   @endif
 
@@ -258,7 +258,7 @@
     <div><b>Policial reintegrado:</b> {{ userLink(request.receiver) }}</div>
     <br />
     @if(request.notes)
-      <div><b>Notas:</b><blockquote>{{ request.notes }}</blockquote></div>
+      <div><b>Notas:</b><blockquote>{{{ request.notes }}}</blockquote></div>
     @endif
   @endif
 
@@ -271,9 +271,9 @@
       <strong>{{ moment(request.created_at).add(request.absence_days, 'days').format('LLL') }}</strong>.
     </div>
     <br />
-    <div><b>Motivo:</b><blockquote>{{ request.reason }}</blockquote></div>
+    <div><b>Motivo:</b><blockquote>{{{ request.reason }}}</blockquote></div>
     @if(request.notes)
-      <div><b>Notas:</b><blockquote>{{ request.notes }}</blockquote></div>
+      <div><b>Notas:</b><blockquote>{{{ request.notes }}}</blockquote></div>
     @endif
   @endif
 
@@ -286,9 +286,9 @@
       <strong>{{ moment(request.created_at).add(request.absence_days, 'days').format('LLL') }}</strong>.
     </div>
     <br />
-    <div><b>Motivo:</b><blockquote>{{ request.reason }}</blockquote></div>
+    <div><b>Motivo:</b><blockquote>{{{ request.reason }}}</blockquote></div>
     @if(request.notes)
-      <div><b>Notas:</b><blockquote>{{ request.notes }}</blockquote></div>
+      <div><b>Notas:</b><blockquote>{{{ request.notes }}}</blockquote></div>
     @endif
   @endif
 
@@ -303,9 +303,9 @@
     <br />
     <div><b>Policial advertido:</b> {{ userLink(request.receiver) }}</div>
     <br />
-    <div><b>Motivo:</b><blockquote>{{ request.reason }}</blockquote></div>
+    <div><b>Motivo:</b><blockquote>{{{ request.reason }}}</blockquote></div>
     @if(request.notes)
-      <div><b>Notas:</b><blockquote>{{ request.notes }}</blockquote></div>
+      <div><b>Notas:</b><blockquote>{{{ request.notes }}}</blockquote></div>
     @endif
   @endif
 
@@ -318,9 +318,9 @@
     <div><b>Venda do cargo:</b> {{ request.after_position }}</div>
     <div><b>Comprador:</b> {{ userLink(request.receiver) }}</div>
     <br />
-    <div><b>Preço:</b><blockquote>{{ request.price }}</blockquote></div>
+    <div><b>Preço:</b><blockquote>{{{ request.price }}}</blockquote></div>
     @if(request.notes)
-      <div><b>Notas:</b><blockquote>{{ request.notes }}</blockquote></div>
+      <div><b>Notas:</b><blockquote>{{{ request.notes }}}</blockquote></div>
     @endif
   @endif
 
@@ -328,7 +328,7 @@
     <div><b>Usuário:</b> {{ userLink(request.receiver) }}</div>
     <div><b>Tag:</b> <samp>[{{ request.tag }}]</samp></div>
     @if(request.notes)
-      <br /><div><b>Notas:</b><blockquote>{{ request.notes }}</blockquote></div>
+      <br /><div><b>Notas:</b><blockquote>{{{ request.notes }}}</blockquote></div>
     @endif
   @endif
 
@@ -339,9 +339,9 @@
     <div><b>Policial gratificado:</b> {{ userLink(request.receiver) }}</div>
     <div><b>Quantidade de medalhas <u>efetivas</u>:</b> <samp>{{ request.bonuses }}</samp></div>
     <br>
-    <div><b>Motivo:</b><blockquote>{{ request.reason }}</blockquote></div>
+    <div><b>Motivo:</b><blockquote>{{{ request.reason }}}</blockquote></div>
     @if(request.notes)
-      <div><b>Notas:</b><blockquote>{{ request.notes }}</blockquote></div>
+      <div><b>Notas:</b><blockquote>{{{ request.notes }}}</blockquote></div>
     @endif
   @endif
 
@@ -352,9 +352,9 @@
     <div><b>Policial gratificado:</b> {{ userLink(request.receiver) }}</div>
     <div><b>Quantidade de medalhas <u>temporárias</u>:</b> <samp>{{ request.bonuses }}</samp></div>
     <br>
-    <div><b>Motivo:</b><blockquote>{{ request.reason }}</blockquote></div>
+    <div><b>Motivo:</b><blockquote>{{{ request.reason }}}</blockquote></div>
     @if(request.notes)
-      <div><b>Notas:</b><blockquote>{{ request.notes }}</blockquote></div>
+      <div><b>Notas:</b><blockquote>{{{ request.notes }}}</blockquote></div>
     @endif
   @endif
 
@@ -372,9 +372,9 @@
       (ex-{{ request.before_position }}) {{ userLink(request.receiver) }}
     </div>
     <br />
-    <div><b>Motivo:</b><blockquote>{{ request.reason }}</blockquote></div>
+    <div><b>Motivo:</b><blockquote>{{{ request.reason }}}</blockquote></div>
     @if(request.notes)
-      <div><b>Notas:</b><blockquote>{{ request.notes }}</blockquote></div>
+      <div><b>Notas:</b><blockquote>{{{ request.notes }}}</blockquote></div>
     @endif
   @endif
 
@@ -392,9 +392,9 @@
       (ex-{{ request.before_position }}) {{ userLink(request.receiver) }}
     </div>
     <br />
-    <div><b>Motivo:</b><blockquote>{{ request.reason }}</blockquote></div>
+    <div><b>Motivo:</b><blockquote>{{{ request.reason }}}</blockquote></div>
     @if(request.notes)
-      <div><b>Notas:</b><blockquote>{{ request.notes }}</blockquote></div>
+      <div><b>Notas:</b><blockquote>{{{ request.notes }}}</blockquote></div>
     @endif
   @endif
 
@@ -412,9 +412,9 @@
       ({{ request.before_position }}) {{ userLink(request.receiver) }}
     </div>
     <br />
-    <div><b>Motivo:</b><blockquote>{{ request.reason }}</blockquote></div>
+    <div><b>Motivo:</b><blockquote>{{{ request.reason }}}</blockquote></div>
     @if(request.notes)
-      <div><b>Notas:</b><blockquote>{{ request.notes }}</blockquote></div>
+      <div><b>Notas:</b><blockquote>{{{ request.notes }}}</blockquote></div>
     @endif
   @endif
 
@@ -433,9 +433,9 @@
       <b>Início:</b> {{ moment(request.created_at).format('LLL') }}. <br />
       <b>Término:</b> {{ moment(request.created_at).add(request.banned_days, 'days').format('LLL') }}.
     </blockquote>
-    <div><b>Motivo:</b><blockquote>{{ request.reason }}</blockquote></div>
+    <div><b>Motivo:</b><blockquote>{{{ request.reason }}}</blockquote></div>
     @if(request.notes)
-      <div><b>Notas:</b><blockquote>{{ request.notes }}</blockquote></div>
+      <div><b>Notas:</b><blockquote>{{{ request.notes }}}</blockquote></div>
     @endif
   @endif
 @endif

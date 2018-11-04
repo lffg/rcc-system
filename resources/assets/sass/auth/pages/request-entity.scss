@@ -1,0 +1,203 @@
+.sys-entity-headerinfo {
+  &__title {
+    margin: 1.15rem 0;
+    font-size: 32px;
+    font-weight: 400;
+    color: #24292e;
+
+    > span {
+      color: #a3aab1;
+      font-weight: 300;
+      letter-spacing: -1px;
+    }
+  }
+
+  &__state-zone {
+    margin-top: -.55rem;
+  }
+
+  &__state-badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: .25rem;
+    background-color: #6a737d;
+    color: #fff;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+  }
+
+  &__details {
+    display: inline-block;
+    margin-left: .5rem;
+    font-size: 14px;
+    color: #586069;
+
+    @media screen and (max-width: map-get($grid-breakpoints, $key: sm)) {
+      display: block;
+      margin-left: 0;
+      margin-top: .5rem;
+    }
+
+    > strong > a {
+      color: #586069;
+      font-weight: 600;
+    }
+
+    time {
+      border-bottom: dotted 1px;
+      cursor: help;
+    }
+  }
+}
+
+.sys-request-timeline {
+  &__item {
+    display: flex;
+
+    &:not(:last-child) {
+      margin-bottom: 1.5rem;
+      position: relative;
+
+      @media screen and (max-width: map-get($grid-breakpoints, $key: md)) {
+        margin-bottom: 1rem;
+      }
+    }
+  }
+
+  &__item > &__sidenav {
+    width: 70px;
+    min-width: 70px;
+    position: relative;
+
+    @media screen and (max-width: map-get($grid-breakpoints, $key: md)) {
+      display: none !important;
+    }
+
+    &::before {
+      content: "";
+      width: 2px;
+      height: calc(100% + 2rem);
+      position: absolute;
+      top: -1rem;
+      left: 50%;
+      z-index: 2;
+      background-color: #d0d0d0;
+      transform: translateX(-50%);
+    }
+  }
+
+  &__item:first-child > &__sidenav::before {
+    top: 2rem;
+    height: calc(100% - 1rem);
+  }
+
+  &__avatar {
+    display: block;
+    width: 100%;
+    height: 100px;
+    border: solid 1px #d0d0d0;
+    border-radius: .25rem;
+    position: relative;
+    z-index: 4;
+    background-color: #fff;
+    box-shadow: 0px 3px 0 0px rgba(0, 0, 0, 0.1);
+
+    > span {
+      display: block;
+      width: 100%;
+      height: 100%;
+      background-size: 115%;
+      background-position-x: center;
+      background-position-y: -13px;
+      transition: all linear 110ms;
+    }
+
+    &:hover > span {
+      background-position-y: -16px;
+    }
+  }
+
+  &__main {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    margin-left: 1rem;
+
+    @media screen and (max-width: map-get($grid-breakpoints, $key: md)) {
+      margin-left: 0;
+    }
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: .5rem;
+    padding: .75rem 1rem;
+    border: solid 1px #d0d0d0;
+    border-radius: .25rem;
+    position: relative;
+
+    @media screen and (max-width: map-get($grid-breakpoints, $key: md)) {
+      margin-bottom: 0;
+      border-radius: .25rem .25rem 0 0;
+      background-color: #f1f1f1;
+    }
+
+    @media screen and (min-width: map-get($grid-breakpoints, $key: md)) {
+      &::before {
+        content: "";
+        border: solid 1px #fff;
+        border-top-color: #d0d0d0;
+        border-left-color: #d0d0d0;
+        width: 12px;
+        height: 12px;
+        position: absolute;
+        top: 50%;
+        left: -1.7px;
+        background-color: #fff;
+        transform: rotate(-45deg) translateY(-50%);
+      }
+    }
+  }
+
+  &__header-actions a {
+    opacity: 0;
+    pointer-events: none;
+    transition: all ease-in-out 120ms;
+  }
+
+  &__item:hover &__header-actions a {
+    opacity: 1;
+    pointer-events: initial;
+  }
+
+  &__body {
+    padding: 1rem;
+    border: solid 1px #d0d0d0;
+    border-radius: .25rem;
+    box-shadow: 0px 3px 0 0px rgba(0, 0, 0, 0.1);
+
+    @media screen and (max-width: map-get($grid-breakpoints, $key: md)) {
+      border-top: none;
+      border-radius: 0 0 .25rem .25rem;
+    }
+
+    strong,
+    b {
+      font-weight: 600;
+    }
+
+    & > div:last-child > *:last-child {
+      margin-bottom: 0 !important;
+    }
+  }
+}
+
+.sys-entity-reply {
+  > hr {
+    border-top: solid 2px #d0d0d0;
+  }
+}

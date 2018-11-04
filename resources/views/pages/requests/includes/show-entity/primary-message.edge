@@ -1,24 +1,72 @@
 <div class="sys-request-timeline__item --primary-message" id="primary">
-  <aside class="sys-request-timeline__avatar">
-    <span style="background-image: url(https://www.habbo.com.br/habbo-imaging/avatarimage?user={{ entity.author }}&action=std&direction=2&head_direction=3&gesture=sml&size=l&__time__={{ moment().format('DD-MM-YY-HH') }});"></span>
+  <aside class="sys-request-timeline__sidenav">
+    <a href="{{ route('users.show') }}?u={{ entity.author }}" class="sys-request-timeline__avatar">
+      <span style="background-image: url(https://www.habbo.com.br/habbo-imaging/avatarimage?user={{ entity.author }}&action=std&direction=2&head_direction=3&gesture=sml&size=l&__time__={{ moment().format('DD-MM-YY-HH') }});"></span>
+    </a>
   </aside>
   <section class="sys-request-timeline__main">
     <header class="sys-request-timeline__header">
       <div>
-        Requerido por
-        <a class="sys-request-timeline__author" href="{{ route('users.show') }}?u={{ entity.author }}">
-          {{ entity.author }}
-        </a>
-        <span title="{{ moment(entity.created_at).format('LLLL') }}">
-          {{ moment(entity.created_at).fromNow() }}
-        </span>.
+        Requerido por {{ userLink(entity.author) }},
+        <span title="{{ moment(entity.created_at).format('LLLL') }}">{{ moment(entity.created_at).fromNow() }}</span>.
+      </div>
+      <div class="sys-request-timeline__header-actions">
+        @if((entity.crh_state === 'PENDING' && $userdata.id === entity.author_id) || hasPermission('ADMIN'))
+          <a href="" class="btn btn-outline-secondary btn-sm" title="Editar o Requerimento">
+            <i class="fa fa-pencil"></i> Editar
+          </a>
+        @endif
+        @if(entity.crh_state === 'PENDING' && ($userdata.id === entity.author_id || hasPermission('ADMIN')))
+          <a href="" class="btn btn-outline-secondary btn-sm" title="Excluir o Requerimento">
+            <i class="fa fa-trash-o"></i> Excluir
+          </a>
+        @endif
+      </div>
+    </header>
+    <div class="sys-request-timeline__body">
+      {{{ entity.computed_template }}}
+    </div>
+  </section>
+</div>
+
+<div class="sys-request-timeline__item" id="primary">
+  <aside class="sys-request-timeline__sidenav">
+    <div class="sys-request-timeline__avatar">
+      <span style="background-image: url(https://www.habbo.com.br/habbo-imaging/avatarimage?user=.Wire.-&action=std&direction=2&head_direction=3&gesture=sml&size=l&__time__={{ moment().format('DD-MM-YY-HH') }});"></span>
+    </div>
+  </aside>
+  <section class="sys-request-timeline__main">
+    <header class="sys-request-timeline__header">
+      <div>
+        Comentado por {{ userLink('.Wire.-') }}, há 37 minutos.
       </div>
       <div class="sys-request-timeline__header-actions">
         ...
       </div>
     </header>
     <div class="sys-request-timeline__body">
-      {{{ entity.computed_template }}}
+      Parabéns pela promoção, {{ userLink('Goufix') }}!! :D
+    </div>
+  </section>
+</div>
+
+<div class="sys-request-timeline__item" id="primary">
+  <aside class="sys-request-timeline__sidenav">
+    <div class="sys-request-timeline__avatar">
+      <span style="background-image: url(https://www.habbo.com.br/habbo-imaging/avatarimage?user=Vacita&action=std&direction=2&head_direction=3&gesture=sml&size=l&__time__={{ moment().format('DD-MM-YY-HH') }});"></span>
+    </div>
+  </aside>
+  <section class="sys-request-timeline__main">
+    <header class="sys-request-timeline__header">
+      <div>
+        Revisado por {{ userLink('Vacita') }}, há 23 minutos.
+      </div>
+      <div class="sys-request-timeline__header-actions">
+        ...
+      </div>
+    </header>
+    <div class="sys-request-timeline__body">
+      <i class="fa fa-check"></i> Requerimento aprovado.
     </div>
   </section>
 </div>

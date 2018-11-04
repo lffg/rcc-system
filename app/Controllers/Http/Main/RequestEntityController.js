@@ -6,7 +6,7 @@ const Database = use('Database')
 class RequestEntityController {
   async show ({ request, params: { id }, view }) {
     const entity = await Queries.entity(id)
-    if (!entity) throw new HttpException('Requerimento não encontrado.', 404)
+    if (!entity || !entity.is_crh) throw new HttpException('Requerimento não encontrado.', 404)
 
     if (request.input('mode') === 'edit') {
       return view.render('pages.requests.edit-entity', { entity })
@@ -22,6 +22,7 @@ class Queries {
     return Database
       .select([
         'req.*',
+        'C.is_crh',
         'T.timeline_title',
         'T.name as type_name',
         'T.color as color',

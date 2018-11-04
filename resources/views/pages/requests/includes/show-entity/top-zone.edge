@@ -1,0 +1,55 @@
+<section class="sys-entity-headerinfo">
+  <a href="#" class="sys-reply-btn btn pull-right btn-sm btn-outline-primary d-none d-sm-inline-block">
+    <i class="fa fa-share"></i> Responder
+  </a>
+
+  <h2 class="sys-entity-headerinfo__title">
+    {{ entity.type_name }} de {{ entity.receiver }}
+    <span>#{{ entity.id }}</span>
+  </h2>
+
+  <div class="sys-entity-headerinfo__state-zone">
+    @if(entity.crh_state === 'APPROVED')
+      <span
+        class="sys-entity-headerinfo__state-badge"
+        style="background-color: #43a047; color: #fff;"
+        title="Requerimento aprovado pelo CRH."
+        data-placement="right"
+      >
+        <i class="fa fa-check"></i> Aprovado
+      </span>
+    @elseif(entity.crh_state === 'REJECTED')
+      <span
+        class="sys-entity-headerinfo__state-badge"
+        style="background-color: #d32f2f; color: #fff;"
+        title="Requerimento recusado pelo CRH."
+        data-placement="right"
+      >
+        <i class="fa fa-ban"></i> Recusado
+      </span>
+    @elseif(entity.crh_state === 'PENDING')
+      <span
+        class="sys-entity-headerinfo__state-badge"
+        style="background-color: #ffa000; color: #fff;"
+        title="Aguardando a aprovação de um membro do CRH."
+        data-placement="right"
+      >
+        <i class="fa fa-refresh"></i> Pendente
+      </span>
+    @endif
+
+    <div class="sys-entity-headerinfo__details">
+      <strong>{{ userLink(entity.author) }}</strong>
+      abriu este requerimento
+      <time title="{{ moment(entity.created_at).format('LLLL') }}">{{ moment(entity.created_at).fromNow() }}</time>
+      &middot;
+      @if(reviews.length > 0)
+        {{ reviews.length }} resposta{{ reviews.length > 1 ? 's' : '' }}
+      @else
+        Nenhuma resposta
+      @endif
+    </div>
+  </div>
+
+  <hr />
+</section>

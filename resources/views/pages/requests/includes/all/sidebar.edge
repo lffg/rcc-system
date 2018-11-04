@@ -1,17 +1,20 @@
 <div style="position: -webkit-sticky; position: sticky; top: 90px;">
-  @if(hasPermission('CRH'))
-    <div class="card mb-3">
-      <div class="card-body">
+  <div class="card mb-3">
+    <div class="card-body">
+      <a href="{{ route('requests.create') }}" class="btn btn-primary btn-block">
+        <i class="fa fa-plus"></i> Novo Requerimento
+      </a>
+      @if(hasPermission('CRH'))
         <a
-          class="btn btn-primary btn-block"
+          class="btn btn-secondary btn-block mt-2"
           href="{{ route('requests.review-all') }}"
           title="Acessar as ferramentas do C.R.H."
         >
-          <i class="fa fa-cog"></i> Gestão
+          <i class="fa fa-cog"></i> Ferramentas do CRH
         </a>
-      </div>
+      @endif
     </div>
-  @endif
+  </div>
 
   <div class="card mb-3">
     <div class="card-body">

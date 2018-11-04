@@ -88,8 +88,10 @@ hooks.after.providersRegistered(() => {
   /**
    * Método para inserir link para usuário.
    */
-  View.global('userLink', function (username) {
-    return this.safe(`<a href="${Route.url('users.show')}?u=${username}">${username}</a>`)
+  View.global('userLink', function (username, className) {
+    return this.safe(
+      `<a ${className || ''} href="${Route.url('users.show')}?u=${username}">${username}</a>`
+    )
   })
 
   /**
