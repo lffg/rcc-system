@@ -4,13 +4,11 @@ const { HttpException } = use('@adonisjs/generic-exceptions')
 const Database = use('Database')
 
 class RequestEntityController {
-  async show ({ request, params: { id }, view }) {
+  async show ({ params: { id }, view }) {
     const entity = await Queries.entity(id)
-    if (!entity || !entity.is_crh) throw new HttpException('Requerimento não encontrado.', 404)
 
-    if (request.input('mode') === 'edit') {
-      return view.render('pages.requests.edit-entity', { entity })
-    }
+    if (!entity) throw new HttpException('Requerimento não encontrado.', 404)
+    if (!entity.is_crh) throw new HttpException('Acesso negado.', 403)
 
     const reviews = await Queries.reviews(id)
     return view.render('pages.requests.show-entity', { entity, reviews })

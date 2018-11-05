@@ -1,5 +1,8 @@
 <section class="sys-entity-headerinfo">
-  <a href="#" class="sys-reply-btn btn pull-right btn-sm btn-outline-primary d-none d-sm-inline-block">
+  <a
+    href="{{ route('requests.reply', { id: entity.id }) }}"
+    class="btn pull-right btn-sm btn-outline-primary d-none d-sm-inline-block"
+  >
     <i class="fa fa-share"></i> Responder
   </a>
 

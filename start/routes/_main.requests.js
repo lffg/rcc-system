@@ -21,7 +21,8 @@ Route.group(() => {
 
   // Entidade:
   Route.get('req/:id', 'RequestEntityController.show').as('requests.show')
-  Route.post('req/:id/comment', 'RequestEntityController.comment').as('requests.comment')
+  Route.get('req/:id/reply', 'RequestEntityController.reply').as('requests.reply')
+  Route.post('req/:id/reply', 'RequestEntityController.storeReply')
   Route.get('req/:id/edit', 'RequestEntityController.edit').as('requests.edit')
   Route.post('req/:id/edit', 'RequestEntityController.update')
 })
