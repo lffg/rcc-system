@@ -1,26 +1,29 @@
 'use strict'
 
 const { HttpException } = use('@adonisjs/generic-exceptions')
+const Request = use('App/Models/Request')
 const Database = use('Database')
 
 class RequestEntityController {
   async show ({ params: { id }, view }) {
     const entity = await Queries.entity(id)
-
-    if (!entity) throw new HttpException('Requerimento não encontrado.', 404)
     if (!entity.is_crh) throw new HttpException('Acesso negado.', 403)
 
     const reviews = await Queries.reviews(id)
     return view.render('pages.requests.show-entity', { entity, reviews })
   }
+
+  async reply ({ params: { id }, view, auth }) {
+    const entity = await Request.findOrFail(id)
+    if (!entity.is_crh) throw new HttpException('Acesso negado.', 403)
+  }
 }
 
 class Queries {
   static async entity (id = null) {
-    return Database
+    const entity = await Database
       .select([
         'req.*',
-        'C.is_crh',
         'T.timeline_title',
         'T.name as type_name',
         'T.color as color',
@@ -32,7 +35,6 @@ class Queries {
         'reviwer.username as reviwer'
       ])
       .from('requests as req')
-      .innerJoin('request_controllers as C', 'C.id', '=', 'req.controller_id')
       .innerJoin('request_types as T', 'T.id', '=', 'req.type_id')
       .innerJoin('users as author', 'author.id', '=', 'req.author_id')
       .innerJoin('positions as AP', 'AP.id', '=', 'author.position_id')
@@ -40,6 +42,9 @@ class Queries {
       .leftJoin('users as reviwer', 'reviwer.id', '=', 'req.reviwer_id')
       .where('req.id', id)
       .first()
+
+    if (!entity) throw new HttpException('Requerimento não encontrado.', 404)
+    return entity
   }
 
   static async reviews (requestId = null) {

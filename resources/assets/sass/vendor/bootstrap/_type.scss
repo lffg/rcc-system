@@ -58,6 +58,10 @@ hr {
   border: 0;
   border-top: $hr-border-width solid $hr-border-color;
 
+  &.lg {
+    border-top-width: 2px !important;
+  }
+
   &.fw {
     margin: 1.5rem -1.25rem !important;
   }

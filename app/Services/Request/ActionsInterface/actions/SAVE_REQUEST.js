@@ -18,8 +18,12 @@ module.exports = () => ({
 async function caller ({ payload }) {
   let data = {}
 
-  for (const [key, { name, required = false }] of requiredFields.entries()) {
-    if (payload[name] === null || typeof payload[name] === 'undefined') {
+  for (const [key, { name, allowUserOption = true, required = false }] of requiredFields.entries()) {
+    if (
+      (payload[name] && !allowUserOption) ||
+      (payload[name] === null) ||
+      (typeof payload[name] === 'undefined')
+    ) {
       delete payload[name]
     }
 
@@ -55,8 +59,8 @@ async function caller ({ payload }) {
 const requiredFields = new Map([
   ['controller_id',      { name: 'controller_id', required: true }],
   ['type_id',            { name: 'type_id', required: true }],
-  ['is_reviewable',      { name: 'is_reviewable' }],
-  ['crh_state',          { name: 'crh_state' }],
+  ['is_crh',             { name: 'is_crh', allowUserOption: false }],
+  ['crh_state',          { name: 'crh_state', allowUserOption: false }],
   ['author_id',          { name: 'author_id', required: true }],
   ['receiver_id',        { name: 'receiver_id', required: true }],
   ['before_position_id', { name: 'before_position_id' }],

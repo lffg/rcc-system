@@ -73,7 +73,6 @@ class UserController {
     const events = await Database
       .select([
         'req.*',
-        'C.is_crh',
         'T.timeline_title as type_title',
         'T.color as type_color',
         'T.icon as type_icon',

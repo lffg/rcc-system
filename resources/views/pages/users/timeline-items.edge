@@ -23,7 +23,7 @@
         </div>
 
         <footer class="sys-timeline-footer">
-          @if(event.is_reviewable && event.crh_state !== 'NON_CRH')
+          @if(event.is_crh)
             <span class="sys-timeline-footer-item">
               @if(event.crh_state === 'APPROVED')
                 <span

@@ -32,7 +32,7 @@ class RequestHttpController {
       .innerJoin('request_types as T', 'T.id', '=', 'req.type_id')
       .innerJoin('users as A', 'A.id', '=', 'req.author_id')
       .innerJoin('users as R', 'R.id', '=', 'req.receiver_id')
-      .whereNot('C.is_crh', false)
+      .where('req.is_crh', true)
       .orderBy('req.modified_at', 'DESC')
       .limit(20)
 
