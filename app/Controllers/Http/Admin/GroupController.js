@@ -139,7 +139,7 @@ class GroupController {
    * @method GET
    */
   async order ({ response, params: { mode, id }, session }) {
-    const txr = await Database.beginTransaction()
+    const trx = await Database.beginTransaction()
 
     const primaryGroup = await Group.findOrFail(id)
 
@@ -163,10 +163,10 @@ class GroupController {
 
     primaryGroup.order =  secondaryOrder
     secondaryGroup.order = primaryOrder
-    await primaryGroup.save(txr)
-    await secondaryGroup.save(txr)
+    await primaryGroup.save(trx)
+    await secondaryGroup.save(trx)
 
-    txr.commit()
+    trx.commit()
 
     session.flash({ success: 'Ordem dos grupos alteradas com sucesso!' })
     return response.redirect('back')
