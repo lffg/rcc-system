@@ -166,7 +166,7 @@ class GroupController {
     await primaryGroup.save(trx)
     await secondaryGroup.save(trx)
 
-    trx.commit()
+    await trx.commit()
 
     session.flash({ success: 'Ordem dos grupos alteradas com sucesso!' })
     return response.redirect('back')
