@@ -20,7 +20,7 @@ async function caller ({ payload }) {
 
   for (const [key, { name, allowUserOption = true, required = false }] of requiredFields.entries()) {
     if (
-      (payload[name] && !allowUserOption) ||
+      (!allowUserOption) ||
       (payload[name] === null) ||
       (typeof payload[name] === 'undefined')
     ) {
@@ -33,13 +33,14 @@ async function caller ({ payload }) {
 
     // Transforma quebra de linhas em <br>:
     if (['reason', 'notes', 'price'].includes(name)) {
-      payload[name] = !payload[name] ? null : sanitize(htmlifyLineBreaks(payload[name]), {
-        allowedTags: ['b', 'i', 'em', 'strong', 'a', 'br'],
-        allowedAttributes: {
-          'a': ['href']
-        }
-      }).trim()
+      payload[name] = !payload[name] ? null : htmlifyLineBreaks(payload[name])
     }
+
+    // XSS-Clean:
+    payload[name] = !payload[name] ? payload[name] : sanitize(payload[name], {
+      allowedTags: ['p', 'b', 'i', 'em', 'strong', 'a', 'br'],
+      allowedAttributes: { 'a': ['href'] }
+    }).trim()
 
     data = Object.assign(data, {
       [key]: payload[name]
