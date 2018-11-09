@@ -69,7 +69,7 @@ class RequestCreateController {
     session.flash({
       success: 'Requerimento(s) criado(s) com sucesso. Aguarde a notificação de aprovação/recusa por um membro do Centro de Recursos Humanos.'
     })
-    return response.route('requests.index')
+    return response.route('requests.all')
   }
 }
 
