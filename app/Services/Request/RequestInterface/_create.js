@@ -10,12 +10,12 @@ const Database = use('Database')
  * @param  {object} payload
  * @return {Promise<void>}
  */
-module.exports = async function create (payload) {
+module.exports = async function create (payload, systemAction = false) {
   const actions = await getActions(payload.type_id, 'CREATE')
 
   for (const action of actions) {
     const actionInterface = new ActionsInterface()
-    actionInterface.use({ payload })
+    actionInterface.use({ payload, systemAction })
     await actionInterface.execute(action)
   }
 }

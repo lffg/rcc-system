@@ -23,14 +23,15 @@ class ActionsInterface {
   /**
    * Seta as propriedades a serem usadas pelas actions.
    *
-   * @param  {object} options
+   * @param  {object}
    * @return {void}
    */
   use ({
     controller = null,
     review = null,
     type = null,
-    payload = null
+    payload = null,
+    systemAction = false
   }) {
     if (
       (controller !== null && !(controller instanceof RequestController)) ||
@@ -44,6 +45,7 @@ class ActionsInterface {
     this._review = review
     this._type = type
     this._payload = payload
+    this._systemAction = systemAction
   }
 
   /**
@@ -72,7 +74,8 @@ class ActionsInterface {
       controller: this._controller,
       review: this._review,
       type: this._type,
-      payload: this._payload
+      payload: this._payload,
+      systemAction: this._systemAction
     })
 
     return result

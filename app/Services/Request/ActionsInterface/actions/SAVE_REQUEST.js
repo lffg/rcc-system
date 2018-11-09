@@ -15,12 +15,12 @@ module.exports = () => ({
   caller
 })
 
-async function caller ({ payload }) {
+async function caller ({ payload, systemAction }) {
   let data = {}
 
   for (const [key, { name, allowUserOption = true, required = false }] of requiredFields.entries()) {
     if (
-      (!allowUserOption) ||
+      (!allowUserOption && systemAction) ||
       (payload[name] === null) ||
       (typeof payload[name] === 'undefined')
     ) {
