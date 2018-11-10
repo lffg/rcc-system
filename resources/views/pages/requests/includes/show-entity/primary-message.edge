@@ -12,13 +12,12 @@
       </div>
       <div class="sys-request-timeline__header-actions">
         @if((entity.crh_state === 'PENDING' && $userdata.id === entity.author_id) || hasPermission('ADMIN'))
-          <a href="" class="btn btn-outline-secondary btn-sm" title="Editar o Requerimento">
+          <a
+            href="{{ route('requests.edit', { id: entity.id }) }}"
+            class="btn btn-outline-secondary btn-sm"
+            title="Editar o Requerimento"
+          >
             <i class="fa fa-pencil"></i> Editar
-          </a>
-        @endif
-        @if(entity.crh_state === 'PENDING' && ($userdata.id === entity.author_id || hasPermission('ADMIN')))
-          <a href="" class="btn btn-outline-secondary btn-sm" title="Excluir o Requerimento">
-            <i class="fa fa-trash-o"></i> Excluir
           </a>
         @endif
       </div>

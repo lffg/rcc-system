@@ -12,9 +12,7 @@ class RequestActionSchema extends Schema {
       table.enum('execute_on', [
         'CREATE',
         'UPDATE',
-        'REVIEW',
-        'APPROVE',
-        'REJECT'
+        'REVIEW'
       ])
 
       table.string('name', 100).notNullable()

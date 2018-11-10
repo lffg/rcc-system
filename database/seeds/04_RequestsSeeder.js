@@ -31,7 +31,10 @@ class RequestsSeeder {
 
     for (const id of await RequestType.ids()) {
       const type = await RequestType.find(id)
-      await type.actions().attach([actions.get('SAVE_REQUEST').id])
+      await type.actions().attach([
+        actions.get('CREATE_REQUEST').id,
+        actions.get('UPDATE_REQUEST').id
+      ])
     }
   }
 

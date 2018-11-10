@@ -56,11 +56,16 @@ exports.controllers = [
 
 exports.actions = [
   {
-    alias: 'SAVE_REQUEST',
+    alias: 'CREATE_REQUEST',
     execute_on: 'CREATE',
-    name: 'Salvar uma Requisição',
-    description:
-      'Salva uma requisição na tabela "requests" com os dados do formulário.'
+    name: 'Cria uma Requisição',
+    description: 'Cria uma nova requisição na tabela "requests" com os dados do formulário.'
+  },
+  {
+    alias: 'UPDATE_REQUEST',
+    execute_on: 'UPDATE',
+    name: 'Atualiza uma Requisição',
+    description: 'Atualiza uma requisição.'
   }
 ]
 

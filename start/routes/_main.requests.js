@@ -21,35 +21,30 @@ Route.group(() => {
 
   // Entidade:
   Route.get('req/:id', 'RequestEntityController.show').as('requests.show')
-  Route.get('req/:id/reply', 'RequestEntityController.reply').as('requests.reply')
-  Route.post('req/:id/reply', 'RequestEntityController.postReply')
+
+  // Criar entidade:
+  Route.get('new', 'RequestCreateController.create').as('requests.create')
+  Route.route('new/goto/:step', 'RequestCreateController.goto', ['GET', 'POST'])
+    .validator('General/RequestCreate').as('requests.create:goto')
+  Route.post('new/save', 'RequestCreateController.store')
+    .validator('General/RequestCreate').as('requests.store')
+
+  // Editar Entidade
   Route.get('req/:id/edit', 'RequestEntityController.edit').as('requests.edit')
   Route.post('req/:id/edit', 'RequestEntityController.update')
+    .validator('General/RequestUpdate')
+
+  // Resposta:
+  Route.get('req/:id/reply', 'RequestReplyController.create').as('requests.reply')
+  Route.post('req/:id/reply', 'RequestReplyController.store')
+  Route.get('reply/:id/edit', 'RequestReplyController.edit').as('requests.edit-reply')
+  Route.post('reply/:id/edit', 'RequestReplyController.update')
+  Route.get('reply/:id/delete', 'RequestReplyController.delete').as('requests.delete-reply')
+  Route.post('reply/:id/delete', 'RequestReplyController.destroy')
 })
   .middleware(['auth'])
   .namespace('Main')
   .prefix('crh')
-
-/**
- * ---------------------------------------------------------------------
- * Criação das requisições.
- * ---------------------------------------------------------------------
- */
-
-Route.group(() => {
-  Route.get('/', 'RequestCreateController.create').as('requests.create')
-
-  // AJAX calls:
-  Route.route('goto/:step', 'RequestCreateController.goto', ['GET', 'POST'])
-    .validator('General/RequestCreate').as('requests.create:goto')
-
-  // Save:
-  Route.post('save', 'RequestCreateController.store')
-    .validator('General/RequestCreate').as('requests.store')
-})
-  .middleware(['auth'])
-  .namespace('Main')
-  .prefix('crh/requests/new')
 
 const RequestType = use('App/Models/RequestType')
 Route.get('request-types', async ({ view }) => {

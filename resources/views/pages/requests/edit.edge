@@ -1,0 +1,344 @@
+@layout('partials.layouts.master')
+
+@section('title')
+  Editar Requerimento
+@endsection
+
+@section('breadcrumb')
+  <li class="breadcrumb-item">
+    <a href="{{ route('requests.index') }}">Centro de Recursos Humanos</a>
+  </li>
+  <li class="breadcrumb-item">
+    <a href="{{ route('requests.all') }}">Requerimentos</a>
+  </li>
+  <li class="breadcrumb-item">
+    <a href="{{ route('requests.show', { id: entity.id }) }}">
+      Requerimento (#{{ entity.id }})
+    </a>
+  </li>
+  <li class="breadcrumb-item">Editar Requerimento</li>
+@endsection
+
+@section('content')
+  <form method="POST">
+    {{ csrfField() }}
+    <p class="lead">Edite o requerimento alterando os campos a seguir.</p>
+
+    {{-- Info Text --}}
+    @if(type.info_text)
+      <div class="alert alert-info">
+        <i class="fa fa-info"></i> {{{ type.info_text }}}
+      </div>
+    @endif
+
+    {{-- Fields --}}
+    @unless(type.field_before_position === 'HIDE')
+      <div class="form-group">
+        <label for="before_position_id">
+          @if(type.field_before_position === 'REQUIRED')
+            <span
+              style="color: red; font-weight: bold;"
+              title="Campo obrigatório"
+            >*</span>
+          @endif
+          {{{ type.label_field_before_position || 'Patente/cargo atual:' }}}
+        </label>
+        <select
+          name="before_position_id"
+          id="before_position_id"
+          class="form-control"
+          {{ type.field_before_position === 'REQUIRED' ? 'required' : '' }}
+        >
+          <option value="" selected disabled>Selecione...</option>
+          @each(group in type.positions.before)
+            <optgroup label="{{ group.name }}">
+              @each(position in group.positions)
+                <option value="{{ position.id }}" data-position="{{ position.name }}">{{ position.name }}</option>
+              @endeach
+            </optgroup>
+          @endeach
+        </select>
+        <small class="form-help text-muted">
+          A patente/cargo <strong>atual</strong> do usuário afetado por este requerimento.
+        </small>
+        <script>
+          (function () {
+            var elm = document.getElementById('before_position_id');
+            elm.value = '{{ old('before_position_id', '') || entity.before_position_id || '' }}';
+          })();
+        </script>
+      </div>
+    @endunless
+
+    @unless(type.field_after_position === 'HIDE')
+      <div class="form-group">
+        <label for="after_position_id">
+          @if(type.field_after_position === 'REQUIRED')
+            <span
+              style="color: red; font-weight: bold;"
+              title="Campo obrigatório"
+            >*</span>
+          @endif
+          {{{ type.label_field_after_position || 'Patente/cargo seguinte:' }}}
+        </label>
+        <select
+          name="after_position_id"
+          id="after_position_id"
+          class="form-control"
+          {{ type.field_after_position === 'REQUIRED' ? 'required' : '' }}
+        >
+          <option value="" selected disabled>Selecione...</option>
+          @each(group in type.positions.after)
+            <optgroup label="{{ group.name }}">
+              @each(position in group.positions)
+                <option value="{{ position.id }}">{{ position.name }}</option>
+              @endeach
+            </optgroup>
+          @endeach
+        </select>
+        <small class="form-help text-muted">
+          A patente/cargo que será aplicada <strong>após o requerimento</strong> ser aprovado pelo CRH.
+        </small>
+        <script>
+          (function () {
+            var elm = document.getElementById('after_position_id');
+            elm.value = '{{ old('after_position_id', '') || entity.after_position_id || '' }}';
+          })();
+        </script>
+      </div>
+    @endunless
+
+    @unless(type.field_tag === 'HIDE')
+      <div class="form-group">
+        <label for="tag">
+          @if(type.field_tag === 'REQUIRED')
+            <span
+              style="color: red; font-weight: bold;"
+              title="Campo obrigatório"
+            >*</span>
+          @endif
+          Tag:
+        </label>
+        <input
+          type="text"
+          name="tag"
+          id="tag"
+          class="form-control"
+          minlength="3"
+          maxlength="3"
+          autocomplete="off"
+          value="{{ old('tag', '') || entity.tag || '' }}"
+          {{ type.field_tag === 'REQUIRED' ? 'required' : '' }}
+        />
+        <small class="form-help text-muted">
+          Insira somente os caracteres da tag. Os colchetes não são necesários.
+        </small>
+      </div>
+    @endunless
+
+    @unless(type.field_price === 'HIDE')
+      <div class="form-group">
+        <label for="price">
+          @if(type.field_price === 'REQUIRED')
+            <span
+              style="color: red; font-weight: bold;"
+              title="Campo obrigatório"
+            >*</span>
+          @endif
+          Preço da venda:
+        </label>
+        <textarea
+          name="price"
+          id="price"
+          class="form-control"
+          autocomplete="off"
+          {{ type.field_price === 'REQUIRED' ? 'required' : '' }}
+        >{{ old('price', '') || entity.price || '' }}</textarea>
+      </div>
+    @endunless
+
+    @unless(type.field_banned_days === 'HIDE')
+      <div class="form-group">
+        <label for="banned_days">
+          @if(type.field_banned_days === 'REQUIRED')
+            <span
+              style="color: red; font-weight: bold;"
+              title="Campo obrigatório"
+            >*</span>
+          @endif
+          Banir por quantos dias:
+        </label>
+        <input
+          type="number"
+          name="banned_days"
+          id="banned_days"
+          min="1"
+          max="999999"
+          class="form-control"
+          autocomplete="off"
+          value="{{ old('banned_days', '') || entity.banned_days || '' }}"
+          {{ type.field_banned_days === 'REQUIRED' ? 'required' : '' }}
+        />
+      </div>
+    @endunless
+
+    @unless(type.field_bonuses === 'HIDE')
+      <div class="form-group">
+        <label for="bonuses">
+          @if(type.field_bonuses === 'REQUIRED')
+            <span
+              style="color: red; font-weight: bold;"
+              title="Campo obrigatório"
+            >*</span>
+          @endif
+          Quantidade de medalhas:
+        </label>
+        <input
+          type="number"
+          name="bonuses"
+          id="bonuses"
+          min="-1000"
+          max="1000"
+          class="form-control"
+          autocomplete="off"
+          value="{{ old('bonuses', '') || entity.bonuses || '' }}"
+          title="Leia a mensagem informativa acima sobre a forma de atribuir medalhas."
+          {{ type.field_bonuses === 'REQUIRED' ? 'required' : '' }}
+        />
+      </div>
+    @endunless
+
+    @unless(type.field_absence_days === 'HIDE')
+      <div class="form-group">
+        <label for="absence_days">
+          @if(type.field_absence_days === 'REQUIRED')
+            <span
+              style="color: red; font-weight: bold;"
+              title="Campo obrigatório"
+            >*</span>
+          @endif
+          Dias de ausência a partir de hoje, dia {{ moment().format('DD/MM/YYYY') }}:
+        </label>
+        <input
+          type="number"
+          name="absence_days"
+          id="absence_days"
+          min="1"
+          class="form-control"
+          autocomplete="off"
+          value="{{ old('absence_days', '') || entity.absence_days || '' }}"
+          {{ type.field_absence_days === 'REQUIRED' ? 'required' : '' }}
+        />
+      </div>
+    @endunless
+
+    @unless(type.field_reason === 'HIDE')
+      <div class="form-group">
+        <label for="reason">
+          @if(type.field_reason === 'REQUIRED')
+            <span
+              style="color: red; font-weight: bold;"
+              title="Campo obrigatório"
+            >*</span>
+          @endif
+          {{{ type.label_field_reason || 'Motivo para o requerimento:' }}}
+        </label>
+        <textarea
+          name="reason"
+          id="reason"
+          class="form-control"
+          maxlength="5000"
+          minlength="3"
+          autocomplete="off"
+          {{ type.field_reason === 'REQUIRED' ? 'required' : '' }}
+        >{{ old('reason', '') || entity.reason || '' }}</textarea>
+      </div>
+    @endunless
+
+    @unless(type.field_permission === 'HIDE')
+      <div class="form-group">
+        <label for="permission">
+          @if(type.field_permission === 'REQUIRED')
+            <span
+              style="color: red; font-weight: bold;"
+              title="Campo obrigatório"
+            >*</span>
+          @endif
+          Permissão:
+        </label>
+        <input
+          type="text"
+          name="permission"
+          id="permission"
+          class="form-control"
+          autocomplete="off"
+          value="{{ old('permission', '') || entity.permission || '' }}"
+          {{ type.field_permission === 'REQUIRED' ? 'required' : '' }}
+        />
+        <small class="form-help text-muted">
+          Nick de quem deu a permissão para a solicitação deste requerimento.
+        </small>
+      </div>
+    @endunless
+
+    @unless(type.field_notes === 'HIDE')
+      <div class="form-group">
+        <label for="notes">
+          @if(type.field_notes === 'REQUIRED')
+            <span
+              style="color: red; font-weight: bold;"
+              title="Campo obrigatório"
+            >*</span>
+          @endif
+          Notas e/ou observações:
+        </label>
+        <textarea
+          name="notes"
+          id="notes"
+          class="form-control"
+          maxlength="5000"
+          autocomplete="off"
+          {{ type.field_notes === 'REQUIRED' ? 'required' : '' }}
+        >{{ old('notes', '') || entity.notes || '' }}</textarea>
+      </div>
+    @endunless
+
+    @unless(type.field_asked_by === 'HIDE')
+      <div class="form-group">
+        <label for="asked_by">
+          @if(type.field_notes === 'REQUIRED')
+            <span
+              style="color: red; font-weight: bold;"
+              title="Campo obrigatório"
+            >*</span>
+          @endif
+          Postado a pedido de:
+        </label>
+        <input
+          type="text"
+          name="asked_by"
+          id="asked_by"
+          class="form-control"
+          autocomplete="off"
+          value="{{ old('asked_by', '') || entity.asked_by || '' }}"
+        />
+      </div>
+    @endunless
+
+    <hr />
+
+    <div class="form-group mb-0">
+      <small class="d-block form-help text-muted text-justify mb-3">
+        Um requerimento só poderá ser atualizado pelo seu autor enquanto estiver "<strong>pendente</strong>". Caso este requerimento tenha sido aprovado ou recusado durante a esta edição, os dados não serão alterados no sistema.
+      </small>
+
+      <button type="submit" class="js-submit btn btn-primary d-md-inline-block d-block mb-md-0 mb-3">
+        <i class="fa fa-check"></i> Salvar Alterações
+      </button>
+      <span class="d-none d-mb-inline-block">&nbsp;</span>
+      <a href="{{ route('requests.show', { id: entity.id }) }}" class="btn btn-danger d-md-inline-block d-block">
+        <i class="fa fa-ban"></i> Cancelar
+      </a>
+    </div>
+  </form>
+@endsection

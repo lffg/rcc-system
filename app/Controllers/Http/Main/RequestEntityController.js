@@ -1,6 +1,7 @@
 'use strict'
 
 const { HttpException } = use('@adonisjs/generic-exceptions')
+const RequestType = use('App/Models/RequestType')
 const Request = use('App/Models/Request')
 const Database = use('Database')
 
@@ -13,9 +14,22 @@ class RequestEntityController {
     return view.render('pages.requests.show-entity', { entity, reviews })
   }
 
-  async reply ({ params: { id }, view, auth }) {
+  async edit ({ params: { id }, view, auth }) {
     const entity = await Request.findOrFail(id)
-    if (!entity.is_crh) throw new HttpException('Acesso negado.', 403)
+
+    if (
+      (entity.crh_state !== 'PENDING') ||
+      (auth.user.id !== entity.author_id && !await auth.user.hasPermission('ADMIN', true))
+    ) {
+      throw new HttpException('Acesso negado.', 403)
+    }
+
+    const type = await RequestType.getInfoFor(entity.type_id, true)
+    return view.render('pages.requests.edit', { type, entity })
+  }
+
+  async update () {
+    return 'postado'
   }
 }
 

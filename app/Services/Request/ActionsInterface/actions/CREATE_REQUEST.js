@@ -1,15 +1,15 @@
 'use strict'
 
-const sanitize = require('sanitize-html')
-
 const htmlifyLineBreaks = use('App/Helpers/htmlify-line-breaks')
 const FormError = use('App/Exceptions/FormError')
+const sanitize = use('App/Helpers/sanitize')
 const Request = use('App/Models/Request')
 const Logger = use('Logger')
 const Route = use('Route')
 
 module.exports = () => ({
   requiresController: false,
+  requiresRequest: false,
   requiresReview: false,
   requiresType: false,
   caller
@@ -37,10 +37,7 @@ async function caller ({ payload, systemAction }) {
     }
 
     // XSS-Clean:
-    payload[name] = !payload[name] ? payload[name] : sanitize(payload[name], {
-      allowedTags: ['p', 'b', 'i', 'em', 'strong', 'a', 'br'],
-      allowedAttributes: { 'a': ['href'] }
-    }).trim()
+    payload[name] = !payload[name] ? payload[name] : sanitize(payload[name])
 
     data = Object.assign(data, {
       [key]: payload[name]
@@ -52,8 +49,8 @@ async function caller ({ payload, systemAction }) {
     request.merge(data)
     await request.save()
   } catch ({ message }) {
-    Logger.error(`[DEBUG] [ERRO] Ao tentar criar uma requisição: ${message}`)
-    throw new FormError('Houve um erro ao tentar criar este requerimento.', 500, Route.url('requests.create'))
+    Logger.error(`[DEBUG] [ERRO] Ao tentar CRIAR uma requisição: ${message}`)
+    throw new FormError('Houve um erro ao tentar criar o requerimento.', 500, Route.url('requests.create'))
   }
 }
 
