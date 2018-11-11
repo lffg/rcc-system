@@ -17,7 +17,8 @@ class RequestSchema extends Schema {
 
       // --- CRH
       table.boolean('is_crh').notNullable().defaultTo(true)
-      table.enum('crh_state', ['APPROVED', 'PENDING', 'REJECTED']).notNullable().defaultTo('PENDING')
+      table.enum('crh_state', ['APPROVED', 'PENDING', 'REJECTED']).defaultTo(null)
+      table.boolean('is_reviwed').notNullable().defaultTo(false)
       table.integer('reviwer_id').index('reviwer_id').unsigned()
       table.foreign('reviwer_id').references('users.id').onDelete('set null')
 
