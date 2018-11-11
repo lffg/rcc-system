@@ -15,11 +15,16 @@ class RequestEntityController {
   }
 
   async edit ({ params: { id }, view, auth }) {
-    const entity = await Request.findOrFail(id)
+    const entity = await Request.query()
+      .with('receiver', (builder) => builder.select('id', 'username'))
+      .with('author', (builder) => builder.select('id', 'username'))
+      .where({ id })
+      .firstOrFail()
+      .then((entity) => entity.toJSON())
 
     if (
-      (entity.crh_state !== 'PENDING') ||
-      (auth.user.id !== entity.author_id && !await auth.user.hasPermission('ADMIN', true))
+      (auth.user.id !== entity.author_id || entity.crh_state !== 'PENDING') &&
+      !await auth.user.hasPermission('ADMIN', true)
     ) {
       throw new HttpException('Acesso negado.', 403)
     }

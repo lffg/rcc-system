@@ -20,16 +20,19 @@
 @endsection
 
 @section('content')
-  <form method="POST">
-    {{ csrfField() }}
-    <p class="lead">Edite o requerimento alterando os campos a seguir.</p>
+  <div class="card">
+    <div class="card-body">
+      <small><b>Editar Requerimento:</b></small>
+      <p class="lead mb-0">
+        {{{ entity.computed_title }}} de {{ entity.receiver.username }}
+      </p>
+    </div>
+  </div>
 
-    {{-- Info Text --}}
-    @if(type.info_text)
-      <div class="alert alert-info">
-        <i class="fa fa-info"></i> {{{ type.info_text }}}
-      </div>
-    @endif
+  <h5 class="my-4">Atualize o requerimento editando os campos abaixo:</h5>
+
+  <form method="POST" class="card card-body">
+    {{ csrfField() }}
 
     {{-- Fields --}}
     @unless(type.field_before_position === 'HIDE')
@@ -132,6 +135,10 @@
         />
         <small class="form-help text-muted">
           Insira somente os caracteres da tag. Os colchetes não são necesários.
+          <a href="{{ route('utils.checkTag') }}" target="_blank">
+            <i class="fa fa-info-circle"></i>
+            Clique aqui para ver se uma tag já existe.
+          </a>
         </small>
       </div>
     @endunless
@@ -325,19 +332,33 @@
       </div>
     @endunless
 
-    <hr />
+    <hr class="mt-0" />
+
+    <div class="form-group">
+      <label for="edit_reason">
+        <span style="color: red; font-weight: bold;" title="Campo obrigatório">*</span>
+        Motivo para edição:
+      </label>
+      <input type="text" name="edit_reason" id="edit_reason" class="form-control" required />
+      <small class="form-help text-muted">Será usado no log de edição.</small>
+    </div>
+
+    <hr class="mt-0" />
 
     <div class="form-group mb-0">
       <small class="d-block form-help text-muted text-justify mb-3">
-        Um requerimento só poderá ser atualizado pelo seu autor enquanto estiver "<strong>pendente</strong>". Caso este requerimento tenha sido aprovado ou recusado durante a esta edição, os dados não serão alterados no sistema.
+        Requerimentos só poderão ser editados pelo <strong>autor</strong> caso ainda estejam aguardando a avaliação do Centro de Recursos Humanos (<em>pendente</em>).
       </small>
 
       <button type="submit" class="js-submit btn btn-primary d-md-inline-block d-block mb-md-0 mb-3">
         <i class="fa fa-check"></i> Salvar Alterações
       </button>
       <span class="d-none d-mb-inline-block">&nbsp;</span>
-      <a href="{{ route('requests.show', { id: entity.id }) }}" class="btn btn-danger d-md-inline-block d-block">
-        <i class="fa fa-ban"></i> Cancelar
+      <a
+        href="{{ route('requests.show', { id: entity.id }) }}"
+        class="btn btn-danger d-md-inline-block d-block"
+      >
+        <i class="fa fa-ban"></i> Desfazer e Voltar
       </a>
     </div>
   </form>

@@ -1,6 +1,7 @@
 'use strict'
 
 const User = use('App/Models/User')
+const Database = use('Database')
 
 class UserController {
   /**
@@ -19,6 +20,22 @@ class UserController {
     }
 
     return { status: true, username }
+  }
+
+  /**
+   * Verifica se a TAG existe.
+   *
+   * @method GET
+   * @api
+   */
+  async checkTag ({ request }) {
+    const tag = request.input('tag', '')
+
+    return Database.from('users')
+      .select('tag')
+      .whereNotNull('tag')
+      .where(tag ? { tag } : {})
+      .map(({ tag } = {}) => tag)
   }
 }
 

@@ -62,7 +62,7 @@ class RequestCreateController {
 
       // Cria a requisição:
       await RequestInterface.create({
-        ...data, receiver_id: user.id, crh_state: 'PENDING'
+        ...data, receiver_id: user.id
       })
     }
 

@@ -24,10 +24,7 @@ class RegisterController {
    */
   async postRegister ({ request, response, session }) {
     const data = request.only(['username', 'password', 'email'])
-
-    const user = new User()
-    user.merge(data)
-    await user.save()
+    await User.create(data)
 
     session.flash({ success: `Usuário ${user.username} criado com sucesso. Solicite a ativação para entrar.` })
     return response.route('login')

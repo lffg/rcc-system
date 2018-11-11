@@ -44,10 +44,12 @@ async function caller ({ payload, systemAction }) {
     })
   }
 
+  if ([data.is_crh, data.crh_state].every((field) => typeof field === 'undefined')) {
+    data.crh_state = 'PENDING'
+  }
+
   try {
-    const request = new Request()
-    request.merge(data)
-    await request.save()
+    await Request.create(data)
   } catch ({ message }) {
     Logger.error(`[DEBUG] [ERRO] Ao tentar CRIAR uma requisição: ${message}`)
     throw new FormError('Houve um erro ao tentar criar o requerimento.', 500, Route.url('requests.create'))
