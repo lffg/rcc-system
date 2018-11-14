@@ -10,12 +10,12 @@ const Database = use('Database')
  * @param  {object} payload
  * @return {Promise<void>}
  */
-module.exports = async function update (payload) {
-  const actions = await getActions(payload.type_id, 'UPDATE')
+module.exports = async function update (payload, request, authUser) {
+  const actions = await getActions(request.type_id, 'UPDATE')
 
   for (const action of actions) {
     const actionInterface = new ActionsInterface()
-    actionInterface.use({ payload })
+    actionInterface.use({ payload, request, authUser })
     await actionInterface.execute(action)
   }
 }

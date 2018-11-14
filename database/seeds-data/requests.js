@@ -66,6 +66,12 @@ exports.actions = [
     execute_on: 'UPDATE',
     name: 'Atualiza uma Requisição',
     description: 'Atualiza uma requisição.'
+  },
+  {
+    alias: 'CREATE_UPDATE_LOG',
+    execute_on: 'UPDATE',
+    name: 'Crirar Log de Edição',
+    description: 'Cria um log para requisição'
   }
 ]
 

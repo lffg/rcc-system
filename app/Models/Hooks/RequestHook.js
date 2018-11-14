@@ -14,7 +14,7 @@ const View = use('View')
 
 const RequestHook = exports = module.exports = {}
 
-RequestHook.createIntegrityToken = async (requestInstance) => {
+RequestHook.createIntegrityToken = (requestInstance) => {
   const token = crypto
     .createHash('sha1')
     .update(`${shortid.generate()}${Date.now().toString(16)}`)

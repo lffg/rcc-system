@@ -4,10 +4,10 @@ const htmlifyLineBreaks = use('App/Helpers/htmlify-line-breaks')
 const FormError = use('App/Exceptions/FormError')
 const sanitize = use('App/Helpers/sanitize')
 const Logger = use('Logger')
-const Route = use('Route')
 
 module.exports = () => ({
   requiresController: false,
+  requiresAuthUser: false,
   requiresRequest: true,
   requiresReview: false,
   requiresType: false,
@@ -17,7 +17,7 @@ module.exports = () => ({
 async function caller ({ request, payload }) {
   let data = {}
 
-  for (const [key, name] of allowedFields.entries()) {
+  for (const [key, { name }] of allowedFields.entries()) {
     if (payload[name] === null || typeof payload[name] === 'undefined') {
       delete payload[name]
     }
@@ -38,13 +38,13 @@ async function caller ({ request, payload }) {
   try {
     request.merge(data)
     await request.save()
+
+    // TODO ::
+    // if (request.crh_state !== 'PENDING')
+    // execute_action_by_system('REVIEW', request.crh_state)
   } catch ({ message }) {
-    Logger.error(`[DEBUG] [ERRO] Ao tentar ATUALIZAR uma requisição: ${message}`)
-    throw new FormError(
-      'Houve um erro ao tentar atualizar este requerimento.',
-      500,
-      Route.url('requests.show', { id: request.id })
-    )
+    Logger.error(`[DEBUG] [ERRO] Ao tentar ATUALIZAR uma requisição (UPDATE_REQUEST): ${message}`)
+    throw new FormError('Houve um erro ao tentar atualizar este requerimento.', 500)
   }
 }
 

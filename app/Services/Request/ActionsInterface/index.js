@@ -5,6 +5,8 @@ const { join } = require('path')
 const RequestController = use('App/Models/RequestController')
 const RequestReview = use('App/Models/RequestReview')
 const RequestType = use('App/Models/RequestType')
+const Request = use('App/Models/Request')
+const User = use('App/Models/User')
 
 /**
  * Interface responsável por executar as actions de um determinado tipo
@@ -13,11 +15,13 @@ const RequestType = use('App/Models/RequestType')
  */
 class ActionsInterface {
   constructor () {
+    this._systemAction = false
     this._controller = null
+    this._authUser = null
+    this._payload = null
+    this._request = null
     this._review = null
     this._type = null
-
-    this._payload = null
   }
 
   /**
@@ -27,25 +31,31 @@ class ActionsInterface {
    * @return {void}
    */
   use ({
-    controller = null,
-    review = null,
-    type = null,
+    systemAction = false,
+    controller = null, /** @type */
+    authUser = null, /** @type */
     payload = null,
-    systemAction = false
+    request = null, /** @type */
+    review = null, /** @type */
+    type = null /** @type */
   }) {
     if (
       (controller !== null && !(controller instanceof RequestController)) ||
       (review !== null && !(review instanceof RequestReview)) ||
+      (request !== null && !(request instanceof Request)) ||
+      (authUser !== null && !(authUser instanceof User)) ||
       (type !== null && !(type instanceof RequestType))
     ) {
       throw new TypeError('Tipo inválido.')
     }
 
+    this._systemAction = systemAction
     this._controller = controller
+    this._authUser = authUser
+    this._payload = payload
+    this._request = request
     this._review = review
     this._type = type
-    this._payload = payload
-    this._systemAction = systemAction
   }
 
   /**
@@ -71,19 +81,35 @@ class ActionsInterface {
     this._checkMeta(actionName, actionMeta)
 
     const result = await actionMeta.caller({
+      systemAction: this._systemAction,
       controller: this._controller,
-      review: this._review,
-      type: this._type,
+      authUser: this._authUser,
+      request: this._request,
       payload: this._payload,
-      systemAction: this._systemAction
+      review: this._review,
+      type: this._type
     })
 
     return result
   }
 
-  _checkMeta (actionName, { requiresController, requiresReview, requiresType }) {
+  _checkMeta (actionName, {
+    requiresController,
+    requiresAuthUser,
+    requiresRequest,
+    requiresReview,
+    requiresType
+  }) {
     if (requiresController && !this._controller) {
       throw new Error(`Ação ${actionName} espera uma instância "RequestController" que não foi passada.`)
+    }
+
+    if (requiresAuthUser && !this._authUser) {
+      throw new Error(`Ação ${actionName} espera uma instância "User" que não foi passada.`)
+    }
+
+    if (requiresRequest && !this._request) {
+      throw new Error(`Ação ${actionName} espera uma instância "Request" que não foi passada.`)
     }
 
     if (requiresReview && !this._review) {

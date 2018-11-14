@@ -3,6 +3,23 @@
 const Model = use('Model')
 
 class RequestEditLog extends Model {
+  /**
+   * ---------------------------------------------------------------------
+   * Relações
+   * ---------------------------------------------------------------------
+   *
+   * Os métodos definidos abaixo são usados para estabelecer relações
+   * entre outros modelos (models).
+   *
+   */
+
+  request () {
+    return this.belongsTo('App/Models/Request')
+  }
+
+  author () {
+    return this.belongsTo('App/Models/User', 'author_id')
+  }
 }
 
 module.exports = RequestEditLog

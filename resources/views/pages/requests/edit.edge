@@ -20,6 +20,12 @@
 @endsection
 
 @section('content')
+  @if(entity.crh_state !== 'PENDING')
+    <div class="alert alert-warning">
+      <i class="fa fa-exclamation-triangle"></i> Você está editando (com poderes administrativos) um requerimento que <strong>já foi {{ entity.crh_state === 'APPROVED' ? 'aprovado' : 'rejeitado' }}</strong> pelo Centro de Recursos Humanos.
+    </div>
+  @endif
+
   <div class="card">
     <div class="card-body">
       <small><b>Editar Requerimento:</b></small>
@@ -33,6 +39,7 @@
 
   <form method="POST" class="card card-body">
     {{ csrfField() }}
+    <input type="hidden" name="integrity_token" value="{{ entity.integrity_token }}" />
 
     {{-- Fields --}}
     @unless(type.field_before_position === 'HIDE')

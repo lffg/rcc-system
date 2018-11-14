@@ -1,6 +1,7 @@
 'use strict'
 
 const { HttpException } = use('@adonisjs/generic-exceptions')
+const { RequestInterface } = use('App/Services/Request')
 const RequestType = use('App/Models/RequestType')
 const Request = use('App/Models/Request')
 const Database = use('Database')
@@ -11,7 +12,8 @@ class RequestEntityController {
     if (!entity.is_crh) throw new HttpException('Acesso negado.', 403)
 
     const reviews = await Queries.reviews(id)
-    return view.render('pages.requests.show-entity', { entity, reviews })
+    const editLogs = await Queries.editLogs(id)
+    return view.render('pages.requests.show-entity', { entity, reviews, editLogs })
   }
 
   async edit ({ params: { id }, view, auth }) {
@@ -33,8 +35,14 @@ class RequestEntityController {
     return view.render('pages.requests.edit', { type, entity })
   }
 
-  async update () {
-    return 'postado'
+  async update ({ request, response, params: { id }, session, auth }) {
+    const payload = request.all()
+
+    const entity = await Request.findOrFail(id)
+    await RequestInterface.update(payload, entity, auth.user)
+
+    session.flash({ success: 'O requerimento foi atualizado com sucesso.' })
+    return response.route('requests.show', { id })
   }
 }
 
@@ -72,6 +80,19 @@ class Queries {
       .from('request_reviews')
       .where({ request_id: requestId })
       .orderBy('created_at', 'DESC')
+  }
+
+  static async editLogs (requestId = null) {
+    return Database
+      .select([
+        'L.edit_reason',
+        'L.created_at',
+        'U.username as author'
+      ])
+      .from('request_edit_logs as L')
+      .innerJoin('users as U', 'U.id', '=', 'L.author_id')
+      .where({ request_id: requestId })
+      .orderBy('L.created_at', 'DESC')
   }
 }
 

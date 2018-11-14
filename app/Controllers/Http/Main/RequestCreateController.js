@@ -51,16 +51,10 @@ class RequestCreateController {
   async store ({ request, response, session }) {
     const data = request.all()
 
-    // Cria uma requisição a cada usuário:
     const splittedNicks = await fullSplitNicks(data.receivers, true)
     for (const username of splittedNicks) {
-      // Pega o usuário, criando um caso nenhum existir.
-      const user = await User.findOrCreate(
-        { username },
-        { username, synthetically_created: true }
-      )
+      const user = await User.findOrCreate({ username }, { username, synthetically_created: true })
 
-      // Cria a requisição:
       await RequestInterface.create({
         ...data, receiver_id: user.id
       })

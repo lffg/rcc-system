@@ -9,6 +9,15 @@
       <div>
         Requerido por {{ userLink(entity.author) }},
         <span title="{{ moment(entity.created_at).format('LLLL') }}">{{ moment(entity.created_at).fromNow() }}</span>.
+        @if(editLogs.length > 0)
+          Editado
+          <a
+            href="#edit-logs"
+            data-toggle="modal"
+            class="sys-request-timeline__edit-logs-link"
+            title="Clique para ver mais detalhes"
+          >{{ editLogs.length }} vez{{ editLogs.length > 1 ? 'es' : '' }}</a>.
+        @endif
       </div>
       <div class="sys-request-timeline__header-actions">
         @if((entity.crh_state === 'PENDING' && $userdata.id === entity.author_id) || hasPermission('ADMIN'))

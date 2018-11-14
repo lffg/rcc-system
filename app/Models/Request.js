@@ -14,6 +14,7 @@ class Request extends Model {
 
     this.addHook('beforeSave', 'RequestHook.createIntegrityToken')
     this.addHook('afterSave', 'RequestHook.setComputedFields')
+    this.addTrait('Request')
   }
 
   /**
@@ -36,6 +37,10 @@ class Request extends Model {
 
   reviews () {
     return this.hasMany('App/Models/RequestReview')
+  }
+
+  editLogs () {
+    return this.hasMany('App/Models/RequestEditLog')
   }
 
   author () {

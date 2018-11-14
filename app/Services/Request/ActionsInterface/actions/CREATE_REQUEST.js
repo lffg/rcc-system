@@ -9,13 +9,14 @@ const Route = use('Route')
 
 module.exports = () => ({
   requiresController: false,
+  requiresAuthUser: false,
   requiresRequest: false,
   requiresReview: false,
   requiresType: false,
   caller
 })
 
-async function caller ({ payload, systemAction }) {
+async function caller ({ payload, systemAction = false }) {
   let data = {}
 
   for (const [key, { name, allowUserOption = true, required = false }] of requiredFields.entries()) {

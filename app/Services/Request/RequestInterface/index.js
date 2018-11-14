@@ -5,7 +5,6 @@ const create = require('./_create')
 const update = require('./_update')
 
 const { HttpException } = use('@adonisjs/generic-exceptions')
-const RequestType = use('App/Models/RequestType')
 
 class CreateInterface {
   /**
@@ -29,12 +28,8 @@ class CreateInterface {
   /**
    * @alias update
    */
-  static async update (type, payload) {
-    if (!(type instanceof RequestType)) {
-      throw new TypeError('`type` deve ser uma instância de RequestType para update.')
-    }
-
-    return update(type, payload)
+  static async update (payload, requestInstance, authUser) {
+    return update(payload, requestInstance, authUser)
   }
 }
 
