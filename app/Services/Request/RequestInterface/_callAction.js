@@ -26,7 +26,7 @@ module.exports = function callAction (actionAlias = null) {
       throw new TypeError('Deve-se definir "type_id" para "payload" ao usar "RequestInterface.*"')
     }
 
-    // Execute cada ação individualmente:
+    // Executa cada ação individualmente:
     for (const action of actions) {
       const actionInterface = new ActionsInterface()
       actionInterface.use(params)
