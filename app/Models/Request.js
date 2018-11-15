@@ -13,7 +13,6 @@ class Request extends Model {
     super.boot()
 
     this.addHook('beforeSave', 'RequestHook.createIntegrityToken')
-    this.addHook('afterSave', 'RequestHook.setComputedFields')
     this.addTrait('Request')
   }
 

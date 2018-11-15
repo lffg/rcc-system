@@ -5,6 +5,8 @@ const { fullSplitNicks } = use('App/Helpers/split-nicks')
 const { RequestInterface } = use('App/Services/Request')
 const RequestType = use('App/Models/RequestType')
 const User = use('App/Models/User')
+const Database = use('Database')
+const Logger = use('Logger')
 
 class RequestCreateController {
   /**
@@ -48,16 +50,28 @@ class RequestCreateController {
    *
    * @method POST
    */
-  async store ({ request, response, session }) {
+  async store ({ request, response, session, auth: { user: { username } } }) {
+    const transaction = await Database.beginTransaction()
     const data = request.all()
 
-    const splittedNicks = await fullSplitNicks(data.receivers, true)
-    for (const username of splittedNicks) {
-      const user = await User.findOrCreate({ username }, { username, synthetically_created: true })
+    try {
+      const splittedNicks = await fullSplitNicks(data.receivers, true)
+      for (const username of splittedNicks) {
+        const user = await User.findOrCreate(
+          { username },
+          { username, synthetically_created: true }
+        )
+        await RequestInterface.create({
+          payload: { ...data, receiver_id: user.id }, transaction
+        })
+      }
 
-      await RequestInterface.create({
-        ...data, receiver_id: user.id
-      })
+      await transaction.commit()
+    } catch ({ message }) {
+      await transaction.rollback()
+      Logger.crit('[CRH] Erro ao criar a requisição. Usuário: %s | Erro: %s', username, message)
+      session.flash({ danger: 'Houve um erro ao tentar criar o requerimento. Tente novamente.' })
+      return response.route('requests.create')
     }
 
     session.flash({

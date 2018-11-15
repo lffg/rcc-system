@@ -1,13 +1,20 @@
 'use strict'
 
+/**
+ * Action usada para:
+ *    - Criar o requerimento;
+ *    - Definir propriedades computadas após a criação do requerimento.
+ */
+
+const getComputedRequestProps = require('../ext/getComputedRequestProps')
+
 const htmlifyLineBreaks = use('App/Helpers/htmlify-line-breaks')
 const FormError = use('App/Exceptions/FormError')
 const sanitize = use('App/Helpers/sanitize')
 const Request = use('App/Models/Request')
-const Logger = use('Logger')
-const Route = use('Route')
 
 module.exports = () => ({
+  requiresTransaction: true,
   requiresController: false,
   requiresAuthUser: false,
   requiresRequest: false,
@@ -16,12 +23,12 @@ module.exports = () => ({
   caller
 })
 
-async function caller ({ payload, systemAction = false }) {
+async function caller ({ transaction, payload, systemAction = false }) {
   let data = {}
 
   for (const [key, { name, allowUserOption = true, required = false }] of requiredFields.entries()) {
     if (
-      (!allowUserOption && systemAction) ||
+      (!allowUserOption && !systemAction) ||
       (payload[name] === null) ||
       (typeof payload[name] === 'undefined')
     ) {
@@ -49,12 +56,15 @@ async function caller ({ payload, systemAction = false }) {
     data.crh_state = 'PENDING'
   }
 
-  try {
-    await Request.create(data)
-  } catch ({ message }) {
-    Logger.error(`[DEBUG] [ERRO] Ao tentar CRIAR uma requisição: ${message}`)
-    throw new FormError('Houve um erro ao tentar criar o requerimento.', 500, Route.url('requests.create'))
-  }
+  // Criar a requisição:
+  const request = new Request()
+  request.merge(data)
+  await request.save(transaction)
+
+  // Definir dados computados:
+  const computedProps = await getComputedRequestProps(request, transaction)
+  request.merge(computedProps)
+  await request.save(transaction)
 }
 
 const requiredFields = new Map([

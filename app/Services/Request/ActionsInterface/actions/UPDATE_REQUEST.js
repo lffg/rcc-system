@@ -1,11 +1,18 @@
 'use strict'
 
+/**
+ * Action usada para:
+ *   - Atualizar o requerimento;
+ *   - Definir propriedades computadas após a atualização do requerimento.
+ */
+
+const getComputedRequestProps = require('../ext/getComputedRequestProps')
+
 const htmlifyLineBreaks = use('App/Helpers/htmlify-line-breaks')
-const FormError = use('App/Exceptions/FormError')
 const sanitize = use('App/Helpers/sanitize')
-const Logger = use('Logger')
 
 module.exports = () => ({
+  requiresTransaction: true,
   requiresController: false,
   requiresAuthUser: false,
   requiresRequest: true,
@@ -14,7 +21,7 @@ module.exports = () => ({
   caller
 })
 
-async function caller ({ request, payload }) {
+async function caller ({ transaction, request, payload }) {
   let data = {}
 
   for (const [key, { name }] of allowedFields.entries()) {
@@ -35,17 +42,17 @@ async function caller ({ request, payload }) {
     })
   }
 
-  try {
-    request.merge(data)
-    await request.save()
+  // Atualizar o requerimento, definindo também os dados computados:
+  request.merge(data)
+  await request.save(transaction)
 
-    // TODO ::
-    // if (request.crh_state !== 'PENDING')
-    // execute_action_by_system('REVIEW', request.crh_state)
-  } catch ({ message }) {
-    Logger.error(`[DEBUG] [ERRO] Ao tentar ATUALIZAR uma requisição (UPDATE_REQUEST): ${message}`)
-    throw new FormError('Houve um erro ao tentar atualizar este requerimento.', 500)
-  }
+  const computedProps = await getComputedRequestProps(request, transaction)
+  request.merge(computedProps)
+  await request.save(transaction)
+
+  // TODO ::
+  // if (request.crh_state !== 'PENDING')
+  // execute_action_by_system('REVIEW', request.crh_state)
 }
 
 const allowedFields = new Map([

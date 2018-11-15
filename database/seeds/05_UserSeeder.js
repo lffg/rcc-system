@@ -36,10 +36,12 @@ class UserSeeder {
   async createRequests () {
     const wait = (t = 0) => new Promise((resolve) => setTimeout(resolve, t))
 
-    for (const data of requests) {
-      await RequestInterface.create(data, true)
-      await wait(1000)
-    }
+    await Database.transaction(async (transaction) => {
+      for (const payload of requests) {
+        await RequestInterface.create({ payload, transaction, systemAction: true })
+        await wait(1000)
+      }
+    })
   }
 
   async setGroupRelations () {

@@ -32,6 +32,7 @@ class ActionsInterface {
    */
   use ({
     systemAction = false,
+    transaction = null,
     controller = null, /** @type */
     authUser = null, /** @type */
     payload = null,
@@ -50,6 +51,7 @@ class ActionsInterface {
     }
 
     this._systemAction = systemAction
+    this._transaction = transaction
     this._controller = controller
     this._authUser = authUser
     this._payload = payload
@@ -82,6 +84,7 @@ class ActionsInterface {
 
     const result = await actionMeta.caller({
       systemAction: this._systemAction,
+      transaction: this._transaction,
       controller: this._controller,
       authUser: this._authUser,
       request: this._request,
@@ -94,12 +97,17 @@ class ActionsInterface {
   }
 
   _checkMeta (actionName, {
+    requiresTransaction,
     requiresController,
     requiresAuthUser,
     requiresRequest,
     requiresReview,
     requiresType
   }) {
+    if (requiresTransaction && !this._transaction) {
+      throw new Error(`Ação ${actionName} espera uma "transaction" que não foi passada.`)
+    }
+
     if (requiresController && !this._controller) {
       throw new Error(`Ação ${actionName} espera uma instância "RequestController" que não foi passada.`)
     }

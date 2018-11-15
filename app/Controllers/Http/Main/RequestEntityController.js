@@ -5,6 +5,7 @@ const { RequestInterface } = use('App/Services/Request')
 const RequestType = use('App/Models/RequestType')
 const Request = use('App/Models/Request')
 const Database = use('Database')
+const Logger = use('Logger')
 
 class RequestEntityController {
   async show ({ params: { id }, view }) {
@@ -36,10 +37,26 @@ class RequestEntityController {
   }
 
   async update ({ request, response, params: { id }, session, auth }) {
+    const transaction = await Database.beginTransaction()
     const payload = request.all()
 
-    const entity = await Request.findOrFail(id)
-    await RequestInterface.update(payload, entity, auth.user)
+    try {
+      const entity = await Request.findOrFail(id)
+
+      await RequestInterface.update({
+        payload: { ...payload, type_id: entity.type_id },
+        request: entity,
+        transaction,
+        authUser: auth.user
+      })
+
+      await transaction.commit()
+    } catch ({ message, stack }) {
+      await transaction.rollback()
+      Logger.crit('[CRH] Erro ao editar a requisição. Usuário: %s | Erro: %s | S: %s', auth.user.username, message)
+      session.flash({ danger: 'Houve um erro ao tentar atualizar o requerimento. Tente novamente.' })
+      return response.route('requests.show', { id })
+    }
 
     session.flash({ success: 'O requerimento foi atualizado com sucesso.' })
     return response.route('requests.show', { id })

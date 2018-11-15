@@ -15,7 +15,7 @@
                 <td>
                   <div>{{ log.edit_reason }}</div>
                   <small class="text-muted">
-                    Por {{ userLink(log.author) }}, <span data-tooltip="off" title="{{ moment(entity.created_at).format('LLLL') }}">{{ moment(entity.created_at).fromNow() }}</span>.
+                    Por {{ userLink(log.author) }}, <span data-tooltip="off" title="{{ moment(log.created_at).format('LLLL') }}">{{ moment(log.created_at).fromNow() }}</span>.
                   </small>
                 </td>
               </tr>

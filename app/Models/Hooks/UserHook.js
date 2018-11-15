@@ -6,6 +6,7 @@ const RequestType = use('App/Models/RequestType')
 const FormError = use('App/Exceptions/FormError')
 const Position = use('App/Models/Position')
 const Group = use('App/Models/Group')
+const Database = use('Database')
 const Hash = use('Hash')
 
 const UserHook = exports = module.exports = {}
@@ -56,12 +57,16 @@ UserHook.createAccountRegisterEvent = async (userInstance) => {
   const controller = await RequestController.findByOrFail('alias', 'SYS_METADATA')
   const type = await RequestType.findByOrFail('alias', 'REGISTER')
 
-  await RequestInterface.create({
-    controller_id: controller.id,
-    type_id: type.id,
-    author_id: userInstance.id,
-    receiver_id: userInstance.id,
-    is_crh: false,
-    notes: `Criação da conta para o usuário ${userInstance.username} efetivada.`
-  }, true)
+  await Database.transaction(async (transaction) => {
+    const payload = {
+      controller_id: controller.id,
+      type_id: type.id,
+      author_id: userInstance.id,
+      receiver_id: userInstance.id,
+      is_crh: false,
+      notes: `Criação da conta para o usuário ${userInstance.username} efetivada.`
+    }
+
+    await RequestInterface.create({ payload, transaction, systemAction: true })
+  })
 }
