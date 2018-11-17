@@ -14,19 +14,14 @@ Route.group(() => {
   Route.get('all/:controllerSlug?', 'RequestController.all').as('requests.all')
   Route.get('search', 'RequestController.search').as('requests.search')
 
-  // Revisão (CRH):
-  Route.get('review/all/:controllerSlug?', 'RequestManagerController.all').as('requests.review-all')
-  Route.get('review/req/:id', 'RequestManagerController.review').as('requests.review')
-  Route.post('review/req/:id', 'RequestManagerController.review')
-
-  // Entidade:
+  // Ver entidade:
   Route.get('req/:id', 'RequestEntityController.show').as('requests.show')
 
   // Criar entidade:
-  Route.get('new', 'RequestCreateController.create').as('requests.create')
-  Route.route('new/goto/:step', 'RequestCreateController.goto', ['GET', 'POST'])
+  Route.get('new', 'RequestEntityController.create').as('requests.create')
+  Route.post('new/goto/:step', 'RequestEntityController.gotoCreatePart')
     .validator('General/RequestCreate').as('requests.create:goto')
-  Route.post('new/save', 'RequestCreateController.store')
+  Route.post('new/save', 'RequestEntityController.store')
     .validator('General/RequestCreate').as('requests.store')
 
   // Editar Entidade
@@ -41,6 +36,11 @@ Route.group(() => {
   Route.post('reply/:id/edit', 'RequestReplyController.update')
   Route.get('reply/:id/delete', 'RequestReplyController.delete').as('requests.delete-reply')
   Route.post('reply/:id/delete', 'RequestReplyController.destroy')
+
+  // Revisão (CRH):
+  Route.get('review/all/:controllerSlug?', 'RequestManagerController.all').as('requests.review-all')
+  Route.get('review/req/:id', 'RequestManagerController.review').as('requests.review')
+  Route.post('review/req/:id', 'RequestManagerController.review')
 })
   .middleware(['auth'])
   .namespace('Main')
