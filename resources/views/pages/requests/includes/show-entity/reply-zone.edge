@@ -1,12 +1,13 @@
 <div class="sys-entity-reply text-center">
   <hr class="lg" />
-  <small class="text-muted d-block mb-3">
-    Clique no botão abaixo para responder a este requerimento:
-  </small>
-  <a
-    href="{{ route('requests.reply', { id: entity.id }) }}"
-    class="btn btn-primary btn-block"
-  >
-    <i class="fa fa-share"></i> Responder
-  </a>
 </div>
+
+<form action="/post" method="POST" class="my-3">
+  <textarea name="message" id="cked"></textarea>
+  <button type="submit" class="btn btn-primary btn-lg">
+    <i class="fa fa-share"></i> Responder
+  </button>
+</form>
+
+{{ script('vendor/ckeditor/ckeditor') }}
+<script>CKEDITOR.replace('cked');</script>

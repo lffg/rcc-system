@@ -1,5 +1,6 @@
 'use strict'
 
+const { HttpException } = use('@adonisjs/generic-exceptions')
 const Route = use('Route')
 
 // Páginas de início:
@@ -13,3 +14,11 @@ require('./_main.auth')
 require('./_main.users')
 require('./_main.session')
 require('./_main.requests')
+
+Route.any('/post', async ({ request, auth }) => {
+  if (process.env.NODE_ENV === 'development' || await auth.user.hasPermission('DEV', true)) {
+    return request.all()
+  }
+
+  throw new HttpException('Erro.', 403)
+})
