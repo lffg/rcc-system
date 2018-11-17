@@ -45,10 +45,3 @@ Route.group(() => {
   .middleware(['auth'])
   .namespace('Main')
   .prefix('crh')
-
-const RequestType = use('App/Models/RequestType')
-Route.get('request-types', async ({ view }) => {
-  const types = await RequestType.query().fetch()
-
-  return view.render('pages.requests.types', { types: types.toJSON() })
-}).middleware(['auth'])
