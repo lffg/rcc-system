@@ -74,9 +74,11 @@
           </optgroup>
         @endeach
       </select>
-      <small class="form-help text-muted">
-        A patente/cargo <strong>atual</strong> dos usuários afetados por este requerimento.
-      </small>
+      @unless(type.label_field_before_position)
+        <small class="form-help text-muted">
+          A patente/cargo <strong>atual</strong> dos usuários afetados por este requerimento.
+        </small>
+      @endunless
       <script>
         (function () {
           var elm = document.getElementById('before_position_id');
@@ -120,9 +122,11 @@
           </optgroup>
         @endeach
       </select>
-      <small class="form-help text-muted">
-        A patente/cargo que será aplicada <strong>após o requerimento</strong> ser aprovado pelo CRH.
-      </small>
+      @unless(type.label_field_after_position)
+        <small class="form-help text-muted">
+          A patente/cargo que será aplicada <strong>após o requerimento</strong> ser aprovado pelo CRH.
+        </small>
+      @endunless
     </div>
   @endunless
 

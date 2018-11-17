@@ -256,9 +256,9 @@
     <br />
     <div><b>Reintegração:</b> Reintegrado como {{ request.after_position }}</div>
     <div><b>Policial reintegrado:</b> {{ userLink(request.receiver) }}</div>
-    <br />
+    <div><b>Último posto:</b> {{ request.before_position }}</div>
     @if(request.notes)
-      <div><b>Notas:</b><blockquote>{{{ request.notes }}}</blockquote></div>
+      <br /><div><b>Notas:</b><blockquote>{{{ request.notes }}}</blockquote></div>
     @endif
   @endif
 

@@ -177,14 +177,14 @@ exports.types = [
     description: '(Praças)',
     color: '#3949ab',
     icon: 'fa fa-arrow-circle-o-right',
-    info_text:
-      '<strong>Informe o último posto do policial</strong> no campo "notas". Exemplo: <br/> <samp>Último posto: &lt;Patente/Cargo&gt;</samp>',
     allow_unregistered_users: true,
     after_position_group_id: 1,
+    field_before_position: 'REQUIRED',
     field_after_position: 'REQUIRED',
     field_permission: 'OPT',
     field_notes: 'OPT',
     field_asked_by: 'OPT',
+    label_field_before_position: 'Último posto ocupado:',
     label_field_after_position: 'Patente a ser reintegrado(a):'
   },
   // --- OFICIAIS
@@ -361,10 +361,12 @@ exports.types = [
     icon: 'fa fa-arrow-circle-o-right',
     allow_unregistered_users: true,
     after_position_group_id: 2,
+    field_before_position: 'REQUIRED',
     field_after_position: 'REQUIRED',
     field_permission: 'OPT',
     field_notes: 'OPT',
     field_asked_by: 'OPT',
+    label_field_before_position: 'Último posto ocupado:',
     label_field_after_position: 'Cargo a ser reintegrado(a):'
   },
   {
