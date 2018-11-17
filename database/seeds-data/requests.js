@@ -105,7 +105,7 @@ exports.types = [
   },
   {
     id: 25,
-    alias: 'SUP-REPR',
+    alias: 'SUP_REPR',
     controller_id: 2,
     name: 'Reprovação em Supervisão',
     timeline_title: 'Reprovado(a) na Supervisão',

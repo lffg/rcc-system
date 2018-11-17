@@ -8,7 +8,7 @@
     Aprovação em CFSd
   @endif
 
-  @if(request.type_alias === 'SUP-REPR')
+  @if(request.type_alias === 'SUP_REPR')
     Reprovação na Supervisão
   @endif
 
@@ -85,7 +85,7 @@
     {{ request.receiver }} foi aprovado no Curso de Formação de Soldados.
   @endif
 
-  @if(request.type_alias === 'SUP-REPR')
+  @if(request.type_alias === 'SUP_REPR')
     {{ request.receiver }} foi reprovado na supervisão de soldados, e por este motivo foi desligado da Policia RCC.
   @endif
 
@@ -198,7 +198,7 @@
     @endif
   @endif
 
-  @if(request.type_alias === 'SUP-REPR')
+  @if(request.type_alias === 'SUP_REPR')
     <div><b>Nick do Supervisor:</b> {{ userLink(request.author) }}</div>
     <div><b>Nick do reprovado (demitido):</b> {{ userLink(request.receiver) }}</div>
     @if(request.asked_by)
