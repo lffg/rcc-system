@@ -93,6 +93,7 @@ exports.types = [
   {
     id: 2,
     alias: 'CFSD_A',
+    is_permanent: true,
     controller_id: 2,
     name: 'Aprovação em CFSd',
     timeline_title: 'Aprovado(a) em CFSd',
@@ -106,6 +107,7 @@ exports.types = [
   {
     id: 25,
     alias: 'SUP_REPR',
+    is_permanent: true,
     controller_id: 2,
     name: 'Reprovação em Supervisão',
     timeline_title: 'Reprovado(a) na Supervisão',
@@ -122,6 +124,7 @@ exports.types = [
   {
     id: 3,
     alias: 'P_PRO',
+    is_permanent: true,
     controller_id: 3,
     name: 'Promoção',
     timeline_title: 'Promovido(a)',
@@ -144,6 +147,7 @@ exports.types = [
   {
     id: 4,
     alias: 'P_REB',
+    is_permanent: true,
     controller_id: 3,
     name: 'Rebaixamento',
     timeline_title: 'Rebaixado(a)',
@@ -166,6 +170,7 @@ exports.types = [
   {
     id: 5,
     alias: 'P_REJOIN',
+    is_permanent: true,
     controller_id: 3,
     name: 'Reintegração',
     timeline_title: 'Reintegrado(a)',
@@ -186,6 +191,7 @@ exports.types = [
   {
     id: 6,
     alias: 'O_PRO',
+    is_permanent: true,
     controller_id: 4,
     name: 'Promoção',
     timeline_title: 'Promovido(a)',
@@ -208,6 +214,7 @@ exports.types = [
   {
     id: 7,
     alias: 'O_REB',
+    is_permanent: true,
     controller_id: 4,
     name: 'Rebaixamento',
     timeline_title: 'Rebaixado(a)',
@@ -230,6 +237,7 @@ exports.types = [
   {
     id: 8,
     alias: 'O_ABS',
+    is_permanent: true,
     controller_id: 4,
     name: 'Solicitação de Licença',
     timeline_title: 'Solicitou Licença',
@@ -245,6 +253,7 @@ exports.types = [
   {
     id: 9,
     alias: 'O_RES',
+    is_permanent: true,
     controller_id: 4,
     name: 'Solicitação de Reserva',
     timeline_title: 'Solicitou Reserva',
@@ -260,6 +269,7 @@ exports.types = [
   {
     id: 10,
     alias: 'O_ADV',
+    is_permanent: true,
     controller_id: 4,
     name: 'Advertência',
     timeline_title: 'Advertido(a)',
@@ -277,6 +287,7 @@ exports.types = [
   {
     id: 11,
     alias: 'E_PRO',
+    is_permanent: true,
     controller_id: 5,
     name: 'Promoção',
     timeline_title: 'Promovido(a)',
@@ -299,6 +310,7 @@ exports.types = [
   {
     id: 12,
     alias: 'E_BUY_P',
+    is_permanent: true,
     controller_id: 5,
     name: 'Compra de Cargo',
     timeline_title: 'Comprou cargo',
@@ -317,6 +329,7 @@ exports.types = [
   {
     id: 13,
     alias: 'E_REB',
+    is_permanent: true,
     controller_id: 5,
     name: 'Rebaixamento',
     timeline_title: 'Rebaixado(a)',
@@ -339,6 +352,7 @@ exports.types = [
   {
     id: 14,
     alias: 'E_REJOIN',
+    is_permanent: true,
     controller_id: 5,
     name: 'Reintegração',
     timeline_title: 'Reintegrado(a)',
@@ -356,6 +370,7 @@ exports.types = [
   {
     id: 15,
     alias: 'E_ABS',
+    is_permanent: true,
     controller_id: 5,
     name: 'Solicitação de Licença',
     timeline_title: 'Solicitou Licença',
@@ -371,6 +386,7 @@ exports.types = [
   {
     id: 16,
     alias: 'E_RES',
+    is_permanent: true,
     controller_id: 5,
     name: 'Solicitação de Reserva',
     timeline_title: 'Solicitou Reserva',
@@ -386,6 +402,7 @@ exports.types = [
   {
     id: 17,
     alias: 'E_ADV',
+    is_permanent: true,
     controller_id: 5,
     name: 'Advertência',
     timeline_title: 'Advertido(a)',
@@ -403,6 +420,7 @@ exports.types = [
   {
     id: 18,
     alias: 'TAG_REQUEST',
+    is_permanent: true,
     controller_id: 6,
     name: 'Solicitação de Criação de TAG',
     timeline_title: 'Solicitou uma nova TAG',
@@ -419,6 +437,7 @@ exports.types = [
   {
     id: 19,
     alias: 'GRAT_E',
+    is_permanent: true,
     controller_id: 7,
     name: 'Atribuição de Gratificações Efetivas',
     timeline_title: 'Gratificado(a) com Medalhas Efetivas',
@@ -436,6 +455,7 @@ exports.types = [
   {
     id: 20,
     alias: 'GRAT_T',
+    is_permanent: true,
     controller_id: 7,
     name: 'Atribuição de Gratificações Temporárias',
     timeline_title: 'Gratificado(a) com Medalhas Negativas',
@@ -454,6 +474,7 @@ exports.types = [
   {
     id: 21,
     alias: 'DESL_H',
+    is_permanent: true,
     controller_id: 8,
     name: 'Desligamento Honroso',
     timeline_title: 'Desligou-se',
@@ -471,6 +492,7 @@ exports.types = [
   {
     id: 22,
     alias: 'DESL_D',
+    is_permanent: true,
     controller_id: 8,
     name: 'Desligamento Desonroso',
     timeline_title: 'Desligado(a)',
@@ -489,6 +511,7 @@ exports.types = [
   {
     id: 23,
     alias: 'REF_REQUEST',
+    is_permanent: true,
     controller_id: 9,
     name: 'Solicitação de Reforma',
     timeline_title: 'Reformou-se',
@@ -507,6 +530,7 @@ exports.types = [
   {
     id: 24,
     alias: 'EXO_REQUEST',
+    is_permanent: true,
     controller_id: 10,
     name: 'Exoneração',
     timeline_title: 'Exonerado(a)',
