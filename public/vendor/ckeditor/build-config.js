@@ -13,10 +13,10 @@
  * (1) http://ckeditor.com/builder
  *     Visit online builder to build CKEditor from scratch.
  *
- * (2) http://ckeditor.com/builder/bdfeac86af25d501626b0da6631fa8bb
+ * (2) http://ckeditor.com/builder/2bdda6eba21f3adf2706b9bfa68027a7
  *     Visit online builder to build CKEditor, starting with the same setup as before.
  *
- * (3) http://ckeditor.com/builder/download/bdfeac86af25d501626b0da6631fa8bb
+ * (3) http://ckeditor.com/builder/download/2bdda6eba21f3adf2706b9bfa68027a7
  *     Straight download link to the latest version of CKEditor (Optimized) with the same setup as before.
  *
  * NOTE:
@@ -25,8 +25,8 @@
  */
 
 var CKBUILDER_CONFIG = {
-	skin: 'minimalist',
-	preset: 'full',
+	skin: 'moono-lisa',
+	preset: 'standard',
 	ignore: [
 		'.DS_Store',
 		'.bender',
@@ -38,6 +38,7 @@ var CKBUILDER_CONFIG = {
 		'.jshintignore',
 		'.jshintrc',
 		'.mailmap',
+		'.npm',
 		'.travis.yml',
 		'bender-err.log',
 		'bender-out.log',
@@ -58,20 +59,16 @@ var CKBUILDER_CONFIG = {
 		'contextmenu' : 1,
 		'enterkey' : 1,
 		'entities' : 1,
+		'floatingspace' : 1,
 		'font' : 1,
 		'format' : 1,
 		'horizontalrule' : 1,
 		'image' : 1,
-		'indentblock' : 1,
 		'indentlist' : 1,
-		'justify' : 1,
 		'link' : 1,
 		'list' : 1,
-		'liststyle' : 1,
+		'pastetext' : 1,
 		'removeformat' : 1,
-		'resize' : 1,
-		'smiley' : 1,
-		'stylescombo' : 1,
 		'toolbar' : 1,
 		'wysiwygarea' : 1
 	},
