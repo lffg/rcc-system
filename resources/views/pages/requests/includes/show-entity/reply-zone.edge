@@ -1,12 +1,19 @@
-<div class="sys-entity-reply text-center">
+<div>
   <hr class="lg" />
-  <small class="text-muted d-block mb-3">
-    Clique no botão abaixo para responder a este requerimento:
-  </small>
-  <a
-    href="{{ route('requests.reply', { id: entity.id }) }}"
-    class="btn btn-primary btn-block"
-  >
-    <i class="fa fa-share"></i> Responder
-  </a>
+
+  <div class="sys-request-entity-reply" id="reply">
+    <aside class="sys-request-entity-reply__sidenav">
+      <span class="sys-request-entity-reply__avatar">
+        <span style="background-image: url(https://www.habbo.com.br/habbo-imaging/avatarimage?user={{ $userdata.username }}&action=std&direction=2&head_direction=3&gesture=sml&size=l"></span>
+      </span>
+    </aside>
+    <section class="sys-request-entity-reply__main">
+      <div class="sys-request-entity-reply__body">
+        <trix-editor></trix-editor>
+      </div>
+    </section>
+  </div>
 </div>
+
+{{ style('vendor/trix/editor.min') }}
+<script src="{{ assetsUrl('vendor/trix/editor.min.js') }}"></script>
