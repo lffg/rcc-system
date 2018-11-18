@@ -27,7 +27,7 @@ CKEDITOR.editorConfig = function( config ) {
   config.contentsCss = [[
     'body {',
       'font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;',
-      'font-size: 16.5px;',
+      'font-size: 15px;',
       'color: #333;',
       'background-color: #fff;',
       'margin: 20px;',
