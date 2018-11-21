@@ -10,7 +10,7 @@ const Database = use('Database')
  * @param  {string} actionAlias
  * @return {function}
  */
-module.exports = function callAction (actionAlias = null) {
+module.exports = function callAction (executeOn = null) {
   /**
    * Função para chamar as actions em si.
    *
@@ -21,7 +21,7 @@ module.exports = function callAction (actionAlias = null) {
     let actions
 
     try {
-      actions = await getActions(params.payload.type_id, actionAlias)
+      actions = await getActions(params.payload.type_id, executeOn)
     } catch (e) {
       throw new TypeError('Deve-se definir "type_id" para "payload" ao usar "RequestInterface.*"')
     }
