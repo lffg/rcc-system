@@ -32,7 +32,7 @@
     <div class="col-md-8">
       @if(requests.data.length > 0)
         <div class="sys-requests mb-3">
-          @each(request in requests.data)
+          @each(entity in requests.data)
             @include('pages.requests.includes.all.request')
           @endeach
         </div>

@@ -39,8 +39,7 @@ Route.group(() => {
 
   // Revisão (CRH):
   Route.get('review/all/:controllerSlug?', 'RequestManagerController.all').as('requests.review-all')
-  Route.get('review/req/:id', 'RequestManagerController.review').as('requests.review')
-  Route.post('review/req/:id', 'RequestManagerController.review')
+  Route.post('review/req/:id/:mode', 'RequestManagerController.review').as('requests.review')
 })
   .middleware(['auth'])
   .namespace('Main')

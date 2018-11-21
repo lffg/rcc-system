@@ -33,7 +33,7 @@ class RequestHttpController {
       .innerJoin('users as A', 'A.id', '=', 'req.author_id')
       .innerJoin('users as R', 'R.id', '=', 'req.receiver_id')
       .where('req.is_crh', true)
-      .orderBy('req.modified_at', 'DESC')
+      .orderByRaw('req.last_edit DESC, req.created_at DESC')
       .limit(20)
 
     return view.render('pages.requests.index', {
@@ -70,7 +70,7 @@ class RequestHttpController {
       .with('type', (builder) => builder.select('id', 'timeline_title', 'name', 'icon', 'color'))
       .with('author', (builder) => builder.select('id', 'username'))
       .with('receiver', (builder) => builder.select('id', 'username'))
-      .orderBy('modified_at', 'DESC')
+      .orderByRaw('last_edit DESC, created_at DESC')
       .paginate(Math.abs(page), 35)
 
     return view.render('pages.requests.all', {

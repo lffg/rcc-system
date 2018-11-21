@@ -142,6 +142,7 @@ class Queries {
     const entity = await Database
       .select([
         'req.*',
+        'C.name as controller_name',
         'T.timeline_title',
         'T.name as type_name',
         'T.color as color',
@@ -153,6 +154,7 @@ class Queries {
         'reviwer.username as reviwer'
       ])
       .from('requests as req')
+      .innerJoin('request_controllers as C', 'C.id', '=', 'req.controller_id')
       .innerJoin('request_types as T', 'T.id', '=', 'req.type_id')
       .innerJoin('users as author', 'author.id', '=', 'req.author_id')
       .innerJoin('positions as AP', 'AP.id', '=', 'author.position_id')

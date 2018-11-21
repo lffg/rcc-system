@@ -6,8 +6,11 @@ class RequestSchema extends Schema {
   up () {
     this.create('requests', (table) => {
       table.increments()
+
       table.timestamps()
-      table.timestamp('modified_at').notNullable().defaultTo(this.fn.now())
+      table.datetime('last_edit').defaultTo(null)
+      table.datetime('last_review').defaultTo(null)
+
       table.string('integrity_token', 40).defaultTo(null)
 
       table.integer('controller_id').unsigned().index('controller_id').notNullable()

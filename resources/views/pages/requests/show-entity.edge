@@ -17,10 +17,19 @@
 
 @section('content')
   @include('pages.requests.includes.show-entity.top-zone')
-  <div class="sys-request-timeline">
-    @include('pages.requests.includes.show-entity.primary-message')
+
+  <div class="row">
+    <div class="col-md">
+      <div class="sys-request-timeline">
+        @include('pages.requests.includes.show-entity.primary-message')
+      </div>
+    </div>
+    @if(hasPermission('CRH'))
+      <div class="col-md-3">
+        @include('pages.requests.includes.show-entity.crh-panel')
+      </div>
+    @endif
   </div>
 
-  @include('pages.requests.includes.show-entity.reply-zone')
-  @include('pages.requests.includes.show-entity.edit-logs-modal')
+  @include('pages.requests.includes.show-entity.modals')
 @endsection

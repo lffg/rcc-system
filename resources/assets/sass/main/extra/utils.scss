@@ -192,3 +192,8 @@ table {
     color: #61666a;
   }
 }
+
+.tooltip {
+  pointer-events: none;
+  top: 0;
+}

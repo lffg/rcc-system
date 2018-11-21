@@ -108,6 +108,11 @@ hooks.after.providersRegistered(() => {
 
       return this.format('DD MMM YYYY')
     }
+
+    moment.prototype.ut = function () {
+      return this.format('x')
+    }
+
     return moment(...args)
   })
 })

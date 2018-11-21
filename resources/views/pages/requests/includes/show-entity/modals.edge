@@ -1,0 +1,92 @@
+@if(editLogs.length > 0)
+  <div class="modal fade" id="edit-logs" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Últimas Edições</h5>
+          <button type="button" class="close" data-dismiss="modal">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body p-0">
+          <table class="table mb-0">
+            @each(log in editLogs)
+              <tr>
+                <td>
+                  <div>{{ log.edit_reason }}</div>
+                  <small class="text-muted">
+                    Por {{ userLink(log.author) }}, <span data-tooltip="off" title="{{ moment(log.created_at).format('LLLL') }}">{{ moment(log.created_at).fromNow() }}</span>.
+                  </small>
+                </td>
+              </tr>
+            @endeach
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+@endif
+
+@if(hasPermission('CRH'))
+  <div class="modal fade" id="crh-approve" tabindex="-1">
+    <div class="modal-dialog">
+      <form
+        action="{{ route('requests.review', { id: entity.id, mode: 'approve' }) }}"
+        method="POST"
+        class="modal-content"
+      >
+        {{ csrfField() }}
+        <input type="hidden" name="integrity_token" value="{{ entity.integrity_token }}" />
+
+        <div class="modal-header">
+          <h5 class="modal-title">Aprovar Requerimento</h5>
+          <button type="button" class="close" data-dismiss="modal">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body text-justify">
+          <strong><i class="fa fa-exclamation-circle"></i> Tem certeza?</strong> Ao aprovar um requerimento, as ações não poderão ser desfeitas sem abrir um novo requerimento.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-success">
+            <i class="fa fa-check"></i> Aprovar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal fade" id="crh-reject" tabindex="-1">
+    <div class="modal-dialog">
+      <form
+        action="{{ route('requests.review', { id: entity.id, mode: 'approve' }) }}"
+        method="POST"
+        class="modal-content"
+      >
+        {{ csrfField() }}
+        <input type="hidden" name="integrity_token" value="{{ entity.integrity_token }}" />
+
+        <div class="modal-header">
+          <h5 class="modal-title">Rejeitar Requerimento</h5>
+          <button type="button" class="close" data-dismiss="modal">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body text-justify">
+          <label for="reason">Motivo para a rejeição:</label>
+          <textarea name="rej_reason" id="reason" class="form-control" required>{{ old('rej_reason', '') }}</textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-danger">
+            <i class="fa fa-ban"></i> Rejeitar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+@endif

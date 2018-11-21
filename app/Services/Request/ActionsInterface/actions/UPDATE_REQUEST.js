@@ -43,7 +43,7 @@ async function caller ({ transaction, request, payload }) {
   }
 
   // Atualizar o requerimento, definindo também os dados computados:
-  request.merge(data)
+  request.merge({ ...data, last_edit: new Date() })
   await request.save(transaction)
 
   const computedProps = await getComputedRequestProps(request, transaction)

@@ -1,33 +1,40 @@
-<div class="sys-requests__item --state-{{ request.crh_state }}" data-request-id="{{ request.id }}">
+<div class="sys-requests__item --state-{{ entity.crh_state }}" data-request-id="{{ entity.id }}">
   <span
     class="sys-requests__icon"
-    style="background-color: {{ request.type.color }};"
-    title="{{ request.type.name }}"
+    style="background-color: {{ entity.type.color }};"
+    title="{{ entity.type.name }}"
     data-placement="right"
   >
-    <i class="fa-fw {{ request.type.icon }}"></i>
+    <i class="fa-fw {{ entity.type.icon }}"></i>
   </span>
   <div class="sys-requests__main">
     <a
       class="sys-requests__link"
-      href="{{ route('requests.show', { id: request.id }) }}"
+      href="{{ route('requests.show', { id: entity.id }) }}"
     >
-      {{ request.receiver.username }} &dash; {{ request.type.timeline_title }}
+      {{ entity.receiver.username }} &dash; {{ entity.type.timeline_title }}
     </a>
     <div class="sys-requests__details">
-      <i class="fa fa-user"></i> Por {{ request.author.username }}, {{ moment(request.created_at).fromNow() }}
+      <i class="fa fa-user"></i> Por
+      @if(entity.last_review)
+        {{ entity.author.username }}. Revisado {{ moment(entity.last_review).fromNow() }}
+      @elseif(entity.last_edit)
+        {{ entity.author.username }}. Modificado {{ moment(entity.last_edit).fromNow() }}
+      @else
+        {{ entity.author.username }}. Aberto {{ moment(entity.created_at).fromNow() }}
+      @endif
     </div>
   </div>
 
-  @if(request.crh_state === 'APPROVED')
+  @if(entity.crh_state === 'APPROVED')
     <span class="sys-requests__crh-state --state-APPROVED" title="Requerimento Aprovado" data-placement="right">
       <i class="fa fa-check"></i>
     </span>
-  @elseif(request.crh_state === 'REJECTED')
+  @elseif(entity.crh_state === 'REJECTED')
     <span class="sys-requests__crh-state --state-REJECTED" title="Requerimento Recusado" data-placement="right">
       <i class="fa fa-times"></i>
     </span>
-  @elseif(request.crh_state === 'PENDING')
+  @elseif(entity.crh_state === 'PENDING')
     <span
       class="sys-requests__crh-state --state-PENDING"
       title="Requerimento a ser avaliado pelo CRH"

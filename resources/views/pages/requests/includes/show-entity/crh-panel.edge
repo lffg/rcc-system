@@ -1,0 +1,56 @@
+<aside>
+  <p class="lead mb-3">
+    <i class="fa fa-cog"></i> Painel do CRH
+  </p>
+
+  <div class="card mb-3">
+    <div class="card-header">
+      <i class="fa fa-info"></i> Informações
+    </div>
+    <table class="table text-center table-sm mb-0">
+      <tr>
+        <td style="border: none;">Autor</td>
+        <td style="border: none;">{{ userLink(entity.author) }}</td>
+      </tr>
+      <tr>
+        <td>Receptor</td>
+        <td>{{ userLink(entity.receiver) }}</td>
+      </tr>
+      <tr>
+        <td>Aberto em</td>
+        <td title="{{ moment(entity.created_at).format('LLLL') }}">
+          {{ moment(entity.created_at).format('DD/MM/YY') }}
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="card user-card">
+    @if(entity.crh_state === 'APPROVED' || entity.crh_state === 'REJECTED')
+      <div class="card-header">
+        @if(entity.crh_state === 'APPROVED')
+          Aprovado Por
+        @elseif(entity.crh_state === 'REJECTED')
+          Rejeitado Por
+        @endif
+      </div>
+    @endif
+    <div class="card-body">
+      @if(entity.crh_state === 'APPROVED' || entity.crh_state === 'REJECTED')
+        <div class="user-card__avatar">
+          <span style="background-image: url(https://www.habbo.com.br/habbo-imaging/avatarimage?user={{ entity.author }}&action=std&direction=2&head_direction=3&gesture=sml&size=l&__time__={{ moment().format('DD-MM-YY-HH') }});"></span>
+        </div>
+        <div class="user-card__userlink">
+          {{ userLink(entity.reviwer) }}
+        </div>
+      @elseif(entity.crh_state === 'PENDING')
+        <button class="btn btn-success btn-block mb-2" data-toggle="modal" data-target="#crh-approve">
+          <i class="fa fa-check"></i> Aprovar
+        </button>
+        <button class="btn btn-danger btn-block" data-toggle="modal" data-target="#crh-reject">
+          <i class="fa fa-times"></i> Rejeitar
+        </button>
+      @endif
+    </div>
+  </div>
+</aside>

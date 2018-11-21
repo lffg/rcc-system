@@ -93,6 +93,10 @@
     height: calc(100% - 1rem);
   }
 
+  &__item:last-child > &__sidenav::before {
+    height: 1.5rem;
+  }
+
   &__avatar {
     display: block;
     width: 100%;
