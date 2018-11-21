@@ -11,5 +11,11 @@ exports.validate = async function (step, payload) {
 }
 
 const callAction = require('./_callAction')
+
+// *:
 exports.create = async (...params) => callAction('CREATE')(...params)
 exports.update = async (...params) => callAction('UPDATE')(...params)
+
+// CRH:
+exports.reject = async (...params) => callAction('REJECT')(...params)
+exports.approve = async (...params) => callAction('APPROVE')(...params)

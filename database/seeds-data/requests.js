@@ -71,7 +71,19 @@ exports.actions = [
     alias: 'CREATE_UPDATE_LOG',
     execute_on: 'UPDATE',
     name: 'Crirar Log de Edição',
-    description: 'Cria um log para requisição'
+    description: 'Cria um log para requisição.'
+  },
+  {
+    alias: 'REJECT_GENERAL_OPS',
+    execute_on: 'REJECT',
+    name: 'Operações Gerais de Rejeição',
+    description: 'Executa as operações globais para um requerimento rejeitado.'
+  },
+  {
+    alias: 'APPROVE_GENERAL_OPS',
+    execute_on: 'APPROVE',
+    name: 'Operações Gerais de Aprovação',
+    description: 'Executa as operações globais para um requerimento aprovado.'
   }
 ]
 

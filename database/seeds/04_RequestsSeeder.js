@@ -34,7 +34,9 @@ class RequestsSeeder {
       await type.actions().attach([
         actions.get('CREATE_REQUEST').id,
         actions.get('UPDATE_REQUEST').id,
-        actions.get('CREATE_UPDATE_LOG').id
+        actions.get('CREATE_UPDATE_LOG').id,
+        actions.get('REJECT_GENERAL_OPS').id,
+        actions.get('APPROVE_GENERAL_OPS').id
       ])
     }
   }

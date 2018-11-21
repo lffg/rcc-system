@@ -12,12 +12,16 @@ class RequestManagerController {
   }
 
   async review ({ request, response, params: { id, mode }, session, auth }) {
-    if (!(await auth.user.hasPermission('CRH', true)) || !['approve', 'reject'].includes(mode)) {
+    const transaction = await Database.beginTransaction()
+    const entity = await Request.findOrFail(id)
+
+    if (
+      !(await auth.user.hasPermission('CRH', true)) ||
+      !['approve', 'reject'].includes(mode) ||
+      entity.crh_state !== 'PENDING'
+    ) {
       throw new HttpException('Acesso negado.', 403)
     }
-
-    const entity = await Request.findOrFail(id)
-    const transaction = await Database.beginTransaction()
 
     if (request.input('integrity_token') !== entity.integrity_token) {
       session.flash({ danger: 'Este requerimento foi atualizado enquanto você o revisava. Tente novamente.' })
