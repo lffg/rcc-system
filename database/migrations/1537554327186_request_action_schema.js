@@ -13,7 +13,7 @@ class RequestActionSchema extends Schema {
         'CREATE',
         'UPDATE',
         'APPROVE',
-        'REEJCT'
+        'REJECT'
       ])
 
       table.string('name', 100).notNullable()
