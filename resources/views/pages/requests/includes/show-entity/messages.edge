@@ -1,0 +1,20 @@
+@each(review in reviews)
+  <div class="sys-request-timeline__item" id="{{ review.id }}">
+    <aside class="sys-request-timeline__sidenav">
+      <a href="{{ route('users.show') }}?u={{ review.author }}" class="sys-request-timeline__avatar">
+        <span style="background-image: url(https://www.habbo.com.br/habbo-imaging/avatarimage?user={{ review.author }}&action=std&direction=2&head_direction=3&gesture=sml&size=l&__time__={{ moment().format('DD-MM-YY-HH') }});"></span>
+      </a>
+    </aside>
+    <section class="sys-request-timeline__main">
+      <header class="sys-request-timeline__header">
+        <div>
+          Postado por {{ userLink(review.author) }}, <span title="{{ moment(review.created_at).format('LLLL') }}">{{ moment(review.created_at).fromNow() }}</span>.
+        </div>
+        <div class="sys-request-timeline__header-actions"></div>
+      </header>
+      <div class="sys-request-timeline__body">
+        {{{ review.body }}}
+      </div>
+    </section>
+  </div>
+@endeach

@@ -169,8 +169,12 @@ class Queries {
 
   static async reviews (requestId = null) {
     return Database
-      .select('*')
-      .from('request_reviews')
+      .select([
+        'R.*',
+        'A.username as author'
+      ])
+      .from('request_reviews as R')
+      .innerJoin('users as A', 'R.author_id', '=', 'A.id')
       .where({ request_id: requestId })
       .orderBy('created_at', 'DESC')
   }
