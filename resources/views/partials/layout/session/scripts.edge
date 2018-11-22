@@ -7,6 +7,8 @@
 
     $(function () {
       NProgress.start();
+      $('[title]').not('[data-tooltip="off"]').tooltip();
+      $('[data-toggle="popover"]').popover();
     });
 
     $(window).on('load', function () {

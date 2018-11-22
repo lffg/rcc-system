@@ -16,7 +16,8 @@
         value="{{ old('username', '') }}"
         data-html="true"
         data-placement="right"
-        title="O nome de usuário deve ser o <b>mesmo</b> nick que você usa no Habbo."
+        data-toggle="tooltip"
+        title="O nome de usuário deve ser <b>exatamente igual</b> ao nick que você usa no Habbo."
         autocomplete="off"
         required
       />
@@ -33,7 +34,7 @@
         value="{{ old('email', '') }}"
         data-html="true"
         data-placement="right"
-        title="Este e-mail <b>deverá ser verificado</b> na próxima etapa do registro para que você possa criar a sua conta."
+        title="Você deverá <strong>verificar este e-mail</strong> após a criação da conta para usar o System."
         data-html="true"
         autocomplete="off"
         required
@@ -51,7 +52,6 @@
         value="{{ old('password', '') }}"
         data-html="true"
         data-placement="right"
-        title="A senha <strong>não pode começar ou terminar com espaços</strong>."
         autocomplete="off"
         required
       />

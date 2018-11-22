@@ -38,6 +38,10 @@ class RequestTypeSchema extends Schema {
       table.text('label_field_before_position').defaultTo(null)
       table.text('label_field_after_position').defaultTo(null)
       table.text('label_field_reason').defaultTo(null)
+      table.text('label_field_extra_user_1').defaultTo(null)
+      table.text('label_field_extra_user_2').defaultTo(null)
+      table.text('label_field_extra_user_3').defaultTo(null)
+      table.text('label_field_extra_user_4').defaultTo(null)
 
       // --- FIELDS
       table.enum('field_before_position', ['HIDE', 'OPT', 'REQUIRED']).notNullable().defaultTo('HIDE')
@@ -53,6 +57,10 @@ class RequestTypeSchema extends Schema {
       table.enum('field_absence_days', ['HIDE', 'OPT', 'REQUIRED']).notNullable().defaultTo('HIDE')
       table.enum('field_bonuses', ['HIDE', 'OPT', 'REQUIRED']).notNullable().defaultTo('HIDE')
       table.enum('field_banned_days', ['HIDE', 'OPT', 'REQUIRED']).notNullable().defaultTo('HIDE')
+      table.enum('field_extra_user_1', ['HIDE', 'OPT', 'REQUIRED']).notNullable().defaultTo('HIDE')
+      table.enum('field_extra_user_2', ['HIDE', 'OPT', 'REQUIRED']).notNullable().defaultTo('HIDE')
+      table.enum('field_extra_user_3', ['HIDE', 'OPT', 'REQUIRED']).notNullable().defaultTo('HIDE')
+      table.enum('field_extra_user_4', ['HIDE', 'OPT', 'REQUIRED']).notNullable().defaultTo('HIDE')
     })
   }
 

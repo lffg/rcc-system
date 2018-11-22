@@ -51,6 +51,11 @@ exports.controllers = [
     id: 10,
     name: 'Exonerados',
     color: '#ff0000'
+  },
+  {
+    id: 11,
+    name: 'Mudança de Conta',
+    color: '#3f51b5'
   }
 ]
 
@@ -559,5 +564,25 @@ exports.types = [
     field_banned_days: 'REQUIRED',
     label_field_before_position: 'Patente/cargo atual:',
     label_field_reason: 'Motivo para a exoneração:'
+  },
+  // --- MUDANÇA DE CONTA
+  {
+    id: 26,
+    alias: 'CHANGE_ACC',
+    is_permanent: true,
+    controller_id: 11,
+    name: 'Transferência de Conta',
+    timeline_title: 'Mudou de Conta',
+    description: '(Mudança de Conta)',
+    color: '#3f51b5',
+    icon: 'fa fa-retweet',
+    allow_multiple_users: false,
+    field_reason: 'REQUIRED',
+    field_permission: 'OPT',
+    field_notes: 'OPT',
+    field_asked_by: 'OPT',
+    field_extra_user_1: 'REQUIRED',
+    label_field_reason: 'Motivo para a troca:',
+    label_field_extra_user_1: 'Nick da <strong>nova</strong> conta:'
   }
 ]

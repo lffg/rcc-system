@@ -269,6 +269,98 @@
       </div>
     @endunless
 
+    @unless(type.field_extra_user_1 === 'HIDE')
+      <div class="form-group">
+        <label for="extra_user_1">
+          @if(type.field_extra_user_1 === 'REQUIRED')
+            <span
+              style="color: red; font-weight: bold;"
+              title="Campo obrigatório"
+            >*</span>
+          @endif
+          {{{ type.label_field_extra_user_1 || 'Nick:' }}}
+        </label>
+        <input
+          type="text"
+          name="extra_user_1"
+          id="extra_user_1"
+          class="form-control"
+          autocomplete="off"
+          value="{{ old('extra_user_1', '') || entity.extra_user_1 || '' }}"
+          {{ type.field_extra_user_1 === 'REQUIRED' ? 'required' : '' }}
+        />
+      </div>
+    @endunless
+
+    @unless(type.field_extra_user_2 === 'HIDE')
+      <div class="form-group">
+        <label for="extra_user_2">
+          @if(type.field_extra_user_2 === 'REQUIRED')
+            <span
+              style="color: red; font-weight: bold;"
+              title="Campo obrigatório"
+            >*</span>
+          @endif
+          {{{ type.label_field_extra_user_2 || 'Nick:' }}}
+        </label>
+        <input
+          type="text"
+          name="extra_user_2"
+          id="extra_user_2"
+          class="form-control"
+          autocomplete="off"
+          value="{{ old('extra_user_2', '') || entity.extra_user_2 || '' }}"
+          {{ type.field_extra_user_2 === 'REQUIRED' ? 'required' : '' }}
+        />
+      </div>
+    @endunless
+
+    @unless(type.field_extra_user_3 === 'HIDE')
+      <div class="form-group">
+        <label for="extra_user_3">
+          @if(type.field_extra_user_3 === 'REQUIRED')
+            <span
+              style="color: red; font-weight: bold;"
+              title="Campo obrigatório"
+            >*</span>
+          @endif
+          {{{ type.label_field_extra_user_3 || 'Nick:' }}}
+        </label>
+        <input
+          type="text"
+          name="extra_user_3"
+          id="extra_user_3"
+          class="form-control"
+          autocomplete="off"
+          value="{{ old('extra_user_3', '') || entity.extra_user_3 || '' }}"
+          {{ type.field_extra_user_3 === 'REQUIRED' ? 'required' : '' }}
+        />
+      </div>
+    @endunless
+
+    @unless(type.field_extra_user_4 === 'HIDE')
+    <div class="form-group">
+      <label for="extra_user_4">
+        @if(type.field_extra_user_4 === 'REQUIRED')
+          <span
+            style="color: red; font-weight: bold;"
+            title="Campo obrigatório"
+          >*</span>
+        @endif
+        {{{ type.label_field_extra_user_4 || 'Nick:' }}}
+      </label>
+      <input
+        type="text"
+        name="extra_user_4"
+        id="extra_user_4"
+        class="form-control"
+        autocomplete="off"
+        value="{{ old('extra_user_4', '') || entity.extra_user_4 || '' }}"
+        {{ type.field_extra_user_4 === 'REQUIRED' ? 'required' : '' }}
+      />
+    </div>
+    @endunless
+
     @unless(type.field_permission === 'HIDE')
       <div class="form-group">
         <label for="permission">

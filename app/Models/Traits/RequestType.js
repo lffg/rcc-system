@@ -165,7 +165,11 @@ class RequestType {
         ['field_reason', 'reason'],
         ['field_notes', 'notes'],
         ['field_permission', 'permission'],
-        ['field_asked_by', 'asked_by']
+        ['field_asked_by', 'asked_by'],
+        ['field_extra_user_1', 'extra_user_1'],
+        ['field_extra_user_2', 'extra_user_2'],
+        ['field_extra_user_3', 'extra_user_3'],
+        ['field_extra_user_4', 'extra_user_4']
       ])
 
       for (const [key, field] of dict.entries()) {

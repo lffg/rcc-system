@@ -67,6 +67,10 @@
   @if(request.type_alias === 'EXO_REQUEST')
     Exoneração
   @endif
+
+  @if(request.type_alias === 'CHANGE_ACC')
+    Mudança de Conta
+  @endif
 @endif
 
 
@@ -176,6 +180,13 @@
     </blockquote>
     Início do banimento: {{ moment(request.created_at).format('LLL') }}. Término:
     <strong>{{ moment(request.created_at).add(request.banned_days, 'days').format('LLL') }}</strong>.
+  @endif
+
+  @if(request.type_alias === 'CHANGE_ACC')
+    Mudança de conta de <samp>{{ request.receiver }}</samp> para <samp><strong>{{ request.extra_user_1 }}</strong></samp>. Solicitado por {{ userLink(request.author) }}, pelo motivo:
+    <blockquote style="padding: .75rem;">
+      {{{ request.reason }}}
+    </blockquote>
   @endif
 @endif
 
@@ -433,6 +444,22 @@
       <b>Início:</b> {{ moment(request.created_at).format('LLL') }}. <br />
       <b>Término:</b> {{ moment(request.created_at).add(request.banned_days, 'days').format('LLL') }}.
     </blockquote>
+    <div><b>Motivo:</b><blockquote>{{{ request.reason }}}</blockquote></div>
+    @if(request.notes)
+      <div><b>Notas:</b><blockquote>{{{ request.notes }}}</blockquote></div>
+    @endif
+  @endif
+
+  @if(request.type_alias === 'CHANGE_ACC')
+    <div><b>Responsável pela mudança de conta:</b> {{ userLink(request.author) }}</div>
+    @if(request.permission)
+      <div><b>Permissão:</b> {{ request.permission }}</div>
+    @endif
+    @if(request.asked_by)
+      <div><b>Postado a pedido de:</b> {{ request.asked_by }}</div>
+    @endif
+    <br />
+    Mudança de conta: <strong>{{ request.receiver }}</strong> <strong>{{ request.extra_user_1 }}</strong>.
     <div><b>Motivo:</b><blockquote>{{{ request.reason }}}</blockquote></div>
     @if(request.notes)
       <div><b>Notas:</b><blockquote>{{{ request.notes }}}</blockquote></div>

@@ -52,6 +52,10 @@ class RequestSchema extends Schema {
       table.integer('absence_days').unsigned().defaultTo(null)
       table.integer('banned_days').unsigned().defaultTo(null)
       table.integer('bonuses').defaultTo(null)
+      table.string('extra_user_1', 180).defaultTo(null)
+      table.string('extra_user_2', 180).defaultTo(null)
+      table.string('extra_user_3', 180).defaultTo(null)
+      table.string('extra_user_4', 180).defaultTo(null)
     })
   }
 

@@ -66,5 +66,9 @@ const allowedFields = new Map([
   ['reason',             { name: 'reason' }],
   ['permission',         { name: 'permission' }],
   ['notes',              { name: 'notes' }],
-  ['asked_by',           { name: 'asked_by' }]
+  ['asked_by',           { name: 'asked_by' }],
+  ['extra_user_1',       { name: 'extra_user_1' }],
+  ['extra_user_2',       { name: 'extra_user_2' }],
+  ['extra_user_3',       { name: 'extra_user_3' }],
+  ['extra_user_4',       { name: 'extra_user_4' }]
 ])
