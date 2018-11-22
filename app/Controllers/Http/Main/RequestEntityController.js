@@ -176,7 +176,7 @@ class Queries {
       .from('request_reviews as R')
       .innerJoin('users as A', 'R.author_id', '=', 'A.id')
       .where({ request_id: requestId })
-      .orderBy('created_at', 'DESC')
+      .orderBy('created_at', 'ASC')
   }
 
   static async editLogs (requestId = null) {
