@@ -1,5 +1,7 @@
 'use strict'
 
+const moment = require('moment')
+
 const Route = use('Route')
 
 // Checa se o e-mail do usuário está confirmado e se ele pode utilizar o System.
@@ -28,8 +30,8 @@ class CheckUserRequirements {
     }
 
     // Sets the "banned until" field back to zero if necessary.
-    if (auth.user.banned_until !== 0 && auth.user.banned_until < Date.now()) {
-      auth.user.banned_until = 0
+    if (moment(auth.user.banned_until).isSameOrBefore(Date.now(), 'day')) {
+      auth.user.banned_until = null
       await auth.user.save()
     }
 

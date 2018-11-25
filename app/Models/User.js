@@ -30,7 +30,7 @@ class User extends Model {
    * @return {string[]}
    */
   static get computed () {
-    return ['allowed', 'disallowReason', 'isBanned', 'bannedUntilDate']
+    return ['allowed', 'disallowReason', 'isBanned']
   }
 
   /**
@@ -40,11 +40,9 @@ class User extends Model {
    * @param  {number} User.banned_until
    * @return {boolean}
    */
-  getAllowed ({ state, banned_until: bannedUntil = 0 }) {
+  getAllowed ({ state }) {
     const isAllowedState = ['ACTIVE', 'RETIRED', 'VETERAN'].includes(state)
-    const isBanned = Date.now() > bannedUntil
-
-    return (isAllowedState && isBanned)
+    return (isAllowedState && !this.getIsBanned(...arguments))
   }
 
   /**
@@ -59,7 +57,7 @@ class User extends Model {
     if (this.getAllowed(...arguments)) return false
 
     if (this.getIsBanned(...arguments)) {
-      return `O usuário ${username} está exonerado até o dia ${moment(bannedUntil).format('DD/MM/YYYY [às] HH:mm')}.`
+      return `O usuário ${username} está exonerado até o dia ${moment(bannedUntil).format('DD/MM/YYYY')}.`
     }
 
     return ({
@@ -73,11 +71,12 @@ class User extends Model {
   /**
    * Cria a propriedade computada "isBanned".
    *
-   * @param  {number} User.banned_until
+   * @param  {string} User.banned_until
    * @return {boolean}
    */
   getIsBanned ({ banned_until: bannedUntil }) {
-    return Date.now() < bannedUntil
+    if (!bannedUntil) return false
+    return !moment(bannedUntil).isSameOrBefore(Date.now(), 'day')
   }
 
   /**

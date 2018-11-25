@@ -74,7 +74,7 @@ exports.users = [
     state: 'INACTIVE',
     username: 'Simi23',
     password: '123',
-    banned_until: Date.now() + 1000 * 60 * 60 * 24 * 365 * 10,
+    banned_until: '2020-10-28',
     email: 'sm@test.com',
     promoter_id: 2
   },
