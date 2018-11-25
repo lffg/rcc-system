@@ -1,3 +1,9 @@
+/**
+ * ---------------------------------------------------------------------
+ * CONTROLLERS
+ * ---------------------------------------------------------------------
+ */
+
 exports.controllers = [
   {
     id: 1,
@@ -58,6 +64,12 @@ exports.controllers = [
     color: '#3f51b5'
   }
 ]
+
+/**
+ * ---------------------------------------------------------------------
+ * ACTIONS
+ * ---------------------------------------------------------------------
+ */
 
 exports.actions = [
   {
@@ -194,6 +206,12 @@ exports.actions = [
   }
 ]
 
+/**
+ * ---------------------------------------------------------------------
+ * TYPES
+ * ---------------------------------------------------------------------
+ */
+
 exports.types = [
   // --- REGISTRO:
   {
@@ -221,7 +239,8 @@ exports.types = [
     icon: 'fa fa-check',
     allow_unregistered_users: true,
     field_notes: 'OPT',
-    field_asked_by: 'OPT'
+    field_asked_by: 'OPT',
+    __actions__: ['SPEC_CFSD_APPROVAL']
   },
   {
     id: 25,
@@ -237,7 +256,8 @@ exports.types = [
       'Assim que este requerimento for aprovado por um membro do Centro de Recursos Humanos, o(s) soldado(s) será(ão) desligado(s) da Polícia RCC automaticamente.',
     allow_unregistered_users: false,
     field_notes: 'OPT',
-    field_asked_by: 'OPT'
+    field_asked_by: 'OPT',
+    __actions__: ['SPEC_SUP_REPR']
   },
   // --- PRAÇAS
   {
@@ -261,7 +281,8 @@ exports.types = [
     field_asked_by: 'OPT',
     label_field_before_position: 'Patente atual:',
     label_field_after_position: 'Patente pós-promoção:',
-    label_field_reason: 'Motivo para a promoção:'
+    label_field_reason: 'Motivo para a promoção:',
+    __actions__: ['SPEC_PRO']
   },
   {
     id: 4,
@@ -284,7 +305,8 @@ exports.types = [
     field_asked_by: 'OPT',
     label_field_before_position: 'Patente atual:',
     label_field_after_position: 'Patente pós-rebaixamento:',
-    label_field_reason: 'Motivo para o rebaixamento:'
+    label_field_reason: 'Motivo para o rebaixamento:',
+    __actions__: ['SPEC_REB']
   },
   {
     id: 5,
@@ -304,7 +326,8 @@ exports.types = [
     field_notes: 'OPT',
     field_asked_by: 'OPT',
     label_field_before_position: 'Último posto ocupado:',
-    label_field_after_position: 'Patente a ser reintegrado(a):'
+    label_field_after_position: 'Patente a ser reintegrado(a):',
+    __actions__: ['SPEC_REJOIN']
   },
   // --- OFICIAIS
   {
@@ -328,7 +351,8 @@ exports.types = [
     field_asked_by: 'OPT',
     label_field_before_position: 'Patente atual:',
     label_field_after_position: 'Patente pós-promoção:',
-    label_field_reason: 'Motivo para a promoção:'
+    label_field_reason: 'Motivo para a promoção:',
+    __actions__: ['SPEC_PRO']
   },
   {
     id: 7,
@@ -351,7 +375,8 @@ exports.types = [
     field_asked_by: 'OPT',
     label_field_before_position: 'Patente atual:',
     label_field_after_position: 'Patente pós-rebaixamento:',
-    label_field_reason: 'Motivo para o rebaixamento:'
+    label_field_reason: 'Motivo para o rebaixamento:',
+    __actions__: ['SPEC_REB']
   },
   {
     id: 8,
@@ -366,8 +391,9 @@ exports.types = [
     strict_to_position_group: 1,
     field_reason: 'REQUIRED',
     field_notes: 'OPT',
-    field_absence_days: 'REQUIRED',
-    label_field_reason: 'Motivo para a licença:'
+    field_absence_until: 'REQUIRED',
+    label_field_reason: 'Motivo para a licença:',
+    __actions__: ['SPEC_ABS_REQUEST']
   },
   {
     id: 9,
@@ -382,8 +408,9 @@ exports.types = [
     strict_to_position_group: 1,
     field_reason: 'REQUIRED',
     field_notes: 'OPT',
-    field_absence_days: 'REQUIRED',
-    label_field_reason: 'Motivo para a reserva:'
+    field_absence_until: 'REQUIRED',
+    label_field_reason: 'Motivo para a reserva:',
+    __actions__: ['SPEC_RES_REQUEST']
   },
   {
     id: 10,
@@ -400,7 +427,8 @@ exports.types = [
     field_permission: 'OPT',
     field_notes: 'OPT',
     field_asked_by: 'OPT',
-    label_field_reason: 'Motivo para a advertência:'
+    label_field_reason: 'Motivo para a advertência:',
+    __actions__: ['SPEC_ADV']
   },
   // --- EXECUTIVOS
   {
@@ -424,7 +452,8 @@ exports.types = [
     field_asked_by: 'OPT',
     label_field_before_position: 'Cargo atual:',
     label_field_after_position: 'Cargo pós-promoção:',
-    label_field_reason: 'Motivo para a promoção:'
+    label_field_reason: 'Motivo para a promoção:',
+    __actions__: ['SPEC_PRO']
   },
   {
     id: 12,
@@ -443,7 +472,8 @@ exports.types = [
     field_notes: 'OPT',
     field_asked_by: 'OPT',
     field_price: 'REQUIRED',
-    label_field_after_position: 'Cargo adquirido:'
+    label_field_after_position: 'Cargo adquirido:',
+    __actions__: ['SPEC_BUY_POS']
   },
   {
     id: 13,
@@ -466,7 +496,8 @@ exports.types = [
     field_asked_by: 'OPT',
     label_field_before_position: 'Cargo atual:',
     label_field_after_position: 'Cargo pós-rebaixamento:',
-    label_field_reason: 'Motivo para o rebaixamento:'
+    label_field_reason: 'Motivo para o rebaixamento:',
+    __actions__: ['SPEC_REB']
   },
   {
     id: 14,
@@ -486,7 +517,8 @@ exports.types = [
     field_notes: 'OPT',
     field_asked_by: 'OPT',
     label_field_before_position: 'Último posto ocupado:',
-    label_field_after_position: 'Cargo a ser reintegrado(a):'
+    label_field_after_position: 'Cargo a ser reintegrado(a):',
+    __actions__: ['SPEC_REJOIN']
   },
   {
     id: 15,
@@ -501,8 +533,9 @@ exports.types = [
     strict_to_position_group: 2,
     field_reason: 'REQUIRED',
     field_notes: 'OPT',
-    field_absence_days: 'REQUIRED',
-    label_field_reason: 'Motivo para a licença:'
+    field_absence_until: 'REQUIRED',
+    label_field_reason: 'Motivo para a licença:',
+    __actions__: ['SPEC_ABS_REQUEST']
   },
   {
     id: 16,
@@ -517,8 +550,9 @@ exports.types = [
     strict_to_position_group: 1,
     field_reason: 'REQUIRED',
     field_notes: 'OPT',
-    field_absence_days: 'REQUIRED',
-    label_field_reason: 'Motivo para a reserva:'
+    field_absence_until: 'REQUIRED',
+    label_field_reason: 'Motivo para a reserva:',
+    __actions__: ['SPEC_RES_REQUEST']
   },
   {
     id: 17,
@@ -535,7 +569,8 @@ exports.types = [
     field_permission: 'OPT',
     field_notes: 'OPT',
     field_asked_by: 'OPT',
-    label_field_reason: 'Motivo para a advertência:'
+    label_field_reason: 'Motivo para a advertência:',
+    __actions__: ['SPEC_ADV']
   },
   // --- TAG
   {
@@ -552,7 +587,8 @@ exports.types = [
       'Lembre-se que cada <strong>TAG é única</strong>, portanto, não podem haver repetições entre os policiais. Tenha ciência também que a TAG deve ser <strong>semelhante ao seu nick</strong>.',
     allow_multiple_users: false,
     field_notes: 'OPT',
-    field_tag: 'REQUIRED'
+    field_tag: 'REQUIRED',
+    __actions__: ['SPEC_TAG_REQUEST']
   },
   // --- GRATIFICAÇÕES
   {
@@ -571,7 +607,8 @@ exports.types = [
     field_notes: 'OPT',
     field_asked_by: 'OPT',
     field_bonuses: 'REQUIRED',
-    label_field_reason: 'Motivo:'
+    label_field_reason: 'Motivo:',
+    __actions__: ['SPEC_E_GRAT']
   },
   {
     id: 20,
@@ -589,7 +626,8 @@ exports.types = [
     field_notes: 'OPT',
     field_asked_by: 'OPT',
     field_bonuses: 'REQUIRED',
-    label_field_reason: 'Motivo:'
+    label_field_reason: 'Motivo:',
+    __actions__: ['SPEC_T_GRAT']
   },
   // --- DESLIGAMENTOS
   {
@@ -608,7 +646,8 @@ exports.types = [
     field_notes: 'OPT',
     field_asked_by: 'OPT',
     label_field_before_position: 'Patente/cargo atual:',
-    label_field_reason: 'Motivo para o desligamento:'
+    label_field_reason: 'Motivo para o desligamento:',
+    __actions__: ['SPEC_DESL_H']
   },
   {
     id: 22,
@@ -626,7 +665,8 @@ exports.types = [
     field_notes: 'OPT',
     field_asked_by: 'OPT',
     label_field_before_position: 'Patente/cargo atual:',
-    label_field_reason: 'Motivo para o desligamento:'
+    label_field_reason: 'Motivo para o desligamento:',
+    __actions__: ['SPEC_DESL_D']
   },
   // --- REFORMA
   {
@@ -645,7 +685,8 @@ exports.types = [
     field_notes: 'OPT',
     field_asked_by: 'OPT',
     label_field_before_position: 'Patente/cargo atual:',
-    label_field_reason: 'Motivo para a reforma:'
+    label_field_reason: 'Motivo para a reforma:',
+    __actions__: ['SPEC_REF_REQUEST']
   },
   // --- EXONERAÇÃO
   {
@@ -658,14 +699,16 @@ exports.types = [
     description: '(Exonerações)',
     color: '#d32f2f',
     icon: 'fa fa-ban',
+    allow_unregistered_users: true,
     field_before_position: 'REQUIRED',
     field_reason: 'REQUIRED',
     field_permission: 'OPT',
     field_notes: 'OPT',
     field_asked_by: 'OPT',
-    field_banned_days: 'REQUIRED',
+    field_banned_until: 'REQUIRED',
     label_field_before_position: 'Patente/cargo atual:',
-    label_field_reason: 'Motivo para a exoneração:'
+    label_field_reason: 'Motivo para a exoneração:',
+    __actions__: ['SPEC_EXO']
   },
   // --- MUDANÇA DE CONTA
   {
@@ -685,6 +728,7 @@ exports.types = [
     field_asked_by: 'OPT',
     field_extra_user_1: 'REQUIRED',
     label_field_reason: 'Motivo para a troca:',
-    label_field_extra_user_1: 'Nick da <strong>nova</strong> conta:'
+    label_field_extra_user_1: 'Nick da <strong>nova</strong> conta:',
+    __actions__: ['SPEC_CHANGE_ACC']
   }
 ]

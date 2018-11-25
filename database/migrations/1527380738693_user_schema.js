@@ -19,8 +19,8 @@ class UserSchema extends Schema {
 
       // Informações de estado:
       table.enum('state', ['ACTIVE', 'INACTIVE', 'RETIRED', 'VETERAN']).notNullable().defaultTo('INACTIVE')
-      table.bigint('absence_until').notNullable().defaultTo(0).unsigned()
-      table.bigint('banned_until').notNullable().defaultTo(0).unsigned()
+      table.date('absence_until').defaultTo(null)
+      table.date('banned_until').defaultTo(null)
 
       // Email:
       table.string('email', 180).defaultTo(null)
@@ -45,7 +45,7 @@ class UserSchema extends Schema {
       table.integer('position_id').defaultTo(null).unsigned()
       table.foreign('position_id').references('positions.id').onDelete('set null')
       table.enum('tag_type', ['NORMAL', 'REB']).notNullable().defaultTo('NORMAL')
-      table.bigint('change_position_date').notNullable().defaultTo(0).unsigned()
+      table.datetime('change_position_date').defaultTo(null)
 
       // Datas:
       table.bigint('last_visit').notNullable().defaultTo(0).unsigned()

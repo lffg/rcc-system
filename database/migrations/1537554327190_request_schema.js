@@ -49,8 +49,8 @@ class RequestSchema extends Schema {
 
       table.string('tag', 10).defaultTo(null)
       table.text('price').defaultTo(null)
-      table.integer('absence_days').unsigned().defaultTo(null)
-      table.integer('banned_days').unsigned().defaultTo(null)
+      table.date('absence_until').defaultTo(null)
+      table.date('banned_until').defaultTo(null)
       table.integer('bonuses').defaultTo(null)
       table.string('extra_user_1', 180).defaultTo(null)
       table.string('extra_user_2', 180).defaultTo(null)

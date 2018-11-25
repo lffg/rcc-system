@@ -30,7 +30,7 @@ exports.users = [
     temporary_bonuses: 254,
     effective_bonuses: 137,
     promoter_id: 1,
-    position_id: 6
+    position_id: 5
   },
   {
     id: 4,
@@ -85,8 +85,7 @@ exports.users = [
     password: '123',
     email: 'fm@test.com',
     is_verified_email: true,
-    promoter_id: 1,
-    position_id: 32
+    promoter_id: 1
   },
   {
     id: 11,

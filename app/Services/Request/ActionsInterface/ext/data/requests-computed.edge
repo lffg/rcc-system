@@ -112,21 +112,17 @@
   @endif
 
   @if(/^(?:O|E)_ABS$/.test(request.type_alias))
-    {{ request.receiver }} solicitou licença por <strong>{{ request.absence_days }} dias</strong>, pelo seguinte motivo:
+    {{ request.receiver }} solicitou licença até o dia {{ moment(request.absence_until).format('DD/MM/YYYY') }} pelo motivo:
     <blockquote style="padding: .75rem;">
       {{ truncate(request.reason, 400, '...') }}
     </blockquote>
-    Início da licença: {{ moment(request.created_at).format('LLL') }}. Término:
-    <strong>{{ moment(request.created_at).add(request.absence_days, 'days').format('LLL') }}</strong>.
   @endif
 
   @if(/^(?:O|E)_RES$/.test(request.type_alias))
-    {{ request.receiver }} solicitou uma reserva por <strong>{{ request.absence_days }} dias</strong>, pelo seguinte motivo:
+    {{ request.receiver }} solicitou reserva até o dia {{ moment(request.absence_until).format('DD/MM/YYYY') }} pelo motivo:
     <blockquote style="padding: .75rem;">
       {{ truncate(request.reason, 400, '...') }}
     </blockquote>
-    Início da reserva: {{ moment(request.created_at).format('LLL') }}. Término:
-    <strong>{{ moment(request.created_at).add(request.absence_days, 'days').format('LLL') }}</strong>.
   @endif
 
   @if(/^(?:O|E)_ADV$/.test(request.type_alias))
@@ -174,12 +170,11 @@
   @endif
 
   @if(request.type_alias === 'EXO_REQUEST')
-    Exoneração do policial <strong>{{ request.receiver }}</strong>. Solicitada por {{ userLink(request.author) }}, pelo motivo:
+    Exoneração do policial <strong>{{ request.receiver }}</strong>, solicitada por {{ userLink(request.author) }}, pelo motivo:
     <blockquote style="padding: .75rem;">
       {{{ request.reason }}}
     </blockquote>
-    Início do banimento: {{ moment(request.created_at).format('LLL') }}. Término:
-    <strong>{{ moment(request.created_at).add(request.banned_days, 'days').format('LLL') }}</strong>.
+    Banido até o dia <strong>{{ moment(request.banned_until).format('DD/MM/YYYY') }}</strong>.
   @endif
 
   @if(request.type_alias === 'CHANGE_ACC')
@@ -275,12 +270,7 @@
 
   @if(/^(?:O|E)_ABS$/.test(request.type_alias))
     <div><b>Policial que solicitou a licença:</b> {{ userLink(request.receiver) }}</div>
-    <div><b>Dias de licença:</b> {{ request.absence_days }}</div>
-    <br />
-    <div>
-      Início da licença: {{ moment(request.created_at).format('LLL') }}. Término:
-      <strong>{{ moment(request.created_at).add(request.absence_days, 'days').format('LLL') }}</strong>.
-    </div>
+    <div><b>Licença até o dia:</b> {{ moment(request.absence_until).format('DD/MM/YYYY') }}</div>
     <br />
     <div><b>Motivo:</b><blockquote>{{{ request.reason }}}</blockquote></div>
     @if(request.notes)
@@ -290,12 +280,7 @@
 
   @if(/^(?:O|E)_RES$/.test(request.type_alias))
     <div><b>Policial que solicitou a reserva:</b> {{ userLink(request.receiver) }}</div>
-    <div><b>Dias de reserva:</b> {{ request.absence_days }}</div>
-    <br />
-    <div>
-      Início da reserva: {{ moment(request.created_at).format('LLL') }}. Término:
-      <strong>{{ moment(request.created_at).add(request.absence_days, 'days').format('LLL') }}</strong>.
-    </div>
+    <div><b>Reserva até o dia:</b> {{ moment(request.absence_until).format('DD/MM/YYYY') }}</div>
     <br />
     <div><b>Motivo:</b><blockquote>{{{ request.reason }}}</blockquote></div>
     @if(request.notes)
@@ -438,12 +423,10 @@
       <div><b>Postado a pedido de:</b> {{ request.asked_by }}</div>
     @endif
     <br />
-    <div><b>Policial exonerado:</b> (ex-{{ request.before_position }}) {{ userLink(request.receiver) }}</div>
-    <div><b>Dias:</b> <samp>{{ request.banned_days }}</samp>, a partir do momento de criação deste requerimento.</div>
-    <blockquote>
-      <b>Início:</b> {{ moment(request.created_at).format('LLL') }}. <br />
-      <b>Término:</b> {{ moment(request.created_at).add(request.banned_days, 'days').format('LLL') }}.
-    </blockquote>
+    <div><b>Policial exonerado:</b> {{ userLink(request.receiver) }}</div>
+    <div><b>Início:</b> {{ moment(request.created_at).format('DD/MM/YYYY') }}</div>
+    <div><b>Término: {{ moment(request.banned_until).format('DD/MM/YYYY') }}</b></div>
+    <br />
     <div><b>Motivo:</b><blockquote>{{{ request.reason }}}</blockquote></div>
     @if(request.notes)
       <div><b>Notas:</b><blockquote>{{{ request.notes }}}</blockquote></div>

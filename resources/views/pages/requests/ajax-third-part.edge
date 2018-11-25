@@ -182,26 +182,26 @@
     </div>
   @endunless
 
-  @unless(type.field_banned_days === 'HIDE')
+  @unless(type.field_banned_until === 'HIDE')
     <div class="form-group">
-      <label for="banned_days">
-        @if(type.field_banned_days === 'REQUIRED')
+      <label for="banned_until">
+        @if(type.field_banned_until === 'REQUIRED')
           <span
             style="color: red; font-weight: bold;"
             title="Campo obrigatório"
           >*</span>
         @endif
-        Banir por quantos dias:
+        Banir até:
       </label>
       <input
-        type="number"
-        name="banned_days"
-        id="banned_days"
+        type="date"
+        name="banned_until"
+        id="banned_until"
         min="1"
         max="999999"
         class="form-control"
         autocomplete="off"
-        {{ type.field_banned_days === 'REQUIRED' ? 'required' : '' }}
+        {{ type.field_banned_until === 'REQUIRED' ? 'required' : '' }}
       />
     </div>
   @endunless
@@ -231,25 +231,25 @@
     </div>
   @endunless
 
-  @unless(type.field_absence_days === 'HIDE')
+  @unless(type.field_absence_until === 'HIDE')
     <div class="form-group">
-      <label for="absence_days">
-        @if(type.field_absence_days === 'REQUIRED')
+      <label for="absence_until">
+        @if(type.field_absence_until === 'REQUIRED')
           <span
             style="color: red; font-weight: bold;"
             title="Campo obrigatório"
           >*</span>
         @endif
-        Dias de ausência a partir de hoje, dia {{ moment().format('DD/MM/YYYY') }}:
+        Ausência até o dia:
       </label>
       <input
-        type="number"
-        name="absence_days"
-        id="absence_days"
+        type="date"
+        name="absence_until"
+        id="absence_until"
         min="1"
         class="form-control"
         autocomplete="off"
-        {{ type.field_absence_days === 'REQUIRED' ? 'required' : '' }}
+        {{ type.field_absence_until === 'REQUIRED' ? 'required' : '' }}
       />
     </div>
   @endunless

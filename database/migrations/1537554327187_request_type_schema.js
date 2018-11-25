@@ -54,9 +54,9 @@ class RequestTypeSchema extends Schema {
 
       table.enum('field_tag', ['HIDE', 'OPT', 'REQUIRED']).notNullable().defaultTo('HIDE')
       table.enum('field_price', ['HIDE', 'OPT', 'REQUIRED']).notNullable().defaultTo('HIDE')
-      table.enum('field_absence_days', ['HIDE', 'OPT', 'REQUIRED']).notNullable().defaultTo('HIDE')
+      table.enum('field_absence_until', ['HIDE', 'OPT', 'REQUIRED']).notNullable().defaultTo('HIDE')
+      table.enum('field_banned_until', ['HIDE', 'OPT', 'REQUIRED']).notNullable().defaultTo('HIDE')
       table.enum('field_bonuses', ['HIDE', 'OPT', 'REQUIRED']).notNullable().defaultTo('HIDE')
-      table.enum('field_banned_days', ['HIDE', 'OPT', 'REQUIRED']).notNullable().defaultTo('HIDE')
       table.enum('field_extra_user_1', ['HIDE', 'OPT', 'REQUIRED']).notNullable().defaultTo('HIDE')
       table.enum('field_extra_user_2', ['HIDE', 'OPT', 'REQUIRED']).notNullable().defaultTo('HIDE')
       table.enum('field_extra_user_3', ['HIDE', 'OPT', 'REQUIRED']).notNullable().defaultTo('HIDE')

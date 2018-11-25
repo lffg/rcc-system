@@ -6,6 +6,17 @@ const RequestController = use('App/Models/RequestController')
 const RequestAction = use('App/Models/RequestAction')
 const RequestType = use('App/Models/RequestType')
 
+async function getActionsMap () {
+  const actions = new Map()
+
+  for (const id of await RequestAction.ids()) {
+    const action = await RequestAction.find(id)
+    actions.set(action.alias, action)
+  }
+
+  return actions
+}
+
 class RequestsSeeder {
   async run () {
     await this.createControllers()
@@ -22,12 +33,7 @@ class RequestsSeeder {
   }
 
   async relations () {
-    const actions = new Map()
-
-    for (const id of await RequestAction.ids()) {
-      const action = await RequestAction.find(id)
-      actions.set(action.alias, action)
-    }
+    const actions = await getActionsMap()
 
     for (const id of await RequestType.ids()) {
       const type = await RequestType.find(id)
@@ -60,10 +66,19 @@ class RequestsSeeder {
   }
 
   async createTypes () {
+    const actionsMap = await getActionsMap()
+
     for (const data of types) {
+      const actions = data.__actions__
+      delete data.__actions__
+
       const type = new RequestType()
       type.merge(data)
       await type.save()
+
+      if (actions) {
+        await type.actions().attach(actions.map((action) => actionsMap.get(action).id))
+      }
     }
   }
 }
