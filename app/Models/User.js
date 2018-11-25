@@ -180,6 +180,10 @@ class User extends Model {
     return this.hasMany('App/Models/Notification')
   }
 
+  warnings () {
+    return this.hasMany('App/Models/UserWarning')
+  }
+
   logs () {
     return this.hasMany('App/Models/Log')
   }
