@@ -8,7 +8,6 @@ module.exports = [
     receiver_id: '3',
     before_position_id: '5',
     after_position_id: '6',
-    crh_state: 'APPROVED',
     reviwer_id: 4,
     reason: 'Excelente policial.'
   },
@@ -19,7 +18,6 @@ module.exports = [
     receiver_id: '10',
     before_position_id: '1',
     after_position_id: '32',
-    crh_state: 'APPROVED',
     reviwer_id: 5,
     price: '1000c em câmbios.',
     asked_by: 'Dean.Santos'
@@ -28,7 +26,6 @@ module.exports = [
     controller_id: '6',
     type_id: '18',
     author_id: '10',
-    crh_state: 'APPROVED',
     reviwer_id: 4,
     receiver_id: '10',
     tag: 'fmi'
@@ -37,7 +34,6 @@ module.exports = [
     controller_id: '2',
     type_id: '2',
     author_id: '10',
-    crh_state: 'APPROVED',
     reviwer_id: 4,
     receiver_id: '11',
     notes: 'Excelente aula.'
@@ -46,7 +42,6 @@ module.exports = [
     controller_id: '2',
     type_id: '2',
     author_id: '10',
-    crh_state: 'APPROVED',
     reviwer_id: 5,
     receiver_id: '12',
     notes: 'Excelente aula.'
@@ -55,7 +50,6 @@ module.exports = [
     controller_id: '2',
     type_id: '25',
     author_id: '3',
-    crh_state: 'APPROVED',
     reviwer_id: 4,
     receiver_id: '11'
   },
@@ -63,7 +57,6 @@ module.exports = [
     controller_id: '3',
     type_id: '3',
     author_id: '3',
-    crh_state: 'APPROVED',
     reviwer_id: 5,
     receiver_id: '12',
     before_position_id: '2',

@@ -42,6 +42,14 @@ class Request extends Model {
     return this.hasMany('App/Models/RequestEditLog')
   }
 
+  changeUsernameLogs () {
+    return this.hasMany('App/Models/ChangeUsernameLog')
+  }
+
+  userWarnings () {
+    return this.hasMany('App/Models/UserWarning')
+  }
+
   author () {
     return this.belongsTo('App/Models/User', 'author_id')
   }
