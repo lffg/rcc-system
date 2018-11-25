@@ -7,7 +7,7 @@ class UserWarningSchema extends Schema {
     this.create('user_warnings', (table) => {
       table.increments()
       table.timestamps()
-      table.timestamp('until').notNullable()
+      table.date('until').notNullable()
 
       table.integer('user_id').unsigned()
       table.foreign('user_id').references('users.id').onDelete('cascade')
