@@ -6,7 +6,7 @@
         <div>
           <div>Este usuário é confirmado e pode ter acesso às dependências da Polícia RCC.</div>
           <div>
-            <samp>[RCC] {{ user.position.name }} [{{ user.promoter.tag || 'RCC' }}]</samp>
+            <samp>[RCC] {{ user.position.name }} [{{ user.tag_type === 'REB' ? 'R/' : '' }}{{ user.promoter.tag || 'RCC' }}]</samp>
           </div>
         </div>
       @else
@@ -44,7 +44,7 @@
     <tr>
       <td>Tag do Promotor</td>
       <td>
-        <samp>[{{ user.promoter.tag || 'RCC' }}]</samp>
+        <samp>[{{ user.tag_type === 'REB' ? 'R/' : '' }}{{ user.promoter.tag || 'RCC' }}]</samp>
       </td>
     </tr>
     <tr>
