@@ -296,7 +296,6 @@
     @if(request.asked_by)
       <div><b>Postado a pedido de:</b> {{ request.asked_by }}</div>
     @endif
-    <br />
     <div><b>Policial advertido:</b> {{ userLink(request.receiver) }}</div>
     <br />
     <div><b>Motivo:</b><blockquote>{{{ request.reason }}}</blockquote></div>
