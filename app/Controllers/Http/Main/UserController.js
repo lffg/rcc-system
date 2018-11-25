@@ -55,6 +55,7 @@ class UserController {
       .with('promoter', (builder) => builder.select('id', 'username', 'tag'))
       .with('groups', (builder) => builder.select('id', 'name', 'color', 'icon', 'is_hidden').sortByOrder())
       .with('position', (builder) => builder.select('id', 'name', 'alias'))
+      .withCount('warnings')
       .firstOrFail()
 
     const userSalary = await User.findBy('username', username)

@@ -22,6 +22,17 @@
     <div class="sys-position">
       {{ user.position.name || 'Nenhuma posição' }}
     </div>
+    @if(user.__meta__.warnings_count > 0)
+      <div style="
+        margin-top: .70rem;
+        font-size: 15px;
+        color: #dc3545;
+        font-weight: 600;
+      ">
+        <i class="fa fa-exclamation-triangle"></i>
+        {{ user.__meta__.warnings_count }} Advertência{{ user.__meta__.warnings_count > 1 ? 's' : '' }}
+      </div>
+    @endif
   </div>
 </header>
 
