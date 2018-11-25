@@ -12,7 +12,7 @@ class DashboardController {
     try {
       await auth.check()
     } catch (e) {
-      session.flash({ danger: 'Você precisa estar autenticado para acessar a página principal.' })
+      session.flash({ danger: 'Faça o login para acessar o System.' })
       return response.route('login')
     }
 
