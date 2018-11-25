@@ -89,6 +89,108 @@ exports.actions = [
     execute_on: 'APPROVE',
     name: 'Operações Gerais de Aprovação',
     description: 'Executa as operações globais para um requerimento aprovado.'
+  },
+  {
+    alias: 'SPEC_CFSD_APPROVAL',
+    execute_on: 'APPROVE',
+    name: 'Aprovação em CFSd',
+    description: '-'
+  },
+  {
+    alias: 'SPEC_PRO',
+    execute_on: 'APPROVE',
+    name: 'Promoção',
+    description: '-'
+  },
+  {
+    alias: 'SPEC_REB',
+    execute_on: 'APPROVE',
+    name: 'Rebaixamento',
+    description: '-'
+  },
+  {
+    alias: 'SPEC_REJOIN',
+    execute_on: 'APPROVE',
+    name: 'Reintegração',
+    description: '-'
+  },
+  {
+    alias: 'SPEC_ABS_REQUEST',
+    execute_on: 'APPROVE',
+    name: 'Solicitação de Licença',
+    description: '-'
+  },
+  {
+    alias: 'SPEC_RES_REQUEST',
+    execute_on: 'APPROVE',
+    name: 'Solicitação de Reserva',
+    description: '-'
+  },
+  {
+    alias: 'SPEC_ADV',
+    execute_on: 'APPROVE',
+    name: 'Advertência',
+    description: '-'
+  },
+  {
+    alias: 'SPEC_BUY_POS',
+    execute_on: 'APPROVE',
+    name: 'Compra de Cargo',
+    description: '-'
+  },
+  {
+    alias: 'SPEC_TAG_REQUEST',
+    execute_on: 'APPROVE',
+    name: 'Solicitação de Criação de TAG',
+    description: '-'
+  },
+  {
+    alias: 'SPEC_E_GRAT',
+    execute_on: 'APPROVE',
+    name: 'Atribuição de Gratificações Efetivas',
+    description: '-'
+  },
+  {
+    alias: 'SPEC_T_GRAT',
+    execute_on: 'APPROVE',
+    name: 'Atribuição de Gratificações Temporárias',
+    description: '-'
+  },
+  {
+    alias: 'SPEC_DESL_H',
+    execute_on: 'APPROVE',
+    name: 'Desligamento Honroso',
+    description: '-'
+  },
+  {
+    alias: 'SPEC_DESL_D',
+    execute_on: 'APPROVE',
+    name: 'Desligamento Desonroso',
+    description: '-'
+  },
+  {
+    alias: 'SPEC_REF_REQUEST',
+    execute_on: 'APPROVE',
+    name: 'Solicitação de Reforma',
+    description: '-'
+  },
+  {
+    alias: 'SPEC_EXO',
+    execute_on: 'APPROVE',
+    name: 'Exoneração',
+    description: '-'
+  },
+  {
+    alias: 'SPEC_SUP_REPR',
+    execute_on: 'APPROVE',
+    name: 'Reprovação em Supervisão',
+    description: '-'
+  },
+  {
+    alias: 'SPEC_CHANGE_ACC',
+    execute_on: 'APPROVE',
+    name: 'Transferência de Conta',
+    description: '-'
   }
 ]
 
