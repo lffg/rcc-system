@@ -40,6 +40,9 @@ Route.group(() => {
   // Revisão (CRH):
   Route.get('review/all/:controllerSlug?', 'RequestManagerController.all').as('requests.review-all')
   Route.post('review/req/:id/:mode', 'RequestManagerController.review').as('requests.review')
+
+  // Refresh:
+  Route.get('refresh/req/:id', 'RequestManagerController.refresh').as('requests.refresh')
 })
   .middleware(['auth'])
   .namespace('Main')

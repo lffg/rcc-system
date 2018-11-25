@@ -1,7 +1,7 @@
 'use strict'
 
 const { HttpException } = use('@adonisjs/generic-exceptions')
-const { RequestInterface } = use('App/Services/Request')
+const { RequestInterface, getComputedRequestProps } = use('App/Services/Request')
 const Request = use('App/Models/Request')
 const Database = use('Database')
 const Logger = use('Logger')
@@ -44,6 +44,20 @@ class RequestManagerController {
       session.flash({ danger: 'Houve um erro ao tentar revisar o requerimento. Tente novamente.' })
     }
 
+    return response.redirect('back')
+  }
+
+  async refresh ({ response, params: { id }, session, auth }) {
+    if (!await auth.user.hasPermission('DEV', true)) {
+      session.flash({ danger: 'Você não tem permissão para executar essa operação.' })
+      return response.redirect('back')
+    }
+
+    const request = await Request.findOrFail(id)
+    request.merge(await getComputedRequestProps(request))
+    await request.save()
+
+    session.flash({ success: 'Atualizado com sucesso.' })
     return response.redirect('back')
   }
 }
