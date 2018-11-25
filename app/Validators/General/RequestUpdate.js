@@ -14,7 +14,7 @@ class GeneralRequestUpdate {
     return {
       'required'   : 'Você deve fornecer uma razão para a edição deste requerimento.',
       'field_error': 'Houve um erro ao editar o seu requerimento: campos obrigatórios estão incompletos.',
-      'token'      : 'Este requerimento foi editado durante a sua edição. Revise os dados e tente novamente.'
+      'token'      : 'Este requeirmento foi revisado pelo CRH durante a sua revisão.'
     }
   }
 
