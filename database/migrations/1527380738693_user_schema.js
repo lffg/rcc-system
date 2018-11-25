@@ -10,7 +10,6 @@ class UserSchema extends Schema {
       // Informações gerais:
       table.string('username', 80).notNullable().unique().index('username')
       table.string('password', 60).defaultTo(null)
-      table.string('tag', 5).defaultTo(null).unique()
 
       // Informações e metadados da conta:
       table.boolean('synthetically_created').notNullable().defaultTo(false)
@@ -44,6 +43,7 @@ class UserSchema extends Schema {
       table.foreign('promoter_id').references('users.id').onDelete('set null')
       table.integer('position_id').defaultTo(null).unsigned()
       table.foreign('position_id').references('positions.id').onDelete('set null')
+      table.string('tag', 5).defaultTo(null).unique()
       table.enum('tag_type', ['NORMAL', 'REB']).notNullable().defaultTo('NORMAL')
       table.datetime('change_position_date').defaultTo(null)
 
