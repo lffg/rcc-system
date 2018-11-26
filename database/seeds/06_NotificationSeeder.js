@@ -26,9 +26,7 @@ class UserSeeder {
   async _getUsers () {
     return {
       luiz: await User.findByOrFail('username', 'luuuiiiz.'),
-      wire: await User.findByOrFail('username', '.Wire.-'),
-      dean: await User.findByOrFail('username', 'Dean.Santos'),
-      surf: await User.findByOrFail('username', 'surfjoseca39')
+      dean: await User.findByOrFail('username', 'Dean.Santos')
     }
   }
 }

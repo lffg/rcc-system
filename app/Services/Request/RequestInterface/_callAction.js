@@ -49,7 +49,7 @@ module.exports = function callAction (executeOn = null) {
       // Criar um log para análise posterior do erro.
       Logger.crit(
         `[CRH] Erro em [[RequestInterface.${executeOn}]] :: ${error.message} | ` +
-        `${params.authUser.username ? `Usuário: ${params.authUser.username}` : ''}`
+        `${params.authUser ? `Usuário: ${params.authUser.username || 'Não definido'}` : ''}`
       )
 
       // Como o erro é inesperado, não queremos que uma mensagem de erro

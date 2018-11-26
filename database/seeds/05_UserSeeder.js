@@ -47,7 +47,6 @@ class UserSeeder {
   async setGroupRelations () {
     const luiz = await User.findByOrFail('username', 'luuuiiiz.')
     const dean = await User.findByOrFail('username', 'Dean.Santos')
-    const surf = await User.findByOrFail('username', 'surfjoseca39')
     const admin = await Group.findBy('alias', 'ADMIN')
     const dev = await Group.findBy('alias', 'DEV')
     const crh = await Group.findBy('alias', 'CRH')
@@ -58,7 +57,6 @@ class UserSeeder {
 
     await luiz.groups().attach([admin.id, dev.id], row)
     await dean.groups().attach([admin.id, dev.id, crh.id], row)
-    await surf.groups().attach([admin.id, crh.id], row)
   }
 }
 

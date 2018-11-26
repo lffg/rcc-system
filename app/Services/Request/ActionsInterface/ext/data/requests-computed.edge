@@ -141,11 +141,19 @@
   @endif
 
   @if(request.type_alias === 'GRAT_E')
-    {{ request.receiver }} recebeu {{ bonuses }} gratificações efetivas.
+    @if(num(bonuses) >= 0)
+      {{ request.receiver }} recebeu {{ bonuses }} gratificações efetivas.
+    @else
+      {{ request.receiver }} perdeu {{ num(bonuses) * -1 }} gratificações efetivas.
+    @endif
   @endif
 
   @if(request.type_alias === 'GRAT_T')
-    {{ request.receiver }} recebeu {{ bonuses }} gratificações temporárias.
+    @if(num(bonuses) >= 0)
+      {{ request.receiver }} recebeu {{ bonuses }} gratificações temporárias.
+    @else
+      {{ request.receiver }} perdeu {{ num(bonuses) * -1 }} gratificações temporárias.
+    @endif
   @endif
 
   @if(request.type_alias === 'DESL_H')
