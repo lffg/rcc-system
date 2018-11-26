@@ -31,7 +31,7 @@ exports.positions = [
     prev_position_id: 1,
     next_position_id: 3,
     equivalent_to_id: 2,
-    is_permanent: false,
+    is_permanent: true,
     salary: 1,
     officer: false,
     type: 'CM',
