@@ -22,5 +22,6 @@ async function caller ({ transaction, request }) {
   user.position_id = request.after_position_id
   user.promoter_id = request.author_id
   user.tag_type = 'NORMAL'
+  user.change_position_date = new Date()
   await user.save(transaction)
 }
