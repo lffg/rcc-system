@@ -440,7 +440,7 @@
     @if(request.asked_by)
       <div><b>Postado a pedido de:</b> {{ request.asked_by }}</div>
     @endif
-    Mudança de conta: <strong>{{ request.receiver }}</strong> para <strong>{{ request.extra_user_1 }}</strong>.
+    Mudança de conta: <strong><samp>{{ request.receiver }}</samp></strong> para <strong><samp>{{ request.extra_user_1 }}</samp></strong>
     <div><b>Motivo:</b><blockquote>{{{ request.reason }}}</blockquote></div>
     @if(request.notes)
       <div><b>Notas:</b><blockquote>{{{ request.notes }}}</blockquote></div>
