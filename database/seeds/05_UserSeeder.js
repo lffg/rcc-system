@@ -10,12 +10,16 @@ const Database = use('Database')
 
 class UserSeeder {
   async run () {
-    await Database.raw('SET FOREIGN_KEY_CHECKS = 0')
+    if (!process.env.SQLITE) {
+      await Database.raw('SET FOREIGN_KEY_CHECKS = 0')
+    }
 
     await this.createUsers()
     console.log('Usuários criados.')
 
-    await Database.raw('SET FOREIGN_KEY_CHECKS = 1')
+    if (!process.env.SQLITE) {
+      await Database.raw('SET FOREIGN_KEY_CHECKS = 1')
+    }
 
     await this.setGroupRelations()
     console.log('Relação entre usuários e grupo criadas.')
