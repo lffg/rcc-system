@@ -1,8 +1,10 @@
 'use strict'
 
+const ActionError = require('../ActionsInterface/ext/ActionError')
 const ActionsInterface = require('../ActionsInterface')
 
 const Database = use('Database')
+const Logger = use('Logger')
 
 /**
  * Retorna uma função para chamar as actions.
@@ -23,14 +25,37 @@ module.exports = function callAction (executeOn = null) {
     try {
       actions = await getActions(params.payload.type_id, executeOn)
     } catch (e) {
-      throw new TypeError('Deve-se definir "type_id" para "payload" ao usar "RequestInterface.*"')
+      throw new TypeError('Tipo não definido no payload.')
     }
 
-    // Executa cada ação individualmente:
-    for (const action of actions) {
-      const actionInterface = new ActionsInterface()
-      actionInterface.use(params)
-      await actionInterface.execute(action)
+    try {
+      // Executa cada ação individualmente:
+      for (const action of actions) {
+        const actionInterface = new ActionsInterface()
+        actionInterface.use(params)
+        await actionInterface.execute(action)
+      }
+    } catch (error) {
+      // Mostre a mensagem somente se for um erro do membro do Centro de
+      // Recursos Humanos (ActionError) e se existir uma mensagem.
+      //
+      // [Nota] O erro abaixo não precisa ser levado ao log, já que é
+      // meramente usado para impedir que a ação seja salva, isto é, foi
+      // um erro do membro do CRH, e não do System.
+      if (error instanceof ActionError && !!error.message) {
+        throw error
+      }
+
+      // Criar um log para análise posterior do erro.
+      Logger.crit(
+        `[CRH] Erro em [[RequestInterface.${executeOn}]] :: ${error.message} | ` +
+        `${params.authUser.username ? `Usuário: ${params.authUser.username}` : ''}`
+      )
+
+      // Como o erro é inesperado, não queremos que uma mensagem de erro
+      // do servidor seja levada ao cliente, já que isso pode trazer
+      // riscos para a segurança do site.
+      throw new Error('Houve um erro ao tentar executar essa operação. Tente novamente.')
     }
 
     return true

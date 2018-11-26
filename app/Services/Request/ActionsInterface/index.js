@@ -1,5 +1,6 @@
 'use strict'
 
+const ActionError = require('./ext/ActionError')
 const { join } = require('path')
 
 const RequestController = use('App/Models/RequestController')
@@ -91,7 +92,7 @@ class ActionsInterface {
       payload: this._payload,
       review: this._review,
       type: this._type
-    })
+    }, ActionError)
 
     return result
   }
