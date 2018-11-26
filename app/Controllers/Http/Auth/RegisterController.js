@@ -26,7 +26,7 @@ class RegisterController {
     const data = request.only(['username', 'password', 'email'])
     await User.create(data)
 
-    session.flash({ success: `Usuário ${user.username} criado com sucesso. Solicite a ativação para entrar.` })
+    session.flash({ success: `Usuário ${data.username} criado com sucesso. Solicite a ativação para entrar.` })
     return response.route('login')
   }
 }
