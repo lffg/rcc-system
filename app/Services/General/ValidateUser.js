@@ -3,6 +3,12 @@
 const got = require('got')
 
 class ValidateUser {
+  /**
+   *
+   * @param  {string} name
+   * @param  {string|boolean} motto
+   * @return {{ status: boolean, error: null | string, refresh: boolean }}
+   */
   static async validate (name = '', motto = false) {
     const result = { status: false, error: null, refresh: true }
 
