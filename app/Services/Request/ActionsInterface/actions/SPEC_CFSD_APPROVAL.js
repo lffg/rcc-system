@@ -11,7 +11,7 @@ const User = use('App/Models/User')
 module.exports = () => ({
   requiresTransaction: true,
   requiresController: false,
-  requiresAuthUser: true,
+  requiresAuthUser: false,
   requiresRequest: true,
   requiresReview: false,
   requiresType: false,
