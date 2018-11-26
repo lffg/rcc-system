@@ -169,15 +169,9 @@ exports.actions = [
     description: '-'
   },
   {
-    alias: 'SPEC_DESL_H',
+    alias: 'SPEC_DESL',
     execute_on: 'APPROVE',
-    name: 'Desligamento Honroso',
-    description: '-'
-  },
-  {
-    alias: 'SPEC_DESL_D',
-    execute_on: 'APPROVE',
-    name: 'Desligamento Desonroso',
+    name: 'Desligamento',
     description: '-'
   },
   {
@@ -190,12 +184,6 @@ exports.actions = [
     alias: 'SPEC_EXO',
     execute_on: 'APPROVE',
     name: 'Exoneração',
-    description: '-'
-  },
-  {
-    alias: 'SPEC_SUP_REPR',
-    execute_on: 'APPROVE',
-    name: 'Reprovação em Supervisão',
     description: '-'
   },
   {
@@ -257,7 +245,7 @@ exports.types = [
     allow_unregistered_users: false,
     field_notes: 'OPT',
     field_asked_by: 'OPT',
-    __actions__: ['SPEC_SUP_REPR']
+    __actions__: ['SPEC_DESL']
   },
   // --- PRAÇAS
   {
@@ -647,7 +635,7 @@ exports.types = [
     field_asked_by: 'OPT',
     label_field_before_position: 'Patente/cargo atual:',
     label_field_reason: 'Motivo para o desligamento:',
-    __actions__: ['SPEC_DESL_H']
+    __actions__: ['SPEC_DESL']
   },
   {
     id: 22,
@@ -666,7 +654,7 @@ exports.types = [
     field_asked_by: 'OPT',
     label_field_before_position: 'Patente/cargo atual:',
     label_field_reason: 'Motivo para o desligamento:',
-    __actions__: ['SPEC_DESL_D']
+    __actions__: ['SPEC_DESL']
   },
   // --- REFORMA
   {
