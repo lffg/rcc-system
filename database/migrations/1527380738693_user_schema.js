@@ -13,8 +13,6 @@ class UserSchema extends Schema {
 
       // Informações e metadados da conta:
       table.boolean('synthetically_created').notNullable().defaultTo(false)
-      table.integer('current_account_id').defaultTo(null).unsigned()
-      table.foreign('current_account_id').references('users.id').onDelete('set null')
 
       // Informações de estado:
       table.enum('state', ['ACTIVE', 'INACTIVE', 'RETIRED', 'VETERAN']).notNullable().defaultTo('INACTIVE')
