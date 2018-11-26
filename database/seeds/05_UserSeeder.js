@@ -20,9 +20,9 @@ class UserSeeder {
     await this.setGroupRelations()
     console.log('Relação entre usuários e grupo criadas.')
 
-    console.log('Aguarde... Requisições estão sendo criadas...')
-    await this.createRequests()
-    console.log('Requisições de teste para usuários criadas.')
+    // console.log('Aguarde... Requisições estão sendo criadas...')
+    // await this.createRequests()
+    // console.log('Requisições de teste para usuários criadas.')
   }
 
   async createUsers () {
