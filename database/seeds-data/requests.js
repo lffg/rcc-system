@@ -187,12 +187,6 @@ exports.actions = [
     description: '-'
   },
   {
-    alias: 'SPEC_SUP_REPR',
-    execute_on: 'APPROVE',
-    name: 'Reprovação em Supervisão',
-    description: '-'
-  },
-  {
     alias: 'SPEC_CHANGE_ACC',
     execute_on: 'APPROVE',
     name: 'Transferência de Conta',
@@ -251,7 +245,7 @@ exports.types = [
     allow_unregistered_users: false,
     field_notes: 'OPT',
     field_asked_by: 'OPT',
-    __actions__: ['SPEC_SUP_REPR']
+    __actions__: ['SPEC_DESL']
   },
   // --- PRAÇAS
   {
