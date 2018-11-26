@@ -18,10 +18,6 @@ const Post = use('App/Models/Post')
 
 class Init {
   async run () {
-    if (process.env.SQLITE) {
-      return
-    }
-
     if (!process.env.SQLITE) {
       await Database.raw('SET FOREIGN_KEY_CHECKS = 0')
     }
