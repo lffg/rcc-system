@@ -29,6 +29,7 @@ Route.group(() => {
  */
 Route.group(() => {
   Route.get('/', 'PrivMsgController.index').as('privmsgs.index')
+  Route.get('send', 'PrivMsgController.index').as('privmsgs.send')
 })
   .middleware(['auth'])
   .namespace('Main')

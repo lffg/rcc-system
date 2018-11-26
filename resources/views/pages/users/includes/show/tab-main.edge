@@ -28,14 +28,13 @@
       <th colspan="2">Informações Primárias:</th>
     </tr>
     <tr>
-      <td>Nome de Usuário</td>
-      <td>{{ user.username }}</td>
-    </tr>
-    <tr>
-      <td>Tag</td>
-      <td>
-        <samp>[{{ user.tag }}]</samp>
-      </td>
+      <td>Usuário</td>
+      <td
+        class="d-flex align-items-center"
+        title="Usuário: {{ user.username }}x<br />Tag: <samp>[{{ user.tag }}]</samp>"
+        data-html="true"
+        data-placement="left"
+      >{{ user.username }} <samp>[{{ user.tag }}]</samp></td>
     </tr>
     <tr>
       <td>Patente/cargo</td>
@@ -51,9 +50,10 @@
       <td>Criação da Conta (no System)</td>
       <td>
         @if(user.created_at)
-          <span title="{{ moment(user.created_at).fromNow() }}">
-            {{ moment(user.created_at).format('DD/MM/YYYY') }}
-          </span>
+          <span
+            title="Há {{ moment(user.created_at).fromNow(true) }}"
+            data-placement="left"
+          >{{ moment(user.created_at).format('DD/MM/YYYY') }}</span>
         @else
           Data não especificada
         @endif
@@ -63,9 +63,10 @@
       <td>Última visita (no System)</td>
       @if(user.last_visit != 0)
         <td>
-            <span title="{{ moment(user.last_visit).format('LLLL') }}">
-              {{ moment(user.last_visit).fromNow() }}
-            </span>
+          <span
+            title="{{ moment(user.last_visit).format('LLLL') }}"
+            data-placement="left"
+          >Há {{ moment(user.last_visit).fromNow(true) }}</span>
         </td>
       @else
         <td>Jamais</td>
@@ -102,7 +103,10 @@
       @else
         <td class="text-danger">
           @if(user.disallowReason)
-            <span title="Razão: {{ user.disallowReason }}">
+            <span
+              title="Razão: {{ user.disallowReason }}"
+              data-placement="left"
+            >
               <i class="fa fa-exclamation-triangle"></i> Acesso Proibido
             </span>
           @else

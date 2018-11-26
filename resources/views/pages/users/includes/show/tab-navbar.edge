@@ -13,7 +13,7 @@
       <div class="dropdown-divider"></div>
       <span class="dropdown-header">Mais:</span>
       <a class="dropdown-item" href="#">Histórico</a>
-      <a class="dropdown-item" href="#">Enviar MP</a>
+      <a class="dropdown-item" href="{{ route('privmsgs.send') }}?to={{ user.username }}">Enviar MP</a>
       <a class="dropdown-item" href="#">Denunciar</a>
     </div>
   </li>
