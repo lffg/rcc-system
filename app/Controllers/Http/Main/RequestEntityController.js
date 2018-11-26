@@ -80,8 +80,7 @@ class RequestEntityController {
       await transaction.commit()
     } catch ({ message }) {
       await transaction.rollback()
-      Logger.crit('[CRH] Erro ao criar a requisição. Usuário: %s | Erro: %s', username, message)
-      session.flash({ danger: 'Houve um erro ao tentar criar o requerimento. Tente novamente.' })
+      session.flash({ danger: message })
       return response.route('requests.create')
     }
 
@@ -127,8 +126,7 @@ class RequestEntityController {
       await transaction.commit()
     } catch ({ message, stack }) {
       await transaction.rollback()
-      Logger.crit('[CRH] Erro ao editar a requisição. Usuário: %s | Erro: %s | S: %s', auth.user.username, message)
-      session.flash({ danger: 'Houve um erro ao tentar atualizar o requerimento. Tente novamente.' })
+      session.flash({ danger: message })
       return response.route('requests.show', { id })
     }
 
