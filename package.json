@@ -63,7 +63,8 @@
     "gulp-concat": "^2.6.1",
     "gulp-plumber": "^1.2.0",
     "gulp-sass": "^4.0.2",
-    "gulp-sourcemaps": "^2.6.4"
+    "gulp-sourcemaps": "^2.6.4",
+    "node-sass": "^4.10.0"
   },
   "autoload": {
     "App": "./app"
