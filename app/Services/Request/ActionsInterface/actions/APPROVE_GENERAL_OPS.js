@@ -6,7 +6,6 @@
  *    - Definir a data da revisão no requerimento.
  */
 
-const { HttpException } = use('@adonisjs/generic-exceptions')
 const RequestReview = use('App/Models/RequestReview')
 
 module.exports = () => ({
@@ -19,15 +18,15 @@ module.exports = () => ({
   caller
 })
 
-async function caller ({ transaction, authUser, request }) {
+async function caller ({ transaction, authUser, request }, ActionError) {
   if (!(await authUser.hasPermission('CRH', true)) || request.crh_state !== 'PENDING') {
-    throw new HttpException('Acesso negado.', 403)
+    throw new ActionError('Ocorreu um erro de permissão. Tente novamente.')
   }
 
   const review = new RequestReview()
   review.author_id = authUser.id
   review.type = 'REVIEW'
-  review.body = '<i class="fa fa-check"></i> Requerimento Aprovado.'
+  review.body = '<i class="fa fa-check"></i> Requerimento aprovado.'
 
   await request.reviews().save(review, transaction)
   await request.reviwer().associate(authUser, transaction)
