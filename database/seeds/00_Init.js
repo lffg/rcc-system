@@ -18,9 +18,7 @@ const Post = use('App/Models/Post')
 
 class Init {
   async run () {
-    if (!process.env.SQLITE) {
-      await Database.raw('SET FOREIGN_KEY_CHECKS = 0')
-    }
+    await Database.raw('SET FOREIGN_KEY_CHECKS = 0')
 
     await Group.truncate()
     await Database.raw('TRUNCATE TABLE pivot_group_user')
@@ -39,9 +37,7 @@ class Init {
     await Database.raw('TRUNCATE TABLE pivot_request_action_type')
     await Post.truncate()
 
-    if (!process.env.SQLITE) {
-      await Database.raw('SET FOREIGN_KEY_CHECKS = 1')
-    }
+    await Database.raw('SET FOREIGN_KEY_CHECKS = 1')
 
     console.log('Tabelas resetadas.')
   }

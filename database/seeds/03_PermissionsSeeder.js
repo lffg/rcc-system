@@ -8,17 +8,13 @@ const Database = use('Database')
 
 class PermissionSeeder {
   async run () {
-    if (!process.env.SQLITE) {
-      await Database.raw('SET FOREIGN_KEY_CHECKS = 0')
-    }
+    await Database.raw('SET FOREIGN_KEY_CHECKS = 0')
 
     await this.createPermissions()
     console.log('Permissões criadas.')
     console.log('Relação Permissões <-> Grupos estabelecida.')
 
-    if (!process.env.SQLITE) {
-      await Database.raw('SET FOREIGN_KEY_CHECKS = 1')
-    }
+    await Database.raw('SET FOREIGN_KEY_CHECKS = 1')
   }
 
   async createPermissions () {

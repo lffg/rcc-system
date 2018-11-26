@@ -8,9 +8,7 @@ const Database = use('Database')
 
 class PositionSeeder {
   async run () {
-    if (!process.env.SQLITE) {
-      await Database.raw('SET FOREIGN_KEY_CHECKS = 0')
-    }
+    await Database.raw('SET FOREIGN_KEY_CHECKS = 0')
 
     await this.createPositionGroups()
     console.log('Grupos de posições criados.')
@@ -18,9 +16,7 @@ class PositionSeeder {
     await this.createPositions()
     console.log('Posições criadas.')
 
-    if (!process.env.SQLITE) {
-      await Database.raw('SET FOREIGN_KEY_CHECKS = 1')
-    }
+    await Database.raw('SET FOREIGN_KEY_CHECKS = 1')
   }
 
   async createPositionGroups () {
