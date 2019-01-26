@@ -1,6 +1,6 @@
 'use strict'
 
-const template = (action) => (`'use strict'
+const template = (action) => `'use strict'
 
 /**
  * Action usada para:
@@ -20,7 +20,7 @@ module.exports = () => ({
 async function caller ({ transaction, authUser, request, payload }) {
 
 }
-`)
+`
 
 const { promisify } = require('util')
 const { join } = require('path')
@@ -48,8 +48,15 @@ const actions = [
 
 const writeFile = promisify(fs.writeFile)
 
-async function main () {
-  const dir = join(__dirname, 'app', 'Services', 'Request', 'ActionsInterface', 'actions')
+async function main() {
+  const dir = join(
+    __dirname,
+    'app',
+    'Services',
+    'Request',
+    'ActionsInterface',
+    'actions'
+  )
 
   for (const action of actions) {
     await writeFile(join(dir, `${action}.js`), template(action))
@@ -57,4 +64,6 @@ async function main () {
   }
 }
 
-main().then('[INFO] Done.').catch((err) => console.error(err))
+main()
+  .then('[INFO] Done.')
+  .catch((err) => console.error(err))
