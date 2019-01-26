@@ -3,7 +3,7 @@
 const { pick } = require('lodash')
 
 class UserParser {
-  static parse(data = {}) {
+  static parse (data = {}) {
     const userdata = pick(data, [
       'effective_bonuses',
       'temporary_bonuses',
@@ -15,12 +15,9 @@ class UserParser {
       'state'
     ])
 
-    userdata.is_verified_email = userdata.is_verified_email === 'on'
+    userdata.is_verified_email = (userdata.is_verified_email === 'on')
 
-    if (
-      !userdata.password ||
-      (typeof userdata.password === 'string' && userdata.password === '')
-    ) {
+    if (!userdata.password || (typeof userdata.password === 'string' && userdata.password === '')) {
       delete userdata.password
     }
 

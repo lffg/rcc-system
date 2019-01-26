@@ -12,7 +12,7 @@ class UserController {
    *
    * @method  GET
    */
-  async index({ request, view }) {
+  async index ({ request, view }) {
     let { page = 1, u = '', order, order_by: orderBy } = request.all() // , inactive
 
     const query = User.query()
@@ -24,12 +24,7 @@ class UserController {
     }
 
     const data = await query
-      .with('groups', (builder) =>
-        builder
-          .select('id', 'name')
-          .whereNot('is_hidden', true)
-          .sortByOrder()
-      )
+      .with('groups', (builder) => builder.select('id', 'name').whereNot('is_hidden', true).sortByOrder())
       .with('position', (builder) => builder.select('id', 'name', 'alias'))
       .paginate(page, 36)
       .then((data) => data.toJSON())
@@ -43,9 +38,7 @@ class UserController {
         order ? `order=${order}` : '',
         orderBy ? `order_by=${orderBy}` : '' // ,
         // inactive ? `inactive=${inactive}` : ''
-      ]
-        .filter((param) => param !== '')
-        .join('&')
+      ].filter((param) => param !== '').join('&')
     })
   }
 
@@ -54,22 +47,19 @@ class UserController {
    *
    * @method GET
    */
-  async show({ request, view }) {
+  async show ({ request, view }) {
     const username = request.input('u', null)
 
     const userData = await User.query()
       .where({ username })
       .with('promoter', (builder) => builder.select('id', 'username', 'tag'))
-      .with('groups', (builder) =>
-        builder.select('id', 'name', 'color', 'icon', 'is_hidden').sortByOrder()
-      )
+      .with('groups', (builder) => builder.select('id', 'name', 'color', 'icon', 'is_hidden').sortByOrder())
       .with('position', (builder) => builder.select('id', 'name', 'alias'))
       .withCount('warnings')
       .firstOrFail()
 
-    const userSalary = await User.findBy('username', username).then((user) =>
-      user.getSalary()
-    )
+    const userSalary = await User.findBy('username', username)
+      .then((user) => user.getSalary())
 
     const user = merge(userData.toJSON(), userSalary)
     return view.render('pages.users.show', { user })
@@ -80,15 +70,16 @@ class UserController {
    *
    * @method GET
    */
-  async timeline({ params: { id }, view }) {
-    const events = await Database.select([
-      'req.*',
-      'T.timeline_title as type_title',
-      'T.color as type_color',
-      'T.icon as type_icon',
-      'R.username as receiver',
-      'A.username as author'
-    ])
+  async timeline ({ params: { id }, view }) {
+    const events = await Database
+      .select([
+        'req.*',
+        'T.timeline_title as type_title',
+        'T.color as type_color',
+        'T.icon as type_icon',
+        'R.username as receiver',
+        'A.username as author'
+      ])
       .from('requests as req')
       .innerJoin('request_controllers as C', 'C.id', '=', 'req.controller_id')
       .innerJoin('request_types as T', 'T.id', '=', 'req.type_id')
@@ -105,18 +96,11 @@ class UserController {
    *
    * @method GET
    */
-  async find({
-    view,
-    auth: {
-      user: { id }
-    }
-  }) {
+  async find ({ view, auth: { user: { id } } }) {
     const lastSearches = await User.query()
       .where({ id })
       .select('id')
-      .with('userSearches', (builder) =>
-        builder.groupBy('username').orderBy('created_at', 'desc')
-      )
+      .with('userSearches', (builder) => builder.groupBy('username').orderBy('created_at', 'desc'))
       .limit(10)
       .first()
 
@@ -131,7 +115,7 @@ class UserController {
    *
    * @method GET
    */
-  async autocomplete({ request }) {
+  async autocomplete ({ request }) {
     const query = request.input('query', '')
 
     const usernames = await User.query()
@@ -151,7 +135,7 @@ class UserController {
    * @method POST
    * @param  {object} ctx
    */
-  async findAction({ request, response, session, auth }) {
+  async findAction ({ request, response, session, auth }) {
     const username = request.input('username', '')
 
     try {

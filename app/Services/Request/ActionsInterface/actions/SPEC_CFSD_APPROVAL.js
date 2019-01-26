@@ -18,7 +18,7 @@ module.exports = () => ({
   caller
 })
 
-async function caller({ transaction, request }) {
+async function caller ({ transaction, request }) {
   const position = await Position.findByOrFail('alias', 'SLD')
   const user = await User.findOrFail(request.receiver_id)
 

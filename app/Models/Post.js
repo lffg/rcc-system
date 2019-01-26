@@ -9,7 +9,7 @@ class Post extends Model {
    * @static
    * @return {void}
    */
-  static boot() {
+  static boot () {
     super.boot()
 
     this.addTrait('@provider:Lucid/Slugify', {
@@ -29,12 +29,14 @@ class Post extends Model {
    *
    */
 
-  user() {
+  user () {
     return this.belongsTo('App/Models/User')
   }
 
-  tags() {
-    return this.belongsToMany('App/Models/PostTag').pivotTable('pivot_post_tag')
+  tags () {
+    return this
+      .belongsToMany('App/Models/PostTag')
+      .pivotTable('pivot_post_tag')
   }
 }
 

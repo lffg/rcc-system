@@ -12,14 +12,14 @@ const Logger = use('Logger')
  * @param  {string} actionAlias
  * @return {function}
  */
-module.exports = function callAction(executeOn = null) {
+module.exports = function callAction (executeOn = null) {
   /**
    * Função para chamar as actions em si.
    *
    * @param  {any} params
    * @return {Promise<boolean>}
    */
-  return async function caller(params) {
+  return async function caller (params) {
     let actions
 
     try {
@@ -59,9 +59,7 @@ module.exports = function callAction(executeOn = null) {
       // Como o erro é inesperado, não queremos que uma mensagem de erro
       // do servidor seja levada ao cliente, já que isso pode trazer
       // riscos para a segurança do site.
-      throw new Error(
-        'Houve um erro ao tentar executar essa operação. Tente novamente.'
-      )
+      throw new Error('Houve um erro ao tentar executar essa operação. Tente novamente.')
     }
 
     return true
@@ -74,14 +72,14 @@ module.exports = function callAction(executeOn = null) {
  * @param  {number|string} typeId
  * @return {Promise<string[]>}
  */
-const getActions = async (typeId, executeOn) =>
-  Database.select('A.alias')
-    .from('request_actions as A')
-    .innerJoin('pivot_request_action_type as P', 'P.action_id', '=', 'A.id')
-    .innerJoin('request_types as T', 'T.id', '=', 'P.type_id')
-    .where({
-      'T.id': typeId,
-      'A.execute_on': executeOn
-    })
-    .map(({ alias = null } = {}) => alias)
-    .filter((alias) => alias !== null)
+const getActions = async (typeId, executeOn) => Database
+  .select('A.alias')
+  .from('request_actions as A')
+  .innerJoin('pivot_request_action_type as P', 'P.action_id', '=', 'A.id')
+  .innerJoin('request_types as T', 'T.id', '=', 'P.type_id')
+  .where({
+    'T.id': typeId,
+    'A.execute_on': executeOn
+  })
+  .map(({ alias = null } = {}) => alias)
+  .filter((alias) => alias !== null)

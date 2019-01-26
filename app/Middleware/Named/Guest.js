@@ -1,7 +1,7 @@
 'use strict'
 
 class Guest {
-  async handle({ response, session, auth }, next) {
+  async handle ({ response, session, auth }, next) {
     try {
       await auth.check()
     } catch (e) {

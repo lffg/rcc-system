@@ -15,7 +15,7 @@ const User = use('App/Models/User')
  * Executa uma ou mais actions por instância.
  */
 class ActionsInterface {
-  constructor() {
+  constructor () {
     this._systemAction = false
     this._controller = null
     this._authUser = null
@@ -31,14 +31,14 @@ class ActionsInterface {
    * @param  {object}
    * @return {void}
    */
-  use({
+  use ({
     systemAction = false,
     transaction = null,
-    controller = null /** @type */,
-    authUser = null /** @type */,
+    controller = null, /** @type */
+    authUser = null, /** @type */
     payload = null,
-    request = null /** @type */,
-    review = null /** @type */,
+    request = null, /** @type */
+    review = null, /** @type */
     type = null /** @type */
   }) {
     if (
@@ -67,16 +67,14 @@ class ActionsInterface {
    * @param  {string} actionName
    * @return {Promise<any>}
    */
-  async execute(actionName) {
+  async execute (actionName) {
     let action
 
     try {
       action = require(join(__dirname, 'actions', `${actionName}.js`))
     } catch (error) {
       if (error.code === 'MODULE_NOT_FOUND') {
-        throw new Error(
-          `Função (RequestAction) ${actionName} não encontrada no diretório das ações.`
-        )
+        throw new Error(`Função (RequestAction) ${actionName} não encontrada no diretório das ações.`)
       }
 
       throw error
@@ -85,74 +83,54 @@ class ActionsInterface {
     const actionMeta = action()
     this._checkMeta(actionName, actionMeta)
 
-    const result = await actionMeta.caller(
-      {
-        systemAction: this._systemAction,
-        transaction: this._transaction,
-        controller: this._controller,
-        authUser: this._authUser,
-        request: this._request,
-        payload: this._payload,
-        review: this._review,
-        type: this._type
-      },
-      ActionError
-    )
+    const result = await actionMeta.caller({
+      systemAction: this._systemAction,
+      transaction: this._transaction,
+      controller: this._controller,
+      authUser: this._authUser,
+      request: this._request,
+      payload: this._payload,
+      review: this._review,
+      type: this._type
+    }, ActionError)
 
     return result
   }
 
-  _checkMeta(
-    actionName,
-    {
-      requiresTransaction,
-      requiresController,
-      requiresAuthUser,
-      requiresRequest,
-      requiresReview,
-      requiresType
-    }
-  ) {
+  _checkMeta (actionName, {
+    requiresTransaction,
+    requiresController,
+    requiresAuthUser,
+    requiresRequest,
+    requiresReview,
+    requiresType
+  }) {
     if (requiresTransaction && !this._transaction) {
-      throw new Error(
-        `Ação ${actionName} espera uma "transaction" que não foi passada.`
-      )
+      throw new Error(`Ação ${actionName} espera uma "transaction" que não foi passada.`)
     }
 
     if (requiresController && !this._controller) {
-      throw new Error(
-        `Ação ${actionName} espera uma instância "RequestController" que não foi passada.`
-      )
+      throw new Error(`Ação ${actionName} espera uma instância "RequestController" que não foi passada.`)
     }
 
     if (requiresAuthUser && !this._authUser) {
-      throw new Error(
-        `Ação ${actionName} espera uma instância "User" que não foi passada.`
-      )
+      throw new Error(`Ação ${actionName} espera uma instância "User" que não foi passada.`)
     }
 
     if (requiresRequest && !this._request) {
-      throw new Error(
-        `Ação ${actionName} espera uma instância "Request" que não foi passada.`
-      )
+      throw new Error(`Ação ${actionName} espera uma instância "Request" que não foi passada.`)
     }
 
     if (requiresReview && !this._review) {
-      throw new Error(
-        `Ação ${actionName} espera uma instâcnia "RequestReview" que não foi passada.`
-      )
+      throw new Error(`Ação ${actionName} espera uma instâcnia "RequestReview" que não foi passada.`)
     }
 
     if (requiresType && !this._type) {
-      throw new Error(
-        `Ação ${actionName} espera uma instância "RequestType" que não foi passada.`
-      )
+      throw new Error(`Ação ${actionName} espera uma instância "RequestType" que não foi passada.`)
     }
 
     if (!this._payload) {
-      throw new Error(
-        `Ação ${actionName} espera um payload que não foi passado.`
-      )
+      throw new Error(`Ação ${actionName} espera um payload que não foi passado.`)
     }
   }
 }

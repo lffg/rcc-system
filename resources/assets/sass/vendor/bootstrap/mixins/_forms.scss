@@ -25,6 +25,7 @@
   }
 }
 
+
 @mixin form-validation-state($state, $color) {
   .#{$state}-feedback {
     display: none;
@@ -40,13 +41,13 @@
     z-index: 5;
     display: none;
     max-width: 100%; // Contain to parent when possible
-    padding: 0.5rem;
-    margin-top: 0.1rem;
-    font-size: 0.875rem;
+    padding: .5rem;
+    margin-top: .1rem;
+    font-size: .875rem;
     line-height: 1;
     color: $white;
-    background-color: rgba($color, 0.8);
-    border-radius: 0.2rem;
+    background-color: rgba($color, .8);
+    border-radius: .2rem;
   }
 
   .form-control,
@@ -57,7 +58,7 @@
 
       &:focus {
         border-color: $color;
-        box-shadow: 0 0 0 $input-focus-width rgba($color, 0.25);
+        box-shadow: 0 0 0 $input-focus-width rgba($color, .25);
       }
 
       ~ .#{$state}-feedback,
@@ -115,8 +116,7 @@
 
       &:focus {
         ~ .custom-control-label::before {
-          box-shadow: 0 0 0 1px $body-bg,
-            0 0 0 $input-focus-width rgba($color, 0.25);
+          box-shadow: 0 0 0 1px $body-bg, 0 0 0 $input-focus-width rgba($color, .25);
         }
       }
     }
@@ -129,9 +129,7 @@
       ~ .custom-file-label {
         border-color: $color;
 
-        &::before {
-          border-color: inherit;
-        }
+        &::before { border-color: inherit; }
       }
 
       ~ .#{$state}-feedback,
@@ -141,7 +139,7 @@
 
       &:focus {
         ~ .custom-file-label {
-          box-shadow: 0 0 0 $input-focus-width rgba($color, 0.25);
+          box-shadow: 0 0 0 $input-focus-width rgba($color, .25);
         }
       }
     }

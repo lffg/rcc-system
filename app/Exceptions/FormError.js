@@ -12,7 +12,7 @@ class FormErrorException extends HttpException {
    * @param {string} code
    * @param {string} link
    */
-  constructor(message, status, path, code, link) {
+  constructor (message, status, path, code, link) {
     super(message, status, code, link)
 
     this.path = path
@@ -23,20 +23,17 @@ class FormErrorException extends HttpException {
    *
    * @return {{ [key: string]: string }}
    */
-  get messages() {
+  get messages () {
     return {
-      E_VIOLATED_REQUEST:
-        'Requisição violada: um ou mais campos protegidos foram violados.'
+      'E_VIOLATED_REQUEST' : 'Requisição violada: um ou mais campos protegidos foram violados.'
     }
   }
 
   /**
    * Lida com os erros.
    */
-  async handle({ message = null, code }, { response, session }) {
-    session.flash({
-      danger: this.messages[code] || message || this.messages['E_DEFAULT']
-    })
+  async handle ({ message = null, code }, { response, session }) {
+    session.flash({ danger: this.messages[code] || message || this.messages['E_DEFAULT'] })
     await session.commit()
     return response.redirect(this.path || 'back')
   }

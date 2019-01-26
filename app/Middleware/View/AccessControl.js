@@ -1,7 +1,7 @@
 'use strict'
 
 class HasGroup {
-  async handle({ view, auth }, next) {
+  async handle ({ view, auth }, next) {
     let groups = []
     let moderationGroups = []
     let permissions = []
@@ -18,7 +18,7 @@ class HasGroup {
     return next()
   }
 
-  createGlobals(view, groups = [], modGroups = [], permissions = []) {
+  createGlobals (view, groups = [], modGroups = [], permissions = []) {
     view.share({
       /**
        * Verifica se o usuário logado possui o grupo.
@@ -27,12 +27,8 @@ class HasGroup {
        * @param  {boolean} getByAlias
        * @return {boolean}
        */
-      hasGroup(group, getByAlias = false) {
-        if (
-          !getByAlias &&
-          typeof group === 'string' &&
-          !isNaN(parseInt(group))
-        ) {
+      hasGroup (group, getByAlias = false) {
+        if (!getByAlias && typeof group === 'string'  && !isNaN(parseInt(group))) {
           group = parseInt(group)
         }
 
@@ -49,16 +45,12 @@ class HasGroup {
        * @return {boolean}
        */
       isModerator: (group, getByAlias = false) => {
-        if (
-          !getByAlias &&
-          typeof group === 'string' &&
-          !isNaN(parseInt(group))
-        ) {
+        if (!getByAlias && typeof group === 'string'  && !isNaN(parseInt(group))) {
           group = parseInt(group)
         }
 
         return modGroups
-          .map(({ id, alias }) => (getByAlias ? alias : id))
+          .map(({ id, alias }) => getByAlias ? alias : id)
           .includes(typeof group === 'number' ? group : group.toUpperCase())
       },
 
@@ -69,22 +61,14 @@ class HasGroup {
        * @param  {boolean} getByAlias
        * @return {boolean}
        */
-      hasPermission(permission, getByAlias = true) {
-        if (
-          !getByAlias &&
-          typeof permission === 'string' &&
-          !isNaN(parseInt(permission))
-        ) {
+      hasPermission (permission, getByAlias = true) {
+        if (!getByAlias && typeof permission === 'string' && !isNaN(parseInt(permission))) {
           permission = parseInt(permission)
         }
 
         return permissions
-          .map(({ id, alias }) => (getByAlias ? alias : id))
-          .includes(
-            typeof permission === 'number'
-              ? permission
-              : permission.toUpperCase()
-          )
+          .map(({ id, alias }) => getByAlias ? alias : id)
+          .includes(typeof permission === 'number' ? permission : permission.toUpperCase())
       }
     })
   }

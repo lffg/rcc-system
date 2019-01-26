@@ -7,7 +7,7 @@
  * @param  {boolean} trimString
  * @return {string|null}
  */
-module.exports = function htmlifyLineBreaks(string, trimString = true) {
+module.exports = function htmlifyLineBreaks (string, trimString = true) {
   if (!string) {
     return null
   }

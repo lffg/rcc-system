@@ -11,7 +11,7 @@ class Group extends Model {
    * @static
    * @return {void}
    */
-  static boot() {
+  static boot () {
     super.boot()
 
     this.addHook('beforeCreate', 'AliasHook.generateAlias')
@@ -26,7 +26,7 @@ class Group extends Model {
    * @static
    * @return {string[]}
    */
-  static get hidden() {
+  static get hidden () {
     return ['created_at', 'updated_at']
   }
 
@@ -36,7 +36,7 @@ class Group extends Model {
    * @static
    * @return {string[]}
    */
-  static get computed() {
+  static get computed () {
     return ['colorYiq']
   }
 
@@ -46,7 +46,7 @@ class Group extends Model {
    * @param  {string} Group.color
    * @return {string}
    */
-  getColorYiq({ color }) {
+  getColorYiq ({ color }) {
     return yiq(color)
   }
 
@@ -60,16 +60,17 @@ class Group extends Model {
    *
    */
 
-  users() {
-    return this.belongsToMany('App/Models/User')
+  users () {
+    return this
+      .belongsToMany('App/Models/User')
       .pivotTable('pivot_group_user')
       .withPivot(['is_moderator'])
   }
 
-  permissions() {
-    return this.belongsToMany('App/Models/Permission').pivotTable(
-      'pivot_group_permission'
-    )
+  permissions () {
+    return this
+      .belongsToMany('App/Models/Permission')
+      .pivotTable('pivot_group_permission')
   }
 }
 

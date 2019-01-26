@@ -8,7 +8,7 @@ class DashboardController {
    *
    * @method GET
    */
-  async index({ response, view, session, auth }) {
+  async index ({ response, view, session, auth }) {
     try {
       await auth.check()
     } catch (e) {
@@ -27,15 +27,10 @@ class DashboardController {
    * @internal
    * @return {Promise<object[]>}
    */
-  async _getOnlineUsers() {
+  async _getOnlineUsers () {
     const users = await User.query()
       .select('id', 'username', 'last_visit')
-      .with('groups', (builder) =>
-        builder
-          .select('id', 'icon', 'color')
-          .whereNot('is_hidden', true)
-          .sortByOrder()
-      )
+      .with('groups', (builder) => builder.select('id', 'icon', 'color').whereNot('is_hidden', true).sortByOrder())
       .havingBetween('last_visit', [Date.now() - 1000 * 60 * 60, Date.now()])
       .fetch()
 

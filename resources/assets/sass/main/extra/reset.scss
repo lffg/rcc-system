@@ -1,6 +1,6 @@
 .dropdown-menu {
   border: solid 1px #e1e1e1;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 2px 0 rgba(0,0,0,0.2);
   display: block;
   opacity: 0;
   transform: translate(0, -1rem);
@@ -17,7 +17,7 @@
     display: block;
     color: $primary;
     background-color: $white;
-    padding: 0.25rem 2rem 0.25rem 1rem;
+    padding: .25rem 2rem .25rem 1rem;
     transition: all linear 90ms;
 
     &:hover,
@@ -39,14 +39,14 @@
     /* background-image: linear-gradient(to bottom, #fff, #ddd); */
     color: #2c353b;
     /* border-bottom: solid 4px #d0d0d0; */
-    text-shadow: 0 2px rgba(0, 0, 0, 0.1);
+    text-shadow: 0 2px rgba(0,0,0,0.1);
   }
 }
 
 .row {
   margin-bottom: 1rem;
 
-  [class^='col-sm'] {
+  [class^=col-sm] {
     @media screen and (max-width: map-get($grid-breakpoints, $key: sm)) {
       margin-bottom: 1rem;
 
@@ -56,7 +56,7 @@
     }
   }
 
-  [class^='col-md'] {
+  [class^=col-md] {
     @media screen and (max-width: map-get($grid-breakpoints, $key: md)) {
       margin-bottom: 1rem;
 
@@ -66,7 +66,7 @@
     }
   }
 
-  [class^='col-lg'] {
+  [class^=col-lg] {
     @media screen and (max-width: map-get($grid-breakpoints, $key: lg)) {
       margin-bottom: 1rem;
 
@@ -76,7 +76,7 @@
     }
   }
 
-  [class^='col-xl'] {
+  [class^=col-xl] {
     @media screen and (max-width: map-get($grid-breakpoints, $key: xl)) {
       margin-bottom: 1rem;
 
@@ -113,7 +113,7 @@
     align-items: center;
 
     > .alert-icon {
-      margin-right: 0.9rem;
+      margin-right: .9rem;
       vertical-align: middle;
     }
   }

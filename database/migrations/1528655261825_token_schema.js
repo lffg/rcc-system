@@ -3,20 +3,12 @@
 const Schema = use('Schema')
 
 class TokensSchema extends Schema {
-  up() {
+  up () {
     this.create('tokens', (table) => {
       table.increments()
 
-      table
-        .integer('user_id')
-        .unsigned()
-        .references('id')
-        .inTable('users')
-      table
-        .string('token', 190)
-        .notNullable()
-        .unique()
-        .index()
+      table.integer('user_id').unsigned().references('id').inTable('users')
+      table.string('token', 190).notNullable().unique().index()
       table.string('type', 80).notNullable()
       table.boolean('is_revoked').defaultTo(false)
 
@@ -24,7 +16,7 @@ class TokensSchema extends Schema {
     })
   }
 
-  down() {
+  down () {
     this.drop('tokens')
   }
 }

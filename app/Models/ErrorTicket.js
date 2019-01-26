@@ -13,11 +13,11 @@ class ErrorTicket extends Model {
    *
    */
 
-  author() {
+  author () {
     return this.belongsTo('App/Models/User', 'author_id')
   }
 
-  admin() {
+  admin () {
     return this.belongsTo('App/Models/User', 'admin_id')
   }
 }

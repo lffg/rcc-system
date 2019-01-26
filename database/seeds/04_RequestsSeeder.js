@@ -6,7 +6,7 @@ const RequestController = use('App/Models/RequestController')
 const RequestAction = use('App/Models/RequestAction')
 const RequestType = use('App/Models/RequestType')
 
-async function getActionsMap() {
+async function getActionsMap () {
   const actions = new Map()
 
   for (const id of await RequestAction.ids()) {
@@ -18,7 +18,7 @@ async function getActionsMap() {
 }
 
 class RequestsSeeder {
-  async run() {
+  async run () {
     await this.createControllers()
     console.log('Controllers de requisições criados.')
 
@@ -32,24 +32,22 @@ class RequestsSeeder {
     console.log('Relações das requisições criadas.')
   }
 
-  async relations() {
+  async relations () {
     const actions = await getActionsMap()
 
     for (const id of await RequestType.ids()) {
       const type = await RequestType.find(id)
-      await type
-        .actions()
-        .attach([
-          actions.get('CREATE_REQUEST').id,
-          actions.get('UPDATE_REQUEST').id,
-          actions.get('CREATE_UPDATE_LOG').id,
-          actions.get('REJECT_GENERAL_OPS').id,
-          actions.get('APPROVE_GENERAL_OPS').id
-        ])
+      await type.actions().attach([
+        actions.get('CREATE_REQUEST').id,
+        actions.get('UPDATE_REQUEST').id,
+        actions.get('CREATE_UPDATE_LOG').id,
+        actions.get('REJECT_GENERAL_OPS').id,
+        actions.get('APPROVE_GENERAL_OPS').id
+      ])
     }
   }
 
-  async createControllers() {
+  async createControllers () {
     for (const data of controllers) {
       delete data.__positions__
 
@@ -59,7 +57,7 @@ class RequestsSeeder {
     }
   }
 
-  async createActions() {
+  async createActions () {
     for (const data of actions) {
       const action = new RequestAction()
       action.merge(data)
@@ -67,7 +65,7 @@ class RequestsSeeder {
     }
   }
 
-  async createTypes() {
+  async createTypes () {
     const actionsMap = await getActionsMap()
 
     for (const data of types) {
@@ -79,9 +77,7 @@ class RequestsSeeder {
       await type.save()
 
       if (actions) {
-        await type
-          .actions()
-          .attach(actions.map((action) => actionsMap.get(action).id))
+        await type.actions().attach(actions.map((action) => actionsMap.get(action).id))
       }
     }
   }

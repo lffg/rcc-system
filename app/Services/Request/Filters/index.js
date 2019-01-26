@@ -1,6 +1,6 @@
 'use strict'
 
-function usernameFilter(builder, queryTerm) {
+function usernameFilter (builder, queryTerm) {
   if (!queryTerm) {
     return builder
   }

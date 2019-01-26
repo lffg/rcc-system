@@ -3,14 +3,14 @@
 const Log = use('Log')
 
 class Admin {
-  async handle({ auth }, next) {
+  async handle ({ auth }, next) {
     try {
       await auth.check()
     } catch (e) {
       return this._block(...arguments)
     }
 
-    if (!(await auth.user.hasPermission('ADMIN', true))) {
+    if (!await auth.user.hasPermission('ADMIN', true)) {
       return this._block(...arguments)
     }
 
@@ -18,19 +18,16 @@ class Admin {
     return next()
   }
 
-  _block({ session, response }) {
+  _block ({ session, response }) {
     session.flash({ danger: 'Acesso negado.' })
     return response.route('index')
   }
 
-  async _logAccess({ request, session, auth }) {
+  async _logAccess ({ request, session, auth }) {
     const access = session.get('admin_access', {})
 
     // Se já estiver feito um log com o mesmo ip atual e em menos de um dia e meio, passe.
-    if (
-      access.time > Date.now() - 1000 * 60 * 60 * 24 * 1.5 &&
-      access.ip === request.ip()
-    ) {
+    if (access.time > Date.now() - 1000 * 60 * 60 * 24 * 1.5 && access.ip === request.ip()) {
       return
     }
 

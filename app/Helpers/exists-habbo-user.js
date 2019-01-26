@@ -8,7 +8,7 @@ const got = require('got')
  * @param  {string} username
  * @return {Promise<{ status: boolean, message: string }>}
  */
-module.exports = async function existsHabboUser(username) {
+module.exports = async function existsHabboUser (username) {
   try {
     await got('https://www.habbo.com.br/api/public/users', {
       query: { name: username },

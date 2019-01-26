@@ -21,7 +21,7 @@ module.exports = () => ({
   caller
 })
 
-async function caller({ transaction, request, payload }) {
+async function caller ({ transaction, request, payload }) {
   let data = {}
 
   for (const [key, { name }] of allowedFields.entries()) {
@@ -57,18 +57,18 @@ async function caller({ transaction, request, payload }) {
 
 const allowedFields = new Map([
   ['before_position_id', { name: 'before_position_id' }],
-  ['after_position_id', { name: 'after_position_id' }],
-  ['tag', { name: 'tag' }],
-  ['price', { name: 'price' }],
-  ['absence_until', { name: 'absence_until' }],
-  ['banned_until', { name: 'banned_until' }],
-  ['bonuses', { name: 'bonuses' }],
-  ['reason', { name: 'reason' }],
-  ['permission', { name: 'permission' }],
-  ['notes', { name: 'notes' }],
-  ['asked_by', { name: 'asked_by' }],
-  ['extra_user_1', { name: 'extra_user_1' }],
-  ['extra_user_2', { name: 'extra_user_2' }],
-  ['extra_user_3', { name: 'extra_user_3' }],
-  ['extra_user_4', { name: 'extra_user_4' }]
+  ['after_position_id',  { name: 'after_position_id' }],
+  ['tag',                { name: 'tag' }],
+  ['price',              { name: 'price' }],
+  ['absence_until',       { name: 'absence_until' }],
+  ['banned_until',        { name: 'banned_until' }],
+  ['bonuses',            { name: 'bonuses' }],
+  ['reason',             { name: 'reason' }],
+  ['permission',         { name: 'permission' }],
+  ['notes',              { name: 'notes' }],
+  ['asked_by',           { name: 'asked_by' }],
+  ['extra_user_1',       { name: 'extra_user_1' }],
+  ['extra_user_2',       { name: 'extra_user_2' }],
+  ['extra_user_3',       { name: 'extra_user_3' }],
+  ['extra_user_4',       { name: 'extra_user_4' }]
 ])

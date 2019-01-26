@@ -13,7 +13,7 @@ class VerifyEmailController {
    *
    * @internal
    */
-  _verify({ response, session, auth: { user } }) {
+  _verify ({ response, session, auth: { user } }) {
     if (user.is_verified_email) {
       session.flash({ info: 'Seu e-mail já está verificado.' })
       response.route('index')
@@ -26,7 +26,7 @@ class VerifyEmailController {
    *
    * @method GET
    */
-  async index({ view }) {
+  async index ({ view }) {
     if (this._verify(...arguments)) return
     return view.render('pages.session.auth.verify-email')
   }
@@ -36,22 +36,16 @@ class VerifyEmailController {
    *
    * @method POST
    */
-  async send({ request, response, session, auth: { user } }) {
+  async send ({ request, response, session, auth: { user } }) {
     if (this._verify(...arguments)) return
 
     const chars = `${Env.get('APP_KEY')}-${Date.now()}-${Math.random()}`
-    const token = crypto
-      .createHash('sha1')
-      .update(chars)
-      .digest('hex')
+    const token = crypto.createHash('sha1').update(chars).digest('hex')
     const email = request.input('email', null)
     const limit = Date.now() + 1000 * 60 * 60
 
-    if (Date.now() < user.last_verification + 1000 * 60 * 5) {
-      session.flash({
-        danger:
-          'Um e-mail de verificação foi enviado para o seu e-mail há menos de 5 minutos. Verifique-o antes de solicitar um novo link de confirmação.'
-      })
+    if (Date.now() < (user.last_verification + (1000 * 60 * 5))) {
+      session.flash({ danger: 'Um e-mail de verificação foi enviado para o seu e-mail há menos de 5 minutos. Verifique-o antes de solicitar um novo link de confirmação.' })
       return response.redirect('back')
     }
 
@@ -61,20 +55,16 @@ class VerifyEmailController {
     user.email_token = token
     await user.save()
 
-    await Mail.send(
-      ['emails.verify-email', 'emails.verify-email-text'],
-      { user, token },
-      (message) => {
-        message.to(user.email)
-        message.from('noreply@rccsystem.com', 'RCC System')
-        message.subject(`[RCC System] Confirme o seu e-mail, ${user.username}!`)
-      }
-    )
-
-    session.flash({
-      success:
-        'Um link de confirmação para a sua conta foi enviado para o seu e-mail.'
+    await Mail.send([
+      'emails.verify-email',
+      'emails.verify-email-text'
+    ], { user, token }, (message) => {
+      message.to(user.email)
+      message.from('noreply@rccsystem.com', 'RCC System')
+      message.subject(`[RCC System] Confirme o seu e-mail, ${user.username}!`)
     })
+
+    session.flash({ success: 'Um link de confirmação para a sua conta foi enviado para o seu e-mail.' })
     return response.redirect('back')
   }
 
@@ -83,7 +73,7 @@ class VerifyEmailController {
    *
    * @method GET
    */
-  async confirm({ response, params: { id, token }, session, auth }) {
+  async confirm ({ response, params: { id, token }, session, auth }) {
     let user
     try {
       user = await User.findOrFail(id)
@@ -99,11 +89,7 @@ class VerifyEmailController {
         user.email_token = null
         await user.save()
 
-        session.flash({
-          success: `E-mail confirmado com sucesso! Seja bem-vindo ao System, ${
-            user.username
-          }. =)`
-        })
+        session.flash({ success: `E-mail confirmado com sucesso! Seja bem-vindo ao System, ${user.username}. =)` })
 
         try {
           await auth.check()
@@ -113,9 +99,7 @@ class VerifyEmailController {
         }
       }
 
-      session.flash({
-        danger: 'Link de ativação expirado por tempo. Tente novamente.'
-      })
+      session.flash({ danger: 'Link de ativação expirado por tempo. Tente novamente.' })
       return response.route('verify-email')
     }
 

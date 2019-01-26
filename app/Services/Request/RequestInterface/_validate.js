@@ -16,7 +16,7 @@ const RequestType = use('App/Models/RequestType')
  * @param  {any} payload
  * @return {Promise<{ status: boolean, code?: string, params?: string[] }}
  */
-module.exports = async function validate(step, payload) {
+module.exports = async function validate (step, payload) {
   const controller = await validateController(payload.controller_id)
   if (!controller) {
     return error('INVALID_CONTROLLER')
@@ -55,7 +55,7 @@ module.exports = async function validate(step, payload) {
  * @param  {string[]} params
  * @return {{ status: false, code: string, params: string[] }}
  */
-function error(code, params = []) {
+function error (code, params = []) {
   return {
     status: false,
     code,
@@ -69,7 +69,7 @@ function error(code, params = []) {
  * @param  {number|string} controllerId
  * @return {RequestController|false}
  */
-async function validateController(controllerId = null) {
+async function validateController (controllerId = null) {
   const controller = await RequestController.find(controllerId)
   if (!controller || !controller.is_crh) return false
   return controller
@@ -83,12 +83,11 @@ async function validateController(controllerId = null) {
  * @param  {RequestType} type
  * @return {Promise<boolean>}
  */
-async function validateType(controller, type) {
-  const types = await RequestType.findTypesFor(controller.id).then((types) =>
-    types.map(({ id }) => id)
-  )
+async function validateType (controller, type) {
+  const types = await RequestType.findTypesFor(controller.id)
+    .then((types) => types.map(({ id }) => id))
 
-  return types.includes(parseInt(type.id))
+  return (types.includes(parseInt(type.id)))
 }
 
 /**
@@ -98,7 +97,7 @@ async function validateType(controller, type) {
  * @param  {RequestType} type
  * @return {Promise<{ status: boolean, code?: string, params?: string[] }>}
  */
-async function validateUsers(receivers, type) {
+async function validateUsers (receivers, type) {
   const users = splitNicks(receivers, true)
   const { status, code = null, params = [] } = await type.validateUsers(users)
   return { status, code, params }
@@ -111,9 +110,7 @@ async function validateUsers(receivers, type) {
  * @param  {RequestType} type
  * @return {Promise<{ status: boolean, code?: string, params?: string[] }>}
  */
-async function validateFields(payload, type) {
-  const { status, code = null, params = [] } = await type.validateFields(
-    payload
-  )
+async function validateFields (payload, type) {
+  const { status, code = null, params = [] } = await type.validateFields(payload)
   return { status, code, params }
 }

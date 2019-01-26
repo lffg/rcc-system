@@ -3,7 +3,7 @@
 const User = use('App/Models/User')
 
 class IpCollector {
-  async handle({ request, session, auth }, next) {
+  async handle ({ request, session, auth }, next) {
     try {
       await auth.check()
     } catch (e) {
@@ -17,9 +17,7 @@ class IpCollector {
     session.put('current_ip', request.ip())
 
     const user = await User.findOrFail(auth.user.id)
-    const ips = await user
-      .ips()
-      .fetch()
+    const ips = await user.ips().fetch()
       .then((ips) => ips.toJSON())
       .then((ips) => ips.map((ip) => ip.ip))
 

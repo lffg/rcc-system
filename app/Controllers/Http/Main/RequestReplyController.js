@@ -1,17 +1,29 @@
 'use strict'
 
 class RequestReplyController {
-  async create() {}
+  async create () {
 
-  async store() {}
+  }
 
-  async edit() {}
+  async store () {
 
-  async update() {}
+  }
 
-  async delete() {}
+  async edit () {
 
-  async destroy() {}
+  }
+
+  async update () {
+
+  }
+
+  async delete () {
+
+  }
+
+  async destroy () {
+
+  }
 }
 
 module.exports = RequestReplyController

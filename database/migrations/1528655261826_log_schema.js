@@ -3,7 +3,7 @@
 const Schema = use('Schema')
 
 class LogSchema extends Schema {
-  up() {
+  up () {
     this.create('logs', (table) => {
       table.increments()
 
@@ -11,16 +11,13 @@ class LogSchema extends Schema {
       table.string('ip', 45).defaultTo(null)
 
       table.integer('user_id').unsigned()
-      table
-        .foreign('user_id')
-        .references('users.id')
-        .onDelete('cascade')
+      table.foreign('user_id').references('users.id').onDelete('cascade')
 
       table.timestamps()
     })
   }
 
-  down() {
+  down () {
     this.drop('logs')
   }
 }

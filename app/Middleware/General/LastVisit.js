@@ -3,7 +3,7 @@
 const User = use('App/Models/User')
 
 class LastVisit {
-  async handle({ auth }, next) {
+  async handle ({ auth }, next) {
     try {
       await auth.check()
     } catch (e) {

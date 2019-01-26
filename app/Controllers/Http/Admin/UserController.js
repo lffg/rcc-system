@@ -11,7 +11,7 @@ class UserController {
    *
    * @method GET
    */
-  async index({ request, view }) {
+  async index ({ request, view }) {
     const { page = 1, username = null } = request.all()
     const query = User.query()
 
@@ -20,11 +20,9 @@ class UserController {
     }
 
     const data = await query
-      .with('groups', (builder) =>
-        builder.select('id', 'name', 'color', 'icon').sortByOrder()
-      )
+      .with('groups', (builder) => builder.select('id', 'name', 'color', 'icon').sortByOrder())
       .with('position', (builder) => builder.select('id', 'name'))
-      .paginate(page <= 0 ? 1 : page, 50)
+      .paginate((page <= 0 ? 1 : page), 50)
       .then((data) => data.toJSON())
 
     return view.render('admin.users.index', { data, username })
@@ -35,23 +33,16 @@ class UserController {
    *
    * @method GET
    */
-  async show({ params: { id }, view }) {
+  async show ({ params: { id }, view }) {
     const user = await User.query()
       .where({ id })
-      .with('groups', (builder) =>
-        builder.select('id', 'name', 'color', 'icon', 'is_hidden').sortByOrder()
-      )
+      .with('groups', (builder) => builder.select('id', 'name', 'color', 'icon', 'is_hidden').sortByOrder())
       .with('position', (builder) => builder.select('id', 'name', 'alias'))
       .with('ips', (builder) => {
-        builder
-          .select('id', 'user_id', 'ip', 'created_at')
-          .orderBy('created_at', 'DESC')
+        builder.select('id', 'user_id', 'ip', 'created_at').orderBy('created_at', 'DESC')
       })
       .with('logs', (builder) => {
-        builder
-          .select('id', 'user_id', 'log', 'created_at')
-          .limit(15)
-          .orderBy('created_at', 'DESC')
+        builder.select('id', 'user_id', 'log', 'created_at').limit(15).orderBy('created_at', 'DESC')
       })
       .firstOrFail()
 
@@ -63,7 +54,7 @@ class UserController {
    *
    * @method GET
    */
-  async logs({ params: { id }, view }) {
+  async logs ({ params: { id }, view }) {
     const user = await User.query()
       .where({ id })
       .with('logs', (builder) => builder.orderBy('created_at', 'DESC'))
@@ -77,7 +68,7 @@ class UserController {
    *
    * @method GET
    */
-  async edit({ params: { id }, view }) {
+  async edit ({ params: { id }, view }) {
     const user = await User.query()
       .where({ id })
       .with('position', (builder) => builder.select('id', 'name', 'alias'))
@@ -92,36 +83,23 @@ class UserController {
    *
    * @method POST
    */
-  async update({ request, response, params: { id }, session, auth }) {
-    const data = UserParser.parse(request.all())
-    const user = await User.findOrFail(id)
+  async update ({ request, response, params: { id }, session, auth }) {
+    const data  = UserParser.parse(request.all())
+    const user  = await User.findOrFail(id)
 
     // Create the logs:
-    await Log.log(
-      auth.user.id,
-      request.ip(),
-      {
-        message: `Alteração em campos do perfil para o usuário ${data.username ||
-          user.username}`
-      },
-      {
-        message: `Alteração do nome de usuário. De ${user.username} para ${
-          data.username
-        }`,
-        cond: user.username !== data.username
-      },
-      {
-        message: `Senha alterada para o usuário ${data.username ||
-          user.username}`,
-        cond: !!data.password && user.password !== data.password
-      },
-      {
-        message: `Estado de ativação do usuário alterado. De ${
-          user.state
-        } para ${data.state}`,
-        cond: data.state !== user.state
-      }
-    )
+    await Log.log(auth.user.id, request.ip(), {
+      message: `Alteração em campos do perfil para o usuário ${data.username || user.username}`
+    }, {
+      message: `Alteração do nome de usuário. De ${user.username} para ${data.username}`,
+      cond: (user.username !== data.username)
+    }, {
+      message: `Senha alterada para o usuário ${data.username || user.username}`,
+      cond: (!!data.password && user.password !== data.password)
+    }, {
+      message: `Estado de ativação do usuário alterado. De ${user.state} para ${data.state}`,
+      cond: (data.state !== user.state)
+    })
 
     user.merge(data)
     await user.save()

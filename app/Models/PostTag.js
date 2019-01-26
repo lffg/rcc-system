@@ -13,8 +13,10 @@ class PostTag extends Model {
    *
    */
 
-  posts() {
-    return this.belongsToMany('App/Models/Post').pivotTable('pivot_post_tag')
+  posts () {
+    return this
+      .belongsToMany('App/Models/Post')
+      .pivotTable('pivot_post_tag')
   }
 }
 

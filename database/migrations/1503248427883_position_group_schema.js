@@ -3,19 +3,12 @@
 const Schema = use('Schema')
 
 class PositionGroupSchema extends Schema {
-  up() {
+  up () {
     this.create('position_groups', (table) => {
       table.increments()
 
-      table
-        .string('alias', 80)
-        .notNullable()
-        .unique()
-        .index('alias')
-      table
-        .boolean('is_permanent')
-        .notNullable()
-        .defaultTo(false)
+      table.string('alias', 80).notNullable().unique().index('alias')
+      table.boolean('is_permanent').notNullable().defaultTo(false)
 
       table.string('name', 190).notNullable()
       table.text('description').notNullable()
@@ -24,7 +17,7 @@ class PositionGroupSchema extends Schema {
     })
   }
 
-  down() {
+  down () {
     this.drop('position_groups')
   }
 }

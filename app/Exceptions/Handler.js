@@ -10,14 +10,14 @@ class ExceptionHandler extends BaseExceptionHandler {
    *
    * @return {number[]}
    */
-  get availableStatus() {
+  get availableStatus () {
     return [400, 401, 403, 404, 500]
   }
 
   /**
    * Lida com os erros HTTP.
    */
-  async handle(error, ctx) {
+  async handle (error, ctx) {
     const handle = false
     if (!handle) return super.handle(...arguments)
 
@@ -33,9 +33,7 @@ class ExceptionHandler extends BaseExceptionHandler {
         return response.status(401).json({ reload: true })
       }
 
-      session.flash({
-        danger: 'Você precisa estar autenticado para ver esta página.'
-      })
+      session.flash({ danger: 'Você precisa estar autenticado para ver esta página.' })
       await session.commit()
       return response.route('login')
     }
@@ -62,7 +60,7 @@ class ExceptionHandler extends BaseExceptionHandler {
   /**
    * Responde a um erro HTTP.
    */
-  respond(status = 500) {
+  respond (status = 500) {
     const { message } = this.error
     const { request, response, view } = this.ctx
 
@@ -82,27 +80,25 @@ class ExceptionHandler extends BaseExceptionHandler {
   /**
    * Responde a um erro HTTP em formato JSON.
    */
-  respondViaJSON(status = 500) {
+  respondViaJSON (status = 500) {
     const { message: devMessage, status: devStatus } = this.error
     const { response } = this.ctx
 
-    const message = {
+    const message = ({
       400: 'Bad Request',
       401: 'Unauthorized',
       403: 'Forbidden',
       404: 'Page not found',
       500: 'Internal server error' // Padrão
-    }[status]
+    })[status]
 
     return response.status(status).json({
       error: true,
       message,
       status,
-      ...(Env.get('NODE_ENV') === 'development'
-        ? {
-            __dev: { message: devMessage, status: devStatus }
-          }
-        : {})
+      ...(Env.get('NODE_ENV') === 'development' ? {
+        __dev: { message: devMessage, status: devStatus }
+      } : {})
     })
   }
 }

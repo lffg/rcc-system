@@ -13,7 +13,7 @@ class Log extends Model {
    *
    */
 
-  user() {
+  user () {
     return this.belongsTo('App/Models/User')
   }
 }

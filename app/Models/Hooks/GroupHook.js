@@ -2,7 +2,7 @@
 
 const Group = use('App/Models/Group')
 
-const GroupHook = (exports = module.exports = {})
+const GroupHook = exports = module.exports = {}
 
 /**
  * Define a ordem do grupo criado.

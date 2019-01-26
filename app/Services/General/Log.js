@@ -3,20 +3,20 @@
 const User = use('App/Models/User')
 
 class Log {
-  constructor() {
+  constructor () {
     this._actionAuthorId = null
     this._actionAuthorIp = null
   }
 
-  set actionAuthorId(id = null) {
+  set actionAuthorId (id = null) {
     this._actionAuthorId = id
   }
 
-  set actionAuthorIp(ip = null) {
+  set actionAuthorIp (ip = null) {
     this._actionAuthorIp = ip
   }
 
-  async log(...logs) {
+  async log (...logs) {
     if (!this._actionAuthorId) {
       throw new Error('`actionAuthorId` é obrigatório para a instância do log.')
     }
@@ -27,7 +27,7 @@ class Log {
     return true
   }
 
-  static async log(actionAuthorId, actionAuthorIp = null, ...logs) {
+  static async log (actionAuthorId, actionAuthorIp = null, ...logs) {
     if (!actionAuthorId) {
       throw new Error('`actionAuthorId` é obrigatório para criar um log.')
     }
@@ -38,7 +38,7 @@ class Log {
     return true
   }
 
-  static async _iterate(logs, actionAuthor, ip) {
+  static async _iterate (logs, actionAuthor, ip) {
     for (let log of logs) {
       if (typeof log === 'string') {
         log = { message: log, cond: true }

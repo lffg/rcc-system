@@ -1,7 +1,7 @@
 'use strict'
 
 class UserSalary {
-  register(Model) {
+  register (Model) {
     /**
      * ---------------------------------------------------------------------
      * Métodos da instância:
@@ -13,7 +13,7 @@ class UserSalary {
      *
      * @return {Promise<{ fixSalary: number, fullSalary: number }>}
      */
-    Model.prototype.getSalary = async function() {
+    Model.prototype.getSalary = async function () {
       const fixSalary = await this.getFixSalary()
       const fullSalary = await this.getFullSalary()
 
@@ -25,7 +25,7 @@ class UserSalary {
      *
      * @return {Promise<number>}
      */
-    Model.prototype.getFixSalary = async function() {
+    Model.prototype.getFixSalary = async function () {
       const user = await Model.query()
         .where({ id: this.id })
         .with('position', (builder) => builder.select('id', 'salary'))
@@ -40,7 +40,7 @@ class UserSalary {
      *
      * @return {number}
      */
-    Model.prototype.getMedalsSalary = function() {
+    Model.prototype.getMedalsSalary = function () {
       const temporary = this.temporary_bonuses || 0
       const effective = this.effective_bonuses || 0
 
@@ -52,7 +52,7 @@ class UserSalary {
      *
      * @return {Promise<number>}
      */
-    Model.prototype.getFullSalary = async function() {
+    Model.prototype.getFullSalary = async function () {
       const fixSalary = await this.getFixSalary()
       const medalsSalary = this.getMedalsSalary()
 

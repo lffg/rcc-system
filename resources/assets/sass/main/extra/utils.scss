@@ -1,5 +1,5 @@
-@import './hightlights.scss';
-@import './toast.scss';
+@import "./hightlights.scss";
+@import "./toast.scss";
 
 .modal-body {
   &.modal-body-limit {
@@ -15,7 +15,7 @@ blockquote {
   background-color: #e7edf3;
   color: #7089a9;
   padding: 1rem;
-  border-radius: 0.25rem;
+  border-radius: .25rem;
   margin: 1rem 0;
 }
 
@@ -78,7 +78,7 @@ table {
       td,
       th {
         border-right: solid 1px #ddd;
-        padding: 0.5rem;
+        padding: .5rem;
 
         &:first-child {
           width: 60%;
@@ -130,32 +130,26 @@ table {
   &.--default {
     display: table;
     margin: 1.65rem -1rem;
-    padding: 0.75rem 1.5rem;
-    border-top-right-radius: 0.25rem;
-    border-bottom-right-radius: 0.25rem;
+    padding: .75rem 1.5rem;
+    border-top-right-radius: .25rem;
+    border-bottom-right-radius: .25rem;
     @if $primary != $secondary {
       border-bottom: solid 3px $primary;
     } @else {
       border-bottom: solid 3px $accent;
     }
     background-color: $secondary;
-    background-image: linear-gradient(
-      to bottom,
-      lighten($secondary, 5%),
-      darken($secondary, 8%)
-    );
+    background-image: linear-gradient(to bottom, lighten($secondary, 5%), darken($secondary, 8%));
     color: $white;
     font-size: 20px;
-    font-family: 'Trebuchet MS', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-      Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji',
-      'Segoe UI Emoji', 'Segoe UI Symbol';
+    font-family: "Trebuchet MS", -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
     text-transform: uppercase;
 
     @media screen and (max-width: map-get($grid-breakpoints, $key: md)) {
       display: block;
       margin: 1.65rem 0;
       border: solid 1px $secondary !important;
-      border-radius: 0.25rem;
+      border-radius: .25rem;
       background-color: transparent;
       background-image: none;
       text-align: center;
@@ -174,7 +168,7 @@ table {
     flex-wrap: wrap;
 
     > *:not(:last-child) {
-      margin-bottom: 0.75rem;
+      margin-bottom: .75rem;
     }
   }
 }

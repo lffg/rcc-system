@@ -3,20 +3,17 @@
 const Schema = use('Schema')
 
 class PostTagSchema extends Schema {
-  up() {
+  up () {
     this.create('post_tags', (table) => {
       table.increments()
 
-      table
-        .string('tag', 75)
-        .notNullable()
-        .unique()
+      table.string('tag', 75).notNullable().unique()
 
       table.timestamps()
     })
   }
 
-  down() {
+  down () {
     this.drop('post_tags')
   }
 }

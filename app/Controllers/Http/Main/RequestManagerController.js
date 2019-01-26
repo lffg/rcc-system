@@ -1,19 +1,17 @@
 'use strict'
 
 const { HttpException } = use('@adonisjs/generic-exceptions')
-const { RequestInterface, getComputedRequestProps } = use(
-  'App/Services/Request'
-)
+const { RequestInterface, getComputedRequestProps } = use('App/Services/Request')
 const Request = use('App/Models/Request')
 const Database = use('Database')
 const Logger = use('Logger')
 
 class RequestManagerController {
-  all() {
+  all () {
     return 'Hello from Manager.all'
   }
 
-  async review({ request, response, params: { id, mode }, session, auth }) {
+  async review ({ request, response, params: { id, mode }, session, auth }) {
     const transaction = await Database.beginTransaction()
     const entity = await Request.findOrFail(id)
 
@@ -26,10 +24,7 @@ class RequestManagerController {
     }
 
     if (request.input('integrity_token') !== entity.integrity_token) {
-      session.flash({
-        danger:
-          'Este requerimento foi atualizado enquanto você o revisava. Tente novamente.'
-      })
+      session.flash({ danger: 'Este requerimento foi atualizado enquanto você o revisava. Tente novamente.' })
       return response.redirect('back')
     }
 
@@ -51,11 +46,9 @@ class RequestManagerController {
     return response.redirect('back')
   }
 
-  async refresh({ response, params: { id }, session, auth }) {
-    if (!(await auth.user.hasPermission('DEV', true))) {
-      session.flash({
-        danger: 'Você não tem permissão para executar essa operação.'
-      })
+  async refresh ({ response, params: { id }, session, auth }) {
+    if (!await auth.user.hasPermission('DEV', true)) {
+      session.flash({ danger: 'Você não tem permissão para executar essa operação.' })
       return response.redirect('back')
     }
 

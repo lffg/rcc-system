@@ -13,11 +13,11 @@ class RequestReview extends Model {
    *
    */
 
-  request() {
+  request () {
     return this.belongsTo('App/Models/Request')
   }
 
-  author() {
+  author () {
     return this.belongsTo('App/Models/User', 'author_id')
   }
 }

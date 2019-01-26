@@ -20,44 +20,29 @@ Route.group(() => {
   // Criar entidade:
   Route.get('new', 'RequestEntityController.create').as('requests.create')
   Route.post('new/goto/:step', 'RequestEntityController.gotoCreatePart')
-    .validator('General/RequestCreate')
-    .as('requests.create:goto')
+    .validator('General/RequestCreate').as('requests.create:goto')
   Route.post('new/save', 'RequestEntityController.store')
-    .validator('General/RequestCreate')
-    .as('requests.store')
+    .validator('General/RequestCreate').as('requests.store')
 
   // Editar Entidade
   Route.get('req/:id/edit', 'RequestEntityController.edit').as('requests.edit')
-  Route.post('req/:id/edit', 'RequestEntityController.update').validator(
-    'General/RequestUpdate'
-  )
+  Route.post('req/:id/edit', 'RequestEntityController.update')
+    .validator('General/RequestUpdate')
 
   // Resposta:
-  Route.get('req/:id/reply', 'RequestReplyController.create').as(
-    'requests.reply'
-  )
+  Route.get('req/:id/reply', 'RequestReplyController.create').as('requests.reply')
   Route.post('req/:id/reply', 'RequestReplyController.store')
-  Route.get('reply/:id/edit', 'RequestReplyController.edit').as(
-    'requests.edit-reply'
-  )
+  Route.get('reply/:id/edit', 'RequestReplyController.edit').as('requests.edit-reply')
   Route.post('reply/:id/edit', 'RequestReplyController.update')
-  Route.get('reply/:id/delete', 'RequestReplyController.delete').as(
-    'requests.delete-reply'
-  )
+  Route.get('reply/:id/delete', 'RequestReplyController.delete').as('requests.delete-reply')
   Route.post('reply/:id/delete', 'RequestReplyController.destroy')
 
   // Revisão (CRH):
-  Route.get('review/all/:controllerSlug?', 'RequestManagerController.all').as(
-    'requests.review-all'
-  )
-  Route.post('review/req/:id/:mode', 'RequestManagerController.review').as(
-    'requests.review'
-  )
+  Route.get('review/all/:controllerSlug?', 'RequestManagerController.all').as('requests.review-all')
+  Route.post('review/req/:id/:mode', 'RequestManagerController.review').as('requests.review')
 
   // Refresh:
-  Route.get('refresh/req/:id', 'RequestManagerController.refresh').as(
-    'requests.refresh'
-  )
+  Route.get('refresh/req/:id', 'RequestManagerController.refresh').as('requests.refresh')
 })
   .middleware(['auth'])
   .namespace('Main')

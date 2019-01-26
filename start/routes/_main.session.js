@@ -13,14 +13,10 @@ Route.group(() => {
   Route.post('/', 'ConfigController.saveMain').validator('General/ConfigMain')
 
   Route.get('email', 'ConfigController.email').as('user-config.email')
-  Route.post('email', 'ConfigController.saveEmail').validator(
-    'General/ConfigEmail'
-  )
+  Route.post('email', 'ConfigController.saveEmail').validator('General/ConfigEmail')
 
   Route.get('password', 'ConfigController.password').as('user-config.password')
-  Route.post('password', 'ConfigController.savePassword').validator(
-    'General/ConfigPassword'
-  )
+  Route.post('password', 'ConfigController.savePassword').validator('General/ConfigPassword')
 })
   .middleware(['auth'])
   .namespace('Main')
@@ -47,12 +43,8 @@ Route.group(() => {
 
 Route.group(() => {
   Route.get(':userId', 'NotificationController.list').as('notifications.list')
-  Route.get('go/:notificationId', 'NotificationController.go').as(
-    'notifications.go'
-  )
-  Route.post('delete/:id', 'NotificationController.destroy').as(
-    'notifications.destroy'
-  )
+  Route.get('go/:notificationId', 'NotificationController.go').as('notifications.go')
+  Route.post('delete/:id', 'NotificationController.destroy').as('notifications.destroy')
 })
   .middleware(['auth'])
   .namespace('Main')

@@ -9,7 +9,7 @@ class RequestType extends Model {
    * @static
    * @return {void}
    */
-  static boot() {
+  static boot () {
     super.boot()
 
     this.addHook('beforeCreate', 'AliasHook.generateAlias')
@@ -26,19 +26,17 @@ class RequestType extends Model {
    *
    */
 
-  controller() {
+  controller () {
     return this.belongsTo('App/Models/RequestController', 'controller_id')
   }
 
-  actions() {
-    return this.belongsToMany(
-      'App/Models/RequestAction',
-      'type_id',
-      'action_id'
-    ).pivotTable('pivot_request_action_type')
+  actions () {
+    return this
+      .belongsToMany('App/Models/RequestAction', 'type_id', 'action_id')
+      .pivotTable('pivot_request_action_type')
   }
 
-  requests() {
+  requests () {
     return this.hasMany('App/Models/Request', 'id', 'type_id')
   }
 }

@@ -12,22 +12,21 @@ class RequestHttpController {
    *
    * @method GET
    */
-  async index({ view }) {
+  async index ({ view }) {
     const controllers = await RequestController.query()
-      .where('is_crh', true)
-      .select('*')
-      .fetch()
+      .where('is_crh', true).select('*').fetch()
 
-    const lastRequests = await Database.select([
-      'req.id',
-      'req.crh_state as state',
-      'req.created_at as date',
-      'A.username as author',
-      'R.username as receiver',
-      'T.timeline_title as title',
-      'T.color',
-      'T.icon'
-    ])
+    const lastRequests = await Database
+      .select([
+        'req.id',
+        'req.crh_state as state',
+        'req.created_at as date',
+        'A.username as author',
+        'R.username as receiver',
+        'T.timeline_title as title',
+        'T.color',
+        'T.icon'
+      ])
       .from('requests as req')
       .innerJoin('request_controllers as C', 'C.id', '=', 'req.controller_id')
       .innerJoin('request_types as T', 'T.id', '=', 'req.type_id')
@@ -48,36 +47,27 @@ class RequestHttpController {
    *
    * @method GET
    */
-  async all({ request, params: { controllerSlug = null }, view }) {
+  async all ({ request, params: { controllerSlug = null }, view }) {
     const { author, receiver, page = 1 } = request.all()
 
     const controllers = await RequestController.query()
-      .select(['name', 'slug'])
-      .where('is_crh', true)
-      .fetch()
-      .then((controllers) => controllers.toJSON())
+      .select(['name', 'slug']).where('is_crh', true)
+      .fetch().then((controllers) => controllers.toJSON())
 
-    const { name: currentController } =
-      controllerSlug === null
-        ? {}
-        : controllers.find(({ slug }) => slug === controllerSlug) || {}
+    const { name: currentController } = (controllerSlug === null) ? {} : controllers
+      .find(({ slug }) => slug === controllerSlug) || {}
 
     if (controllerSlug !== null && !currentController) {
       throw new HttpException('Controller não encontrado.', 404)
     }
 
     const requests = await Request.query()
-      .whereHas('controller', (builder) =>
-        builder.where({
-          is_crh: true,
-          ...(controllerSlug ? { slug: controllerSlug } : {})
-        })
-      )
+      .whereHas('controller', (builder) => builder.where({
+        is_crh: true, ...(controllerSlug ? { slug: controllerSlug } : {})
+      }))
       .whereHas('author', (builder) => Filters.username(builder, author))
       .whereHas('receiver', (builder) => Filters.username(builder, receiver))
-      .with('type', (builder) =>
-        builder.select('id', 'timeline_title', 'name', 'icon', 'color')
-      )
+      .with('type', (builder) => builder.select('id', 'timeline_title', 'name', 'icon', 'color'))
       .with('author', (builder) => builder.select('id', 'username'))
       .with('receiver', (builder) => builder.select('id', 'username'))
       .orderByRaw('created_at DESC')

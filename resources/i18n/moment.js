@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 // 'Janeiro_Fevereiro_Março_Abril_Maio_Junho_Julho_Agosto_Setembro_Outubro_Novembro_Dezembro'
 
@@ -29,7 +29,7 @@ module.exports = {
     lastWeek: function() {
       return this.day() === 0 || this.day() === 6
         ? '[Último] dddd [às] LT' // Saturday + Sunday
-        : '[Última] dddd [às] LT' // Monday - Friday
+        : '[Última] dddd [às] LT'; // Monday - Friday
     },
     sameElse: 'L'
   },
@@ -51,4 +51,4 @@ module.exports = {
   },
   dayOfMonthOrdinalParse: /\d{1,2}º/,
   ordinal: '%dº'
-}
+};

@@ -19,11 +19,11 @@
   width: 100px;
   height: 100%;
   box-shadow: 0 0 10px $np-bg, 0 0 5px $np-bg;
-  opacity: 1;
+  opacity: 1.0;
 
   -webkit-transform: rotate(3deg) translate(0px, -4px);
-  -ms-transform: rotate(3deg) translate(0px, -4px);
-  transform: rotate(3deg) translate(0px, -4px);
+      -ms-transform: rotate(3deg) translate(0px, -4px);
+          transform: rotate(3deg) translate(0px, -4px);
 }
 
 #nprogress .spinner {
@@ -58,10 +58,6 @@
 }
 
 @keyframes nprogress-spinner {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

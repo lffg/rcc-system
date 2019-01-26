@@ -9,7 +9,7 @@ class Permission extends Model {
    * @static
    * @return {void}
    */
-  static boot() {
+  static boot () {
     super.boot()
 
     this.addHook('beforeCreate', 'AliasHook.generateAlias')
@@ -25,10 +25,10 @@ class Permission extends Model {
    *
    */
 
-  groups() {
-    return this.belongsToMany('App/Models/Group').pivotTable(
-      'pivot_group_permission'
-    )
+  groups () {
+    return this
+      .belongsToMany('App/Models/Group')
+      .pivotTable('pivot_group_permission')
   }
 }
 

@@ -4,11 +4,7 @@
       border: solid 1px darken($secondary, 4%);
       position: relative;
       background-color: $secondary;
-      background-image: linear-gradient(
-        to bottom,
-        lighten($secondary, 4%),
-        darken($secondary, 3%)
-      );
+      background-image: linear-gradient(to bottom, lighten($secondary, 4%), darken($secondary, 3%));
       color: $white;
       text-shadow: 0 2px rgba(230, 230, 230, 0.23);
 
@@ -105,7 +101,7 @@
       border-radius: 100px;
       margin: 0 auto;
       overflow: hidden;
-      box-shadow: inset -2px -3px rgba(0, 0, 0, 0.05);
+      box-shadow: inset -2px -3px rgba(0, 0, 0, .05);
     }
 
     .sys-user-info {

@@ -3,7 +3,7 @@
 const { HttpException } = use('@adonisjs/generic-exceptions')
 
 class Ajax {
-  async handle({ request }, next) {
+  async handle ({ request }, next) {
     if (!request.ajax()) {
       throw new HttpException('Requisição inválida.', 400)
     }

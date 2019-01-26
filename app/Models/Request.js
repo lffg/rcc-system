@@ -4,12 +4,12 @@ const Model = use('Model')
 
 class Request extends Model {
   /**
-   * Método de boot (inicialização).
-   *
-   * @static
-   * @return {void}
-   */
-  static boot() {
+  * Método de boot (inicialização).
+  *
+  * @static
+  * @return {void}
+  */
+  static boot () {
     super.boot()
 
     this.addHook('beforeSave', 'RequestHook.createIntegrityToken')
@@ -26,39 +26,39 @@ class Request extends Model {
    *
    */
 
-  controller() {
+  controller () {
     return this.belongsTo('App/Models/RequestController', 'controller_id')
   }
 
-  type() {
+  type () {
     return this.belongsTo('App/Models/RequestType', 'type_id')
   }
 
-  reviews() {
+  reviews () {
     return this.hasMany('App/Models/RequestReview')
   }
 
-  editLogs() {
+  editLogs () {
     return this.hasMany('App/Models/RequestEditLog')
   }
 
-  changeUsernameLogs() {
+  changeUsernameLogs () {
     return this.hasMany('App/Models/ChangeUsernameLog')
   }
 
-  userWarnings() {
+  userWarnings () {
     return this.hasMany('App/Models/UserWarning')
   }
 
-  author() {
+  author () {
     return this.belongsTo('App/Models/User', 'author_id')
   }
 
-  receiver() {
+  receiver () {
     return this.belongsTo('App/Models/User', 'receiver_id')
   }
 
-  reviwer() {
+  reviwer () {
     return this.belongsTo('App/Models/User', 'reviwer_id')
   }
 }

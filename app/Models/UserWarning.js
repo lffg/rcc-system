@@ -2,6 +2,7 @@
 
 const Model = use('Model')
 
-class UserWarning extends Model {}
+class UserWarning extends Model {
+}
 
 module.exports = UserWarning

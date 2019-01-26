@@ -9,7 +9,7 @@
     box-shadow: inset 0 -3px rgba(0, 0, 0, 0.05);
 
     &::after {
-      content: '\d7';
+      content: "\d7";
       position: absolute;
       top: -3px;
       right: 5px;
@@ -23,11 +23,11 @@
       background-color: $success;
     }
 
-    &.--danger {
+    &.--danger  {
       background-color: $danger;
     }
 
-    &.--info {
+    &.--info    {
       background-color: $primary;
     }
 
@@ -56,11 +56,11 @@
     padding: 0;
     overflow: hidden;
     position: relative;
-    border-radius: 0.25rem;
+    border-radius: .25rem;
     background-color: $dark;
     color: $white;
     transition: all ease-in-out 200ms;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 1px 2px rgba(0,0,0,.3);
     cursor: pointer;
 
     &:not(:last-child) {
@@ -71,11 +71,11 @@
       background-color: $success;
     }
 
-    &.--danger {
+    &.--danger  {
       background-color: $danger;
     }
 
-    &.--info {
+    &.--info    {
       background-color: $primary;
     }
 
@@ -85,10 +85,10 @@
 
     &:hover {
       transform: scale(1.019);
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, .3);
     }
 
-    &.--hidden {
+    &.--hidden  {
       transition: all ease-in-out 350ms;
       transform: scale(0) translateY(-25px) !important;
       opacity: 0 !important;
@@ -111,7 +111,7 @@
     }
 
     & > .sys-toast-bar {
-      border-bottom: 3px solid rgba(0, 0, 0, 0.2);
+      border-bottom: 3px solid rgba(0, 0, 0, .2);
       border-top: 3px solid transparent;
       bottom: 0;
       left: 0;

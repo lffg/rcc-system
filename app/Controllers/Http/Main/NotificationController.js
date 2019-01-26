@@ -8,7 +8,7 @@ class NotificationController {
    *
    * @method GET
    */
-  async list({ params: { userId = null }, view }) {
+  async list ({ params: { userId = null }, view }) {
     const notifications = await Notification.query()
       .where({ user_id: userId, is_read: false })
       .limit(12)

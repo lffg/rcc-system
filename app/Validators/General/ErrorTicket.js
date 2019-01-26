@@ -1,23 +1,21 @@
 'use strict'
 
 class ErrorTicket {
-  get rules() {
+  get rules () {
     return {
-      message: 'required',
-      type: 'required|in:BUG,SPELLING,OTHER'
+      'message': 'required',
+      'type': 'required|in:BUG,SPELLING,OTHER'
     }
   }
 
-  get messages() {
+  get messages () {
     return {
-      required:
-        'Erro ao criar o ticket: você deve completar os campos obrigatórios.',
-      in:
-        'Erro ao criar o ticket: os valores não estão normalizados. Tente novamente.'
+      'required' : 'Erro ao criar o ticket: você deve completar os campos obrigatórios.',
+      'in': 'Erro ao criar o ticket: os valores não estão normalizados. Tente novamente.'
     }
   }
 
-  async fails(errorMessages) {
+  async fails (errorMessages) {
     const { response, session } = this.ctx
     const [{ message }] = errorMessages
 

@@ -7,17 +7,17 @@
     > a {
       background-color: $white;
       color: $primary;
-      border-radius: 0.25rem;
+      border-radius: .25rem;
       padding: 10px 17px;
       margin-right: 8px;
       font-size: 17px;
-      letter-spacing: 0.7px;
+      letter-spacing: .7px;
       text-decoration: none;
       transition: $trans;
 
       &:hover {
         background-color: $primary;
-        box-shadow: 0px 4px rgba(0, 0, 0, 0.1);
+        box-shadow: 0px 4px rgba(0,0,0,0.1);
         color: $white;
       }
     }
@@ -38,7 +38,7 @@
 
     &.sys-has-notification {
       &::before {
-        content: '';
+        content: "";
         position: absolute;
         top: 10px;
         left: 15px;
@@ -46,10 +46,7 @@
         width: 14px;
         height: 14px;
         pointer-events: none;
-        background-image: linear-gradient(
-          lighten($secondary, 1%),
-          darken($secondary, 4%)
-        );
+        background-image: linear-gradient(lighten($secondary, 1%), darken($secondary, 4%));
         background-clip: padding-box;
         border: 2px solid #fff;
         border-radius: 50%;

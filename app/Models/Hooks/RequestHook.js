@@ -3,7 +3,7 @@
 const shortid = require('shortid')
 const crypto = require('crypto')
 
-const RequestHook = (exports = module.exports = {})
+const RequestHook = exports = module.exports = {}
 
 RequestHook.createIntegrityToken = (requestInstance) => {
   const token = crypto

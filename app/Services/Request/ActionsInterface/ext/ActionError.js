@@ -3,7 +3,7 @@
 const { LogicalException } = use('@adonisjs/generic-exceptions')
 
 class ActionError extends LogicalException {
-  constructor(message, ...args) {
+  constructor (message, ...args) {
     super(message, ...args)
     this.message = message
   }
