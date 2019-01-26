@@ -16,7 +16,10 @@ require('./_main.session')
 require('./_main.requests')
 
 Route.any('/post', async ({ request, auth }) => {
-  if (process.env.NODE_ENV === 'development' || await auth.user.hasPermission('DEV', true)) {
+  if (
+    process.env.NODE_ENV === 'development' ||
+    (await auth.user.hasPermission('DEV', true))
+  ) {
     return request.all()
   }
 

@@ -6,7 +6,7 @@ const { getPositions } = use('App/Models/Position')
 const User = use('App/Models/User')
 
 class RequestType {
-  register (Model) {
+  register(Model) {
     /**
      * ---------------------------------------------------------------------
      * Métodos estáticos:
@@ -33,7 +33,11 @@ class RequestType {
 
       const data = type.toJSON()
 
-      if (getPos && (type.field_before_position !== 'HIDE' || type.field_after_position !== 'HIDE')) {
+      if (
+        getPos &&
+        (type.field_before_position !== 'HIDE' ||
+          type.field_after_position !== 'HIDE')
+      ) {
         let positions = null
 
         if (data.before_position_group_id === data.after_position_group_id) {
@@ -41,8 +45,12 @@ class RequestType {
         }
 
         data.positions = {
-          before: positions || await getPositions(data.before_position_group_id, filter),
-          after: positions || await getPositions(data.after_position_group_id, filter)
+          before:
+            positions ||
+            (await getPositions(data.before_position_group_id, filter)),
+          after:
+            positions ||
+            (await getPositions(data.after_position_group_id, filter))
         }
       }
 
@@ -61,7 +69,9 @@ class RequestType {
       const controller = await RequestController.query()
         .select('id')
         .where({ id })
-        .with('types', (builder) => builder.select('id', 'controller_id', 'name', 'color', 'icon'))
+        .with('types', (builder) =>
+          builder.select('id', 'controller_id', 'name', 'color', 'icon')
+        )
         .firstOrFail()
 
       return controller.toJSON().types
@@ -79,13 +89,20 @@ class RequestType {
      *
      * @return {Promise<object[]>}
      */
-    Model.prototype.getActions = async function () {
+    Model.prototype.getActions = async function() {
       const actions = await this.actions()
         .fetch()
         .then((actions) => actions.toJSON())
 
-      return actions
-        .map(({ id, alias, execute_on: on, name, description }) => ({ id, alias, on, name, description }))
+      return actions.map(
+        ({ id, alias, execute_on: on, name, description }) => ({
+          id,
+          alias,
+          on,
+          name,
+          description
+        })
+      )
     }
 
     /**
@@ -94,9 +111,11 @@ class RequestType {
      * @param  {string[]} users
      * @return {Promise<{ status: boolean, code?: string, params?: string[] }>}
      */
-    Model.prototype.validateUsers = async function (users) {
+    Model.prototype.validateUsers = async function(users) {
       if (!Array.isArray(users)) {
-        throw new TypeError('`users` deve ser do tipo array em `RequestType.checkUsers`.')
+        throw new TypeError(
+          '`users` deve ser do tipo array em `RequestType.checkUsers`.'
+        )
       }
 
       if (!users.length) {
@@ -110,7 +129,11 @@ class RequestType {
       if (this.allow_unregistered_users) {
         for (const username of users) {
           if (!(await existsHabboUser(username))) {
-            return { status: false, code: 'UNDEFINED_HABBO_USER', params: [username] }
+            return {
+              status: false,
+              code: 'UNDEFINED_HABBO_USER',
+              params: [username]
+            }
           }
         }
       }
@@ -131,11 +154,18 @@ class RequestType {
 
             // Verifica se a posição é a mesma do grupo definido no esquema do tipo:
             if (position.group_id !== this.strict_to_position_group) {
-              return { status: false, code: 'INVALID_POSITION', params: [position.name, username] }
+              return {
+                status: false,
+                code: 'INVALID_POSITION',
+                params: [position.name, username]
+              }
             }
 
             // Verifica se todos os afetados têm a mesma posição:
-            if ((lastPositionId !== $default) && (lastPositionId !== user.position_id)) {
+            if (
+              lastPositionId !== $default &&
+              lastPositionId !== user.position_id
+            ) {
               return { status: false, code: 'DIF_POSITIONS' }
             }
 
@@ -153,7 +183,7 @@ class RequestType {
      * @param  {string[]} users
      * @return {Promise<{ status: boolean, code?: string, params?: string[] }>}
      */
-    Model.prototype.validateFields = async function (data) {
+    Model.prototype.validateFields = async function(data) {
       const dict = new Map([
         ['field_before_position', 'before_position_id'],
         ['field_after_position', 'after_position_id'],

@@ -1,7 +1,7 @@
 'use strict'
 
 class RequestController {
-  register (Model) {
+  register(Model) {
     /**
      * ---------------------------------------------------------------------
      * Métodos estáticos:
@@ -35,15 +35,16 @@ class RequestController {
      * @return {Promise<object>}
      */
     Model.getControllers = async (onlyForCrh = true, getTypes = false) => {
-      const query = Model.query()
-        .select('id', 'name')
+      const query = Model.query().select('id', 'name')
 
       if (onlyForCrh) {
         query.whereNot('is_crh', false)
       }
 
       if (getTypes) {
-        query.with('types', (builder) => builder.select('id', 'controller_id', 'name'))
+        query.with('types', (builder) =>
+          builder.select('id', 'controller_id', 'name')
+        )
       }
 
       return query.fetch().then((query) => query.toJSON())

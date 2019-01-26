@@ -49,24 +49,32 @@ Route.group(() => {
   Route.post(':id', 'GroupController.update').validator('Admin/UpdateGroup')
 
   Route.get(':id/members', 'GroupController.members').as('admin:groups.members')
-  Route.get(':id/permissions', 'GroupController.permissions').as('admin:groups.permissions')
+  Route.get(':id/permissions', 'GroupController.permissions').as(
+    'admin:groups.permissions'
+  )
 
   Route.get('delete/:id', 'GroupController.delete').as('admin:groups.delete')
   Route.post('delete/:id', 'GroupController.destroy')
 
-  Route.get('change-order/:id/:mode', 'GroupController.order').as('admin:groups.order')
+  Route.get('change-order/:id/:mode', 'GroupController.order').as(
+    'admin:groups.order'
+  )
 
   Route.post(':id/add-user', 'GroupController.addUser')
-    .as('admin:groups.add-user').validator('Admin/AddUserToGroup')
+    .as('admin:groups.add-user')
+    .validator('Admin/AddUserToGroup')
 
   Route.post(':id/remove-user', 'GroupController.removeUser')
-    .as('admin:groups.remove-user').validator('Admin/CheckUsername')
+    .as('admin:groups.remove-user')
+    .validator('Admin/CheckUsername')
 
   Route.post(':id/add-moderator', 'GroupController.addModerator')
-    .as('admin:groups.add-moderator').validator('Admin/CheckUsername')
+    .as('admin:groups.add-moderator')
+    .validator('Admin/CheckUsername')
 
   Route.post(':id/remove-moderator', 'GroupController.removeModerator')
-    .as('admin:groups.remove-moderator').validator('Admin/CheckUsername')
+    .as('admin:groups.remove-moderator')
+    .validator('Admin/CheckUsername')
 })
   .middleware(['auth', 'admin'])
   .namespace('Admin')

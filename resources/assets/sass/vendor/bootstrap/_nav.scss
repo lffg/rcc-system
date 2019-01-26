@@ -45,7 +45,8 @@
     color: $nav-tabs-hover-color;
 
     @include hover-focus {
-      box-shadow: inset 0 (-$nav-tabs-box-shadow-widh) $nav-tabs-box-shadow-hover-color;
+      box-shadow: inset 0 (-$nav-tabs-box-shadow-widh)
+        $nav-tabs-box-shadow-hover-color;
     }
 
     &.disabled {
@@ -65,7 +66,8 @@
     // background-color: $nav-tabs-link-active-bg;
     // border-color: $nav-tabs-link-active-border-color;
     // color: $nav-tabs-active-color;
-    box-shadow: inset 0 (-$nav-tabs-box-shadow-widh) $nav-tabs-box-shadow-active-color;
+    box-shadow: inset 0 (-$nav-tabs-box-shadow-widh)
+      $nav-tabs-box-shadow-active-color;
     cursor: default;
   }
 
@@ -76,7 +78,6 @@
     @include border-top-radius(0);
   }
 }
-
 
 //
 // Pills
@@ -94,7 +95,6 @@
     @include gradient-bg($nav-pills-link-active-bg);
   }
 }
-
 
 //
 // Justified variants
@@ -114,7 +114,6 @@
     text-align: center;
   }
 }
-
 
 // Tabbable tabs
 //

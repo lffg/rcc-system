@@ -4,12 +4,12 @@
  * ---------------------------------------------------------------------
  */
 
-const gulp       = require('gulp')
-const path       = require('path')
-const plumber    = require('gulp-plumber')
-const concat     = require('gulp-concat')
-const sass       = require('gulp-sass')
-const prefixer   = require('gulp-autoprefixer')
+const gulp = require('gulp')
+const path = require('path')
+const plumber = require('gulp-plumber')
+const concat = require('gulp-concat')
+const sass = require('gulp-sass')
+const prefixer = require('gulp-autoprefixer')
 const sourcemaps = require('gulp-sourcemaps')
 
 /**
@@ -27,7 +27,16 @@ const WATCH_PATHS = {
   sass: [
     path.join(__dirname, 'resources', 'assets', 'sass', '**', '**', '*.scss'),
     path.join(__dirname, 'resources', 'assets', 'sass', '**', '**', '*.scss'),
-    path.join(__dirname, 'resources', 'assets', 'sass', '**', '**', '**', '*.scss')
+    path.join(
+      __dirname,
+      'resources',
+      'assets',
+      'sass',
+      '**',
+      '**',
+      '**',
+      '*.scss'
+    )
   ],
   js: path.join(__dirname, 'resources', 'assets', 'js', '**', '*.js')
 }
@@ -54,25 +63,33 @@ gulp.task('watch', () => {
 })
 
 gulp.task('sass', () => {
-  console.log(`[  TASK  ] [SASS] Número da task do gulp do processo: ${taskCount}.`)
+  console.log(
+    `[  TASK  ] [SASS] Número da task do gulp do processo: ${taskCount}.`
+  )
   taskCount = taskCount + 1
 
-  return gulp.src(SRC_PATHS.sass)
+  return gulp
+    .src(SRC_PATHS.sass)
     .pipe(plumber())
     .pipe(sourcemaps.init())
     .pipe(sass({ outputStyle: 'compressed' }))
-    .pipe(prefixer({
-      browsers: ['last 4 versions']
-    }))
+    .pipe(
+      prefixer({
+        browsers: ['last 4 versions']
+      })
+    )
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(DEST_PATHS.sass))
 })
 
 gulp.task('js', () => {
-  console.log(`[  TASK  ] [ JS ] Número da task do gulp do processo: ${taskCount}.`)
+  console.log(
+    `[  TASK  ] [ JS ] Número da task do gulp do processo: ${taskCount}.`
+  )
   taskCount = taskCount + 1
 
-  return gulp.src(SRC_PATHS.js)
+  return gulp
+    .src(SRC_PATHS.js)
     .pipe(concat('index.js'))
     .pipe(gulp.dest(DEST_PATHS.js))
 })

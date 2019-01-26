@@ -14,23 +14,33 @@ class RequestCreate {
    *
    * @return {object}
    */
-  get messages () {
+  get messages() {
     const { request } = this.ctx
     const affecteds = splitNicks(request.input('receivers', ''), true)
 
     return {
-      'INVALID_AUTHOR'       : 'O campo "requerente" está inválido. Atualize a página e tente novamente.',
-      'INVALID_CONTROLLER'   : 'O requerimento selecionado não existe ou é inválido para este contexto.',
-      'NO_USERS'             : 'Você deve fornecer usuários que serão afetados pelo requerimento.',
-      'INVALID_TYPE'         : 'O tipo para o requerimento escolhido não existe ou está inválido.',
-      'MORE_THAN_ONE_USER'   : 'Este requerimento só aceita um usuário afetado por vez.',
-      'NO_USER'              : 'O usuário "%s" não existe.',
-      'INVALID_POSITION'     : 'A posição "%s" do usuário %s não é válida para este requerimento.',
-      'DIF_POSITIONS'        : `Os usuários afetados (${affecteds.join(', ')}) devem ser da mesma patente/cargo.`,
-      'MISSING_VALUES'       : 'Você deve completar todos os campos obrigatórios. [%s]',
-      'FORBIDDEN_FIELDS'     : 'Você forneceu dados adicionais proibidos para este tipo de requerimento. [%s]',
-      'UNDEFINED_HABBO_USER' : 'O usuário "%s" não existe no Habbo Hotel. Se você acha que isso é um erro, atualize a página e tente novamente.',
-      '$default'             : 'Houve um erro desconhecido ao tentar criar o requerimento.'
+      INVALID_AUTHOR:
+        'O campo "requerente" está inválido. Atualize a página e tente novamente.',
+      INVALID_CONTROLLER:
+        'O requerimento selecionado não existe ou é inválido para este contexto.',
+      NO_USERS:
+        'Você deve fornecer usuários que serão afetados pelo requerimento.',
+      INVALID_TYPE:
+        'O tipo para o requerimento escolhido não existe ou está inválido.',
+      MORE_THAN_ONE_USER:
+        'Este requerimento só aceita um usuário afetado por vez.',
+      NO_USER: 'O usuário "%s" não existe.',
+      INVALID_POSITION:
+        'A posição "%s" do usuário %s não é válida para este requerimento.',
+      DIF_POSITIONS: `Os usuários afetados (${affecteds.join(
+        ', '
+      )}) devem ser da mesma patente/cargo.`,
+      MISSING_VALUES: 'Você deve completar todos os campos obrigatórios. [%s]',
+      FORBIDDEN_FIELDS:
+        'Você forneceu dados adicionais proibidos para este tipo de requerimento. [%s]',
+      UNDEFINED_HABBO_USER:
+        'O usuário "%s" não existe no Habbo Hotel. Se você acha que isso é um erro, atualize a página e tente novamente.',
+      $default: 'Houve um erro desconhecido ao tentar criar o requerimento.'
     }
   }
 
@@ -42,20 +52,24 @@ class RequestCreate {
    * @param  {number} status
    * @return {any}
    */
-  error (error, params = [], status = 400) {
+  error(error, params = [], status = 400) {
     const uri = Route.url('requests.create')
     const { request, response } = this.ctx
     error = sprintf(error || this.messages['$default'], ...params)
 
     if (/\/save$/i.test(request.url())) {
-      throw new FormError(`Erro ao tentar criar a requisição: ${error}`, 400, uri)
+      throw new FormError(
+        `Erro ao tentar criar a requisição: ${error}`,
+        400,
+        uri
+      )
     }
 
     response.status(status).json({ error })
     return false
   }
 
-  async authorize () {
+  async authorize() {
     const { request, params: requestParams } = this.ctx
     let step
 
@@ -76,9 +90,10 @@ class RequestCreate {
       }
     }
 
-    const {
-      status, code, params = []
-    } = await RequestInterface.validate(step, request.all())
+    const { status, code, params = [] } = await RequestInterface.validate(
+      step,
+      request.all()
+    )
 
     if (!status) {
       return this.error(this.messages[code], params)

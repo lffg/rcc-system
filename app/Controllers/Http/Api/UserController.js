@@ -10,13 +10,15 @@ class UserController {
    * @method GET
    * @api
    */
-  async check ({ request, response }) {
+  async check({ request, response }) {
     const username = request.input('u', '')
 
     try {
       await User.findByOrFail('username', username)
     } catch (e) {
-      return response.status(404).json({ status: false, username, error: 'User not found' })
+      return response
+        .status(404)
+        .json({ status: false, username, error: 'User not found' })
     }
 
     return { status: true, username }
@@ -28,7 +30,7 @@ class UserController {
    * @method GET
    * @api
    */
-  async checkTag ({ request }) {
+  async checkTag({ request }) {
     const tag = request.input('tag', '')
 
     return Database.from('users')

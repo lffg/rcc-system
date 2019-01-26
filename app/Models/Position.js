@@ -11,7 +11,7 @@ class Position extends Model {
    * @static
    * @return {void}
    */
-  static boot () {
+  static boot() {
     super.boot()
 
     this.addTrait('Position')
@@ -23,7 +23,7 @@ class Position extends Model {
    * @static
    * @return {string[]}
    */
-  static get computed () {
+  static get computed() {
     return ['colorYiq']
   }
 
@@ -33,7 +33,7 @@ class Position extends Model {
    * @param  {string} Group.color
    * @return {string}
    */
-  getColorYiq ({ color }) {
+  getColorYiq({ color }) {
     return yiq(color)
   }
 
@@ -47,23 +47,23 @@ class Position extends Model {
    *
    */
 
-  group () {
+  group() {
     return this.belongsTo('App/Models/PositionGroup', 'group_id')
   }
 
-  prev () {
+  prev() {
     return this.belongsTo('App/Models/Position', 'prev_position_id')
   }
 
-  next () {
+  next() {
     return this.belongsTo('App/Models/Position', 'next_position_id')
   }
 
-  equivalence () {
+  equivalence() {
     return this.belongsTo('App/Models/Position', 'equivalent_to_id')
   }
 
-  users () {
+  users() {
     return this.hasMany('App/Models/Position', 'id', 'group_id')
   }
 }

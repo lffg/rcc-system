@@ -18,9 +18,11 @@ module.exports = () => ({
   caller
 })
 
-async function caller ({ transaction, request }) {
+async function caller({ transaction, request }) {
   const warn = new UserWarning()
-  warn.until = moment(Date.now()).add(1, 'months').format('YYYY-MM-DD')
+  warn.until = moment(Date.now())
+    .add(1, 'months')
+    .format('YYYY-MM-DD')
   warn.user_id = request.receiver_id
   warn.request_id = request.id
   await warn.save(transaction)

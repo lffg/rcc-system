@@ -5,11 +5,11 @@ const { merge } = require('lodash')
 const User = use('App/Models/User')
 
 class Userdata {
-  async handle ({ view, auth }, next) {
+  async handle({ view, auth }, next) {
     try {
       await auth.check()
     } catch (error) {
-      view.share({ '$userdata': { logged_in: false } })
+      view.share({ $userdata: { logged_in: false } })
 
       return next()
     }
@@ -22,7 +22,7 @@ class Userdata {
       .first()
 
     view.share({
-      '$userdata': merge(userdata.toJSON(), { logged_in: true })
+      $userdata: merge(userdata.toJSON(), { logged_in: true })
     })
 
     return next()

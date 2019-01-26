@@ -17,7 +17,7 @@ const Request = use('App/Models/Request')
 const Post = use('App/Models/Post')
 
 class Init {
-  async run () {
+  async run() {
     await Database.raw('SET FOREIGN_KEY_CHECKS = 0')
 
     await Group.truncate()

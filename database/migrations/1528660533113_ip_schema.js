@@ -3,12 +3,15 @@
 const Schema = use('Schema')
 
 class IpsSchema extends Schema {
-  up () {
+  up() {
     this.create('ips', (table) => {
       table.increments()
 
       table.integer('user_id').unsigned()
-      table.foreign('user_id').references('users.id').onDelete('cascade')
+      table
+        .foreign('user_id')
+        .references('users.id')
+        .onDelete('cascade')
 
       table.string('ip', 45).notNullable()
 
@@ -16,7 +19,7 @@ class IpsSchema extends Schema {
     })
   }
 
-  down () {
+  down() {
     this.drop('ips')
   }
 }

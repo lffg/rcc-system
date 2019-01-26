@@ -20,18 +20,14 @@ const globalMiddleware = [
 ]
 
 const namedMiddleware = {
-  'auth'  : 'Adonis/Middleware/Auth',
-  'guest' : 'App/Middleware/Named/Guest',
-  'ajax'  : 'App/Middleware/Named/Ajax',
-  'admin' : 'App/Middleware/Named/Admin'
+  auth: 'Adonis/Middleware/Auth',
+  guest: 'App/Middleware/Named/Guest',
+  ajax: 'App/Middleware/Named/Ajax',
+  admin: 'App/Middleware/Named/Admin'
 }
 
-const serverMiddleware = [
-  'Adonis/Middleware/Static',
-  'Adonis/Middleware/Cors'
-]
+const serverMiddleware = ['Adonis/Middleware/Static', 'Adonis/Middleware/Cors']
 
-Server
-  .registerGlobal(globalMiddleware)
+Server.registerGlobal(globalMiddleware)
   .registerNamed(namedMiddleware)
   .use(serverMiddleware)

@@ -9,7 +9,7 @@ class PositionGroup extends Model {
    * @static
    * @return {void}
    */
-  static boot () {
+  static boot() {
     super.boot()
 
     this.addHook('beforeCreate', 'AliasHook.generateAlias')
@@ -25,9 +25,11 @@ class PositionGroup extends Model {
    *
    */
 
-  positions () {
-    return this.hasMany('App/Models/Position', 'id', 'group_id')
-      .orderBy('order', 'asc')
+  positions() {
+    return this.hasMany('App/Models/Position', 'id', 'group_id').orderBy(
+      'order',
+      'asc'
+    )
   }
 }
 

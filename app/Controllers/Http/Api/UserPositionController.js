@@ -10,21 +10,24 @@ class UserPositionController {
    * @method GET
    * @api
    */
-  async check ({ request, response }) {
+  async check({ request, response }) {
     const username = request.input('u', '')
 
     try {
       await User.findByOrFail('username', username)
     } catch (e) {
-      return response.status(404).json({ status: false, username, error: 'User not found' })
+      return response
+        .status(404)
+        .json({ status: false, username, error: 'User not found' })
     }
 
-    const { position: { id, name, next, prev, equivalence } } = (await User.query()
+    const {
+      position: { id, name, next, prev, equivalence }
+    } = (await User.query()
       .select('id', 'username', 'position_id')
       .where({ username })
       .with('position', (builder) => builder.getNear())
-      .first())
-      .toJSON()
+      .first()).toJSON()
 
     return {
       positions: { prev, current: { id, name }, next, equivalence },

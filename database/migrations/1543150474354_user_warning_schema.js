@@ -3,21 +3,31 @@
 const Schema = use('Schema')
 
 class UserWarningSchema extends Schema {
-  up () {
+  up() {
     this.create('user_warnings', (table) => {
       table.increments()
       table.timestamps()
       table.date('until').notNullable()
 
       table.integer('user_id').unsigned()
-      table.foreign('user_id').references('users.id').onDelete('cascade')
+      table
+        .foreign('user_id')
+        .references('users.id')
+        .onDelete('cascade')
 
-      table.integer('request_id').unsigned().index('request_id').defaultTo(null)
-      table.foreign('request_id').references('requests.id').onDelete('set null')
+      table
+        .integer('request_id')
+        .unsigned()
+        .index('request_id')
+        .defaultTo(null)
+      table
+        .foreign('request_id')
+        .references('requests.id')
+        .onDelete('set null')
     })
   }
 
-  down () {
+  down() {
     this.drop('user_warnings')
   }
 }

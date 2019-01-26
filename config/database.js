@@ -35,7 +35,9 @@ module.exports = {
       database: Env.get('DB_DATABASE', ''),
       charset: 'utf8mb4'
     },
-    debug: Env.get('DB_DEBUG', '') === 'true' && Env.get('NODE_ENV', '') === 'development'
+    debug:
+      Env.get('DB_DEBUG', '') === 'true' &&
+      Env.get('NODE_ENV', '') === 'development'
   },
 
   /*

@@ -4,10 +4,10 @@
  * ---------------------------------------------------------------------
  */
 
-(function ($) {
+(function($) {
   'use strict';
 
-  $(document).ajaxComplete(function (event, response) {
+  $(document).ajaxComplete(function(event, response) {
     try {
       var json = JSON.parse(response.responseText);
 

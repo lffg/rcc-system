@@ -9,7 +9,7 @@ class RequestController extends Model {
    * @static
    * @return {void}
    */
-  static boot () {
+  static boot() {
     super.boot()
 
     this.addHook('beforeCreate', 'AliasHook.generateAlias')
@@ -32,11 +32,11 @@ class RequestController extends Model {
    *
    */
 
-  requests () {
+  requests() {
     return this.hasMany('App/Models/Request', 'id', 'controller_id')
   }
 
-  types () {
+  types() {
     return this.hasMany('App/Models/RequestType', 'id', 'controller_id')
   }
 }

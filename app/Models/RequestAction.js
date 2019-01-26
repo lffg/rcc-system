@@ -13,10 +13,12 @@ class RequestAction extends Model {
    *
    */
 
-  types () {
-    return this
-      .belongsToMany('App/Models/RequestType', 'action_id', 'type_id')
-      .pivotTable('pivot_request_action_type')
+  types() {
+    return this.belongsToMany(
+      'App/Models/RequestType',
+      'action_id',
+      'type_id'
+    ).pivotTable('pivot_request_action_type')
   }
 }
 

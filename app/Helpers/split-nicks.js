@@ -16,7 +16,7 @@ module.exports = {
  * @param  {boolean} onlyEntries
  * @return {{ entries: string[], string: string }|string[]}
  */
-function splitNicks (nicks = '', onlyEntries = false) {
+function splitNicks(nicks = '', onlyEntries = false) {
   // Divide a string:
   const splitedNicks = nicks
     .split(/\\|\//)
@@ -29,7 +29,8 @@ function splitNicks (nicks = '', onlyEntries = false) {
   if (onlyEntries) return entries
 
   return {
-    entries, string: entries.join(' / ')
+    entries,
+    string: entries.join(' / ')
   }
 }
 
@@ -41,19 +42,30 @@ function splitNicks (nicks = '', onlyEntries = false) {
  * @param  {...any} args
  * @return {Promise<any>}
  */
-async function fullSplitNicks (nicks = '', onlyEntries = false, complex = false) {
+async function fullSplitNicks(
+  nicks = '',
+  onlyEntries = false,
+  complex = false
+) {
   if (!complex) return splitNicks(nicks, onlyEntries)
   const { entries: usernames, string } = splitNicks(nicks, onlyEntries)
 
-  const entries = await Database
-    .select('U.username', 'P.name as position_name')
+  const entries = await Database.select('U.username', 'P.name as position_name')
     .from('users as U')
     .innerJoin('positions as P', 'P.id', '=', 'U.position_id')
     .whereIn('U.username', usernames)
-    .map((user) => ({ ...user, profile_link: `${Route.url('users.show')}?u=${user.username}` }))
+    .map((user) => ({
+      ...user,
+      profile_link: `${Route.url('users.show')}?u=${user.username}`
+    }))
 
   for (const nick of usernames) {
-    if (!entries.find(({ username }) => username.trim().toUpperCase() === nick.trim().toUpperCase())) {
+    if (
+      !entries.find(
+        ({ username }) =>
+          username.trim().toUpperCase() === nick.trim().toUpperCase()
+      )
+    ) {
       entries.unshift({ username: nick })
     }
   }

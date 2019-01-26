@@ -3,10 +3,11 @@
 const Database = use('Database')
 
 class CheckUsername {
-  async authorize () {
+  async authorize() {
     const { request, response, session } = this.ctx
 
-    const users = request.collect(['username'])
+    const users = request
+      .collect(['username'])
       .map(({ username }) => username.trim())
       .filter((username) => !!username && typeof username === 'string')
 
@@ -25,19 +26,20 @@ class CheckUsername {
     return true
   }
 
-  get rules () {
+  get rules() {
     return {
-      'username': 'required'
+      username: 'required'
     }
   }
 
-  get messages () {
+  get messages() {
     return {
-      'username.required': 'Você deve fornecer o nome de usuário para completar a ação.'
+      'username.required':
+        'Você deve fornecer o nome de usuário para completar a ação.'
     }
   }
 
-  async fails (errorMessages) {
+  async fails(errorMessages) {
     const { response, session } = this.ctx
     const [{ message }] = errorMessages
 

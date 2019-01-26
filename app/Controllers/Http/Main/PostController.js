@@ -8,7 +8,7 @@ class PostController {
    *
    * @method GET
    */
-  async index ({ view }) {
+  async index({ view }) {
     const posts = await Post.query()
       .where({ is_hidden: false })
       .with('user')
@@ -22,7 +22,7 @@ class PostController {
    *
    * @method GET
    */
-  async create () {
+  async create() {
     return 1
   }
 
@@ -31,15 +31,14 @@ class PostController {
    *
    * @method POST
    */
-  async store () {
-  }
+  async store() {}
 
   /**
    * Mostra uma notícia.
    *
    * @method GET
    */
-  async show ({ params: { slug }, view }) {
+  async show({ params: { slug }, view }) {
     const post = await Post.query()
       .where({ slug })
       .with('user', (builder) => {
@@ -55,7 +54,7 @@ class PostController {
    *
    * @method GET
    */
-  async edit () {
+  async edit() {
     return 1
   }
 
@@ -64,16 +63,14 @@ class PostController {
    *
    * @method POST
    */
-  async update () {
-  }
+  async update() {}
 
   /**
    * Remove uma notícia.
    *
    * @method GET
    */
-  async destroy () {
-  }
+  async destroy() {}
 }
 
 module.exports = PostController

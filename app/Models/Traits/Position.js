@@ -4,7 +4,7 @@ const PositionGroup = use('App/Models/PositionGroup')
 const User = use('App/Models/User')
 
 class Position {
-  register (Model) {
+  register(Model) {
     /**
      * ---------------------------------------------------------------------
      * Métodos estáticos:
@@ -18,11 +18,18 @@ class Position {
      * @param  {number} groupId
      * @return {Promise<object|object[]>}
      */
-    Model.getFullPositionsList = async ({ prev = true, next = true, equivalence = true } = {}, groupId = null) => {
+    Model.getFullPositionsList = async (
+      { prev = true, next = true, equivalence = true } = {},
+      groupId = null
+    ) => {
       const builder = (builder) => builder.select('id', 'name', 'color')
 
-      const query = PositionGroup.query()
-        .select('id', 'name', 'alias', 'description')
+      const query = PositionGroup.query().select(
+        'id',
+        'name',
+        'alias',
+        'description'
+      )
 
       if (groupId) query.andWhere({ id: groupId })
 
@@ -43,12 +50,15 @@ class Position {
     Model.getPositions = async (groupId = null, filter = {}) => {
       const query = PositionGroup.query()
         .select('id', 'name', 'alias')
-        .with('positions', (builder) => builder.select('id', 'group_id', 'name').where(filter))
+        .with('positions', (builder) =>
+          builder.select('id', 'group_id', 'name').where(filter)
+        )
 
       if (groupId) query.andWhere({ id: groupId })
 
-      const data = await query[!groupId ? 'fetch' : 'firstOrFail']()
-        .then((groups) => groups.toJSON())
+      const data = await query[!groupId ? 'fetch' : 'firstOrFail']().then(
+        (groups) => groups.toJSON()
+      )
 
       return Array.isArray(data) ? data : [data]
     }
@@ -61,12 +71,20 @@ class Position {
      */
     Model.getUserPositionInfo = async (userId) => {
       const {
-        id, username, position: { id: positionId, name: positionName, group: { id: groupId, alias, name: groupName } }
+        id,
+        username,
+        position: {
+          id: positionId,
+          name: positionName,
+          group: { id: groupId, alias, name: groupName }
+        }
       } = await User.query()
         .select('id', 'position_id', 'username')
         .where({ id: userId })
         .with('position')
-        .with('position.group', (builder) => builder.select('id', 'name', 'alias'))
+        .with('position.group', (builder) =>
+          builder.select('id', 'name', 'alias')
+        )
         .firstOrFail()
         .then((user) => user.toJSON())
 
@@ -89,9 +107,8 @@ class Position {
      *
      * @return {object}
      */
-    Model.queryMacro('getNear', function () {
-      this
-        .select('*')
+    Model.queryMacro('getNear', function() {
+      this.select('*')
         .with('group', (builder) => builder.select('id', 'name', 'alias'))
         .with('prev', (builder) => builder.select('id', 'name'))
         .with('next', (builder) => builder.select('id', 'name'))

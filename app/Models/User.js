@@ -11,7 +11,7 @@ class User extends Model {
    * @static
    * @return {void}
    */
-  static boot () {
+  static boot() {
     super.boot()
 
     this.addHook('beforeSave', 'UserHook.hashPassword')
@@ -29,7 +29,7 @@ class User extends Model {
    * @static
    * @return {string[]}
    */
-  static get computed () {
+  static get computed() {
     return ['allowed', 'disallowReason', 'isBanned']
   }
 
@@ -40,9 +40,9 @@ class User extends Model {
    * @param  {number} User.banned_until
    * @return {boolean}
    */
-  getAllowed ({ state }) {
+  getAllowed({ state }) {
     const isAllowedState = ['ACTIVE', 'RETIRED', 'VETERAN'].includes(state)
-    return (isAllowedState && !this.getIsBanned(...arguments))
+    return isAllowedState && !this.getIsBanned(...arguments)
   }
 
   /**
@@ -53,19 +53,21 @@ class User extends Model {
    * @param  {number} User.banned_until
    * @return {string|boolean}
    */
-  getDisallowReason ({ username, state, banned_until: bannedUntil = 0 }) {
+  getDisallowReason({ username, state, banned_until: bannedUntil = 0 }) {
     if (this.getAllowed(...arguments)) return false
 
     if (this.getIsBanned(...arguments)) {
-      return `O usuário ${username} está exonerado até o dia ${moment(bannedUntil).format('DD/MM/YYYY')}.`
+      return `O usuário ${username} está exonerado até o dia ${moment(
+        bannedUntil
+      ).format('DD/MM/YYYY')}.`
     }
 
-    return ({
-      'ACTIVE'   : `O usuário ${username} está ativo.`,
-      'RETIRED'  : `O usuário ${username} está reformado.`,
-      'VETERAN'  : `O usuário ${username} é veterano.`,
-      'INACTIVE' : `O usuário ${username} está inativo.`
-    })[state]
+    return {
+      ACTIVE: `O usuário ${username} está ativo.`,
+      RETIRED: `O usuário ${username} está reformado.`,
+      VETERAN: `O usuário ${username} é veterano.`,
+      INACTIVE: `O usuário ${username} está inativo.`
+    }[state]
   }
 
   /**
@@ -74,7 +76,7 @@ class User extends Model {
    * @param  {string} User.banned_until
    * @return {boolean}
    */
-  getIsBanned ({ banned_until: bannedUntil }) {
+  getIsBanned({ banned_until: bannedUntil }) {
     if (!bannedUntil) return false
     return !moment(bannedUntil).isSameOrBefore(Date.now(), 'day')
   }
@@ -85,7 +87,7 @@ class User extends Model {
    * @param  {number} User.banned_until
    * @return {string|boolean}
    */
-  getBannedUntilDate ({ banned_until: bannedUntil }) {
+  getBannedUntilDate({ banned_until: bannedUntil }) {
     if (Date.now() > bannedUntil) return false
 
     return moment(bannedUntil).format('DD/MM/YYYY [às] HH:mm')
@@ -97,7 +99,7 @@ class User extends Model {
    * @param  {string} tag
    * @return {string}
    */
-  getTag (tag) {
+  getTag(tag) {
     return tag || '___'
   }
 
@@ -107,11 +109,14 @@ class User extends Model {
    * @param  {string} gender
    * @return {string}
    */
-  getGender (gender) {
+  getGender(gender) {
     switch (gender) {
-      case 'M': return 'Masculino'
-      case 'F': return 'Feminino'
-      default: return 'Não Especificado'
+      case 'M':
+        return 'Masculino'
+      case 'F':
+        return 'Feminino'
+      default:
+        return 'Não Especificado'
     }
   }
 
@@ -121,14 +126,20 @@ class User extends Model {
    * @param  {string} location
    * @return {string}
    */
-  getLocation (location) {
+  getLocation(location) {
     switch (location) {
-      case 'BR': return 'Brasil'
-      case 'PT': return 'Portugal'
-      case 'AO': return 'Angola'
-      case 'MZ': return 'Moçambique'
-      case 'OTHER': return 'Outro'
-      default: return 'Não Especificado'
+      case 'BR':
+        return 'Brasil'
+      case 'PT':
+        return 'Portugal'
+      case 'AO':
+        return 'Angola'
+      case 'MZ':
+        return 'Moçambique'
+      case 'OTHER':
+        return 'Outro'
+      default:
+        return 'Não Especificado'
     }
   }
 
@@ -142,53 +153,51 @@ class User extends Model {
    *
    */
 
-  groups () {
-    return this
-      .belongsToMany('App/Models/Group')
-      .pivotTable('pivot_group_user')
+  groups() {
+    return this.belongsToMany('App/Models/Group').pivotTable('pivot_group_user')
   }
 
-  promoter () {
+  promoter() {
     return this.belongsTo('App/Models/User', 'promoter_id')
   }
 
-  tickets () {
+  tickets() {
     return this.hasMany('App/Models/ErrorTicket', 'id', 'author_id')
   }
 
-  timeline () {
+  timeline() {
     return this.hasMany('App/Models/CrhRequest', 'id', 'affected_id')
   }
 
-  position () {
+  position() {
     return this.belongsTo('App/Models/Position')
   }
 
-  posts () {
+  posts() {
     return this.hasMany('App/Models/Post')
   }
 
-  userSearches () {
+  userSearches() {
     return this.hasMany('App/Models/LastUserSearch')
   }
 
-  ips () {
+  ips() {
     return this.hasMany('App/Models/Ip')
   }
 
-  notifications () {
+  notifications() {
     return this.hasMany('App/Models/Notification')
   }
 
-  warnings () {
+  warnings() {
     return this.hasMany('App/Models/UserWarning')
   }
 
-  logs () {
+  logs() {
     return this.hasMany('App/Models/Log')
   }
 
-  tokens () {
+  tokens() {
     return this.hasMany('App/Models/Token')
   }
 }

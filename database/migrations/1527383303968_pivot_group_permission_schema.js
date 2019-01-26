@@ -3,20 +3,34 @@
 const Schema = use('Schema')
 
 class PivotGroupPermissionSchema extends Schema {
-  up () {
+  up() {
     this.create('pivot_group_permission', (table) => {
       table.increments()
       table.timestamps()
 
-      table.integer('group_id').unsigned().index('group_id').notNullable()
-      table.foreign('group_id').references('groups.id').onDelete('cascade')
+      table
+        .integer('group_id')
+        .unsigned()
+        .index('group_id')
+        .notNullable()
+      table
+        .foreign('group_id')
+        .references('groups.id')
+        .onDelete('cascade')
 
-      table.integer('permission_id').unsigned().index('permission_id').notNullable()
-      table.foreign('permission_id').references('permissions.id').onDelete('cascade')
+      table
+        .integer('permission_id')
+        .unsigned()
+        .index('permission_id')
+        .notNullable()
+      table
+        .foreign('permission_id')
+        .references('permissions.id')
+        .onDelete('cascade')
     })
   }
 
-  down () {
+  down() {
     this.drop('pivot_group_permission')
   }
 }

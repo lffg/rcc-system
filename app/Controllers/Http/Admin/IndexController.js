@@ -6,7 +6,7 @@ class IndexController {
    *
    * @method GET
    */
-  index ({ view }) {
+  index({ view }) {
     return view.render('admin.dashboard.index')
   }
 }

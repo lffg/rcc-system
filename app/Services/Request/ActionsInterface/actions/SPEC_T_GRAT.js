@@ -17,8 +17,9 @@ module.exports = () => ({
   caller
 })
 
-async function caller ({ transaction, request }) {
+async function caller({ transaction, request }) {
   const user = await User.findOrFail(request.receiver_id)
-  user.temporary_bonuses = parseInt(user.temporary_bonuses, 10) + parseInt(request.bonuses, 10)
+  user.temporary_bonuses =
+    parseInt(user.temporary_bonuses, 10) + parseInt(request.bonuses, 10)
   await user.save(transaction)
 }
