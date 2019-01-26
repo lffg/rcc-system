@@ -19,7 +19,7 @@ module.exports = () => ({
   caller
 })
 
-async function caller ({ transaction, request }, ActionError) {
+async function caller({ transaction, request }, ActionError) {
   const { status, error } = await validate(request.extra_user_1)
   if (!status && error) throw new ActionError(`Aprovação cancelada: ${error}`)
 

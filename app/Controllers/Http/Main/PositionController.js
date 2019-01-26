@@ -9,7 +9,7 @@ class PositionController {
    *
    * @method GET
    */
-  index ({ view }) {
+  index({ view }) {
     return view.render('pages.positions.index')
   }
 
@@ -18,7 +18,7 @@ class PositionController {
    *
    * @method GET
    */
-  async list ({ view }) {
+  async list({ view }) {
     const groups = await Position.getFullPositionsList()
     return view.render('pages.positions.list', { groups })
   }
@@ -28,7 +28,7 @@ class PositionController {
    *
    * @method GET
    */
-  async users ({ view }) {
+  async users({ view }) {
     const groups = await Position.getFullPositionsList()
     return view.render('pages.positions.users', { groups })
   }
@@ -38,7 +38,7 @@ class PositionController {
    *
    * @method GET
    */
-  async showUsers ({ params: { positionId = null }, view }) {
+  async showUsers({ params: { positionId = null }, view }) {
     const users = await User.query()
       .select('id', 'username')
       .where({ position_id: positionId })
@@ -54,7 +54,7 @@ class PositionController {
    *
    * @method GET
    */
-  async showAllUsers ({ request, params: { positionId = null }, view }) {
+  async showAllUsers({ request, params: { positionId = null }, view }) {
     if (request.ajax() || request.input('data', null)) {
       const users = await User.query()
         .select('username', 'tag')
@@ -63,11 +63,15 @@ class PositionController {
         .then((users) => users.toJSON())
 
       if (!users.length) return ''
-      return `<ul>${users.map(({ username, tag }) => `<li>[${tag}] ${username}</li>`).join('')}</ul>`
+      return `<ul>${users
+        .map(({ username, tag }) => `<li>[${tag}] ${username}</li>`)
+        .join('')}</ul>`
     }
 
     const position = await Position.findOrFail(positionId)
-    return view.render('pages.positions.show-all-users', { position: position.toJSON() })
+    return view.render('pages.positions.show-all-users', {
+      position: position.toJSON()
+    })
   }
 }
 

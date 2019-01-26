@@ -18,8 +18,11 @@ module.exports = () => ({
   caller
 })
 
-async function caller ({ transaction, authUser, request }, ActionError) {
-  if (!(await authUser.hasPermission('CRH', true)) || request.crh_state !== 'PENDING') {
+async function caller({ transaction, authUser, request }, ActionError) {
+  if (
+    !(await authUser.hasPermission('CRH', true)) ||
+    request.crh_state !== 'PENDING'
+  ) {
     throw new ActionError('Ocorreu um erro de permissão. Tente novamente.')
   }
 

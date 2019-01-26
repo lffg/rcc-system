@@ -9,7 +9,7 @@ const Group = use('App/Models/Group')
 const Database = use('Database')
 const Hash = use('Hash')
 
-const UserHook = exports = module.exports = {}
+const UserHook = (exports = module.exports = {})
 
 /**
  * Cria um hash para a senha do usuário.
@@ -17,7 +17,10 @@ const UserHook = exports = module.exports = {}
  * @param {object} userInstance
  */
 UserHook.hashPassword = async (userInstance) => {
-  if (typeof userInstance.password === 'string' && userInstance.password === '') {
+  if (
+    typeof userInstance.password === 'string' &&
+    userInstance.password === ''
+  ) {
     throw new FormError('Senha inválida: a senha não pode ser vazia.', 400)
   }
 
@@ -54,7 +57,10 @@ UserHook.addUserToPosition = async (userInstance) => {
  * @param {object} userInstance
  */
 UserHook.createAccountRegisterEvent = async (userInstance) => {
-  const controller = await RequestController.findByOrFail('alias', 'SYS_METADATA')
+  const controller = await RequestController.findByOrFail(
+    'alias',
+    'SYS_METADATA'
+  )
   const type = await RequestType.findByOrFail('alias', 'REGISTER')
 
   await Database.transaction(async (transaction) => {
@@ -64,7 +70,9 @@ UserHook.createAccountRegisterEvent = async (userInstance) => {
       author_id: userInstance.id,
       receiver_id: userInstance.id,
       is_crh: false,
-      notes: `Criação da conta para o usuário ${userInstance.username} efetivada.`
+      notes: `Criação da conta para o usuário ${
+        userInstance.username
+      } efetivada.`
     }
 
     await RequestInterface.create({ payload, transaction, systemAction: true })

@@ -17,9 +17,12 @@ module.exports = () => ({
   caller
 })
 
-async function caller ({ transaction, authUser, request, payload }) {
-  await request.editLogs().create({
-    edit_reason: payload.edit_reason,
-    author_id: authUser.id
-  }, transaction)
+async function caller({ transaction, authUser, request, payload }) {
+  await request.editLogs().create(
+    {
+      edit_reason: payload.edit_reason,
+      author_id: authUser.id
+    },
+    transaction
+  )
 }

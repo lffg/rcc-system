@@ -3,7 +3,7 @@
 const Database = use('Database')
 
 class UserPermission {
-  register (Model) {
+  register(Model) {
     /**
      * ---------------------------------------------------------------------
      * Métodos da instância:
@@ -16,9 +16,10 @@ class UserPermission {
      * @param  {boolean|string} aliases
      * @return {Promise<{ id: number, alias: string }[]|number[]|string[]>}
      */
-    Model.prototype.getPermissions = async function (aliases = false) {
-      const permissions = await Database
-        .distinct(aliases === 'BOTH' ? ['P.id', 'P.alias'] : (aliases ? 'P.alias' : 'P.id'))
+    Model.prototype.getPermissions = async function(aliases = false) {
+      const permissions = await Database.distinct(
+        aliases === 'BOTH' ? ['P.id', 'P.alias'] : aliases ? 'P.alias' : 'P.id'
+      )
         .from('users as U')
         .innerJoin('pivot_group_user as PGU', 'PGU.user_id', '=', 'U.id')
         .innerJoin('groups as G', 'G.id', '=', 'PGU.group_id')
@@ -30,9 +31,9 @@ class UserPermission {
         return permissions
       }
 
-      return permissions.map(({ id = null, alias = null }) => (
-        (aliases && !!alias) ? alias : id
-      ))
+      return permissions.map(({ id = null, alias = null }) =>
+        aliases && !!alias ? alias : id
+      )
     }
 
     /**
@@ -42,13 +43,22 @@ class UserPermission {
      * @param  {boolean} getByAlias
      * @return {Promise<boolean>}
      */
-    Model.prototype.hasPermission = async function (permission, getByAlias = false) {
-      if (!getByAlias && typeof permission === 'string' && !isNaN(parseInt(permission))) {
+    Model.prototype.hasPermission = async function(
+      permission,
+      getByAlias = false
+    ) {
+      if (
+        !getByAlias &&
+        typeof permission === 'string' &&
+        !isNaN(parseInt(permission))
+      ) {
         permission = parseInt(permission)
       }
 
       const permissions = await this.getPermissions(getByAlias)
-      return permissions.includes(getByAlias ? permission.toUpperCase() : permission)
+      return permissions.includes(
+        getByAlias ? permission.toUpperCase() : permission
+      )
     }
   }
 }

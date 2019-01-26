@@ -1,10 +1,14 @@
 'use strict'
 
-const icons = require('fa-icon-list')(false).map((icon) => ([
-  `<div class="sys-select-item" data-text="fa fa-${icon}">`,
-  `<i class="fa fa-${icon}"></i>&nbsp;fa fa-${icon}`,
-  '</div>'
-].join(''))).join('')
+const icons = require('fa-icon-list')(false)
+  .map((icon) =>
+    [
+      `<div class="sys-select-item" data-text="fa fa-${icon}">`,
+      `<i class="fa fa-${icon}"></i>&nbsp;fa fa-${icon}`,
+      '</div>'
+    ].join('')
+  )
+  .join('')
 
 const { HttpException } = use('@adonisjs/generic-exceptions')
 const Group = use('App/Models/Group')
@@ -19,7 +23,7 @@ class GroupController {
    *
    * @method GET
    */
-  async index ({ view }) {
+  async index({ view }) {
     const groups = await Group.query()
       .sortByOrder()
       .with('users', (builder) => builder.select('id'))
@@ -33,7 +37,7 @@ class GroupController {
    *
    * @method GET
    */
-  create ({ view }) {
+  create({ view }) {
     return view.render('admin.groups.create', { icons })
   }
 
@@ -42,7 +46,7 @@ class GroupController {
    *
    * @method POST
    */
-  async store ({ request, response, session }) {
+  async store({ request, response, session }) {
     const data = request.only(['name', 'color', 'icon', 'description'])
 
     const group = new Group()
@@ -58,17 +62,23 @@ class GroupController {
    *
    * @method GET
    */
-  async show ({ params: { id }, view }) {
+  async show({ params: { id }, view }) {
     const group = await Group.findOrFail(id).then((group) => group.toJSON())
     return view.render('admin.groups.show', { group, icons })
   }
 
-  async members ({ request, params: { id }, view }) {
+  async members({ request, params: { id }, view }) {
     const page = Math.abs(request.input('page', 1))
 
     const group = await Group.findOrFail(id)
-    const users = await group.users().select('id', 'username').paginate(page, 25)
-    const mods = await group.users().wherePivot('is_moderator', true).fetch()
+    const users = await group
+      .users()
+      .select('id', 'username')
+      .paginate(page, 25)
+    const mods = await group
+      .users()
+      .wherePivot('is_moderator', true)
+      .fetch()
 
     return view.render('admin.groups.members', {
       group: group.toJSON(),
@@ -82,8 +92,14 @@ class GroupController {
    *
    * @method POST
    */
-  async update ({ request, response, params: { id }, session, auth }) {
-    const data = request.only(['name', 'color', 'icon', 'description', 'is_hidden'])
+  async update({ request, response, params: { id }, session, auth }) {
+    const data = request.only([
+      'name',
+      'color',
+      'icon',
+      'description',
+      'is_hidden'
+    ])
     const group = await Group.findOrFail(id)
 
     group.merge(data)
@@ -102,7 +118,7 @@ class GroupController {
    *
    * @method GET
    */
-  async delete ({ params: { id }, view }) {
+  async delete({ params: { id }, view }) {
     const group = await Group.findOrFail(id)
 
     return view.render('admin.groups.delete', { group: group.toJSON() })
@@ -113,7 +129,7 @@ class GroupController {
    *
    * @method GET
    */
-  async destroy ({ request, response, params: { id }, session, auth }) {
+  async destroy({ request, response, params: { id }, session, auth }) {
     if (request.input('group') !== id) {
       throw new HttpException('Requisição inválida.', 400)
     }
@@ -121,7 +137,10 @@ class GroupController {
     const group = await Group.findOrFail(id)
 
     if (group.is_permanent) {
-      throw new HttpException(`Não é possível deletar o grupo (permanente) de ID ${id}.`, 403)
+      throw new HttpException(
+        `Não é possível deletar o grupo (permanente) de ID ${id}.`,
+        403
+      )
     }
 
     await Log.log(auth.user.id, request.ip(), {
@@ -138,15 +157,14 @@ class GroupController {
    *
    * @method GET
    */
-  async order ({ response, params: { mode, id }, session }) {
+  async order({ response, params: { mode, id }, session }) {
     const trx = await Database.beginTransaction()
 
     const primaryGroup = await Group.findOrFail(id)
 
     const primaryOrder = primaryGroup.order
-    const secondaryOrder = mode === 'up'
-      ? Number(primaryOrder) - 1
-      : Number(primaryOrder) + 1
+    const secondaryOrder =
+      mode === 'up' ? Number(primaryOrder) - 1 : Number(primaryOrder) + 1
 
     const secondaryGroupId = await Group.query()
       .where('order', secondaryOrder)
@@ -161,7 +179,7 @@ class GroupController {
 
     const secondaryGroup = await Group.findOrFail(secondaryGroupId.id)
 
-    primaryGroup.order =  secondaryOrder
+    primaryGroup.order = secondaryOrder
     secondaryGroup.order = primaryOrder
     await primaryGroup.save(trx)
     await secondaryGroup.save(trx)
@@ -177,7 +195,7 @@ class GroupController {
    *
    * @method POST
    */
-  async addUser ({ request, response, params: { id }, session, auth }) {
+  async addUser({ request, response, params: { id }, session, auth }) {
     const username = request.input('username', '')
 
     const group = await Group.findOrFail(id)
@@ -192,7 +210,11 @@ class GroupController {
       message: `Adicionou o usuário ${user.username} ao grupo ${group.name}`
     })
 
-    session.flash({ success: `Usuário ${user.username} adicionado ao grupo ${group.name} com sucesso.` })
+    session.flash({
+      success: `Usuário ${user.username} adicionado ao grupo ${
+        group.name
+      } com sucesso.`
+    })
     return response.redirect('back')
   }
 
@@ -201,9 +223,8 @@ class GroupController {
    *
    * @method POST
    */
-  async removeUser ({ request, response, params: { id }, session, auth }) {
-    const users = request.collect(['username'])
-      .map(({ username }) => username)
+  async removeUser({ request, response, params: { id }, session, auth }) {
+    const users = request.collect(['username']).map(({ username }) => username)
 
     const group = await Group.findOrFail(id)
 
@@ -216,7 +237,11 @@ class GroupController {
       })
     }
 
-    session.flash({ success: `Usuário(s) "${users.join(', ')}" removido(s) do grupo ${group.name} com sucesso.` })
+    session.flash({
+      success: `Usuário(s) "${users.join(', ')}" removido(s) do grupo ${
+        group.name
+      } com sucesso.`
+    })
     return response.redirect('back')
   }
 
@@ -225,7 +250,7 @@ class GroupController {
    *
    * @method POST
    */
-  async addModerator ({ request, response, params: { id }, session, auth }) {
+  async addModerator({ request, response, params: { id }, session, auth }) {
     const username = request.input('username', '')
 
     const group = await Group.findOrFail(id)
@@ -237,11 +262,19 @@ class GroupController {
     })
 
     await Log.log(auth.user.id, request.ip(), {
-      message: `Transformou o usuário ${user.username} em moderador do grupo ${group.name}`
+      message: `Transformou o usuário ${user.username} em moderador do grupo ${
+        group.name
+      }`
     })
 
-    session.flash({ success: `Usuário ${user.username} adicionado à moderação do grupo ${group.name}.` })
-    return response.redirect(`${Route.url('admin:groups.members', { id: group.id })}#$tab/mods`)
+    session.flash({
+      success: `Usuário ${user.username} adicionado à moderação do grupo ${
+        group.name
+      }.`
+    })
+    return response.redirect(
+      `${Route.url('admin:groups.members', { id: group.id })}#$tab/mods`
+    )
   }
 
   /**
@@ -249,9 +282,8 @@ class GroupController {
    *
    * @method POST
    */
-  async removeModerator ({ request, response, params: { id }, session, auth }) {
-    const users = request.collect(['username'])
-      .map(({ username }) => username)
+  async removeModerator({ request, response, params: { id }, session, auth }) {
+    const users = request.collect(['username']).map(({ username }) => username)
 
     const group = await Group.findOrFail(id)
 
@@ -264,12 +296,20 @@ class GroupController {
       })
 
       await Log.log(auth.user.id, request.ip(), {
-        message: `Removeu o usuário ${user.username} da moderação do grupo ${group.name}`
+        message: `Removeu o usuário ${user.username} da moderação do grupo ${
+          group.name
+        }`
       })
     }
 
-    session.flash({ success: `Usuário(s) "${users.join(', ')}" removido(s) da moderação do grupo ${group.name}.` })
-    return response.redirect(`${Route.url('admin:groups.members', { id: group.id })}#$tab/mods`)
+    session.flash({
+      success: `Usuário(s) "${users.join(
+        ', '
+      )}" removido(s) da moderação do grupo ${group.name}.`
+    })
+    return response.redirect(
+      `${Route.url('admin:groups.members', { id: group.id })}#$tab/mods`
+    )
   }
 }
 

@@ -6,7 +6,7 @@ class LoginController {
    *
    * @method GET
    */
-  login ({ view }) {
+  login({ view }) {
     return view.render('pages.session.auth.login')
   }
 
@@ -15,13 +15,11 @@ class LoginController {
    *
    * @method POST
    */
-  async postLogin ({ request, response, session, auth }) {
+  async postLogin({ request, response, session, auth }) {
     const { username, password, remember } = request.all()
 
     try {
-      await auth
-        .remember(remember === 'on')
-        .attempt(username, password)
+      await auth.remember(remember === 'on').attempt(username, password)
     } catch (e) {
       session.flash({ danger: 'Usuário e/ou senha incorreto(s).' })
       return response.redirect('back')
@@ -31,11 +29,15 @@ class LoginController {
 
     if (!allowed) {
       await auth.logout()
-      session.flash({ danger: `Seu login foi negado pelo motivo: ${disallowReason}` })
+      session.flash({
+        danger: `Seu login foi negado pelo motivo: ${disallowReason}`
+      })
       return response.redirect('back')
     }
 
-    session.flash({ success: `Seja bem-vindo novamente, ${auth.user.username}.` })
+    session.flash({
+      success: `Seja bem-vindo novamente, ${auth.user.username}.`
+    })
     return response.route('index')
   }
 
@@ -44,7 +46,7 @@ class LoginController {
    *
    * @method GET
    */
-  async logout ({ request, response, view, session, auth }) {
+  async logout({ request, response, view, session, auth }) {
     if (request.input('confirm') !== 'on') {
       return view.render('pages.session.auth.confirm-logout')
     }
@@ -53,7 +55,9 @@ class LoginController {
 
     await auth.logout()
     session.clear()
-    session.flash({ success: `Sessão encerrada com sucesso. Até breve, ${username}!` })
+    session.flash({
+      success: `Sessão encerrada com sucesso. Até breve, ${username}!`
+    })
     return response.route('login')
   }
 }

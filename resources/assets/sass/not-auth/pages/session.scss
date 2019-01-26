@@ -5,7 +5,7 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background-image: url("/img/bp-bg.jpeg");
+    background-image: url('/img/bp-bg.jpeg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -24,8 +24,8 @@
   .sys-box {
     background-color: rgb(255, 255, 255);
     padding: 1.5rem;
-    border-radius: .25rem;
-    box-shadow: 2px 5px 4px rgba(0, 0, 0, .3);
+    border-radius: 0.25rem;
+    box-shadow: 2px 5px 4px rgba(0, 0, 0, 0.3);
     position: relative;
 
     @media screen and (max-width: 550px) {
@@ -47,7 +47,7 @@
     top: -35px;
     left: 50%;
     transform: translateX(-50%);
-    border-radius: .3rem;
+    border-radius: 0.3rem;
     padding: 5px 5px 10px 5px;
     width: 80%;
     text-align: center;

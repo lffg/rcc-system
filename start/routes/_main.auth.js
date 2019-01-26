@@ -10,21 +10,25 @@ const Route = use('Route')
 
 Route.group(() => {
   Route.get('login', 'LoginController.login')
-    .middleware(['guest']).as('login')
+    .middleware(['guest'])
+    .as('login')
 
   Route.post('login', 'LoginController.postLogin')
-    .middleware(['guest']).validator('General/AuthLogin')
+    .middleware(['guest'])
+    .validator('General/AuthLogin')
 
   Route.get('logout', 'LoginController.logout')
-    .middleware(['auth']).as('logout')
+    .middleware(['auth'])
+    .as('logout')
 
   Route.get('register', 'RegisterController.register')
-    .middleware(['guest']).as('register')
+    .middleware(['guest'])
+    .as('register')
 
   Route.post('register', 'RegisterController.postRegister')
-    .middleware(['guest']).validator('General/AuthRegister')
-})
-  .namespace('Auth')
+    .middleware(['guest'])
+    .validator('General/AuthRegister')
+}).namespace('Auth')
 
 /**
  * ---------------------------------------------------------------------
@@ -42,8 +46,9 @@ Route.group(() => {
     .validator('General/ConfirmEmail')
     .as('verify-email.send')
 
-  Route.get('confirm/:token/:id', 'VerifyEmailController.confirm')
-    .as('verify-email.confirm')
+  Route.get('confirm/:token/:id', 'VerifyEmailController.confirm').as(
+    'verify-email.confirm'
+  )
 })
   .namespace('Auth')
   .prefix('session/auth/verify-email')

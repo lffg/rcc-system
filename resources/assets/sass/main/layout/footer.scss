@@ -2,11 +2,16 @@
   .sys-footer-linklist {
     background-color: $secondary;
     padding: 20px 0;
-    box-shadow: 0px -4px rgba(0,0,0,0.2), inset 0px -35px 17px rgba(0, 0, 0, 0.11);
+    box-shadow: 0px -4px rgba(0, 0, 0, 0.2),
+      inset 0px -35px 17px rgba(0, 0, 0, 0.11);
 
     a {
       background-color: $primary;
-      background-image: linear-gradient(to bottom, lighten($primary, 3%), darken($primary, 9%)) !important;
+      background-image: linear-gradient(
+        to bottom,
+        lighten($primary, 3%),
+        darken($primary, 9%)
+      ) !important;
       display: inline-block;
       padding: 4px 16px 5px 16px;
       border-radius: 20px;
@@ -35,7 +40,11 @@
 
   .sys-footer-attr {
     background-color: $secondary;
-    background-image: linear-gradient(to bottom, $secondary, darken($secondary, 5%));
+    background-image: linear-gradient(
+      to bottom,
+      $secondary,
+      darken($secondary, 5%)
+    );
     display: block;
     padding: 20px 0;
     color: darken($white, 15%);

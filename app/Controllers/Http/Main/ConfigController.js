@@ -6,7 +6,7 @@ class ConfigController {
    *
    * @method GET
    */
-  main ({ view, auth: { user } }) {
+  main({ view, auth: { user } }) {
     return view.render('pages.session.config.index', {
       user: user.toJSON(),
       mode: 'main'
@@ -18,7 +18,7 @@ class ConfigController {
    *
    * @method POST
    */
-  async saveMain ({ request, response, session, auth: { user } }) {
+  async saveMain({ request, response, session, auth: { user } }) {
     const data = request.only(['location', 'gender', 'bio'])
 
     user.merge(data)
@@ -33,7 +33,7 @@ class ConfigController {
    *
    * @method GET
    */
-  email ({ view, auth: { user } }) {
+  email({ view, auth: { user } }) {
     return view.render('pages.session.config.index', {
       user: user.toJSON(),
       mode: 'email'
@@ -45,7 +45,7 @@ class ConfigController {
    *
    * @method POST
    */
-  async saveEmail ({ request, response, session, auth: { user } }) {
+  async saveEmail({ request, response, session, auth: { user } }) {
     const data = request.only(['email'])
 
     user.is_verified_email = false
@@ -61,7 +61,7 @@ class ConfigController {
    *
    * @method GET
    */
-  password ({ view, auth: { user } }) {
+  password({ view, auth: { user } }) {
     return view.render('pages.session.config.index', {
       user: user.toJSON(),
       mode: 'password'
@@ -73,7 +73,7 @@ class ConfigController {
    *
    * @param {object} ctx
    */
-  async savePassword ({ request, response, session, auth }) {
+  async savePassword({ request, response, session, auth }) {
     const data = request.only(['password'])
 
     auth.user.merge(data)

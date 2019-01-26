@@ -23,20 +23,26 @@ module.exports = () => ({
   caller
 })
 
-async function caller ({ transaction, payload, systemAction = false }) {
+async function caller({ transaction, payload, systemAction = false }) {
   let data = {}
 
-  for (const [key, { name, allowUserOption = true, required = false }] of requiredFields.entries()) {
+  for (const [
+    key,
+    { name, allowUserOption = true, required = false }
+  ] of requiredFields.entries()) {
     if (
       (!allowUserOption && !systemAction) ||
-      (payload[name] === null) ||
-      (typeof payload[name] === 'undefined')
+      payload[name] === null ||
+      typeof payload[name] === 'undefined'
     ) {
       delete payload[name]
     }
 
     if (required && !payload[name]) {
-      throw new FormError(`Erro ao criar a requisição: '${name}' está faltando.`, 400)
+      throw new FormError(
+        `Erro ao criar a requisição: '${name}' está faltando.`,
+        400
+      )
     }
 
     // Transforma quebra de linhas em <br>:
@@ -52,7 +58,9 @@ async function caller ({ transaction, payload, systemAction = false }) {
     })
   }
 
-  if ([data.is_crh, data.crh_state].every((field) => typeof field === 'undefined')) {
+  if (
+    [data.is_crh, data.crh_state].every((field) => typeof field === 'undefined')
+  ) {
     data.crh_state = 'PENDING'
   }
 
@@ -68,25 +76,25 @@ async function caller ({ transaction, payload, systemAction = false }) {
 }
 
 const requiredFields = new Map([
-  ['controller_id',      { name: 'controller_id', required: true }],
-  ['type_id',            { name: 'type_id', required: true }],
-  ['is_crh',             { name: 'is_crh', allowUserOption: false }],
-  ['crh_state',          { name: 'crh_state', allowUserOption: false }],
-  ['author_id',          { name: 'author_id', required: true }],
-  ['receiver_id',        { name: 'receiver_id', required: true }],
+  ['controller_id', { name: 'controller_id', required: true }],
+  ['type_id', { name: 'type_id', required: true }],
+  ['is_crh', { name: 'is_crh', allowUserOption: false }],
+  ['crh_state', { name: 'crh_state', allowUserOption: false }],
+  ['author_id', { name: 'author_id', required: true }],
+  ['receiver_id', { name: 'receiver_id', required: true }],
   ['before_position_id', { name: 'before_position_id' }],
-  ['after_position_id',  { name: 'after_position_id' }],
-  ['tag',                { name: 'tag' }],
-  ['price',              { name: 'price' }],
-  ['absence_until',       { name: 'absence_until' }],
-  ['banned_until',        { name: 'banned_until' }],
-  ['bonuses',            { name: 'bonuses' }],
-  ['reason',             { name: 'reason' }],
-  ['permission',         { name: 'permission' }],
-  ['notes',              { name: 'notes' }],
-  ['asked_by',           { name: 'asked_by' }],
-  ['extra_user_1',       { name: 'extra_user_1' }],
-  ['extra_user_2',       { name: 'extra_user_2' }],
-  ['extra_user_3',       { name: 'extra_user_3' }],
-  ['extra_user_4',       { name: 'extra_user_4' }]
+  ['after_position_id', { name: 'after_position_id' }],
+  ['tag', { name: 'tag' }],
+  ['price', { name: 'price' }],
+  ['absence_until', { name: 'absence_until' }],
+  ['banned_until', { name: 'banned_until' }],
+  ['bonuses', { name: 'bonuses' }],
+  ['reason', { name: 'reason' }],
+  ['permission', { name: 'permission' }],
+  ['notes', { name: 'notes' }],
+  ['asked_by', { name: 'asked_by' }],
+  ['extra_user_1', { name: 'extra_user_1' }],
+  ['extra_user_2', { name: 'extra_user_2' }],
+  ['extra_user_3', { name: 'extra_user_3' }],
+  ['extra_user_4', { name: 'extra_user_4' }]
 ])

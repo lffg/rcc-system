@@ -3,7 +3,7 @@
 const Database = use('Database')
 
 class UserGroup {
-  register (Model) {
+  register(Model) {
     /**
      * ---------------------------------------------------------------------
      * Métodos da instância:
@@ -17,11 +17,18 @@ class UserGroup {
      * @param  {boolean} getModField
      * @return {Promise<{ id?: number, alias?: string, is_moderador?: boolean }[]|number[]|string[]>}
      */
-    Model.prototype.getGroups = async function (aliases = false, getModField = false) {
-      const groups = await Database
-        .distinct((aliases === 'BOTH' ? ['G.id', 'G.alias'] : (aliases ? ['G.alias'] : ['G.id'])).concat(
-          getModField ? ['PGU.is_moderator'] : []
-        ))
+    Model.prototype.getGroups = async function(
+      aliases = false,
+      getModField = false
+    ) {
+      const groups = await Database.distinct(
+        (aliases === 'BOTH'
+          ? ['G.id', 'G.alias']
+          : aliases
+          ? ['G.alias']
+          : ['G.id']
+        ).concat(getModField ? ['PGU.is_moderator'] : [])
+      )
         .from('users as U')
         .innerJoin('pivot_group_user as PGU', 'PGU.user_id', '=', 'U.id')
         .innerJoin('groups as G', 'G.id', '=', 'PGU.group_id')
@@ -31,9 +38,9 @@ class UserGroup {
         return groups
       }
 
-      return groups.map(({ id = null, alias = null }) => (
-        (aliases && !!alias) ? alias : id
-      ))
+      return groups.map(({ id = null, alias = null }) =>
+        aliases && !!alias ? alias : id
+      )
     }
 
     /**
@@ -42,7 +49,7 @@ class UserGroup {
      * @param  {string|boolean} aliases
      * @return {Promise<{ id?: number, alias?: string }[]|number[]|string[]>}
      */
-    Model.prototype.getModerationGroups = async function (aliases = false) {
+    Model.prototype.getModerationGroups = async function(aliases = false) {
       const groups = (await this.getGroups(aliases, true))
         .filter(({ is_moderator: isMod }) => !!isMod)
         .map(({ id, alias }) => ({ id, alias }))
@@ -51,9 +58,9 @@ class UserGroup {
         return groups
       }
 
-      return groups.map(({ id = null, alias = null }) => (
-        (aliases && !!alias) ? alias : id
-      ))
+      return groups.map(({ id = null, alias = null }) =>
+        aliases && !!alias ? alias : id
+      )
     }
 
     /**
@@ -63,7 +70,7 @@ class UserGroup {
      * @param  {boolean} getByAlias
      * @return {Promise<boolean>}
      */
-    Model.prototype.hasGroup = async function (group, getByAlias = false) {
+    Model.prototype.hasGroup = async function(group, getByAlias = false) {
       if (!getByAlias && typeof group === 'string' && !isNaN(parseInt(group))) {
         group = parseInt(group)
       }
@@ -79,7 +86,7 @@ class UserGroup {
      * @param  {boolean} getByAlias
      * @return {Promise<boolean>}
      */
-    Model.prototype.isModerator = async function (group, getByAlias = false) {
+    Model.prototype.isModerator = async function(group, getByAlias = false) {
       if (!getByAlias && typeof group === 'string' && !isNaN(parseInt(group))) {
         group = parseInt(group)
       }

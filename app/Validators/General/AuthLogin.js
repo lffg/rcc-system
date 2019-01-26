@@ -1,24 +1,24 @@
 'use strict'
 
 class Login {
-  get validateAll () {
+  get validateAll() {
     return true
   }
 
-  get rules () {
+  get rules() {
     return {
-      'username': 'required',
-      'password': 'required'
+      username: 'required',
+      password: 'required'
     }
   }
 
-  get messages () {
+  get messages() {
     return {
-      'required': 'Este campo é obrigatório.'
+      required: 'Este campo é obrigatório.'
     }
   }
 
-  async fails (errorMessages) {
+  async fails(errorMessages) {
     const { response, session } = this.ctx
 
     session.withErrors(errorMessages).flashAll()

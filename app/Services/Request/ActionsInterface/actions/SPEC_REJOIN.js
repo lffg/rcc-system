@@ -17,7 +17,7 @@ module.exports = () => ({
   caller
 })
 
-async function caller ({ transaction, request }) {
+async function caller({ transaction, request }) {
   const user = await User.findOrFail(request.receiver_id)
   user.state = 'ACTIVE'
   user.promoter_id = request.author_id

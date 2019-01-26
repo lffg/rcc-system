@@ -1,27 +1,27 @@
 'use strict'
 
 class Main {
-  get validateAll () {
+  get validateAll() {
     return true
   }
 
-  get rules () {
+  get rules() {
     return {
-      'location' : 'required|in:BR,PT,AO,MZ,OTHER',
-      'gender'   : 'required|in:M,F',
-      'bio'      : 'max:350'
+      location: 'required|in:BR,PT,AO,MZ,OTHER',
+      gender: 'required|in:M,F',
+      bio: 'max:350'
     }
   }
 
-  get messages () {
+  get messages() {
     return {
-      'required' : 'Este campo é obrigatório.',
-      'in'       : 'Este campo é inviolável: o valor deve ser um dos apresentados.',
-      'bio.max'  : 'A biografia deve ter, no máximo, 350 caracteres.'
+      required: 'Este campo é obrigatório.',
+      in: 'Este campo é inviolável: o valor deve ser um dos apresentados.',
+      'bio.max': 'A biografia deve ter, no máximo, 350 caracteres.'
     }
   }
 
-  async fails (errorMessages) {
+  async fails(errorMessages) {
     const { response, session } = this.ctx
 
     session

@@ -19,15 +19,23 @@ module.exports = () => ({
   caller
 })
 
-async function caller ({ transaction, authUser, request, payload }, ActionError) {
-  if (!(await authUser.hasPermission('CRH', true)) || request.crh_state !== 'PENDING') {
+async function caller(
+  { transaction, authUser, request, payload },
+  ActionError
+) {
+  if (
+    !(await authUser.hasPermission('CRH', true)) ||
+    request.crh_state !== 'PENDING'
+  ) {
     throw new ActionError('Ocorreu um erro de permissão. Tente novamente.')
   }
 
   const review = new RequestReview()
   review.author_id = authUser.id
   review.type = 'REVIEW'
-  review.body = `<i class="fa fa-times"></i> Requerimento recusado: ${sanitize(payload.rej_reason)}`
+  review.body = `<i class="fa fa-times"></i> Requerimento recusado: ${sanitize(
+    payload.rej_reason
+  )}`
 
   await request.reviews().save(review, transaction)
   await request.reviwer().associate(authUser, transaction)
