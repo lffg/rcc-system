@@ -1,5 +1,3 @@
-'use strict'
-
 const { getPositions } = use('App/Models/Position')
 const UserParser = use('App/Services/Parsers/User')
 const User = use('App/Models/User')

@@ -1,15 +1,13 @@
-'use strict'
-
 const Notification = use('App/Models/Notification')
 const User = use('App/Models/User')
 
 class UserSeeder {
-  async run () {
+  async run() {
     await this.createNotifications()
     console.log('Notificações de teste criadas.')
   }
 
-  async createNotifications () {
+  async createNotifications() {
     const { luiz } = await this._getUsers()
 
     for (let i = 1; i <= 5; i++) {
@@ -23,7 +21,7 @@ class UserSeeder {
     }
   }
 
-  async _getUsers () {
+  async _getUsers() {
     return {
       luiz: await User.findByOrFail('username', 'luuuiiiz.'),
       dean: await User.findByOrFail('username', 'Dean.Santos')

@@ -1,5 +1,3 @@
-'use strict'
-
 const Group = use('App/Models/Group')
 
 const GroupHook = (exports = module.exports = {})

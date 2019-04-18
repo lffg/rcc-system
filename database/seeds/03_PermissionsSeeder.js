@@ -1,5 +1,3 @@
-'use strict'
-
 const { permissions } = require('../seeds-data/permissions')
 
 const Permission = use('App/Models/Permission')
@@ -7,7 +5,7 @@ const Group = use('App/Models/Group')
 const Database = use('Database')
 
 class PermissionSeeder {
-  async run () {
+  async run() {
     await Database.raw('SET FOREIGN_KEY_CHECKS = 0')
 
     await this.createPermissions()
@@ -17,7 +15,7 @@ class PermissionSeeder {
     await Database.raw('SET FOREIGN_KEY_CHECKS = 1')
   }
 
-  async createPermissions () {
+  async createPermissions() {
     for (const data of permissions) {
       const groups = data.__groups__ || []
       delete data.__groups__

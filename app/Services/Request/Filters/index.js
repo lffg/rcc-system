@@ -1,5 +1,3 @@
-'use strict'
-
 function usernameFilter(builder, queryTerm) {
   if (!queryTerm) {
     return builder

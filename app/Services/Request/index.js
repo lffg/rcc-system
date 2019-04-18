@@ -1,5 +1,3 @@
-'use strict'
-
 const getComputedRequestProps = require('./ActionsInterface/ext/getComputedRequestProps')
 const ActionsInterface = require('./ActionsInterface')
 const RequestInterface = require('./RequestInterface')

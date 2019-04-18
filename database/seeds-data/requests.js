@@ -76,7 +76,8 @@ exports.actions = [
     alias: 'CREATE_REQUEST',
     execute_on: 'CREATE',
     name: 'Cria uma Requisição',
-    description: 'Cria uma nova requisição na tabela "requests" com os dados do formulário.'
+    description:
+      'Cria uma nova requisição na tabela "requests" com os dados do formulário.'
   },
   {
     alias: 'UPDATE_REQUEST',

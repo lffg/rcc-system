@@ -1,5 +1,3 @@
-'use strict'
-
 const Model = use('Model')
 
 class RequestAction extends Model {

@@ -1,5 +1,3 @@
-'use strict'
-
 class RequestController {
   register(Model) {
     /**

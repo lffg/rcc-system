@@ -1,5 +1,3 @@
-'use strict'
-
 class HasGroup {
   async handle({ view, auth }, next) {
     let groups = []
@@ -12,7 +10,9 @@ class HasGroup {
       groups = await auth.user.getGroups('BOTH')
       moderationGroups = await auth.user.getModerationGroups('BOTH')
       permissions = await auth.user.getPermissions('BOTH')
-    } catch (e) {}
+    } catch (e) {
+      // Pass.
+    }
 
     this.createGlobals(view, groups, moderationGroups, permissions)
     return next()

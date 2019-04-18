@@ -1,5 +1,3 @@
-'use strict'
-
 const { sprintf } = require('sprintf-js')
 
 const { HttpException } = use('@adonisjs/generic-exceptions')
@@ -55,7 +53,7 @@ class RequestCreate {
   error(error, params = [], status = 400) {
     const uri = Route.url('requests.create')
     const { request, response } = this.ctx
-    error = sprintf(error || this.messages['$default'], ...params)
+    error = sprintf(error || this.messages.$default, ...params)
 
     if (/\/save$/i.test(request.url())) {
       throw new FormError(

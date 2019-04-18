@@ -1,5 +1,3 @@
-'use strict'
-
 /**
  * Action responsável por criar um log de atualização, indicando que o
  * requerimento em questão foi atualizado.

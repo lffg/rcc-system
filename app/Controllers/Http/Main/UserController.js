@@ -1,5 +1,3 @@
-'use strict'
-
 const { merge } = require('lodash')
 
 const User = use('App/Models/User')
@@ -13,6 +11,7 @@ class UserController {
    * @method  GET
    */
   async index({ request, view }) {
+    // eslint-disable-next-line
     let { page = 1, u = '', order, order_by: orderBy } = request.all() // , inactive
 
     const query = User.query()

@@ -1,5 +1,3 @@
-'use strict'
-
 const { validate } = use('App/Services/General/ValidateUser')
 
 class EditUser {

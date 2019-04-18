@@ -1,5 +1,3 @@
-'use strict'
-
 const Hash = use('Hash')
 
 class Email {

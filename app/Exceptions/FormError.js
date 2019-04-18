@@ -1,5 +1,3 @@
-'use strict'
-
 const { HttpException } = use('@adonisjs/generic-exceptions')
 
 class FormErrorException extends HttpException {
@@ -35,7 +33,7 @@ class FormErrorException extends HttpException {
    */
   async handle({ message = null, code }, { response, session }) {
     session.flash({
-      danger: this.messages[code] || message || this.messages['E_DEFAULT']
+      danger: this.messages[code] || message || this.messages.E_DEFAULT
     })
     await session.commit()
     return response.redirect(this.path || 'back')

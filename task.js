@@ -1,5 +1,3 @@
-'use strict'
-
 const template = (action) => `'use strict'
 
 /**

@@ -1,5 +1,3 @@
-'use strict'
-
 const { users } = require('../seeds-data/users')
 const requests = require('../seeds-data/requests-entries')
 
@@ -9,7 +7,7 @@ const User = use('App/Models/User')
 const Database = use('Database')
 
 class UserSeeder {
-  async run () {
+  async run() {
     await Database.raw('SET FOREIGN_KEY_CHECKS = 0')
 
     await this.createUsers()
@@ -25,7 +23,7 @@ class UserSeeder {
     // console.log('Requisições de teste para usuários criadas.')
   }
 
-  async createUsers () {
+  async createUsers() {
     for (const data of users) {
       const user = new User()
       user.merge(data)
@@ -33,18 +31,22 @@ class UserSeeder {
     }
   }
 
-  async createRequests () {
+  async createRequests() {
     const wait = (t = 0) => new Promise((resolve) => setTimeout(resolve, t))
 
     await Database.transaction(async (transaction) => {
       for (const payload of requests) {
-        await RequestInterface.create({ payload, transaction, systemAction: true })
+        await RequestInterface.create({
+          payload,
+          transaction,
+          systemAction: true
+        })
         await wait(1000)
       }
     })
   }
 
-  async setGroupRelations () {
+  async setGroupRelations() {
     const luiz = await User.findByOrFail('username', 'luuuiiiz.')
     const dean = await User.findByOrFail('username', 'Dean.Santos')
     const admin = await Group.findBy('alias', 'ADMIN')

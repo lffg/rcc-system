@@ -1,5 +1,3 @@
-'use strict'
-
 /**
  * Transforma as quebras de linha em HTML.
  *

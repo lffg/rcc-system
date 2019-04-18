@@ -1,5 +1,3 @@
-'use strict'
-
 class UserSalary {
   register(Model) {
     /**

@@ -1,5 +1,3 @@
-'use strict'
-
 class RequestReplyController {
   async create() {}
 

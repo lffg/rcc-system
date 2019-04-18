@@ -1,5 +1,3 @@
-'use strict'
-
 /**
  * Action usada para:
  *    - Especialização em Requerimento :: SPEC_E_GRAT
@@ -20,6 +18,6 @@ module.exports = () => ({
 async function caller({ transaction, request }) {
   const user = await User.findOrFail(request.receiver_id)
   user.effective_bonuses =
-    parseInt(user.effective_bonuses, 10) + parseInt(request.bonuses, 10)
+    parseInt(user.effective_bonuses) + parseInt(request.bonuses)
   await user.save(transaction)
 }

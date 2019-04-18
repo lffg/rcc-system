@@ -1,5 +1,3 @@
-'use strict'
-
 const yiq = require('yiq')
 
 const Model = use('Model')

@@ -1,5 +1,3 @@
-'use strict'
-
 const icons = require('fa-icon-list')()
 
 const { rule } = use('Validator')

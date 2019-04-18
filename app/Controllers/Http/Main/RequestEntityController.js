@@ -1,5 +1,3 @@
-'use strict'
-
 const RequestController = use('App/Models/RequestController')
 const { HttpException } = use('@adonisjs/generic-exceptions')
 const { fullSplitNicks } = use('App/Helpers/split-nicks')
@@ -8,7 +6,6 @@ const RequestType = use('App/Models/RequestType')
 const Request = use('App/Models/Request')
 const User = use('App/Models/User')
 const Database = use('Database')
-const Logger = use('Logger')
 
 class RequestEntityController {
   async show({ params: { id }, view }) {
@@ -50,27 +47,25 @@ class RequestEntityController {
 
     switch (parseInt(step)) {
       case 1:
-        const controllers = await RequestController.getControllers()
         return view.render('pages.requests.ajax-first-part', {
-          controllers,
+          controllers: await RequestController.getControllers(),
           data
         })
       case 2:
-        const types = await RequestType.findTypesFor(data.controller_id)
         return view.render('pages.requests.ajax-second-part', {
           controller,
-          types,
+          types: await RequestType.findTypesFor(data.controller_id),
           data
         })
       case 3:
-        const type = await RequestType.getInfoFor(data.type_id, true)
-
         return view.render('pages.requests.ajax-third-part', {
           controller,
-          type,
+          type: await RequestType.getInfoFor(data.type_id, true),
           data,
           nicks: await fullSplitNicks(data.receivers, undefined, true)
         })
+      default:
+        throw new HttpException('Erro.', 400)
     }
   }
 

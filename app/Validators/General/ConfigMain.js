@@ -1,5 +1,3 @@
-'use strict'
-
 class Main {
   get validateAll() {
     return true

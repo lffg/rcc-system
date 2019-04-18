@@ -1,5 +1,3 @@
-'use strict'
-
 class IndexController {
   /**
    * Mostra o dashboard do painel administrativo.

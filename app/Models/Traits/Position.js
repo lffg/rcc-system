@@ -1,5 +1,3 @@
-'use strict'
-
 const PositionGroup = use('App/Models/PositionGroup')
 const User = use('App/Models/User')
 

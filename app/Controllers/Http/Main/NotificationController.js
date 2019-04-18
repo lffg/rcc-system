@@ -1,5 +1,3 @@
-'use strict'
-
 const Notification = use('App/Models/Notification')
 
 class NotificationController {

@@ -1,5 +1,3 @@
-'use strict'
-
 class TrimRequestBody {
   async handle({ request }, next) {
     if (Object.keys(request.body).length) {

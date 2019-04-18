@@ -1,5 +1,3 @@
-'use strict'
-
 const { HttpException } = use('@adonisjs/generic-exceptions')
 
 class Ajax {

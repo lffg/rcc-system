@@ -1,5 +1,3 @@
-'use strict'
-
 const Log = use('Log')
 
 class Admin {

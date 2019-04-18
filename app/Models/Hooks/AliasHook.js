@@ -1,5 +1,3 @@
-'use strict'
-
 const shortid = require('shortid')
 
 const AliasHook = (exports = module.exports = {})

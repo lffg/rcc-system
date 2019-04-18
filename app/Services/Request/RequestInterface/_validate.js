@@ -1,5 +1,3 @@
-'use strict'
-
 const RequestController = use('App/Models/RequestController')
 const { splitNicks } = use('App/Helpers/split-nicks')
 const RequestType = use('App/Models/RequestType')

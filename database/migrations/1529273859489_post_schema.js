@@ -1,9 +1,7 @@
-'use strict'
-
 const Schema = use('Schema')
 
 class PostSchema extends Schema {
-  up () {
+  up() {
     this.create('posts', (table) => {
       table.increments()
 
@@ -14,17 +12,27 @@ class PostSchema extends Schema {
       table.string('image', 191).defaultTo(null)
       table.text('body').notNullable()
 
-      table.boolean('is_hidden').notNullable().defaultTo(false)
-      table.boolean('is_locked').notNullable().defaultTo(false)
+      table
+        .boolean('is_hidden')
+        .notNullable()
+        .defaultTo(false)
+      table
+        .boolean('is_locked')
+        .notNullable()
+        .defaultTo(false)
 
-      table.integer('user_id').unsigned().index('user_id').notNullable()
+      table
+        .integer('user_id')
+        .unsigned()
+        .index('user_id')
+        .notNullable()
       table.foreign('user_id').references('users.id')
 
       table.timestamps()
     })
   }
 
-  down () {
+  down() {
     this.drop('posts')
   }
 }

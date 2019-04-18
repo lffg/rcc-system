@@ -1,5 +1,3 @@
-'use strict'
-
 /**
  * Action usada para:
  *    - Criar o requerimento;

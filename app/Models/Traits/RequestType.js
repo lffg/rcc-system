@@ -1,5 +1,3 @@
-'use strict'
-
 const RequestController = use('App/Models/RequestController')
 const existsHabboUser = use('App/Helpers/exists-habbo-user')
 const { getPositions } = use('App/Models/Position')

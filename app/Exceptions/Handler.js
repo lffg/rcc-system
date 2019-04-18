@@ -1,5 +1,3 @@
-'use strict'
-
 const BaseExceptionHandler = use('BaseExceptionHandler')
 const Env = use('Env')
 

@@ -1,5 +1,3 @@
-'use strict'
-
 const ErrorTicket = use('App/Models/ErrorTicket')
 const User = use('App/Models/User')
 

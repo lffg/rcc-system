@@ -1,5 +1,3 @@
-'use strict'
-
 const Database = use('Database')
 const Route = use('Route')
 

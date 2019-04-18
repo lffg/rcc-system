@@ -1,5 +1,3 @@
-'use strict'
-
 const { HttpException } = use('@adonisjs/generic-exceptions')
 const User = use('App/Models/User')
 

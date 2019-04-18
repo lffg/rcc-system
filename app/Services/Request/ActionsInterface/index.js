@@ -1,5 +1,3 @@
-'use strict'
-
 const ActionError = require('./ext/ActionError')
 const { join } = require('path')
 

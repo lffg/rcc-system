@@ -1,5 +1,3 @@
-'use strict'
-
 const shortid = require('shortid')
 const crypto = require('crypto')
 

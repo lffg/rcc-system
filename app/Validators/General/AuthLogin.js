@@ -1,5 +1,3 @@
-'use strict'
-
 class Login {
   get validateAll() {
     return true

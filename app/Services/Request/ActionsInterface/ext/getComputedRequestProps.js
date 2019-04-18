@@ -1,5 +1,3 @@
-'use strict'
-
 const { promisify } = require('util')
 const { join } = require('path')
 const fs = require('fs')

@@ -1,5 +1,3 @@
-'use strict'
-
 /**
  * Action usada para:
  *    - Especialização em Requerimento :: SPEC_BUY_POS

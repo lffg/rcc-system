@@ -1,5 +1,3 @@
-'use strict'
-
 const { LogicalException } = use('@adonisjs/generic-exceptions')
 
 class ActionError extends LogicalException {

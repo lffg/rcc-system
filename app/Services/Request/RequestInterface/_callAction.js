@@ -1,5 +1,3 @@
-'use strict'
-
 const ActionError = require('../ActionsInterface/ext/ActionError')
 const ActionsInterface = require('../ActionsInterface')
 

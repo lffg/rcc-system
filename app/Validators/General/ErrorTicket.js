@@ -1,5 +1,3 @@
-'use strict'
-
 class ErrorTicket {
   get rules() {
     return {

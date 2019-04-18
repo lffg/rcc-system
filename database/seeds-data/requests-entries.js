@@ -1,5 +1,3 @@
-'use strict'
-
 module.exports = [
   {
     controller_id: '3',

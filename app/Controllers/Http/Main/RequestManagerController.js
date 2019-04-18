@@ -1,12 +1,9 @@
-'use strict'
-
 const { HttpException } = use('@adonisjs/generic-exceptions')
 const { RequestInterface, getComputedRequestProps } = use(
   'App/Services/Request'
 )
 const Request = use('App/Models/Request')
 const Database = use('Database')
-const Logger = use('Logger')
 
 class RequestManagerController {
   all() {

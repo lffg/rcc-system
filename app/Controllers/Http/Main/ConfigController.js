@@ -1,5 +1,3 @@
-'use strict'
-
 class ConfigController {
   /**
    * Mostra a página-índice para as configurações do usuário.

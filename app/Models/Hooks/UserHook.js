@@ -1,5 +1,3 @@
-'use strict'
-
 const RequestController = use('App/Models/RequestController')
 const { RequestInterface } = use('App/Services/Request')
 const RequestType = use('App/Models/RequestType')

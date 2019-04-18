@@ -1,5 +1,3 @@
-'use strict'
-
 /**
  * Action usada para:
  *    - Especialização em Requerimento :: SPEC_T_GRAT
@@ -20,6 +18,6 @@ module.exports = () => ({
 async function caller({ transaction, request }) {
   const user = await User.findOrFail(request.receiver_id)
   user.temporary_bonuses =
-    parseInt(user.temporary_bonuses, 10) + parseInt(request.bonuses, 10)
+    parseInt(user.temporary_bonuses) + parseInt(request.bonuses)
   await user.save(transaction)
 }

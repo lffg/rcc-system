@@ -1,5 +1,3 @@
-'use strict'
-
 class LoginController {
   /**
    * Mostra a página com o formulário de login.

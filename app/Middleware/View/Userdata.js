@@ -1,5 +1,3 @@
-'use strict'
-
 const { merge } = require('lodash')
 
 const User = use('App/Models/User')

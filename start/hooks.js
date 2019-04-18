@@ -1,5 +1,3 @@
-'use strict'
-
 const { stringify } = require('querystring')
 const moment = require('moment')
 

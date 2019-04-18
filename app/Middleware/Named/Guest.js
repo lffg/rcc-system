@@ -1,5 +1,3 @@
-'use strict'
-
 class Guest {
   async handle({ response, session, auth }, next) {
     try {

@@ -1,5 +1,3 @@
-'use strict'
-
 /**
  * Action usada para:
  *   - Atualizar o requerimento;
