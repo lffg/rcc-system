@@ -1,5 +1,11 @@
 {
   "extends": ["lffg"],
+  "rules": {
+    "require-await": "off",
+    "no-shadow": "off",
+    "no-multi-assign": "off",
+    "radix": ["warn", "as-needed"]
+  },
   "globals": {
     "use": true
   },
