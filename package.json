@@ -12,7 +12,8 @@
     "serve:dev": "npm run serve -- --dev",
     "build": "./node_modules/.bin/gulp build",
     "build:dev": "./node_modules/.bin/gulp dev",
-    "lint": "node_modules/.bin/eslint **/*.js"
+    "lint": "eslint .",
+    "format": "eslint . --fix"
   },
   "keywords": [
     "adonisjs",
@@ -46,17 +47,25 @@
     "sanitize-html": "^1.19.1",
     "shortid": "^2.2.13",
     "sprintf-js": "^1.1.1",
-    "yiq": "^1.0.0"
+    "yiq": "2.1.0"
   },
   "devDependencies": {
     "@adonisjs/cli": "^4.0.9",
+    "@typescript-eslint/eslint-plugin": "1.x",
+    "@typescript-eslint/parser": "1.x",
+    "babel-eslint": "9.x",
     "concurrently": "^4.0.1",
-    "eslint": "^5.7.0",
-    "eslint-config-standard": "^12.0.0",
-    "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-node": "^7.0.1",
-    "eslint-plugin-promise": "^4.0.1",
-    "eslint-plugin-standard": "^4.0.0",
+    "eslint": "5.x",
+    "eslint-config-lffg": "0.0.3",
+    "eslint-config-prettier": "4.x",
+    "eslint-config-react-app": "3.x",
+    "eslint-plugin-flowtype": "2.x",
+    "eslint-plugin-html": "5.x",
+    "eslint-plugin-import": "2.x",
+    "eslint-plugin-jsx-a11y": "6.x",
+    "eslint-plugin-prettier": "3.x",
+    "eslint-plugin-react": "7.x",
+    "eslint-plugin-react-hooks": "1.x",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^6.0.0",
     "gulp-cli": "^2.0.1",
@@ -64,7 +73,9 @@
     "gulp-plumber": "^1.2.0",
     "gulp-sass": "^4.0.2",
     "gulp-sourcemaps": "^2.6.4",
-    "node-sass": "^4.10.0"
+    "node-sass": "^4.10.0",
+    "prettier": "1.x",
+    "typescript": "3.x"
   },
   "autoload": {
     "App": "./app"
