@@ -47,7 +47,7 @@
     "sanitize-html": "^1.19.1",
     "shortid": "^2.2.13",
     "sprintf-js": "^1.1.1",
-    "yiq": "2.1.0"
+    "yiq": "1.1.1"
   },
   "devDependencies": {
     "@adonisjs/cli": "^4.0.9",
