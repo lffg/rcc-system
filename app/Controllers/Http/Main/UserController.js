@@ -110,12 +110,11 @@ class UserController {
       user: { id }
     }
   }) {
+    // TODO: Remover isso. É desnecessário e irrelevante.
     const lastSearches = await User.query()
       .where({ id })
       .select('id')
-      .with('userSearches', (builder) =>
-        builder.groupBy('username').orderBy('created_at', 'desc')
-      )
+      .with('userSearches', (builder) => builder.orderBy('created_at', 'desc'))
       .limit(10)
       .first()
 
