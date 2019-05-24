@@ -1,30 +1,23 @@
 {
-  "name": "adonis-start",
-  "version": "2.0.0",
+  "private": true,
+  "name": "@lffg/rcc-system",
+  "version": "1.0.0",
   "adonis-version": "4.1.0",
-  "description": "lffg's boilerplate for AdonisJs.",
-  "main": "index.js",
+  "description": "RCC System. By lffg (https://luizfelipe.dev)",
+  "main": "server.js",
+  "author": "lffg (https://luizfelipe.dev)",
+  "license": "Private Software",
   "scripts": {
     "start": "node server.js",
     "test": "node ace test",
-    "dev": "concurrently --kill-others -p \"[{name}]\" -n \"SERVER,ASSETS\" -c \"bgGreen.bold,bgMagenta.bold\" \"npm run serve:dev\" \"npm run build:dev\"",
-    "serve": "./node_modules/.bin/adonis serve",
-    "serve:dev": "npm run serve -- --dev",
-    "build": "./node_modules/.bin/gulp build",
-    "build:dev": "./node_modules/.bin/gulp dev",
+    "dev": "concurrently --kill-others -p \"[{name}]\" -n \"SERVER,ASSETS\" -c \"bgGreen.bold,bgMagenta.bold\" \"yarn serve:dev\" \"yarn build:dev\"",
+    "serve": "adonis serve",
+    "serve:dev": "yarn serve --dev",
+    "build": "gulp build",
+    "build:dev": "gulp dev",
     "lint": "eslint .",
-    "format": "eslint . --fix"
+    "lint:fix": "yarn lint --fix"
   },
-  "keywords": [
-    "adonisjs",
-    "adonis-app",
-    "adonis start",
-    "gulp",
-    "boilerplate"
-  ],
-  "author": "lffg",
-  "license": "UNLICENSED",
-  "private": true,
   "dependencies": {
     "@adonisjs/ace": "^5.0.8",
     "@adonisjs/auth": "^3.0.7",

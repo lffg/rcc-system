@@ -2,5 +2,31 @@
   "extends": ["lffg"],
   "globals": {
     "use": true
-  }
+  },
+  "overrides": [
+    {
+      "files": "resources/**/*.js",
+      "parserOptions": {
+        "sourceType": "script"
+      },
+      "env": {
+        "jquery": true
+      },
+      "rules": {
+        "strict": ["error", "function"],
+        "semi": ["error", "always"],
+        "no-var": "off",
+
+        "prettier/prettier": [
+          "error",
+          {
+            "semi": true,
+            "arrowParens": "always",
+            "singleQuote": true,
+            "printWidth": 80
+          }
+        ]
+      }
+    }
+  ]
 }
