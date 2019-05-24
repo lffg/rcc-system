@@ -1,5 +1,5 @@
-const shortid = require('shortid')
 const crypto = require('crypto')
+const shortid = require('shortid')
 
 const RequestHook = (exports = module.exports = {})
 

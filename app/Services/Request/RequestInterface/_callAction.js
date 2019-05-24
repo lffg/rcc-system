@@ -1,5 +1,5 @@
-const ActionError = require('../ActionsInterface/ext/ActionError')
 const ActionsInterface = require('../ActionsInterface')
+const ActionError = require('../ActionsInterface/ext/ActionError')
 
 const Database = use('Database')
 const Logger = use('Logger')

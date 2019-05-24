@@ -1,5 +1,5 @@
-const ActionError = require('./ext/ActionError')
 const { join } = require('path')
+const ActionError = require('./ext/ActionError')
 
 const RequestController = use('App/Models/RequestController')
 const RequestReview = use('App/Models/RequestReview')

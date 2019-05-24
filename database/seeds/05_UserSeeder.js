@@ -1,5 +1,5 @@
-const { users } = require('../seeds-data/users')
 const requests = require('../seeds-data/requests-entries')
+const { users } = require('../seeds-data/users')
 
 const { RequestInterface } = use('App/Services/Request')
 const Group = use('App/Models/Group')

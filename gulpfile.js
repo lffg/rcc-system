@@ -5,12 +5,12 @@
  */
 
 const gulp = require('gulp')
-const path = require('path')
-const plumber = require('gulp-plumber')
-const concat = require('gulp-concat')
-const sass = require('gulp-sass')
 const prefixer = require('gulp-autoprefixer')
+const concat = require('gulp-concat')
+const plumber = require('gulp-plumber')
+const sass = require('gulp-sass')
 const sourcemaps = require('gulp-sourcemaps')
+const path = require('path')
 
 /**
  * ---------------------------------------------------------------------

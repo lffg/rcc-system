@@ -20,9 +20,9 @@ async function caller ({ transaction, authUser, request, payload }) {
 }
 `
 
-const { promisify } = require('util')
-const { join } = require('path')
 const fs = require('fs')
+const { join } = require('path')
+const { promisify } = require('util')
 
 const actions = [
   'SPEC_CFSD_APPROVAL',

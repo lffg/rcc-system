@@ -1,7 +1,7 @@
-const getComputedRequestProps = require('./ActionsInterface/ext/getComputedRequestProps')
 const ActionsInterface = require('./ActionsInterface')
-const RequestInterface = require('./RequestInterface')
+const getComputedRequestProps = require('./ActionsInterface/ext/getComputedRequestProps')
 const Filters = require('./Filters')
+const RequestInterface = require('./RequestInterface')
 
 exports.getComputedRequestProps = getComputedRequestProps
 exports.ActionsInterface = ActionsInterface

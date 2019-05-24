@@ -1,7 +1,6 @@
-const { stringify } = require('querystring')
-const moment = require('moment')
-
 const { hooks } = require('@adonisjs/ignitor')
+const moment = require('moment')
+const { stringify } = require('querystring')
 
 hooks.after.providersRegistered(() => {
   const Validator = use('Validator')
