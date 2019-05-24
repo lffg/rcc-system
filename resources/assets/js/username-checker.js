@@ -95,6 +95,8 @@
     }).appendTo('head');
   });
 })(jQuery, function debounce(func, wait, immediate) {
+  'use strict';
+
   var timeout;
   return function() {
     var context = this,

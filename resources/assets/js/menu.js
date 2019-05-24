@@ -18,7 +18,7 @@
       if (!$('body').is('.menu-shown')) return;
 
       event.preventDefault();
-      toggleMenu(false);
+      window.toggleMenu(false);
     });
 
     $menu.on('click', function(event) {

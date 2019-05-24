@@ -1,11 +1,11 @@
 (function($) {
   'use strict';
 
-  if (!/^#\$tab\/(.+)$/i.test(location.hash)) {
+  if (!/^#\$tab\/(.+)$/i.test(window.location.hash)) {
     return;
   }
 
-  var hash = location.hash.replace(/^#\$tab\/(.+)$/i, '$1');
+  var hash = window.location.hash.replace(/^#\$tab\/(.+)$/i, '$1');
 
   $(function() {
     var $tab = $('[data-toggle="tab"][href="#' + hash + '"]');
@@ -15,6 +15,6 @@
     }
 
     $tab.tab('show');
-    location.hash = '#';
+    window.location.hash = '#';
   });
 })(jQuery);

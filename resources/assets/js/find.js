@@ -20,7 +20,7 @@
       var $selector = $(this);
       var param;
 
-      if (!!$selector.attr('data-find-param')) {
+      if ($selector.attr('data-find-param')) {
         param = $selector
           .attr('data-find-param')
           .trim()

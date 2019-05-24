@@ -43,6 +43,8 @@
           attributes.className = '--info';
           attributes.icon = 'fa fa-info';
           break;
+        default:
+          console.log('Error.');
       }
 
       var $toast = $(

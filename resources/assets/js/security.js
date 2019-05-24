@@ -14,6 +14,8 @@
       if (json.reload === true) {
         window.location.reload(true);
       }
-    } catch (e) {}
+    } catch (e) {
+      // Do stuff.
+    }
   });
 })(jQuery);
