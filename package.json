@@ -39,6 +39,7 @@
     "@adonisjs/session": "^1.0.28",
     "@adonisjs/shield": "^1.0.8",
     "@adonisjs/validator": "^5.0.6",
+    "eslint": "^5.16.0",
     "fa-icon-list": "^1.0.0",
     "got": "^9.2.2",
     "lodash": "^4.17.11",
@@ -51,21 +52,8 @@
   },
   "devDependencies": {
     "@adonisjs/cli": "^4.0.9",
-    "@typescript-eslint/eslint-plugin": "1.x",
-    "@typescript-eslint/parser": "1.x",
-    "babel-eslint": "9.x",
     "concurrently": "^4.0.1",
-    "eslint": "5.x",
-    "eslint-config-lffg": "0.0.4",
-    "eslint-config-prettier": "4.x",
-    "eslint-config-react-app": "3.x",
-    "eslint-plugin-flowtype": "2.x",
-    "eslint-plugin-html": "5.x",
-    "eslint-plugin-import": "2.x",
-    "eslint-plugin-jsx-a11y": "6.x",
-    "eslint-plugin-prettier": "3.x",
-    "eslint-plugin-react": "7.x",
-    "eslint-plugin-react-hooks": "1.x",
+    "eslint-config-lffg": "^1.2.0",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^6.0.0",
     "gulp-cli": "^2.0.1",
@@ -73,9 +61,7 @@
     "gulp-plumber": "^1.2.0",
     "gulp-sass": "^4.0.2",
     "gulp-sourcemaps": "^2.6.4",
-    "node-sass": "^4.10.0",
-    "prettier": "1.x",
-    "typescript": "3.x"
+    "node-sass": "^4.10.0"
   },
   "autoload": {
     "App": "./app"

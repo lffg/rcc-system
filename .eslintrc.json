@@ -2,10 +2,5 @@
   "extends": ["lffg"],
   "globals": {
     "use": true
-  },
-  "settings": {
-    "react": {
-      "version": "latest"
-    }
   }
 }
