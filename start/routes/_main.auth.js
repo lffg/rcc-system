@@ -2,7 +2,7 @@ const Route = use('Route')
 
 /**
  * ---------------------------------------------------------------------
- * Autênticação.
+ * Autenticação.
  * ---------------------------------------------------------------------
  */
 
@@ -50,3 +50,13 @@ Route.group(() => {
 })
   .namespace('Auth')
   .prefix('session/auth/verify-email')
+
+/**
+ * Recuperação de Senha.
+ */
+Route.group(() => {
+  Route.get('reset', 'ResetPasswordController.index').as('reset-password')
+  Route.post('reset', 'ResetPasswordController.sendEmail')
+})
+  .namespace('Auth')
+  .prefix('auth/password')
