@@ -32,7 +32,7 @@ class Position extends Model {
    * @return {string}
    */
   getColorYiq({ color }) {
-    return yiq(color)
+    return yiq(color || '#000')
   }
 
   /**
