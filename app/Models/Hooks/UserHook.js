@@ -1,13 +1,13 @@
-const RequestController = use('App/Models/RequestController')
-const { RequestInterface } = use('App/Services/Request')
-const RequestType = use('App/Models/RequestType')
-const FormError = use('App/Exceptions/FormError')
-const Position = use('App/Models/Position')
-const Group = use('App/Models/Group')
-const Database = use('Database')
-const Hash = use('Hash')
+const RequestController = use('App/Models/RequestController');
+const { RequestInterface } = use('App/Services/Request');
+const RequestType = use('App/Models/RequestType');
+const FormError = use('App/Exceptions/FormError');
+const Position = use('App/Models/Position');
+const Group = use('App/Models/Group');
+const Database = use('Database');
+const Hash = use('Hash');
 
-const UserHook = (exports = module.exports = {})
+const UserHook = (exports = module.exports = {});
 
 /**
  * Cria um hash para a senha do usuário.
@@ -19,13 +19,13 @@ UserHook.hashPassword = async (userInstance) => {
     typeof userInstance.password === 'string' &&
     userInstance.password === ''
   ) {
-    throw new FormError('Senha inválida: a senha não pode ser vazia.', 400)
+    throw new FormError('Senha inválida: a senha não pode ser vazia.', 400);
   }
 
   if (userInstance.dirty.password) {
-    userInstance.password = await Hash.make(userInstance.password)
+    userInstance.password = await Hash.make(userInstance.password);
   }
-}
+};
 
 /**
  * Cria a relação entre o novo usuário e o grupo-padrão de usuários.
@@ -33,9 +33,9 @@ UserHook.hashPassword = async (userInstance) => {
  * @param {object} userInstance
  */
 UserHook.addToUsersGroup = async (userInstance) => {
-  const usersGroup = await Group.findByOrFail('alias', 'USERS')
-  await userInstance.groups().attach([usersGroup.id])
-}
+  const usersGroup = await Group.findByOrFail('alias', 'USERS');
+  await userInstance.groups().attach([usersGroup.id]);
+};
 
 /**
  * Associa o novo usuário à posição de recruta.
@@ -44,10 +44,10 @@ UserHook.addToUsersGroup = async (userInstance) => {
  */
 UserHook.addUserToPosition = async (userInstance) => {
   if (!userInstance.position_id) {
-    const rec = await Position.findByOrFail('alias', 'REC')
-    await userInstance.position().associate(rec)
+    const rec = await Position.findByOrFail('alias', 'REC');
+    await userInstance.position().associate(rec);
   }
-}
+};
 
 /**
  * Cria um evento na timeline para certificar a criação do usuário.
@@ -58,8 +58,8 @@ UserHook.createAccountRegisterEvent = async (userInstance) => {
   const controller = await RequestController.findByOrFail(
     'alias',
     'SYS_METADATA'
-  )
-  const type = await RequestType.findByOrFail('alias', 'REGISTER')
+  );
+  const type = await RequestType.findByOrFail('alias', 'REGISTER');
 
   await Database.transaction(async (transaction) => {
     const payload = {
@@ -68,11 +68,9 @@ UserHook.createAccountRegisterEvent = async (userInstance) => {
       author_id: userInstance.id,
       receiver_id: userInstance.id,
       is_crh: false,
-      notes: `Criação da conta para o usuário ${
-        userInstance.username
-      } efetivada.`
-    }
+      notes: `Criação da conta para o usuário ${userInstance.username} efetivada.`
+    };
 
-    await RequestInterface.create({ payload, transaction, systemAction: true })
-  })
-}
+    await RequestInterface.create({ payload, transaction, systemAction: true });
+  });
+};

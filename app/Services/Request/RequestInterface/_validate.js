@@ -1,6 +1,6 @@
-const RequestController = use('App/Models/RequestController')
-const { splitNicks } = use('App/Helpers/split-nicks')
-const RequestType = use('App/Models/RequestType')
+const RequestController = use('App/Models/RequestController');
+const { splitNicks } = use('App/Helpers/split-nicks');
+const RequestType = use('App/Models/RequestType');
 
 /**
  * Valida o payload de uma requisição para criar um requerimento.
@@ -15,36 +15,36 @@ const RequestType = use('App/Models/RequestType')
  * @return {Promise<{ status: boolean, code?: string, params?: string[] }}
  */
 module.exports = async function validate(step, payload) {
-  const controller = await validateController(payload.controller_id)
+  const controller = await validateController(payload.controller_id);
   if (!controller) {
-    return error('INVALID_CONTROLLER')
+    return error('INVALID_CONTROLLER');
   }
 
   if (step === 1) {
-    return { status: true }
+    return { status: true };
   }
 
-  const type = await RequestType.find(payload.type_id || null)
+  const type = await RequestType.find(payload.type_id || null);
   if (!type || !(await validateType(controller, type))) {
-    return error('INVALID_TYPE')
+    return error('INVALID_TYPE');
   }
 
-  const validUsers = await validateUsers(payload.receivers, type)
+  const validUsers = await validateUsers(payload.receivers, type);
   if (!validUsers.status) {
-    return error(validUsers.code, validUsers.params)
+    return error(validUsers.code, validUsers.params);
   }
 
   if (step === 2) {
-    return { status: true }
+    return { status: true };
   }
 
-  const validFields = await validateFields(payload, type)
+  const validFields = await validateFields(payload, type);
   if (!validFields.status) {
-    return error(validFields.code, validFields.params)
+    return error(validFields.code, validFields.params);
   }
 
-  return { status: true }
-}
+  return { status: true };
+};
 
 /**
  * Retorna um objeto de erro utilizado pela interface de requisições.
@@ -58,7 +58,7 @@ function error(code, params = []) {
     status: false,
     code,
     params
-  }
+  };
 }
 
 /**
@@ -68,9 +68,9 @@ function error(code, params = []) {
  * @return {RequestController|false}
  */
 async function validateController(controllerId = null) {
-  const controller = await RequestController.find(controllerId)
-  if (!controller || !controller.is_crh) return false
-  return controller
+  const controller = await RequestController.find(controllerId);
+  if (!controller || !controller.is_crh) return false;
+  return controller;
 }
 
 /**
@@ -84,9 +84,9 @@ async function validateController(controllerId = null) {
 async function validateType(controller, type) {
   const types = await RequestType.findTypesFor(controller.id).then((types) =>
     types.map(({ id }) => id)
-  )
+  );
 
-  return types.includes(parseInt(type.id))
+  return types.includes(parseInt(type.id));
 }
 
 /**
@@ -97,9 +97,9 @@ async function validateType(controller, type) {
  * @return {Promise<{ status: boolean, code?: string, params?: string[] }>}
  */
 async function validateUsers(receivers, type) {
-  const users = splitNicks(receivers, true)
-  const { status, code = null, params = [] } = await type.validateUsers(users)
-  return { status, code, params }
+  const users = splitNicks(receivers, true);
+  const { status, code = null, params = [] } = await type.validateUsers(users);
+  return { status, code, params };
 }
 
 /**
@@ -112,6 +112,6 @@ async function validateUsers(receivers, type) {
 async function validateFields(payload, type) {
   const { status, code = null, params = [] } = await type.validateFields(
     payload
-  )
-  return { status, code, params }
+  );
+  return { status, code, params };
 }

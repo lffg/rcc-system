@@ -1,6 +1,6 @@
-const yiq = require('yiq')
+const yiq = require('yiq');
 
-const Model = use('Model')
+const Model = use('Model');
 
 class Position extends Model {
   /**
@@ -10,9 +10,9 @@ class Position extends Model {
    * @return {void}
    */
   static boot() {
-    super.boot()
+    super.boot();
 
-    this.addTrait('Position')
+    this.addTrait('Position');
   }
 
   /**
@@ -22,7 +22,7 @@ class Position extends Model {
    * @return {string[]}
    */
   static get computed() {
-    return ['colorYiq']
+    return ['colorYiq'];
   }
 
   /**
@@ -32,7 +32,7 @@ class Position extends Model {
    * @return {string}
    */
   getColorYiq({ color }) {
-    return yiq(color || '#000')
+    return yiq(color || '#000');
   }
 
   /**
@@ -46,24 +46,24 @@ class Position extends Model {
    */
 
   group() {
-    return this.belongsTo('App/Models/PositionGroup', 'group_id')
+    return this.belongsTo('App/Models/PositionGroup', 'group_id');
   }
 
   prev() {
-    return this.belongsTo('App/Models/Position', 'prev_position_id')
+    return this.belongsTo('App/Models/Position', 'prev_position_id');
   }
 
   next() {
-    return this.belongsTo('App/Models/Position', 'next_position_id')
+    return this.belongsTo('App/Models/Position', 'next_position_id');
   }
 
   equivalence() {
-    return this.belongsTo('App/Models/Position', 'equivalent_to_id')
+    return this.belongsTo('App/Models/Position', 'equivalent_to_id');
   }
 
   users() {
-    return this.hasMany('App/Models/Position', 'id', 'group_id')
+    return this.hasMany('App/Models/Position', 'id', 'group_id');
   }
 }
 
-module.exports = Position
+module.exports = Position;

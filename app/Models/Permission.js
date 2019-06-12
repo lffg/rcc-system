@@ -1,4 +1,4 @@
-const Model = use('Model')
+const Model = use('Model');
 
 class Permission extends Model {
   /**
@@ -8,9 +8,9 @@ class Permission extends Model {
    * @return {void}
    */
   static boot() {
-    super.boot()
+    super.boot();
 
-    this.addHook('beforeCreate', 'AliasHook.generateAlias')
+    this.addHook('beforeCreate', 'AliasHook.generateAlias');
   }
 
   /**
@@ -26,8 +26,8 @@ class Permission extends Model {
   groups() {
     return this.belongsToMany('App/Models/Group').pivotTable(
       'pivot_group_permission'
-    )
+    );
   }
 }
 
-module.exports = Permission
+module.exports = Permission;

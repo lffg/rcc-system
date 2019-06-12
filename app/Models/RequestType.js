@@ -1,4 +1,4 @@
-const Model = use('Model')
+const Model = use('Model');
 
 class RequestType extends Model {
   /**
@@ -8,10 +8,10 @@ class RequestType extends Model {
    * @return {void}
    */
   static boot() {
-    super.boot()
+    super.boot();
 
-    this.addHook('beforeCreate', 'AliasHook.generateAlias')
-    this.addTrait('RequestType')
+    this.addHook('beforeCreate', 'AliasHook.generateAlias');
+    this.addTrait('RequestType');
   }
 
   /**
@@ -25,7 +25,7 @@ class RequestType extends Model {
    */
 
   controller() {
-    return this.belongsTo('App/Models/RequestController', 'controller_id')
+    return this.belongsTo('App/Models/RequestController', 'controller_id');
   }
 
   actions() {
@@ -33,12 +33,12 @@ class RequestType extends Model {
       'App/Models/RequestAction',
       'type_id',
       'action_id'
-    ).pivotTable('pivot_request_action_type')
+    ).pivotTable('pivot_request_action_type');
   }
 
   requests() {
-    return this.hasMany('App/Models/Request', 'id', 'type_id')
+    return this.hasMany('App/Models/Request', 'id', 'type_id');
   }
 }
 
-module.exports = RequestType
+module.exports = RequestType;

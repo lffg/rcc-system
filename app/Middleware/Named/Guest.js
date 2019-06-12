@@ -1,14 +1,14 @@
 class Guest {
   async handle({ response, session, auth }, next) {
     try {
-      await auth.check()
+      await auth.check();
     } catch (e) {
-      return next()
+      return next();
     }
 
-    session.flash({ info: 'Você já está autenticado!' })
-    return response.route('index')
+    session.flash({ info: 'Você já está autenticado!' });
+    return response.route('index');
   }
 }
 
-module.exports = Guest
+module.exports = Guest;

@@ -17,7 +17,7 @@ const usernames = [
   is_verified_email: true,
   promoter_id: 2,
   position_id: 37
-}))
+}));
 
 const users = [
   {
@@ -41,6 +41,6 @@ const users = [
     email: 'dean@rccsystem.com',
     position_id: 37 // 38 = C. Supr.
   }
-]
+];
 
-exports.users = [...users, ...usernames]
+exports.users = [...users, ...usernames];

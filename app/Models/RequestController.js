@@ -1,4 +1,4 @@
-const Model = use('Model')
+const Model = use('Model');
 
 class RequestController extends Model {
   /**
@@ -8,16 +8,16 @@ class RequestController extends Model {
    * @return {void}
    */
   static boot() {
-    super.boot()
+    super.boot();
 
-    this.addHook('beforeCreate', 'AliasHook.generateAlias')
-    this.addTrait('RequestController')
+    this.addHook('beforeCreate', 'AliasHook.generateAlias');
+    this.addTrait('RequestController');
 
     this.addTrait('@provider:Lucid/Slugify', {
       fields: { slug: 'name' },
       strategy: 'dbIncrement',
       disableUpdates: false
-    })
+    });
   }
 
   /**
@@ -31,12 +31,12 @@ class RequestController extends Model {
    */
 
   requests() {
-    return this.hasMany('App/Models/Request', 'id', 'controller_id')
+    return this.hasMany('App/Models/Request', 'id', 'controller_id');
   }
 
   types() {
-    return this.hasMany('App/Models/RequestType', 'id', 'controller_id')
+    return this.hasMany('App/Models/RequestType', 'id', 'controller_id');
   }
 }
 
-module.exports = RequestController
+module.exports = RequestController;

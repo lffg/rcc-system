@@ -1,10 +1,10 @@
-const Database = use('Database')
-const Route = use('Route')
+const Database = use('Database');
+const Route = use('Route');
 
 module.exports = {
   splitNicks,
   fullSplitNicks
-}
+};
 
 /**
  * Divide uma string de nicks, que serão divididos através do caractere
@@ -19,17 +19,17 @@ function splitNicks(nicks = '', onlyEntries = false) {
   const splitedNicks = nicks
     .split(/\\|\//)
     .map((s) => s.trim())
-    .filter((s) => /\S/.test(s))
+    .filter((s) => /\S/.test(s));
 
   // Remove repetições:
-  const entries = [...new Set(splitedNicks)]
+  const entries = [...new Set(splitedNicks)];
 
-  if (onlyEntries) return entries
+  if (onlyEntries) return entries;
 
   return {
     entries,
     string: entries.join(' / ')
-  }
+  };
 }
 
 /**
@@ -45,8 +45,8 @@ async function fullSplitNicks(
   onlyEntries = false,
   complex = false
 ) {
-  if (!complex) return splitNicks(nicks, onlyEntries)
-  const { entries: usernames, string } = splitNicks(nicks, onlyEntries)
+  if (!complex) return splitNicks(nicks, onlyEntries);
+  const { entries: usernames, string } = splitNicks(nicks, onlyEntries);
 
   const entries = await Database.select('U.username', 'P.name as position_name')
     .from('users as U')
@@ -55,7 +55,7 @@ async function fullSplitNicks(
     .map((user) => ({
       ...user,
       profile_link: `${Route.url('users.show')}?u=${user.username}`
-    }))
+    }));
 
   for (const nick of usernames) {
     if (
@@ -64,9 +64,9 @@ async function fullSplitNicks(
           username.trim().toUpperCase() === nick.trim().toUpperCase()
       )
     ) {
-      entries.unshift({ username: nick })
+      entries.unshift({ username: nick });
     }
   }
 
-  return { entries, string }
+  return { entries, string };
 }

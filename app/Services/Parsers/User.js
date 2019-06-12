@@ -1,4 +1,4 @@
-const { pick } = require('lodash')
+const { pick } = require('lodash');
 
 class UserParser {
   static parse(data = {}) {
@@ -11,19 +11,19 @@ class UserParser {
       'password',
       'email',
       'state'
-    ])
+    ]);
 
-    userdata.is_verified_email = userdata.is_verified_email === 'on'
+    userdata.is_verified_email = userdata.is_verified_email === 'on';
 
     if (
       !userdata.password ||
       (typeof userdata.password === 'string' && userdata.password === '')
     ) {
-      delete userdata.password
+      delete userdata.password;
     }
 
-    return userdata
+    return userdata;
   }
 }
 
-module.exports = UserParser
+module.exports = UserParser;

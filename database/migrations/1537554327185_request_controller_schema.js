@@ -1,41 +1,41 @@
-const Schema = use('Schema')
+const Schema = use('Schema');
 
 class RequestControllerSchema extends Schema {
   up() {
     this.create('request_controllers', (table) => {
-      table.increments()
+      table.increments();
 
       table
         .string('alias', 80)
         .notNullable()
         .unique()
-        .index('alias')
+        .index('alias');
       table
         .boolean('is_permanent')
         .notNullable()
-        .defaultTo(false)
+        .defaultTo(false);
 
-      table.string('slug', 190)
+      table.string('slug', 190);
       table
         .boolean('has_list')
         .notNullable()
-        .defaultTo(true)
+        .defaultTo(true);
       table
         .boolean('is_crh')
         .notNullable()
-        .defaultTo(true)
+        .defaultTo(true);
 
-      table.string('name', 80).notNullable()
-      table.string('color', 30).notNullable()
-      table.text('description').defaultTo(null)
+      table.string('name', 80).notNullable();
+      table.string('color', 30).notNullable();
+      table.text('description').defaultTo(null);
 
-      table.timestamps()
-    })
+      table.timestamps();
+    });
   }
 
   down() {
-    this.drop('request_controllers')
+    this.drop('request_controllers');
   }
 }
 
-module.exports = RequestControllerSchema
+module.exports = RequestControllerSchema;

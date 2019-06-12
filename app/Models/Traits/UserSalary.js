@@ -12,11 +12,11 @@ class UserSalary {
      * @return {Promise<{ fixSalary: number, fullSalary: number }>}
      */
     Model.prototype.getSalary = async function() {
-      const fixSalary = await this.getFixSalary()
-      const fullSalary = await this.getFullSalary()
+      const fixSalary = await this.getFixSalary();
+      const fullSalary = await this.getFullSalary();
 
-      return { fixSalary, fullSalary }
-    }
+      return { fixSalary, fullSalary };
+    };
 
     /**
      * Retorna o salário fixo de um usuário baseado em sua posição.
@@ -28,10 +28,10 @@ class UserSalary {
         .where({ id: this.id })
         .with('position', (builder) => builder.select('id', 'salary'))
         .first()
-        .then((user) => user.toJSON())
+        .then((user) => user.toJSON());
 
-      return user.position ? user.position.salary || 0 : 0
-    }
+      return user.position ? user.position.salary || 0 : 0;
+    };
 
     /**
      * Retorna o salário de um usuário baseado em suas medalhas.
@@ -39,11 +39,11 @@ class UserSalary {
      * @return {number}
      */
     Model.prototype.getMedalsSalary = function() {
-      const temporary = this.temporary_bonuses || 0
-      const effective = this.effective_bonuses || 0
+      const temporary = this.temporary_bonuses || 0;
+      const effective = this.effective_bonuses || 0;
 
-      return Math.floor((temporary + effective) / 20)
-    }
+      return Math.floor((temporary + effective) / 20);
+    };
 
     /**
      * Retorna o salário completo de um usuário.
@@ -51,12 +51,12 @@ class UserSalary {
      * @return {Promise<number>}
      */
     Model.prototype.getFullSalary = async function() {
-      const fixSalary = await this.getFixSalary()
-      const medalsSalary = this.getMedalsSalary()
+      const fixSalary = await this.getFixSalary();
+      const medalsSalary = this.getMedalsSalary();
 
-      return fixSalary + medalsSalary
-    }
+      return fixSalary + medalsSalary;
+    };
   }
 }
 
-module.exports = UserSalary
+module.exports = UserSalary;

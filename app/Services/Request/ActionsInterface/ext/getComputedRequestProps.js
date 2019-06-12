@@ -1,11 +1,11 @@
-const fs = require('fs')
-const { join } = require('path')
-const { promisify } = require('util')
+const fs = require('fs');
+const { join } = require('path');
+const { promisify } = require('util');
 
-const readFile = promisify(fs.readFile)
+const readFile = promisify(fs.readFile);
 
-const Database = use('Database')
-const View = use('View')
+const Database = use('Database');
+const View = use('View');
 
 /**
  * Cria as propriedades computadas necessárias para a instância de um
@@ -35,24 +35,24 @@ module.exports = async function getComputedRequestProps(
     .leftJoin('positions as Bp', 'Bp.id', '=', 'req.before_position_id')
     .leftJoin('positions as Ap', 'Ap.id', '=', 'req.after_position_id')
     .where('req.id', requestInstance.id)
-    .first()
+    .first();
 
   const template = await readFile(
     join(__dirname, 'data', 'requests-computed.edge'),
     'utf8'
-  )
+  );
 
-  const computedBody = View.renderString(template, { request, type: 'BODY' })
-  const computedTitle = View.renderString(template, { request, type: 'TITLE' })
+  const computedBody = View.renderString(template, { request, type: 'BODY' });
+  const computedTitle = View.renderString(template, { request, type: 'TITLE' });
   const computedTemplate = View.renderString(template, {
     request,
     type: 'ENTITY_TEMPLATE'
-  })
+  });
 
   return {
     computed_body: computedBody.trim() || 'Tipo não definido.',
     computed_title: computedTitle.trim() || 'Corpo não definido.',
     computed_template:
       computedTemplate.trim() || 'Dados indisponíveis para este requerimento.'
-  }
-}
+  };
+};

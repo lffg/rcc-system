@@ -1,10 +1,10 @@
-const icons = require('fa-icon-list')()
+const icons = require('fa-icon-list')();
 
-const { rule } = use('Validator')
+const { rule } = use('Validator');
 
 class UpdateGroup {
   get validateAll() {
-    return true
+    return true;
   }
 
   get rules() {
@@ -14,7 +14,7 @@ class UpdateGroup {
       is_hidden: 'required|in:0,1',
       icon: [rule('in', ['', ...icons])],
       color: [rule('required'), rule('regex', /^#(?:[0-9a-f]{3}){1,2}$/i)]
-    }
+    };
   }
 
   get messages() {
@@ -28,19 +28,19 @@ class UpdateGroup {
       'icon.in': 'O ícone é inválido.',
       'color.required': 'A cor é obrigatória.',
       'color.regex': 'A cor é inválida. Tente novamente.'
-    }
+    };
   }
 
   async fails(errorMessages) {
-    const { response, session } = this.ctx
+    const { response, session } = this.ctx;
 
     session
       .flash({ danger: 'Whoops! Parece que houveram alguns erros.' })
       .withErrors(errorMessages)
-      .flashAll()
+      .flashAll();
 
-    return response.redirect('back')
+    return response.redirect('back');
   }
 }
 
-module.exports = UpdateGroup
+module.exports = UpdateGroup;

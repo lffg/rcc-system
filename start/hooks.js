@@ -1,88 +1,88 @@
-const { hooks } = require('@adonisjs/ignitor')
-const moment = require('moment')
-const { stringify } = require('querystring')
+const { stringify } = require('querystring');
+const { hooks } = require('@adonisjs/ignitor');
+const moment = require('moment');
 
 hooks.after.providersRegistered(() => {
-  const Validator = use('Validator')
-  const Database = use('Database')
-  const Helpers = use('Helpers')
-  const Config = use('Config')
-  const Route = use('Route')
-  const View = use('View')
+  const Validator = use('Validator');
+  const Database = use('Database');
+  const Helpers = use('Helpers');
+  const Config = use('Config');
+  const Route = use('Route');
+  const View = use('View');
 
   /**
    * Extende o provider de validação com a regra "exists".
    */
   const existsFn = async (data, field, message, args, get) => {
-    const value = get(data, field)
+    const value = get(data, field);
     if (!value) {
-      return
+      return;
     }
 
-    const [table, column] = args
+    const [table, column] = args;
     const row = await Database.table(table)
       .where(column, value)
-      .first()
+      .first();
 
     if (!row) {
-      throw message
+      throw message;
     }
-  }
+  };
 
-  Validator.extend('exists', existsFn)
+  Validator.extend('exists', existsFn);
 
   /**
    * Adiciona um método "num" para as views".
    */
   View.global('num', (n) => {
-    return Number(n)
-  })
+    return Number(n);
+  });
 
   /**
    * Adiciona um método "has" para as views.
    */
   View.global('has', (el, defaultValue = '') => {
-    return el || defaultValue
-  })
+    return el || defaultValue;
+  });
 
   /**
    * Adiciona um método "absolute" para as views".
    */
   View.global('absolute', (url = '') => {
-    let base = Config.get('app.url')
+    let base = Config.get('app.url');
 
-    base = base.replace(/^\/|\/$/g, '')
-    url = url.replace(/^\/|\/$/g, '')
+    base = base.replace(/^\/|\/$/g, '');
+    url = url.replace(/^\/|\/$/g, '');
 
-    return `${base}/${url}`
-  })
+    return `${base}/${url}`;
+  });
 
   /**
    * Adiciona um método "now" para as views.
    */
   View.global('now', () => {
-    return Date.now()
-  })
+    return Date.now();
+  });
 
   /**
    * Adiciona uma instância de "Date" para as views.
    */
   View.global('Date', (...args) => {
-    return new Date(...args)
-  })
+    return new Date(...args);
+  });
 
   /**
    * Adiciona um método global "toQueryString" nas views.
    */
   View.global('toQueryString', (...objects) => {
-    let main = {}
+    let main = {};
 
     for (const object of objects) {
-      main = Object.assign(main, object)
+      main = Object.assign(main, object);
     }
 
-    return stringify(main)
-  })
+    return stringify(main);
+  });
 
   /**
    * Método para inserir link para usuário.
@@ -92,28 +92,28 @@ hooks.after.providersRegistered(() => {
       `<a ${className || ''} href="${Route.url(
         'users.show'
       )}?u=${username}">${username}</a>`
-    )
-  })
+    );
+  });
 
   /**
    * Adiciona a instância do Moment.JS para as views.
    */
   View.global('moment', (...args) => {
-    moment.updateLocale('pt-br', require(Helpers.resourcesPath('i18n/moment')))
-    moment.locale('pt-br')
+    moment.updateLocale('pt-br', require(Helpers.resourcesPath('i18n/moment')));
+    moment.locale('pt-br');
 
     moment.prototype.f = function(short = false) {
       if (!short) {
-        return this.format('LLLL')
+        return this.format('LLLL');
       }
 
-      return this.format('DD MMM YYYY')
-    }
+      return this.format('DD MMM YYYY');
+    };
 
     moment.prototype.ut = function() {
-      return this.format('x')
-    }
+      return this.format('x');
+    };
 
-    return moment(...args)
-  })
-})
+    return moment(...args);
+  });
+});

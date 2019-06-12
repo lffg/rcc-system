@@ -4,7 +4,7 @@
  *    - Definir a data da revisão no requerimento.
  */
 
-const RequestReview = use('App/Models/RequestReview')
+const RequestReview = use('App/Models/RequestReview');
 
 module.exports = () => ({
   requiresTransaction: true,
@@ -14,25 +14,25 @@ module.exports = () => ({
   requiresReview: false,
   requiresType: false,
   caller
-})
+});
 
 async function caller({ transaction, authUser, request }, ActionError) {
   if (
     !(await authUser.hasPermission('CRH', true)) ||
     request.crh_state !== 'PENDING'
   ) {
-    throw new ActionError('Ocorreu um erro de permissão. Tente novamente.')
+    throw new ActionError('Ocorreu um erro de permissão. Tente novamente.');
   }
 
-  const review = new RequestReview()
-  review.author_id = authUser.id
-  review.type = 'REVIEW'
-  review.body = '<i class="fa fa-check"></i> Requerimento aprovado.'
+  const review = new RequestReview();
+  review.author_id = authUser.id;
+  review.type = 'REVIEW';
+  review.body = '<i class="fa fa-check"></i> Requerimento aprovado.';
 
-  await request.reviews().save(review, transaction)
-  await request.reviwer().associate(authUser, transaction)
+  await request.reviews().save(review, transaction);
+  await request.reviwer().associate(authUser, transaction);
 
   // Atualizar a data da última revisão:
-  request.merge({ crh_state: 'APPROVED', last_review: new Date() })
-  await request.save(transaction)
+  request.merge({ crh_state: 'APPROVED', last_review: new Date() });
+  await request.save(transaction);
 }

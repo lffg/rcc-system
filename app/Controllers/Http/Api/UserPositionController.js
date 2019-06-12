@@ -1,4 +1,4 @@
-const User = use('App/Models/User')
+const User = use('App/Models/User');
 
 class UserPositionController {
   /**
@@ -9,14 +9,14 @@ class UserPositionController {
    * @api
    */
   async check({ request, response }) {
-    const username = request.input('u', '')
+    const username = request.input('u', '');
 
     try {
-      await User.findByOrFail('username', username)
+      await User.findByOrFail('username', username);
     } catch (e) {
       return response
         .status(404)
-        .json({ status: false, username, error: 'User not found' })
+        .json({ status: false, username, error: 'User not found' });
     }
 
     const {
@@ -25,14 +25,14 @@ class UserPositionController {
       .select('id', 'username', 'position_id')
       .where({ username })
       .with('position', (builder) => builder.getNear())
-      .first()).toJSON()
+      .first()).toJSON();
 
     return {
       positions: { prev, current: { id, name }, next, equivalence },
       username,
       status: true
-    }
+    };
   }
 }
 
-module.exports = UserPositionController
+module.exports = UserPositionController;

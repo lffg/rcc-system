@@ -1,20 +1,20 @@
-const User = use('App/Models/User')
+const User = use('App/Models/User');
 
 class LastVisit {
   async handle({ auth }, next) {
     try {
-      await auth.check()
+      await auth.check();
     } catch (e) {
-      return next()
+      return next();
     }
 
-    const user = await User.findOrFail(auth.user.id)
+    const user = await User.findOrFail(auth.user.id);
 
-    user.last_visit = Date.now()
-    await user.save()
+    user.last_visit = Date.now();
+    await user.save();
 
-    return next()
+    return next();
   }
 }
 
-module.exports = LastVisit
+module.exports = LastVisit;

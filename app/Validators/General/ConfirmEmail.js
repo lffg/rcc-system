@@ -1,28 +1,28 @@
-const Hash = use('Hash')
+const Hash = use('Hash');
 
 class ConfirmEmail {
   get validateAll() {
-    return true
+    return true;
   }
 
   async authorize() {
-    const { request, response, session, auth } = this.ctx
+    const { request, response, session, auth } = this.ctx;
 
     if (await Hash.verify(request.input('password'), auth.user.password)) {
-      return true
+      return true;
     }
 
-    session.flash({ danger: 'A senha de confirmação está incorreta.' })
-    return response.redirect('back')
+    session.flash({ danger: 'A senha de confirmação está incorreta.' });
+    return response.redirect('back');
   }
 
   get rules() {
-    const { id } = this.ctx.auth.user
+    const { id } = this.ctx.auth.user;
 
     return {
       email: `required|email|max:175|unique:users,email,id,${id}`,
       password: 'required'
-    }
+    };
   }
 
   get messages() {
@@ -32,15 +32,15 @@ class ConfirmEmail {
       'email.unique': 'O e-mail fornecido já está em uso.',
       'email.email': 'O e-mail fornecido não é válido.',
       'email.max': 'O e-mail deve ter, no máximo, 175 caracteres.'
-    }
+    };
   }
 
   async fails(errorMessages) {
-    const { response, session } = this.ctx
+    const { response, session } = this.ctx;
 
-    session.withErrors(errorMessages)
-    response.redirect('back')
+    session.withErrors(errorMessages);
+    response.redirect('back');
   }
 }
 
-module.exports = ConfirmEmail
+module.exports = ConfirmEmail;

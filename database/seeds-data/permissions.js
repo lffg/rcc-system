@@ -3,7 +3,7 @@ const groups = {
   ADMIN: 2,
   COR: 3,
   CRH: 4
-}
+};
 
 exports.permissions = [
   {
@@ -24,4 +24,4 @@ exports.permissions = [
     name: 'Acesso à Gestão do Centro de Recursos Humanos',
     __groups__: [groups.ADMIN, groups.DEV, groups.COR, groups.CRH]
   }
-]
+];

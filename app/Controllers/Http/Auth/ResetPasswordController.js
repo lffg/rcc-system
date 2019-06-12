@@ -1,4 +1,4 @@
-const User = use('App/Models/User')
+const User = use('App/Models/User');
 
 class ResetPasswordController {
   /**
@@ -7,7 +7,7 @@ class ResetPasswordController {
    * @method GET
    */
   index({ view }) {
-    return view.render('pages.session.auth.reset-password')
+    return view.render('pages.session.auth.reset-password');
   }
 
   /**
@@ -17,16 +17,18 @@ class ResetPasswordController {
    * @method POST
    */
   async sendEmail({ request, response, session, view }) {
-    const email = request.input('email')
-    let user
+    const email = request.input('email');
+    // TODO
+    // eslint-disable-next-line
+    let user;
 
     try {
-      user = await User.findByOrFail('email', email)
+      user = await User.findByOrFail('email', email);
     } catch (error) {
-      session.flash({ danger: 'Não existem usuários com este e-mail.' })
-      return response.redirect('back')
+      session.flash({ danger: 'Não existem usuários com este e-mail.' });
+      return response.redirect('back');
     }
   }
 }
 
-module.exports = ResetPasswordController
+module.exports = ResetPasswordController;

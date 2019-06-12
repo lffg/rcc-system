@@ -1,4 +1,4 @@
-const Model = use('Model')
+const Model = use('Model');
 
 class ErrorTicket extends Model {
   /**
@@ -12,12 +12,12 @@ class ErrorTicket extends Model {
    */
 
   author() {
-    return this.belongsTo('App/Models/User', 'author_id')
+    return this.belongsTo('App/Models/User', 'author_id');
   }
 
   admin() {
-    return this.belongsTo('App/Models/User', 'admin_id')
+    return this.belongsTo('App/Models/User', 'admin_id');
   }
 }
 
-module.exports = ErrorTicket
+module.exports = ErrorTicket;

@@ -1,4 +1,4 @@
-const Post = use('App/Models/Post')
+const Post = use('App/Models/Post');
 
 class PostController {
   /**
@@ -10,9 +10,9 @@ class PostController {
     const posts = await Post.query()
       .where({ is_hidden: false })
       .with('user')
-      .fetch()
+      .fetch();
 
-    return view.render('pages.posts.index', { posts: posts.toJSON() })
+    return view.render('pages.posts.index', { posts: posts.toJSON() });
   }
 
   /**
@@ -21,7 +21,7 @@ class PostController {
    * @method GET
    */
   async create() {
-    return 1
+    return 1;
   }
 
   /**
@@ -40,11 +40,11 @@ class PostController {
     const post = await Post.query()
       .where({ slug })
       .with('user', (builder) => {
-        builder.with('position').withCount('posts')
+        builder.with('position').withCount('posts');
       })
-      .firstOrFail()
+      .firstOrFail();
 
-    return view.render('pages.posts.show', { post: post.toJSON() })
+    return view.render('pages.posts.show', { post: post.toJSON() });
   }
 
   /**
@@ -53,7 +53,7 @@ class PostController {
    * @method GET
    */
   async edit() {
-    return 1
+    return 1;
   }
 
   /**
@@ -71,4 +71,4 @@ class PostController {
   async destroy() {}
 }
 
-module.exports = PostController
+module.exports = PostController;

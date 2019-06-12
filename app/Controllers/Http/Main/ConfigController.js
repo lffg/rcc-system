@@ -8,7 +8,7 @@ class ConfigController {
     return view.render('pages.session.config.index', {
       user: user.toJSON(),
       mode: 'main'
-    })
+    });
   }
 
   /**
@@ -17,13 +17,13 @@ class ConfigController {
    * @method POST
    */
   async saveMain({ request, response, session, auth: { user } }) {
-    const data = request.only(['location', 'gender', 'bio'])
+    const data = request.only(['location', 'gender', 'bio']);
 
-    user.merge(data)
-    await user.save()
+    user.merge(data);
+    await user.save();
 
-    session.flash({ success: 'Seu perfil foi atualizado com sucesso!' })
-    return response.redirect('back')
+    session.flash({ success: 'Seu perfil foi atualizado com sucesso!' });
+    return response.redirect('back');
   }
 
   /**
@@ -35,7 +35,7 @@ class ConfigController {
     return view.render('pages.session.config.index', {
       user: user.toJSON(),
       mode: 'email'
-    })
+    });
   }
 
   /**
@@ -44,14 +44,14 @@ class ConfigController {
    * @method POST
    */
   async saveEmail({ request, response, session, auth: { user } }) {
-    const data = request.only(['email'])
+    const data = request.only(['email']);
 
-    user.is_verified_email = false
-    user.merge(data)
-    await user.save()
+    user.is_verified_email = false;
+    user.merge(data);
+    await user.save();
 
-    session.flash({ success: 'Seu e-mail foi atualizado com sucesso!' })
-    return response.redirect('back')
+    session.flash({ success: 'Seu e-mail foi atualizado com sucesso!' });
+    return response.redirect('back');
   }
 
   /**
@@ -63,7 +63,7 @@ class ConfigController {
     return view.render('pages.session.config.index', {
       user: user.toJSON(),
       mode: 'password'
-    })
+    });
   }
 
   /**
@@ -72,18 +72,18 @@ class ConfigController {
    * @param {object} ctx
    */
   async savePassword({ request, response, session, auth }) {
-    const data = request.only(['password'])
+    const data = request.only(['password']);
 
-    auth.user.merge(data)
-    await auth.user.save()
+    auth.user.merge(data);
+    await auth.user.save();
 
     // Desloga o usuário:
-    await auth.logout()
-    session.clear()
+    await auth.logout();
+    session.clear();
 
-    session.flash({ success: 'Sua senha foi atualizada com sucesso!' })
-    return response.route('login')
+    session.flash({ success: 'Sua senha foi atualizada com sucesso!' });
+    return response.route('login');
   }
 }
 
-module.exports = ConfigController
+module.exports = ConfigController;

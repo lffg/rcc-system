@@ -1,40 +1,40 @@
-const Schema = use('Schema')
+const Schema = use('Schema');
 
 class PostSchema extends Schema {
   up() {
     this.create('posts', (table) => {
-      table.increments()
+      table.increments();
 
-      table.string('title', 175).notNullable()
-      table.string('slug', 191)
+      table.string('title', 175).notNullable();
+      table.string('slug', 191);
 
-      table.text('description').defaultTo(null)
-      table.string('image', 191).defaultTo(null)
-      table.text('body').notNullable()
+      table.text('description').defaultTo(null);
+      table.string('image', 191).defaultTo(null);
+      table.text('body').notNullable();
 
       table
         .boolean('is_hidden')
         .notNullable()
-        .defaultTo(false)
+        .defaultTo(false);
       table
         .boolean('is_locked')
         .notNullable()
-        .defaultTo(false)
+        .defaultTo(false);
 
       table
         .integer('user_id')
         .unsigned()
         .index('user_id')
-        .notNullable()
-      table.foreign('user_id').references('users.id')
+        .notNullable();
+      table.foreign('user_id').references('users.id');
 
-      table.timestamps()
-    })
+      table.timestamps();
+    });
   }
 
   down() {
-    this.drop('posts')
+    this.drop('posts');
   }
 }
 
-module.exports = PostSchema
+module.exports = PostSchema;

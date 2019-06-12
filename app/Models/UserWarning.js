@@ -1,5 +1,5 @@
-const Model = use('Model')
+const Model = use('Model');
 
 class UserWarning extends Model {}
 
-module.exports = UserWarning
+module.exports = UserWarning;

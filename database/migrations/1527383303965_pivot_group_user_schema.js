@@ -1,42 +1,42 @@
 // -- PIVOT
 
-const Schema = use('Schema')
+const Schema = use('Schema');
 
 class PivotGroupUserSchema extends Schema {
   up() {
     this.create('pivot_group_user', (table) => {
-      table.increments()
+      table.increments();
 
       table
         .integer('group_id')
         .unsigned()
         .index('group_id')
-        .notNullable()
+        .notNullable();
       table
         .foreign('group_id')
         .references('groups.id')
-        .onDelete('cascade')
+        .onDelete('cascade');
 
       table
         .integer('user_id')
         .unsigned()
         .index('user_id')
-        .notNullable()
+        .notNullable();
       table
         .foreign('user_id')
         .references('users.id')
-        .onDelete('cascade')
+        .onDelete('cascade');
 
       table
         .boolean('is_moderator')
         .defaultTo(false)
-        .notNullable()
-    })
+        .notNullable();
+    });
   }
 
   down() {
-    this.drop('pivot_group_user')
+    this.drop('pivot_group_user');
   }
 }
 
-module.exports = PivotGroupUserSchema
+module.exports = PivotGroupUserSchema;

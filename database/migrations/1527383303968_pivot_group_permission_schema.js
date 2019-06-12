@@ -1,36 +1,36 @@
-const Schema = use('Schema')
+const Schema = use('Schema');
 
 class PivotGroupPermissionSchema extends Schema {
   up() {
     this.create('pivot_group_permission', (table) => {
-      table.increments()
-      table.timestamps()
+      table.increments();
+      table.timestamps();
 
       table
         .integer('group_id')
         .unsigned()
         .index('group_id')
-        .notNullable()
+        .notNullable();
       table
         .foreign('group_id')
         .references('groups.id')
-        .onDelete('cascade')
+        .onDelete('cascade');
 
       table
         .integer('permission_id')
         .unsigned()
         .index('permission_id')
-        .notNullable()
+        .notNullable();
       table
         .foreign('permission_id')
         .references('permissions.id')
-        .onDelete('cascade')
-    })
+        .onDelete('cascade');
+    });
   }
 
   down() {
-    this.drop('pivot_group_permission')
+    this.drop('pivot_group_permission');
   }
 }
 
-module.exports = PivotGroupPermissionSchema
+module.exports = PivotGroupPermissionSchema;

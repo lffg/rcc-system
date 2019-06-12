@@ -1,4 +1,4 @@
-const Route = use('Route')
+const Route = use('Route');
 
 /**
  * ---------------------------------------------------------------------
@@ -7,11 +7,11 @@ const Route = use('Route')
  */
 
 Route.group(() => {
-  Route.get('check-user', 'UserController.check')
-  Route.get('check-tag', 'UserController.checkTag')
+  Route.get('check-user', 'UserController.check');
+  Route.get('check-tag', 'UserController.checkTag');
 
-  Route.get('near-positions', 'UserPositionController.check')
+  Route.get('near-positions', 'UserPositionController.check');
 })
   .middleware(['auth'])
   .namespace('Api')
-  .prefix('api')
+  .prefix('api');

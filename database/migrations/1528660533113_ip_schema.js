@@ -1,25 +1,25 @@
-const Schema = use('Schema')
+const Schema = use('Schema');
 
 class IpsSchema extends Schema {
   up() {
     this.create('ips', (table) => {
-      table.increments()
+      table.increments();
 
-      table.integer('user_id').unsigned()
+      table.integer('user_id').unsigned();
       table
         .foreign('user_id')
         .references('users.id')
-        .onDelete('cascade')
+        .onDelete('cascade');
 
-      table.string('ip', 45).notNullable()
+      table.string('ip', 45).notNullable();
 
-      table.timestamps()
-    })
+      table.timestamps();
+    });
   }
 
   down() {
-    this.drop('ips')
+    this.drop('ips');
   }
 }
 
-module.exports = IpsSchema
+module.exports = IpsSchema;

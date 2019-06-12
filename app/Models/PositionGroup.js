@@ -1,4 +1,4 @@
-const Model = use('Model')
+const Model = use('Model');
 
 class PositionGroup extends Model {
   /**
@@ -8,9 +8,9 @@ class PositionGroup extends Model {
    * @return {void}
    */
   static boot() {
-    super.boot()
+    super.boot();
 
-    this.addHook('beforeCreate', 'AliasHook.generateAlias')
+    this.addHook('beforeCreate', 'AliasHook.generateAlias');
   }
 
   /**
@@ -27,8 +27,8 @@ class PositionGroup extends Model {
     return this.hasMany('App/Models/Position', 'id', 'group_id').orderBy(
       'order',
       'asc'
-    )
+    );
   }
 }
 
-module.exports = PositionGroup
+module.exports = PositionGroup;

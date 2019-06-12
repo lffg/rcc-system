@@ -1,4 +1,4 @@
-const Database = use('Database')
+const Database = use('Database');
 
 class UserPermission {
   register(Model) {
@@ -23,16 +23,16 @@ class UserPermission {
         .innerJoin('groups as G', 'G.id', '=', 'PGU.group_id')
         .innerJoin('pivot_group_permission as PGP', 'PGP.group_id', '=', 'G.id')
         .innerJoin('permissions as P', 'P.id', '=', 'PGP.permission_id')
-        .where('U.id', this.id)
+        .where('U.id', this.id);
 
       if (aliases === 'BOTH') {
-        return permissions
+        return permissions;
       }
 
       return permissions.map(({ id = null, alias = null }) =>
         aliases && !!alias ? alias : id
-      )
-    }
+      );
+    };
 
     /**
      * Verifica se um usuário faz parte da permissão.
@@ -50,15 +50,15 @@ class UserPermission {
         typeof permission === 'string' &&
         !isNaN(parseInt(permission))
       ) {
-        permission = parseInt(permission)
+        permission = parseInt(permission);
       }
 
-      const permissions = await this.getPermissions(getByAlias)
+      const permissions = await this.getPermissions(getByAlias);
       return permissions.includes(
         getByAlias ? permission.toUpperCase() : permission
-      )
-    }
+      );
+    };
   }
 }
 
-module.exports = UserPermission
+module.exports = UserPermission;

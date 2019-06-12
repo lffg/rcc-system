@@ -63,7 +63,7 @@ exports.controllers = [
     name: 'Mudança de Conta',
     color: '#3f51b5'
   }
-]
+];
 
 /**
  * ---------------------------------------------------------------------
@@ -193,7 +193,7 @@ exports.actions = [
     name: 'Transferência de Conta',
     description: '-'
   }
-]
+];
 
 /**
  * ---------------------------------------------------------------------
@@ -720,4 +720,4 @@ exports.types = [
     label_field_extra_user_1: 'Nick da <strong>nova</strong> conta:',
     __actions__: ['SPEC_CHANGE_ACC']
   }
-]
+];

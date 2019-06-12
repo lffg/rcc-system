@@ -5,8 +5,8 @@ class IndexController {
    * @method GET
    */
   index({ view }) {
-    return view.render('admin.dashboard.index')
+    return view.render('admin.dashboard.index');
   }
 }
 
-module.exports = IndexController
+module.exports = IndexController;

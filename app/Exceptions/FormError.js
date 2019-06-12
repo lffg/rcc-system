@@ -1,4 +1,4 @@
-const { HttpException } = use('@adonisjs/generic-exceptions')
+const { HttpException } = use('@adonisjs/generic-exceptions');
 
 class FormErrorException extends HttpException {
   /**
@@ -11,9 +11,9 @@ class FormErrorException extends HttpException {
    * @param {string} link
    */
   constructor(message, status, path, code, link) {
-    super(message, status, code, link)
+    super(message, status, code, link);
 
-    this.path = path
+    this.path = path;
   }
 
   /**
@@ -25,7 +25,7 @@ class FormErrorException extends HttpException {
     return {
       E_VIOLATED_REQUEST:
         'Requisição violada: um ou mais campos protegidos foram violados.'
-    }
+    };
   }
 
   /**
@@ -34,10 +34,10 @@ class FormErrorException extends HttpException {
   async handle({ message = null, code }, { response, session }) {
     session.flash({
       danger: this.messages[code] || message || this.messages.E_DEFAULT
-    })
-    await session.commit()
-    return response.redirect(this.path || 'back')
+    });
+    await session.commit();
+    return response.redirect(this.path || 'back');
   }
 }
 
-module.exports = FormErrorException
+module.exports = FormErrorException;

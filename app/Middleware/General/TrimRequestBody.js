@@ -10,11 +10,11 @@ class TrimRequestBody {
                 : request.body[key]
               : null
         }))
-      )
+      );
     }
 
-    return next()
+    return next();
   }
 }
 
-module.exports = TrimRequestBody
+module.exports = TrimRequestBody;

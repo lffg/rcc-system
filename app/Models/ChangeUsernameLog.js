@@ -1,5 +1,5 @@
-const Model = use('Model')
+const Model = use('Model');
 
 class ChangeUsernameLog extends Model {}
 
-module.exports = ChangeUsernameLog
+module.exports = ChangeUsernameLog;

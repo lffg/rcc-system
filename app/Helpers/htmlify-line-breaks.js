@@ -7,12 +7,12 @@
  */
 module.exports = function htmlifyLineBreaks(string, trimString = true) {
   if (!string) {
-    return null
+    return null;
   }
 
   if (trimString) {
-    string = string.trim()
+    string = string.trim();
   }
 
-  return string.split('\n').join('<br>')
-}
+  return string.split('\n').join('<br>');
+};

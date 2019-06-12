@@ -1,8 +1,8 @@
-const ActionsInterface = require('../ActionsInterface')
-const ActionError = require('../ActionsInterface/ext/ActionError')
+const ActionsInterface = require('../ActionsInterface');
+const ActionError = require('../ActionsInterface/ext/ActionError');
 
-const Database = use('Database')
-const Logger = use('Logger')
+const Database = use('Database');
+const Logger = use('Logger');
 
 /**
  * Retorna uma função para chamar as actions.
@@ -18,20 +18,20 @@ module.exports = function callAction(executeOn = null) {
    * @return {Promise<boolean>}
    */
   return async function caller(params) {
-    let actions
+    let actions;
 
     try {
-      actions = await getActions(params.payload.type_id, executeOn)
+      actions = await getActions(params.payload.type_id, executeOn);
     } catch (e) {
-      throw new TypeError('Tipo não definido no payload.')
+      throw new TypeError('Tipo não definido no payload.');
     }
 
     try {
       // Executa cada ação individualmente:
       for (const action of actions) {
-        const actionInterface = new ActionsInterface()
-        actionInterface.use(params)
-        await actionInterface.execute(action)
+        const actionInterface = new ActionsInterface();
+        actionInterface.use(params);
+        await actionInterface.execute(action);
       }
     } catch (error) {
       // Mostre a mensagem somente se for um erro do membro do Centro de
@@ -41,7 +41,7 @@ module.exports = function callAction(executeOn = null) {
       // meramente usado para impedir que a ação seja salva, isto é, foi
       // um erro do membro do CRH, e não do System.
       if (error instanceof ActionError && !!error.message) {
-        throw error
+        throw error;
       }
 
       // Criar um log para análise posterior do erro.
@@ -52,19 +52,19 @@ module.exports = function callAction(executeOn = null) {
 
         ${error.stack}
         ${'='.repeat(50)}
-      `)
+      `);
 
       // Como o erro é inesperado, não queremos que uma mensagem de erro
       // do servidor seja levada ao cliente, já que isso pode trazer
       // riscos para a segurança do site.
       throw new Error(
         'Houve um erro ao tentar executar essa operação. Tente novamente.'
-      )
+      );
     }
 
-    return true
-  }
-}
+    return true;
+  };
+};
 
 /**
  * Retorna todas as ações para um determinado tipo.
@@ -82,4 +82,4 @@ const getActions = async (typeId, executeOn) =>
       'A.execute_on': executeOn
     })
     .map(({ alias = null } = {}) => alias)
-    .filter((alias) => alias !== null)
+    .filter((alias) => alias !== null);

@@ -1,4 +1,4 @@
-const User = use('App/Models/User')
+const User = use('App/Models/User');
 
 class DashboardController {
   /**
@@ -8,15 +8,15 @@ class DashboardController {
    */
   async index({ response, view, session, auth }) {
     try {
-      await auth.check()
+      await auth.check();
     } catch (e) {
-      session.flash({ danger: 'Faça o login para acessar o System.' })
-      return response.route('login')
+      session.flash({ danger: 'Faça o login para acessar o System.' });
+      return response.route('login');
     }
 
     return view.render('pages.dashboard.index', {
       online_users: await this._getOnlineUsers()
-    })
+    });
   }
 
   /**
@@ -35,10 +35,10 @@ class DashboardController {
           .sortByOrder()
       )
       .havingBetween('last_visit', [Date.now() - 1000 * 60 * 60, Date.now()])
-      .fetch()
+      .fetch();
 
-    return users.toJSON()
+    return users.toJSON();
   }
 }
 
-module.exports = DashboardController
+module.exports = DashboardController;

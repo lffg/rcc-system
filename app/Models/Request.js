@@ -1,4 +1,4 @@
-const Model = use('Model')
+const Model = use('Model');
 
 class Request extends Model {
   /**
@@ -8,10 +8,10 @@ class Request extends Model {
    * @return {void}
    */
   static boot() {
-    super.boot()
+    super.boot();
 
-    this.addHook('beforeSave', 'RequestHook.createIntegrityToken')
-    this.addTrait('Request')
+    this.addHook('beforeSave', 'RequestHook.createIntegrityToken');
+    this.addTrait('Request');
   }
 
   /**
@@ -25,40 +25,40 @@ class Request extends Model {
    */
 
   controller() {
-    return this.belongsTo('App/Models/RequestController', 'controller_id')
+    return this.belongsTo('App/Models/RequestController', 'controller_id');
   }
 
   type() {
-    return this.belongsTo('App/Models/RequestType', 'type_id')
+    return this.belongsTo('App/Models/RequestType', 'type_id');
   }
 
   reviews() {
-    return this.hasMany('App/Models/RequestReview')
+    return this.hasMany('App/Models/RequestReview');
   }
 
   editLogs() {
-    return this.hasMany('App/Models/RequestEditLog')
+    return this.hasMany('App/Models/RequestEditLog');
   }
 
   changeUsernameLogs() {
-    return this.hasMany('App/Models/ChangeUsernameLog')
+    return this.hasMany('App/Models/ChangeUsernameLog');
   }
 
   userWarnings() {
-    return this.hasMany('App/Models/UserWarning')
+    return this.hasMany('App/Models/UserWarning');
   }
 
   author() {
-    return this.belongsTo('App/Models/User', 'author_id')
+    return this.belongsTo('App/Models/User', 'author_id');
   }
 
   receiver() {
-    return this.belongsTo('App/Models/User', 'receiver_id')
+    return this.belongsTo('App/Models/User', 'receiver_id');
   }
 
   reviwer() {
-    return this.belongsTo('App/Models/User', 'reviwer_id')
+    return this.belongsTo('App/Models/User', 'reviwer_id');
   }
 }
 
-module.exports = Request
+module.exports = Request;

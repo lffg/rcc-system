@@ -1,11 +1,11 @@
-const { join } = require('path')
-const ActionError = require('./ext/ActionError')
+const { join } = require('path');
+const ActionError = require('./ext/ActionError');
 
-const RequestController = use('App/Models/RequestController')
-const RequestReview = use('App/Models/RequestReview')
-const RequestType = use('App/Models/RequestType')
-const Request = use('App/Models/Request')
-const User = use('App/Models/User')
+const RequestController = use('App/Models/RequestController');
+const RequestReview = use('App/Models/RequestReview');
+const RequestType = use('App/Models/RequestType');
+const Request = use('App/Models/Request');
+const User = use('App/Models/User');
 
 /**
  * Interface responsável por executar as actions de um determinado tipo
@@ -14,13 +14,13 @@ const User = use('App/Models/User')
  */
 class ActionsInterface {
   constructor() {
-    this._systemAction = false
-    this._controller = null
-    this._authUser = null
-    this._payload = null
-    this._request = null
-    this._review = null
-    this._type = null
+    this._systemAction = false;
+    this._controller = null;
+    this._authUser = null;
+    this._payload = null;
+    this._request = null;
+    this._review = null;
+    this._type = null;
   }
 
   /**
@@ -46,17 +46,17 @@ class ActionsInterface {
       (authUser !== null && !(authUser instanceof User)) ||
       (type !== null && !(type instanceof RequestType))
     ) {
-      throw new TypeError('Tipo inválido.')
+      throw new TypeError('Tipo inválido.');
     }
 
-    this._systemAction = systemAction
-    this._transaction = transaction
-    this._controller = controller
-    this._authUser = authUser
-    this._payload = payload
-    this._request = request
-    this._review = review
-    this._type = type
+    this._systemAction = systemAction;
+    this._transaction = transaction;
+    this._controller = controller;
+    this._authUser = authUser;
+    this._payload = payload;
+    this._request = request;
+    this._review = review;
+    this._type = type;
   }
 
   /**
@@ -66,22 +66,22 @@ class ActionsInterface {
    * @return {Promise<any>}
    */
   async execute(actionName) {
-    let action
+    let action;
 
     try {
-      action = require(join(__dirname, 'actions', `${actionName}.js`))
+      action = require(join(__dirname, 'actions', `${actionName}.js`));
     } catch (error) {
       if (error.code === 'MODULE_NOT_FOUND') {
         throw new Error(
           `Função (RequestAction) ${actionName} não encontrada no diretório das ações.`
-        )
+        );
       }
 
-      throw error
+      throw error;
     }
 
-    const actionMeta = action()
-    this._checkMeta(actionName, actionMeta)
+    const actionMeta = action();
+    this._checkMeta(actionName, actionMeta);
 
     const result = await actionMeta.caller(
       {
@@ -95,9 +95,9 @@ class ActionsInterface {
         type: this._type
       },
       ActionError
-    )
+    );
 
-    return result
+    return result;
   }
 
   _checkMeta(
@@ -114,45 +114,45 @@ class ActionsInterface {
     if (requiresTransaction && !this._transaction) {
       throw new Error(
         `Ação ${actionName} espera uma "transaction" que não foi passada.`
-      )
+      );
     }
 
     if (requiresController && !this._controller) {
       throw new Error(
         `Ação ${actionName} espera uma instância "RequestController" que não foi passada.`
-      )
+      );
     }
 
     if (requiresAuthUser && !this._authUser) {
       throw new Error(
         `Ação ${actionName} espera uma instância "User" que não foi passada.`
-      )
+      );
     }
 
     if (requiresRequest && !this._request) {
       throw new Error(
         `Ação ${actionName} espera uma instância "Request" que não foi passada.`
-      )
+      );
     }
 
     if (requiresReview && !this._review) {
       throw new Error(
         `Ação ${actionName} espera uma instâcnia "RequestReview" que não foi passada.`
-      )
+      );
     }
 
     if (requiresType && !this._type) {
       throw new Error(
         `Ação ${actionName} espera uma instância "RequestType" que não foi passada.`
-      )
+      );
     }
 
     if (!this._payload) {
       throw new Error(
         `Ação ${actionName} espera um payload que não foi passado.`
-      )
+      );
     }
   }
 }
 
-module.exports = ActionsInterface
+module.exports = ActionsInterface;

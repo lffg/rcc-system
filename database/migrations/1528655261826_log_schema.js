@@ -1,26 +1,26 @@
-const Schema = use('Schema')
+const Schema = use('Schema');
 
 class LogSchema extends Schema {
   up() {
     this.create('logs', (table) => {
-      table.increments()
+      table.increments();
 
-      table.text('log').notNullable()
-      table.string('ip', 45).defaultTo(null)
+      table.text('log').notNullable();
+      table.string('ip', 45).defaultTo(null);
 
-      table.integer('user_id').unsigned()
+      table.integer('user_id').unsigned();
       table
         .foreign('user_id')
         .references('users.id')
-        .onDelete('cascade')
+        .onDelete('cascade');
 
-      table.timestamps()
-    })
+      table.timestamps();
+    });
   }
 
   down() {
-    this.drop('logs')
+    this.drop('logs');
   }
 }
 
-module.exports = LogSchema
+module.exports = LogSchema;

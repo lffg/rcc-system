@@ -3,7 +3,7 @@
  *    - Especialização em Requerimento :: SPEC_E_GRAT
  */
 
-const User = use('App/Models/User')
+const User = use('App/Models/User');
 
 module.exports = () => ({
   requiresTransaction: true,
@@ -13,11 +13,11 @@ module.exports = () => ({
   requiresReview: false,
   requiresType: false,
   caller
-})
+});
 
 async function caller({ transaction, request }) {
-  const user = await User.findOrFail(request.receiver_id)
+  const user = await User.findOrFail(request.receiver_id);
   user.effective_bonuses =
-    parseInt(user.effective_bonuses) + parseInt(request.bonuses)
-  await user.save(transaction)
+    parseInt(user.effective_bonuses) + parseInt(request.bonuses);
+  await user.save(transaction);
 }

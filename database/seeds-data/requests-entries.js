@@ -86,4 +86,4 @@ module.exports = [
     after_position_id: '4',
     reason: 'Excelente policial. :)'
   }
-]
+];

@@ -16,14 +16,14 @@ class RequestController {
       const controller = await Model.query()
         .select('id', 'name', 'description')
         .where({ id })
-        .first()
+        .first();
 
       if (!controller) {
-        throw new Error(`RequestController inexistente para ID ${id}.`)
+        throw new Error(`RequestController inexistente para ID ${id}.`);
       }
 
-      return controller.toJSON()
-    }
+      return controller.toJSON();
+    };
 
     /**
      * Seleciona todos os controllers, retornando também, os seus tipos,
@@ -33,21 +33,21 @@ class RequestController {
      * @return {Promise<object>}
      */
     Model.getControllers = async (onlyForCrh = true, getTypes = false) => {
-      const query = Model.query().select('id', 'name')
+      const query = Model.query().select('id', 'name');
 
       if (onlyForCrh) {
-        query.whereNot('is_crh', false)
+        query.whereNot('is_crh', false);
       }
 
       if (getTypes) {
         query.with('types', (builder) =>
           builder.select('id', 'controller_id', 'name')
-        )
+        );
       }
 
-      return query.fetch().then((query) => query.toJSON())
-    }
+      return query.fetch().then((query) => query.toJSON());
+    };
   }
 }
 
-module.exports = RequestController
+module.exports = RequestController;

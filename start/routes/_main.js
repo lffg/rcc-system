@@ -1,4 +1,4 @@
-const Route = use('Route')
+const Route = use('Route');
 
 /**
  * ---------------------------------------------------------------------
@@ -7,29 +7,29 @@ const Route = use('Route')
  */
 
 Route.group(() => {
-  Route.get('/', 'PostController.index').as('posts.index')
-  Route.get(':slug', 'PostController.show').as('posts.show')
+  Route.get('/', 'PostController.index').as('posts.index');
+  Route.get(':slug', 'PostController.show').as('posts.show');
 
   Route.get('create', 'PostController.create')
     .as('posts.create')
-    .middleware(['admin'])
+    .middleware(['admin']);
   Route.post('create', 'PostController.store')
     .as('posts.store')
-    .middleware(['admin'])
+    .middleware(['admin']);
 
   Route.get('edit/:slug', 'PostController.edit')
     .as('posts.edit')
-    .middleware(['admin'])
+    .middleware(['admin']);
   Route.post('edit/:slug', 'PostController.update')
     .as('posts.update')
-    .middleware(['admin'])
+    .middleware(['admin']);
   Route.get('delete/:slug', 'PostController.destroy')
     .as('posts.delete')
-    .middleware(['admin'])
+    .middleware(['admin']);
 })
   .middleware(['auth'])
   .namespace('Main')
-  .prefix('news')
+  .prefix('news');
 
 /**
  * ---------------------------------------------------------------------
@@ -39,13 +39,13 @@ Route.group(() => {
 
 Route.on('site/about')
   .render('pages.public-private.about')
-  .as('site-about')
+  .as('site-about');
 Route.on('site/terms')
   .render('pages.public-private.terms')
-  .as('site-terms')
+  .as('site-terms');
 Route.on('site/privacy')
   .render('pages.public-private.privacy')
-  .as('site-privacy')
+  .as('site-privacy');
 
 /**
  * ---------------------------------------------------------------------
@@ -54,10 +54,10 @@ Route.on('site/privacy')
  */
 
 Route.group(() => {
-  Route.get('error-ticket', 'ErrorTicketController.index').as('error-ticket')
+  Route.get('error-ticket', 'ErrorTicketController.index').as('error-ticket');
   Route.post('error-ticket', 'ErrorTicketController.store').validator(
     'General/ErrorTicket'
-  )
+  );
 })
   .middleware(['auth'])
-  .namespace('Main')
+  .namespace('Main');

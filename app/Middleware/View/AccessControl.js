@@ -1,21 +1,21 @@
 class HasGroup {
   async handle({ view, auth }, next) {
-    let groups = []
-    let moderationGroups = []
-    let permissions = []
+    let groups = [];
+    let moderationGroups = [];
+    let permissions = [];
 
     try {
-      await auth.check()
+      await auth.check();
 
-      groups = await auth.user.getGroups('BOTH')
-      moderationGroups = await auth.user.getModerationGroups('BOTH')
-      permissions = await auth.user.getPermissions('BOTH')
+      groups = await auth.user.getGroups('BOTH');
+      moderationGroups = await auth.user.getModerationGroups('BOTH');
+      permissions = await auth.user.getPermissions('BOTH');
     } catch (e) {
       // Pass.
     }
 
-    this.createGlobals(view, groups, moderationGroups, permissions)
-    return next()
+    this.createGlobals(view, groups, moderationGroups, permissions);
+    return next();
   }
 
   createGlobals(view, groups = [], modGroups = [], permissions = []) {
@@ -33,12 +33,12 @@ class HasGroup {
           typeof group === 'string' &&
           !isNaN(parseInt(group))
         ) {
-          group = parseInt(group)
+          group = parseInt(group);
         }
 
         return groups
           .map(({ id, alias }) => (getByAlias ? alias : id))
-          .includes(typeof group === 'number' ? group : group.toUpperCase())
+          .includes(typeof group === 'number' ? group : group.toUpperCase());
       },
 
       /**
@@ -54,12 +54,12 @@ class HasGroup {
           typeof group === 'string' &&
           !isNaN(parseInt(group))
         ) {
-          group = parseInt(group)
+          group = parseInt(group);
         }
 
         return modGroups
           .map(({ id, alias }) => (getByAlias ? alias : id))
-          .includes(typeof group === 'number' ? group : group.toUpperCase())
+          .includes(typeof group === 'number' ? group : group.toUpperCase());
       },
 
       /**
@@ -75,7 +75,7 @@ class HasGroup {
           typeof permission === 'string' &&
           !isNaN(parseInt(permission))
         ) {
-          permission = parseInt(permission)
+          permission = parseInt(permission);
         }
 
         return permissions
@@ -84,10 +84,10 @@ class HasGroup {
             typeof permission === 'number'
               ? permission
               : permission.toUpperCase()
-          )
+          );
       }
-    })
+    });
   }
 }
 
-module.exports = HasGroup
+module.exports = HasGroup;

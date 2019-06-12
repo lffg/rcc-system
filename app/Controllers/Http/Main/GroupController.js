@@ -1,7 +1,7 @@
-const { HttpException } = use('@adonisjs/generic-exceptions')
-const Group = use('App/Models/Group')
-const User = use('App/Models/User')
-const Log = use('Log')
+const { HttpException } = use('@adonisjs/generic-exceptions');
+const Group = use('App/Models/Group');
+const User = use('App/Models/User');
+const Log = use('Log');
 
 class GroupController {
   /**
@@ -13,9 +13,9 @@ class GroupController {
     const groups = await Group.query()
       .sortByOrder()
       .withCount('users')
-      .fetch()
+      .fetch();
 
-    return view.render('pages.groups.index', { groups: groups.toJSON() })
+    return view.render('pages.groups.index', { groups: groups.toJSON() });
   }
 
   /**
@@ -32,9 +32,9 @@ class GroupController {
           .select('id', 'username')
           .with('groups', (builder) =>
             builder.select('id', 'icon', 'color').sortByOrder()
-          )
+          );
       })
-      .firstOrFail()
+      .firstOrFail();
 
     if (
       group.is_hidden &&
@@ -43,7 +43,7 @@ class GroupController {
         (await auth.user.hasPermission('ADMIN', true))
       )
     ) {
-      throw new HttpException('Acesso negado.', 403)
+      throw new HttpException('Acesso negado.', 403);
     }
 
     const moderators = await Group.query()
@@ -52,12 +52,12 @@ class GroupController {
         builder.select('id', 'username').wherePivot('is_moderator', true)
       )
       .first()
-      .then((group) => group.toJSON().users)
+      .then((group) => group.toJSON().users);
 
     return view.render('pages.groups.show', {
       moderators,
       group: group.toJSON()
-    })
+    });
   }
 
   /**
@@ -66,24 +66,20 @@ class GroupController {
    * @method  POST
    */
   async addUser({ request, response, params: { id }, session, auth }) {
-    const username = request.input('username', '')
+    const username = request.input('username', '');
 
-    const group = await Group.findOrFail(id)
-    const user = await User.findByOrFail('username', username)
-    await user.groups().attach([group.id])
+    const group = await Group.findOrFail(id);
+    const user = await User.findByOrFail('username', username);
+    await user.groups().attach([group.id]);
 
     await Log.log(auth.user.id, request.ip(), {
-      message: `[MOD Grupo] Adicionou o usuário ${user.username} ao grupo ${
-        group.name
-      }`
-    })
+      message: `[MOD Grupo] Adicionou o usuário ${user.username} ao grupo ${group.name}`
+    });
 
     session.flash({
-      success: `Usuário ${user.username} adicionado ao grupo ${
-        group.name
-      } com sucesso.`
-    })
-    return response.redirect('back')
+      success: `Usuário ${user.username} adicionado ao grupo ${group.name} com sucesso.`
+    });
+    return response.redirect('back');
   }
 
   /**
@@ -92,25 +88,21 @@ class GroupController {
    * @method POST
    */
   async removeUser({ request, response, params: { id }, session, auth }) {
-    const username = request.input('username', '')
+    const username = request.input('username', '');
 
-    const group = await Group.findOrFail(id)
-    const user = await User.findByOrFail('username', username)
-    await user.groups().detach([group.id])
+    const group = await Group.findOrFail(id);
+    const user = await User.findByOrFail('username', username);
+    await user.groups().detach([group.id]);
 
     await Log.log(auth.user.id, request.ip(), {
-      message: `[MOD Grupo] Removeu o usuário ${user.username} do grupo ${
-        group.name
-      }`
-    })
+      message: `[MOD Grupo] Removeu o usuário ${user.username} do grupo ${group.name}`
+    });
 
     session.flash({
-      success: `Usuário ${user.username} removido do grupo ${
-        group.name
-      } com sucesso.`
-    })
-    return response.redirect('back')
+      success: `Usuário ${user.username} removido do grupo ${group.name} com sucesso.`
+    });
+    return response.redirect('back');
   }
 }
 
-module.exports = GroupController
+module.exports = GroupController;

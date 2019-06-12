@@ -1,9 +1,9 @@
 function usernameFilter(builder, queryTerm) {
   if (!queryTerm) {
-    return builder
+    return builder;
   }
 
-  return builder.where('username', 'like', `%${queryTerm}%`)
+  return builder.where('username', 'like', `%${queryTerm}%`);
 }
 
-exports.username = usernameFilter
+exports.username = usernameFilter;

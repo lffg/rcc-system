@@ -1,5 +1,5 @@
-const Position = use('App/Models/Position')
-const User = use('App/Models/User')
+const Position = use('App/Models/Position');
+const User = use('App/Models/User');
 
 class PositionController {
   /**
@@ -8,7 +8,7 @@ class PositionController {
    * @method GET
    */
   index({ view }) {
-    return view.render('pages.positions.index')
+    return view.render('pages.positions.index');
   }
 
   /**
@@ -17,8 +17,8 @@ class PositionController {
    * @method GET
    */
   async list({ view }) {
-    const groups = await Position.getFullPositionsList()
-    return view.render('pages.positions.list', { groups })
+    const groups = await Position.getFullPositionsList();
+    return view.render('pages.positions.list', { groups });
   }
 
   /**
@@ -27,8 +27,8 @@ class PositionController {
    * @method GET
    */
   async users({ view }) {
-    const groups = await Position.getFullPositionsList()
-    return view.render('pages.positions.users', { groups })
+    const groups = await Position.getFullPositionsList();
+    return view.render('pages.positions.users', { groups });
   }
 
   /**
@@ -42,9 +42,9 @@ class PositionController {
       .where({ position_id: positionId })
       .limit(150)
       .fetch()
-      .then((users) => users.toJSON())
+      .then((users) => users.toJSON());
 
-    return view.render('pages.positions.show-users', { users })
+    return view.render('pages.positions.show-users', { users });
   }
 
   /**
@@ -58,19 +58,19 @@ class PositionController {
         .select('username', 'tag')
         .where({ position_id: positionId })
         .fetch()
-        .then((users) => users.toJSON())
+        .then((users) => users.toJSON());
 
-      if (!users.length) return ''
+      if (!users.length) return '';
       return `<ul>${users
         .map(({ username, tag }) => `<li>[${tag}] ${username}</li>`)
-        .join('')}</ul>`
+        .join('')}</ul>`;
     }
 
-    const position = await Position.findOrFail(positionId)
+    const position = await Position.findOrFail(positionId);
     return view.render('pages.positions.show-all-users', {
       position: position.toJSON()
-    })
+    });
   }
 }
 
-module.exports = PositionController
+module.exports = PositionController;

@@ -1,4 +1,4 @@
-const Env = use('Env')
+const Env = use('Env');
 
 module.exports = {
   /*
@@ -83,4 +83,4 @@ module.exports = {
     apiKey: Env.get('MAILGUN_API_KEY'),
     extras: {}
   }
-}
+};

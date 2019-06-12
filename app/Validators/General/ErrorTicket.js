@@ -3,7 +3,7 @@ class ErrorTicket {
     return {
       message: 'required',
       type: 'required|in:BUG,SPELLING,OTHER'
-    }
+    };
   }
 
   get messages() {
@@ -12,16 +12,16 @@ class ErrorTicket {
         'Erro ao criar o ticket: você deve completar os campos obrigatórios.',
       in:
         'Erro ao criar o ticket: os valores não estão normalizados. Tente novamente.'
-    }
+    };
   }
 
   async fails(errorMessages) {
-    const { response, session } = this.ctx
-    const [{ message }] = errorMessages
+    const { response, session } = this.ctx;
+    const [{ message }] = errorMessages;
 
-    session.flash({ danger: message })
-    return response.redirect('back')
+    session.flash({ danger: message });
+    return response.redirect('back');
   }
 }
 
-module.exports = ErrorTicket
+module.exports = ErrorTicket;

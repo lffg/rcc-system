@@ -1,5 +1,5 @@
-const Env = use('Env')
-const Helpers = use('Helpers')
+const Env = use('Env');
+const Helpers = use('Helpers');
 
 module.exports = {
   /*
@@ -77,4 +77,4 @@ module.exports = {
       database: Env.get('DB_DATABASE', '')
     }
   }
-}
+};

@@ -13,7 +13,7 @@ module.exports = () => ({
   requiresReview: false,
   requiresType: false,
   caller
-})
+});
 
 async function caller({ transaction, authUser, request, payload }) {
   await request.editLogs().create(
@@ -22,5 +22,5 @@ async function caller({ transaction, authUser, request, payload }) {
       author_id: authUser.id
     },
     transaction
-  )
+  );
 }

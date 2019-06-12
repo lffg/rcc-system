@@ -1,4 +1,4 @@
-const got = require('got')
+const got = require('got');
 
 /**
  * Verifica se o usuário existe no Habbo.
@@ -12,10 +12,10 @@ module.exports = async function existsHabboUser(username) {
       query: { name: username },
       cache: false,
       json: true
-    })
+    });
   } catch (error) {
-    return false
+    return false;
   }
 
-  return true
-}
+  return true;
+};

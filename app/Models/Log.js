@@ -1,4 +1,4 @@
-const Model = use('Model')
+const Model = use('Model');
 
 class Log extends Model {
   /**
@@ -12,8 +12,8 @@ class Log extends Model {
    */
 
   user() {
-    return this.belongsTo('App/Models/User')
+    return this.belongsTo('App/Models/User');
   }
 }
 
-module.exports = Log
+module.exports = Log;

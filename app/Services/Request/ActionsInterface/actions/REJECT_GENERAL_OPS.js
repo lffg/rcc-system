@@ -4,8 +4,8 @@
  *    - Definir a data da revisão no requerimento.
  */
 
-const RequestReview = use('App/Models/RequestReview')
-const sanitize = use('App/Helpers/sanitize')
+const RequestReview = use('App/Models/RequestReview');
+const sanitize = use('App/Helpers/sanitize');
 
 module.exports = () => ({
   requiresTransaction: true,
@@ -15,7 +15,7 @@ module.exports = () => ({
   requiresReview: false,
   requiresType: false,
   caller
-})
+});
 
 async function caller(
   { transaction, authUser, request, payload },
@@ -25,20 +25,20 @@ async function caller(
     !(await authUser.hasPermission('CRH', true)) ||
     request.crh_state !== 'PENDING'
   ) {
-    throw new ActionError('Ocorreu um erro de permissão. Tente novamente.')
+    throw new ActionError('Ocorreu um erro de permissão. Tente novamente.');
   }
 
-  const review = new RequestReview()
-  review.author_id = authUser.id
-  review.type = 'REVIEW'
+  const review = new RequestReview();
+  review.author_id = authUser.id;
+  review.type = 'REVIEW';
   review.body = `<i class="fa fa-times"></i> Requerimento recusado: ${sanitize(
     payload.rej_reason
-  )}`
+  )}`;
 
-  await request.reviews().save(review, transaction)
-  await request.reviwer().associate(authUser, transaction)
+  await request.reviews().save(review, transaction);
+  await request.reviwer().associate(authUser, transaction);
 
   // Atualizar a data da última revisão:
-  request.merge({ crh_state: 'REJECTED', last_review: new Date() })
-  await request.save(transaction)
+  request.merge({ crh_state: 'REJECTED', last_review: new Date() });
+  await request.save(transaction);
 }

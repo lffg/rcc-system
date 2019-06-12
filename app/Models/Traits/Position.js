@@ -1,5 +1,5 @@
-const PositionGroup = use('App/Models/PositionGroup')
-const User = use('App/Models/User')
+const PositionGroup = use('App/Models/PositionGroup');
+const User = use('App/Models/User');
 
 class Position {
   register(Model) {
@@ -20,24 +20,24 @@ class Position {
       { prev = true, next = true, equivalence = true } = {},
       groupId = null
     ) => {
-      const builder = (builder) => builder.select('id', 'name', 'color')
+      const builder = (builder) => builder.select('id', 'name', 'color');
 
       const query = PositionGroup.query().select(
         'id',
         'name',
         'alias',
         'description'
-      )
+      );
 
-      if (groupId) query.andWhere({ id: groupId })
+      if (groupId) query.andWhere({ id: groupId });
 
-      query.with('positions')
-      if (prev) query.with('positions.prev', builder)
-      if (next) query.with('positions.next', builder)
-      if (equivalence) query.with('positions.equivalence', builder)
+      query.with('positions');
+      if (prev) query.with('positions.prev', builder);
+      if (next) query.with('positions.next', builder);
+      if (equivalence) query.with('positions.equivalence', builder);
 
-      return query.fetch().then((positions) => positions.toJSON())
-    }
+      return query.fetch().then((positions) => positions.toJSON());
+    };
 
     /**
      * Retorna uma lista de posições para um dado grupo.
@@ -50,16 +50,16 @@ class Position {
         .select('id', 'name', 'alias')
         .with('positions', (builder) =>
           builder.select('id', 'group_id', 'name').where(filter)
-        )
+        );
 
-      if (groupId) query.andWhere({ id: groupId })
+      if (groupId) query.andWhere({ id: groupId });
 
       const data = await query[!groupId ? 'fetch' : 'firstOrFail']().then(
         (groups) => groups.toJSON()
-      )
+      );
 
-      return Array.isArray(data) ? data : [data]
-    }
+      return Array.isArray(data) ? data : [data];
+    };
 
     /**
      * Retorna as informações de posição para um determinado usuário.
@@ -84,14 +84,14 @@ class Position {
           builder.select('id', 'name', 'alias')
         )
         .firstOrFail()
-        .then((user) => user.toJSON())
+        .then((user) => user.toJSON());
 
       return {
         user: { id, username },
         position: { id: positionId, name: positionName },
         group: { id: groupId, name: groupName, alias }
-      }
-    }
+      };
+    };
 
     /**
      * ---------------------------------------------------------------------
@@ -110,11 +110,11 @@ class Position {
         .with('group', (builder) => builder.select('id', 'name', 'alias'))
         .with('prev', (builder) => builder.select('id', 'name'))
         .with('next', (builder) => builder.select('id', 'name'))
-        .with('equivalence', (builder) => builder.select('id', 'name'))
+        .with('equivalence', (builder) => builder.select('id', 'name'));
 
-      return this
-    })
+      return this;
+    });
   }
 }
 
-module.exports = Position
+module.exports = Position;

@@ -1,29 +1,29 @@
-const { validate } = use('App/Services/General/ValidateUser')
+const { validate } = use('App/Services/General/ValidateUser');
 
 class EditUser {
   get validateAll() {
-    return true
+    return true;
   }
 
   async authorize() {
-    const { request, response, session } = this.ctx
+    const { request, response, session } = this.ctx;
 
-    if (request.input('validate_user') !== 'on') return true
+    if (request.input('validate_user') !== 'on') return true;
 
-    const { status, error } = await validate(request.input('username'))
+    const { status, error } = await validate(request.input('username'));
 
     if (!status) {
-      session.flash({ danger: error })
-      return response.redirect('back')
+      session.flash({ danger: error });
+      return response.redirect('back');
     }
 
-    return true
+    return true;
   }
 
   get rules() {
     const {
       params: { id }
-    } = this.ctx
+    } = this.ctx;
 
     return {
       username: `required|unique:users,username,id,${id}`,
@@ -33,7 +33,7 @@ class EditUser {
       position_id: 'required|exists:positions,id',
       temporary_bonuses: 'required|integer',
       effective_bonuses: 'required|integer'
-    }
+    };
   }
 
   get messages() {
@@ -57,19 +57,19 @@ class EditUser {
         'O campo de gratificações efetivas é obrigatório.',
       'effective_bonuses.integer':
         'Número de medalhas inválido em "gratificações efettivas".'
-    }
+    };
   }
 
   async fails(errorMessages) {
-    const { response, session } = this.ctx
+    const { response, session } = this.ctx;
 
     session
       .flash({ danger: 'Whoops! Parece que houveram alguns erros.' })
       .withErrors(errorMessages)
-      .flashAll()
+      .flashAll();
 
-    return response.redirect('back')
+    return response.redirect('back');
   }
 }
 
-module.exports = EditUser
+module.exports = EditUser;

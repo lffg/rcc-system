@@ -1,5 +1,5 @@
-const User = use('App/Models/User')
-const Database = use('Database')
+const User = use('App/Models/User');
+const Database = use('Database');
 
 class UserController {
   /**
@@ -9,17 +9,17 @@ class UserController {
    * @api
    */
   async check({ request, response }) {
-    const username = request.input('u', '')
+    const username = request.input('u', '');
 
     try {
-      await User.findByOrFail('username', username)
+      await User.findByOrFail('username', username);
     } catch (e) {
       return response
         .status(404)
-        .json({ status: false, username, error: 'User not found' })
+        .json({ status: false, username, error: 'User not found' });
     }
 
-    return { status: true, username }
+    return { status: true, username };
   }
 
   /**
@@ -29,14 +29,14 @@ class UserController {
    * @api
    */
   async checkTag({ request }) {
-    const tag = request.input('tag', '')
+    const tag = request.input('tag', '');
 
     return Database.from('users')
       .select('tag')
       .whereNotNull('tag')
       .where(tag ? { tag } : {})
-      .map(({ tag } = {}) => tag)
+      .map(({ tag } = {}) => tag);
   }
 }
 
-module.exports = UserController
+module.exports = UserController;

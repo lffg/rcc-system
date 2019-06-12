@@ -1,4 +1,4 @@
-const Env = use('Env')
+const Env = use('Env');
 
 module.exports = {
   url: Env.get('URL', 'http://localhost:3000/'),
@@ -207,4 +207,4 @@ module.exports = {
       level: 'info'
     }
   }
-}
+};

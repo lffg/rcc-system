@@ -20,7 +20,7 @@ exports.groups = [
     alias: 'EXTRA',
     is_permanent: true
   }
-]
+];
 
 exports.positions = [
   {
@@ -557,4 +557,4 @@ exports.positions = [
     color: '#000000',
     is_available_to_crh: false
   }
-]
+];

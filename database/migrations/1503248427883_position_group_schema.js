@@ -1,30 +1,30 @@
-const Schema = use('Schema')
+const Schema = use('Schema');
 
 class PositionGroupSchema extends Schema {
   up() {
     this.create('position_groups', (table) => {
-      table.increments()
+      table.increments();
 
       table
         .string('alias', 80)
         .notNullable()
         .unique()
-        .index('alias')
+        .index('alias');
       table
         .boolean('is_permanent')
         .notNullable()
-        .defaultTo(false)
+        .defaultTo(false);
 
-      table.string('name', 190).notNullable()
-      table.text('description').notNullable()
+      table.string('name', 190).notNullable();
+      table.text('description').notNullable();
 
-      table.timestamps()
-    })
+      table.timestamps();
+    });
   }
 
   down() {
-    this.drop('position_groups')
+    this.drop('position_groups');
   }
 }
 
-module.exports = PositionGroupSchema
+module.exports = PositionGroupSchema;

@@ -1,4 +1,4 @@
-const Group = use('App/Models/Group')
+const Group = use('App/Models/Group');
 
 class GroupSeeder {
   async run() {
@@ -29,13 +29,13 @@ class GroupSeeder {
       { name: 'Diretoria', icon: 'fa fa-balance-scale', color: '#9e9e9e' },
       { name: 'Usuários', alias: 'USERS', color: '#607d8b', is_permanent: true }
     ].entries()) {
-      const group = new Group()
-      group.fill({ id: index + 1, ...data })
-      await group.save()
+      const group = new Group();
+      group.fill({ id: index + 1, ...data });
+      await group.save();
     }
 
-    console.log('Grupos criados.')
+    console.log('Grupos criados.');
   }
 }
 
-module.exports = GroupSeeder
+module.exports = GroupSeeder;

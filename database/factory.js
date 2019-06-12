@@ -9,7 +9,7 @@
 |
 */
 
-const Factory = use('Factory')
+const Factory = use('Factory');
 
 Factory.blueprint('App/Models/Post', (faker) => {
   return {
@@ -17,8 +17,8 @@ Factory.blueprint('App/Models/Post', (faker) => {
     description: faker.sentence({ words: 10 }),
     body: faker.paragraph({ sentences: 15 }),
     user_id: faker.integer({ min: 1, max: 3 })
-  }
-})
+  };
+});
 
 Factory.blueprint('App/Models/User', (faker) => {
   return {
@@ -26,5 +26,5 @@ Factory.blueprint('App/Models/User', (faker) => {
     state: 'ACTIVE',
     password: faker.password(),
     email: faker.email()
-  }
-})
+  };
+});

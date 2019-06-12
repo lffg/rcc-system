@@ -1,5 +1,5 @@
-const Model = use('Model')
+const Model = use('Model');
 
 class LastUserSearch extends Model {}
 
-module.exports = LastUserSearch
+module.exports = LastUserSearch;

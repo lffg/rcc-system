@@ -1,6 +1,6 @@
-const moment = require('moment')
+const moment = require('moment');
 
-const Model = use('Model')
+const Model = use('Model');
 
 class User extends Model {
   /**
@@ -10,15 +10,15 @@ class User extends Model {
    * @return {void}
    */
   static boot() {
-    super.boot()
+    super.boot();
 
-    this.addHook('beforeSave', 'UserHook.hashPassword')
-    this.addHook('afterCreate', 'UserHook.addUserToPosition')
-    this.addHook('afterCreate', 'UserHook.addToUsersGroup')
-    this.addHook('afterCreate', 'UserHook.createAccountRegisterEvent')
-    this.addTrait('UserGroup')
-    this.addTrait('UserSalary')
-    this.addTrait('UserPermission')
+    this.addHook('beforeSave', 'UserHook.hashPassword');
+    this.addHook('afterCreate', 'UserHook.addUserToPosition');
+    this.addHook('afterCreate', 'UserHook.addToUsersGroup');
+    this.addHook('afterCreate', 'UserHook.createAccountRegisterEvent');
+    this.addTrait('UserGroup');
+    this.addTrait('UserSalary');
+    this.addTrait('UserPermission');
   }
 
   /**
@@ -28,7 +28,7 @@ class User extends Model {
    * @return {string[]}
    */
   static get computed() {
-    return ['allowed', 'disallowReason', 'isBanned']
+    return ['allowed', 'disallowReason', 'isBanned'];
   }
 
   /**
@@ -39,8 +39,8 @@ class User extends Model {
    * @return {boolean}
    */
   getAllowed({ state }) {
-    const isAllowedState = ['ACTIVE', 'RETIRED', 'VETERAN'].includes(state)
-    return isAllowedState && !this.getIsBanned(...arguments)
+    const isAllowedState = ['ACTIVE', 'RETIRED', 'VETERAN'].includes(state);
+    return isAllowedState && !this.getIsBanned(...arguments);
   }
 
   /**
@@ -52,12 +52,12 @@ class User extends Model {
    * @return {string|boolean}
    */
   getDisallowReason({ username, state, banned_until: bannedUntil = 0 }) {
-    if (this.getAllowed(...arguments)) return false
+    if (this.getAllowed(...arguments)) return false;
 
     if (this.getIsBanned(...arguments)) {
       return `O usuário ${username} está exonerado até o dia ${moment(
         bannedUntil
-      ).format('DD/MM/YYYY')}.`
+      ).format('DD/MM/YYYY')}.`;
     }
 
     return {
@@ -65,7 +65,7 @@ class User extends Model {
       RETIRED: `O usuário ${username} está reformado.`,
       VETERAN: `O usuário ${username} é veterano.`,
       INACTIVE: `O usuário ${username} está inativo.`
-    }[state]
+    }[state];
   }
 
   /**
@@ -75,8 +75,8 @@ class User extends Model {
    * @return {boolean}
    */
   getIsBanned({ banned_until: bannedUntil }) {
-    if (!bannedUntil) return false
-    return !moment(bannedUntil).isSameOrBefore(Date.now(), 'day')
+    if (!bannedUntil) return false;
+    return !moment(bannedUntil).isSameOrBefore(Date.now(), 'day');
   }
 
   /**
@@ -86,9 +86,9 @@ class User extends Model {
    * @return {string|boolean}
    */
   getBannedUntilDate({ banned_until: bannedUntil }) {
-    if (Date.now() > bannedUntil) return false
+    if (Date.now() > bannedUntil) return false;
 
-    return moment(bannedUntil).format('DD/MM/YYYY [às] HH:mm')
+    return moment(bannedUntil).format('DD/MM/YYYY [às] HH:mm');
   }
 
   /**
@@ -98,7 +98,7 @@ class User extends Model {
    * @return {string}
    */
   getTag(tag) {
-    return tag || '___'
+    return tag || '___';
   }
 
   /**
@@ -110,11 +110,11 @@ class User extends Model {
   getGender(gender) {
     switch (gender) {
       case 'M':
-        return 'Masculino'
+        return 'Masculino';
       case 'F':
-        return 'Feminino'
+        return 'Feminino';
       default:
-        return 'Não Especificado'
+        return 'Não Especificado';
     }
   }
 
@@ -127,17 +127,17 @@ class User extends Model {
   getLocation(location) {
     switch (location) {
       case 'BR':
-        return 'Brasil'
+        return 'Brasil';
       case 'PT':
-        return 'Portugal'
+        return 'Portugal';
       case 'AO':
-        return 'Angola'
+        return 'Angola';
       case 'MZ':
-        return 'Moçambique'
+        return 'Moçambique';
       case 'OTHER':
-        return 'Outro'
+        return 'Outro';
       default:
-        return 'Não Especificado'
+        return 'Não Especificado';
     }
   }
 
@@ -152,52 +152,54 @@ class User extends Model {
    */
 
   groups() {
-    return this.belongsToMany('App/Models/Group').pivotTable('pivot_group_user')
+    return this.belongsToMany('App/Models/Group').pivotTable(
+      'pivot_group_user'
+    );
   }
 
   promoter() {
-    return this.belongsTo('App/Models/User', 'promoter_id')
+    return this.belongsTo('App/Models/User', 'promoter_id');
   }
 
   tickets() {
-    return this.hasMany('App/Models/ErrorTicket', 'id', 'author_id')
+    return this.hasMany('App/Models/ErrorTicket', 'id', 'author_id');
   }
 
   timeline() {
-    return this.hasMany('App/Models/CrhRequest', 'id', 'affected_id')
+    return this.hasMany('App/Models/CrhRequest', 'id', 'affected_id');
   }
 
   position() {
-    return this.belongsTo('App/Models/Position')
+    return this.belongsTo('App/Models/Position');
   }
 
   posts() {
-    return this.hasMany('App/Models/Post')
+    return this.hasMany('App/Models/Post');
   }
 
   userSearches() {
-    return this.hasMany('App/Models/LastUserSearch')
+    return this.hasMany('App/Models/LastUserSearch');
   }
 
   ips() {
-    return this.hasMany('App/Models/Ip')
+    return this.hasMany('App/Models/Ip');
   }
 
   notifications() {
-    return this.hasMany('App/Models/Notification')
+    return this.hasMany('App/Models/Notification');
   }
 
   warnings() {
-    return this.hasMany('App/Models/UserWarning')
+    return this.hasMany('App/Models/UserWarning');
   }
 
   logs() {
-    return this.hasMany('App/Models/Log')
+    return this.hasMany('App/Models/Log');
   }
 
   tokens() {
-    return this.hasMany('App/Models/Token')
+    return this.hasMany('App/Models/Token');
   }
 }
 
-module.exports = User
+module.exports = User;

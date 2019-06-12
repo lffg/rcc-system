@@ -1,4 +1,4 @@
-const Route = use('Route')
+const Route = use('Route');
 
 /**
  * ---------------------------------------------------------------------
@@ -9,24 +9,24 @@ const Route = use('Route')
 Route.group(() => {
   Route.get('login', 'LoginController.login')
     .middleware(['guest'])
-    .as('login')
+    .as('login');
 
   Route.post('login', 'LoginController.postLogin')
     .middleware(['guest'])
-    .validator('General/AuthLogin')
+    .validator('General/AuthLogin');
 
   Route.get('logout', 'LoginController.logout')
     .middleware(['auth'])
-    .as('logout')
+    .as('logout');
 
   Route.get('register', 'RegisterController.register')
     .middleware(['guest'])
-    .as('register')
+    .as('register');
 
   Route.post('register', 'RegisterController.postRegister')
     .middleware(['guest'])
-    .validator('General/AuthRegister')
-}).namespace('Auth')
+    .validator('General/AuthRegister');
+}).namespace('Auth');
 
 /**
  * ---------------------------------------------------------------------
@@ -37,26 +37,26 @@ Route.group(() => {
 Route.group(() => {
   Route.get('/', 'VerifyEmailController.index')
     .middleware(['auth'])
-    .as('verify-email')
+    .as('verify-email');
 
   Route.post('send', 'VerifyEmailController.send')
     .middleware(['auth'])
     .validator('General/ConfirmEmail')
-    .as('verify-email.send')
+    .as('verify-email.send');
 
   Route.get('confirm/:token/:id', 'VerifyEmailController.confirm').as(
     'verify-email.confirm'
-  )
+  );
 })
   .namespace('Auth')
-  .prefix('session/auth/verify-email')
+  .prefix('session/auth/verify-email');
 
 /**
  * Recuperação de Senha.
  */
 Route.group(() => {
-  Route.get('reset', 'ResetPasswordController.index').as('reset-password')
-  Route.post('reset', 'ResetPasswordController.sendEmail')
+  Route.get('reset', 'ResetPasswordController.index').as('reset-password');
+  Route.post('reset', 'ResetPasswordController.sendEmail');
 })
   .namespace('Auth')
-  .prefix('auth/password')
+  .prefix('auth/password');

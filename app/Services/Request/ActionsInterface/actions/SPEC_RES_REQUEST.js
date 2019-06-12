@@ -3,7 +3,7 @@
  *    - Especialização em Requerimento :: SPEC_RES_REQUEST
  */
 
-const User = use('App/Models/User')
+const User = use('App/Models/User');
 
 module.exports = () => ({
   requiresTransaction: true,
@@ -13,10 +13,10 @@ module.exports = () => ({
   requiresReview: false,
   requiresType: false,
   caller
-})
+});
 
 async function caller({ transaction, request }) {
-  const user = await User.findOrFail(request.receiver_id)
-  user.absence_until = request.absence_until
-  await user.save(transaction)
+  const user = await User.findOrFail(request.receiver_id);
+  user.absence_until = request.absence_until;
+  await user.save(transaction);
 }

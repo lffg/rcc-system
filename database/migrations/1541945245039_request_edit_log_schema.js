@@ -1,34 +1,34 @@
-const Schema = use('Schema')
+const Schema = use('Schema');
 
 class RequestEditLogSchema extends Schema {
   up() {
     this.create('request_edit_logs', (table) => {
-      table.increments()
-      table.timestamps()
+      table.increments();
+      table.timestamps();
 
       table
         .integer('request_id')
         .unsigned()
         .index('request_id')
-        .notNullable()
+        .notNullable();
       table
         .foreign('request_id')
         .references('requests.id')
-        .onDelete('cascade')
+        .onDelete('cascade');
 
-      table.integer('author_id').unsigned()
+      table.integer('author_id').unsigned();
       table
         .foreign('author_id')
         .references('users.id')
-        .onDelete('set null')
+        .onDelete('set null');
 
-      table.string('edit_reason').notNullable()
-    })
+      table.string('edit_reason').notNullable();
+    });
   }
 
   down() {
-    this.drop('request_edit_logs')
+    this.drop('request_edit_logs');
   }
 }
 
-module.exports = RequestEditLogSchema
+module.exports = RequestEditLogSchema;

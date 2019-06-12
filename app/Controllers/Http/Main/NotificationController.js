@@ -1,4 +1,4 @@
-const Notification = use('App/Models/Notification')
+const Notification = use('App/Models/Notification');
 
 class NotificationController {
   /**
@@ -12,10 +12,10 @@ class NotificationController {
       .limit(12)
       .orderBy('created_at', 'desc')
       .fetch()
-      .then((notifications) => notifications.toJSON())
+      .then((notifications) => notifications.toJSON());
 
-    return view.render('pages.session.notifications.list', { notifications })
+    return view.render('pages.session.notifications.list', { notifications });
   }
 }
 
-module.exports = NotificationController
+module.exports = NotificationController;

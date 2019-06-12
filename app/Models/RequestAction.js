@@ -1,4 +1,4 @@
-const Model = use('Model')
+const Model = use('Model');
 
 class RequestAction extends Model {
   /**
@@ -16,8 +16,8 @@ class RequestAction extends Model {
       'App/Models/RequestType',
       'action_id',
       'type_id'
-    ).pivotTable('pivot_request_action_type')
+    ).pivotTable('pivot_request_action_type');
   }
 }
 
-module.exports = RequestAction
+module.exports = RequestAction;

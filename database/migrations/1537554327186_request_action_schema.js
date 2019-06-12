@@ -1,27 +1,27 @@
-const Schema = use('Schema')
+const Schema = use('Schema');
 
 class RequestActionSchema extends Schema {
   up() {
     this.create('request_actions', (table) => {
-      table.increments()
+      table.increments();
 
       table
         .string('alias', 80)
         .notNullable()
-        .index('alias')
+        .index('alias');
 
-      table.enum('execute_on', ['CREATE', 'UPDATE', 'APPROVE', 'REJECT'])
+      table.enum('execute_on', ['CREATE', 'UPDATE', 'APPROVE', 'REJECT']);
 
-      table.string('name', 100).notNullable()
-      table.text('description').defaultTo(null)
+      table.string('name', 100).notNullable();
+      table.text('description').defaultTo(null);
 
-      table.timestamps()
-    })
+      table.timestamps();
+    });
   }
 
   down() {
-    this.drop('request_actions')
+    this.drop('request_actions');
   }
 }
 
-module.exports = RequestActionSchema
+module.exports = RequestActionSchema;

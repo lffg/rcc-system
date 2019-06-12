@@ -1,4 +1,4 @@
-const Model = use('Model')
+const Model = use('Model');
 
 class Post extends Model {
   /**
@@ -8,13 +8,13 @@ class Post extends Model {
    * @return {void}
    */
   static boot() {
-    super.boot()
+    super.boot();
 
     this.addTrait('@provider:Lucid/Slugify', {
       fields: { slug: 'title' },
       strategy: 'dbIncrement',
       disableUpdates: false
-    })
+    });
   }
 
   /**
@@ -28,12 +28,14 @@ class Post extends Model {
    */
 
   user() {
-    return this.belongsTo('App/Models/User')
+    return this.belongsTo('App/Models/User');
   }
 
   tags() {
-    return this.belongsToMany('App/Models/PostTag').pivotTable('pivot_post_tag')
+    return this.belongsToMany('App/Models/PostTag').pivotTable(
+      'pivot_post_tag'
+    );
   }
 }
 
-module.exports = Post
+module.exports = Post;

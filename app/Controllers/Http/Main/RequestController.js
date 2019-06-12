@@ -1,8 +1,8 @@
-const { HttpException } = use('@adonisjs/generic-exceptions')
-const RequestController = use('App/Models/RequestController')
-const Filters = use('App/Services/Request/Filters')
-const Request = use('App/Models/Request')
-const Database = use('Database')
+const { HttpException } = use('@adonisjs/generic-exceptions');
+const RequestController = use('App/Models/RequestController');
+const Filters = use('App/Services/Request/Filters');
+const Request = use('App/Models/Request');
+const Database = use('Database');
 
 class RequestHttpController {
   /**
@@ -14,7 +14,7 @@ class RequestHttpController {
     const controllers = await RequestController.query()
       .where('is_crh', true)
       .select('*')
-      .fetch()
+      .fetch();
 
     const lastRequests = await Database.select([
       'req.id',
@@ -33,12 +33,12 @@ class RequestHttpController {
       .innerJoin('users as R', 'R.id', '=', 'req.receiver_id')
       .where('req.is_crh', true)
       .orderByRaw('req.created_at DESC')
-      .limit(20)
+      .limit(20);
 
     return view.render('pages.requests.index', {
       controllers: controllers.toJSON(),
       lastRequests
-    })
+    });
   }
 
   /**
@@ -47,21 +47,21 @@ class RequestHttpController {
    * @method GET
    */
   async all({ request, params: { controllerSlug = null }, view }) {
-    const { author, receiver, page = 1 } = request.all()
+    const { author, receiver, page = 1 } = request.all();
 
     const controllers = await RequestController.query()
       .select(['name', 'slug'])
       .where('is_crh', true)
       .fetch()
-      .then((controllers) => controllers.toJSON())
+      .then((controllers) => controllers.toJSON());
 
     const { name: currentController } =
       controllerSlug === null
         ? {}
-        : controllers.find(({ slug }) => slug === controllerSlug) || {}
+        : controllers.find(({ slug }) => slug === controllerSlug) || {};
 
     if (controllerSlug !== null && !currentController) {
-      throw new HttpException('Controller não encontrado.', 404)
+      throw new HttpException('Controller não encontrado.', 404);
     }
 
     const requests = await Request.query()
@@ -79,14 +79,14 @@ class RequestHttpController {
       .with('author', (builder) => builder.select('id', 'username'))
       .with('receiver', (builder) => builder.select('id', 'username'))
       .orderByRaw('created_at DESC')
-      .paginate(Math.abs(page), 35)
+      .paginate(Math.abs(page), 35);
 
     return view.render('pages.requests.all', {
       requests: requests.toJSON(),
       currentController,
       controllers
-    })
+    });
   }
 }
 
-module.exports = RequestHttpController
+module.exports = RequestHttpController;

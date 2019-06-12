@@ -1,13 +1,13 @@
 // DEVELOPMENT SEED
 
-const Factory = use('Factory')
+const Factory = use('Factory');
 
 class PostSeeder {
   async run() {
-    await Factory.model('App/Models/Post').createMany(33)
+    await Factory.model('App/Models/Post').createMany(33);
 
-    console.log('Posts criados.')
+    console.log('Posts criados.');
   }
 }
 
-module.exports = PostSeeder
+module.exports = PostSeeder;

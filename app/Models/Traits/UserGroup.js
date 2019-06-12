@@ -1,4 +1,4 @@
-const Database = use('Database')
+const Database = use('Database');
 
 class UserGroup {
   register(Model) {
@@ -30,16 +30,16 @@ class UserGroup {
         .from('users as U')
         .innerJoin('pivot_group_user as PGU', 'PGU.user_id', '=', 'U.id')
         .innerJoin('groups as G', 'G.id', '=', 'PGU.group_id')
-        .where('U.id', this.id)
+        .where('U.id', this.id);
 
       if (aliases === 'BOTH' || getModField) {
-        return groups
+        return groups;
       }
 
       return groups.map(({ id = null, alias = null }) =>
         aliases && !!alias ? alias : id
-      )
-    }
+      );
+    };
 
     /**
      * Retorna os grupos de que o usuário é moderador.
@@ -50,16 +50,16 @@ class UserGroup {
     Model.prototype.getModerationGroups = async function(aliases = false) {
       const groups = (await this.getGroups(aliases, true))
         .filter(({ is_moderator: isMod }) => !!isMod)
-        .map(({ id, alias }) => ({ id, alias }))
+        .map(({ id, alias }) => ({ id, alias }));
 
       if (aliases === 'BOTH') {
-        return groups
+        return groups;
       }
 
       return groups.map(({ id = null, alias = null }) =>
         aliases && !!alias ? alias : id
-      )
-    }
+      );
+    };
 
     /**
      * Verifica se um usuário faz parte do grupo.
@@ -70,12 +70,12 @@ class UserGroup {
      */
     Model.prototype.hasGroup = async function(group, getByAlias = false) {
       if (!getByAlias && typeof group === 'string' && !isNaN(parseInt(group))) {
-        group = parseInt(group)
+        group = parseInt(group);
       }
 
-      const groups = await this.getGroups(getByAlias)
-      return groups.includes(getByAlias ? group.toUpperCase() : group)
-    }
+      const groups = await this.getGroups(getByAlias);
+      return groups.includes(getByAlias ? group.toUpperCase() : group);
+    };
 
     /**
      * Verifica se um usuário é moderador de um grupo.
@@ -86,13 +86,13 @@ class UserGroup {
      */
     Model.prototype.isModerator = async function(group, getByAlias = false) {
       if (!getByAlias && typeof group === 'string' && !isNaN(parseInt(group))) {
-        group = parseInt(group)
+        group = parseInt(group);
       }
 
-      const groups = await this.getModerationGroups(getByAlias)
-      return groups.includes(getByAlias ? group.toUpperCase() : group)
-    }
+      const groups = await this.getModerationGroups(getByAlias);
+      return groups.includes(getByAlias ? group.toUpperCase() : group);
+    };
   }
 }
 
-module.exports = UserGroup
+module.exports = UserGroup;

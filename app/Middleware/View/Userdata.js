@@ -1,15 +1,15 @@
-const { merge } = require('lodash')
+const { merge } = require('lodash');
 
-const User = use('App/Models/User')
+const User = use('App/Models/User');
 
 class Userdata {
   async handle({ view, auth }, next) {
     try {
-      await auth.check()
+      await auth.check();
     } catch (error) {
-      view.share({ $userdata: { logged_in: false } })
+      view.share({ $userdata: { logged_in: false } });
 
-      return next()
+      return next();
     }
 
     const userdata = await User.query()
@@ -17,14 +17,14 @@ class Userdata {
       .with('groups')
       .with('position')
       .withCount('notifications')
-      .first()
+      .first();
 
     view.share({
       $userdata: merge(userdata.toJSON(), { logged_in: true })
-    })
+    });
 
-    return next()
+    return next();
   }
 }
 
-module.exports = Userdata
+module.exports = Userdata;

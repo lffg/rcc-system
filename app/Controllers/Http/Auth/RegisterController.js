@@ -1,6 +1,6 @@
-const shortid = require('shortid')
+const shortid = require('shortid');
 
-const User = use('App/Models/User')
+const User = use('App/Models/User');
 
 class RegisterController {
   /**
@@ -9,10 +9,10 @@ class RegisterController {
    * @method GET
    */
   register({ view, session }) {
-    const motto = `RCC-${shortid.generate()}`
+    const motto = `RCC-${shortid.generate()}`;
 
-    session.put('confirm-motto', motto)
-    return view.render('pages.session.auth.register', { motto })
+    session.put('confirm-motto', motto);
+    return view.render('pages.session.auth.register', { motto });
   }
 
   /**
@@ -21,16 +21,14 @@ class RegisterController {
    * @method POST
    */
   async postRegister({ request, response, session }) {
-    const data = request.only(['username', 'password', 'email'])
-    await User.create(data)
+    const data = request.only(['username', 'password', 'email']);
+    await User.create(data);
 
     session.flash({
-      success: `Usuário ${
-        data.username
-      } criado com sucesso. Solicite a ativação para entrar.`
-    })
-    return response.route('login')
+      success: `Usuário ${data.username} criado com sucesso. Solicite a ativação para entrar.`
+    });
+    return response.route('login');
   }
 }
 
-module.exports = RegisterController
+module.exports = RegisterController;

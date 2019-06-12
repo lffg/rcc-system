@@ -1,4 +1,4 @@
-const Server = use('Server')
+const Server = use('Server');
 
 const globalMiddleware = [
   'Adonis/Middleware/BodyParser',
@@ -15,17 +15,17 @@ const globalMiddleware = [
   'App/Middleware/Shield/IpCollector',
 
   'App/Middleware/General/LastVisit'
-]
+];
 
 const namedMiddleware = {
   auth: 'Adonis/Middleware/Auth',
   guest: 'App/Middleware/Named/Guest',
   ajax: 'App/Middleware/Named/Ajax',
   admin: 'App/Middleware/Named/Admin'
-}
+};
 
-const serverMiddleware = ['Adonis/Middleware/Static', 'Adonis/Middleware/Cors']
+const serverMiddleware = ['Adonis/Middleware/Static', 'Adonis/Middleware/Cors'];
 
 Server.registerGlobal(globalMiddleware)
   .registerNamed(namedMiddleware)
-  .use(serverMiddleware)
+  .use(serverMiddleware);

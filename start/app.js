@@ -10,14 +10,14 @@ const providers = [
   '@adonisjs/mail/providers/MailProvider',
   '@adonisjs/validator/providers/ValidatorProvider',
   '@adonisjs/lucid-slugify/providers/SlugifyProvider'
-]
+];
 
-const aceProviders = ['@adonisjs/lucid/providers/MigrationsProvider']
+const aceProviders = ['@adonisjs/lucid/providers/MigrationsProvider'];
 
 const aliases = {
   Log: 'App/Services/General/Log'
-}
+};
 
-const commands = []
+const commands = [];
 
-module.exports = { providers, aceProviders, aliases, commands }
+module.exports = { providers, aceProviders, aliases, commands };

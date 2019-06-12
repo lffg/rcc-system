@@ -1,4 +1,4 @@
-const Model = use('Model')
+const Model = use('Model');
 
 class PostTag extends Model {
   /**
@@ -12,8 +12,8 @@ class PostTag extends Model {
    */
 
   posts() {
-    return this.belongsToMany('App/Models/Post').pivotTable('pivot_post_tag')
+    return this.belongsToMany('App/Models/Post').pivotTable('pivot_post_tag');
   }
 }
 
-module.exports = PostTag
+module.exports = PostTag;

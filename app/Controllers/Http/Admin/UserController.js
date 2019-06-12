@@ -1,7 +1,7 @@
-const { getPositions } = use('App/Models/Position')
-const UserParser = use('App/Services/Parsers/User')
-const User = use('App/Models/User')
-const Log = use('Log')
+const { getPositions } = use('App/Models/Position');
+const UserParser = use('App/Services/Parsers/User');
+const User = use('App/Models/User');
+const Log = use('Log');
 
 class UserController {
   /**
@@ -10,11 +10,11 @@ class UserController {
    * @method GET
    */
   async index({ request, view }) {
-    const { page = 1, username = null } = request.all()
-    const query = User.query()
+    const { page = 1, username = null } = request.all();
+    const query = User.query();
 
     if (username) {
-      query.where('username', 'like', `%${username}%`)
+      query.where('username', 'like', `%${username}%`);
     }
 
     const data = await query
@@ -23,9 +23,9 @@ class UserController {
       )
       .with('position', (builder) => builder.select('id', 'name'))
       .paginate(page <= 0 ? 1 : page, 50)
-      .then((data) => data.toJSON())
+      .then((data) => data.toJSON());
 
-    return view.render('admin.users.index', { data, username })
+    return view.render('admin.users.index', { data, username });
   }
 
   /**
@@ -43,17 +43,17 @@ class UserController {
       .with('ips', (builder) => {
         builder
           .select('id', 'user_id', 'ip', 'created_at')
-          .orderBy('created_at', 'DESC')
+          .orderBy('created_at', 'DESC');
       })
       .with('logs', (builder) => {
         builder
           .select('id', 'user_id', 'log', 'created_at')
           .limit(15)
-          .orderBy('created_at', 'DESC')
+          .orderBy('created_at', 'DESC');
       })
-      .firstOrFail()
+      .firstOrFail();
 
-    return view.render('admin.users.show', { user: user.toJSON() })
+    return view.render('admin.users.show', { user: user.toJSON() });
   }
 
   /**
@@ -65,9 +65,9 @@ class UserController {
     const user = await User.query()
       .where({ id })
       .with('logs', (builder) => builder.orderBy('created_at', 'DESC'))
-      .firstOrFail()
+      .firstOrFail();
 
-    return view.render('admin.users.logs', { user: user.toJSON() })
+    return view.render('admin.users.logs', { user: user.toJSON() });
   }
 
   /**
@@ -79,10 +79,10 @@ class UserController {
     const user = await User.query()
       .where({ id })
       .with('position', (builder) => builder.select('id', 'name', 'alias'))
-      .firstOrFail()
+      .firstOrFail();
 
-    const positions = await getPositions()
-    return view.render('admin.users.edit', { user: user.toJSON(), positions })
+    const positions = await getPositions();
+    return view.render('admin.users.edit', { user: user.toJSON(), positions });
   }
 
   /**
@@ -91,8 +91,8 @@ class UserController {
    * @method POST
    */
   async update({ request, response, params: { id }, session, auth }) {
-    const data = UserParser.parse(request.all())
-    const user = await User.findOrFail(id)
+    const data = UserParser.parse(request.all());
+    const user = await User.findOrFail(id);
 
     // Create the logs:
     await Log.log(
@@ -103,9 +103,7 @@ class UserController {
           user.username}`
       },
       {
-        message: `Alteração do nome de usuário. De ${user.username} para ${
-          data.username
-        }`,
+        message: `Alteração do nome de usuário. De ${user.username} para ${data.username}`,
         cond: user.username !== data.username
       },
       {
@@ -114,19 +112,17 @@ class UserController {
         cond: !!data.password && user.password !== data.password
       },
       {
-        message: `Estado de ativação do usuário alterado. De ${
-          user.state
-        } para ${data.state}`,
+        message: `Estado de ativação do usuário alterado. De ${user.state} para ${data.state}`,
         cond: data.state !== user.state
       }
-    )
+    );
 
-    user.merge(data)
-    await user.save()
+    user.merge(data);
+    await user.save();
 
-    session.flash({ success: 'Usuário atualizado com sucesso!' })
-    return response.redirect('back')
+    session.flash({ success: 'Usuário atualizado com sucesso!' });
+    return response.redirect('back');
   }
 }
 
-module.exports = UserController
+module.exports = UserController;

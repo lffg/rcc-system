@@ -1,4 +1,4 @@
-const sanitizeHtml = require('sanitize-html')
+const sanitizeHtml = require('sanitize-html');
 
 /**
  * Limpa o XSS.
@@ -14,5 +14,5 @@ module.exports = function sanitize(
     allowedAttributes: { a: ['href'] }
   }
 ) {
-  return sanitizeHtml(string || '', options).trim()
-}
+  return sanitizeHtml(string || '', options).trim();
+};

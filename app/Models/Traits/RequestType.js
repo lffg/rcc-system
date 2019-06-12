@@ -1,7 +1,7 @@
-const RequestController = use('App/Models/RequestController')
-const existsHabboUser = use('App/Helpers/exists-habbo-user')
-const { getPositions } = use('App/Models/Position')
-const User = use('App/Models/User')
+const RequestController = use('App/Models/RequestController');
+const existsHabboUser = use('App/Helpers/exists-habbo-user');
+const { getPositions } = use('App/Models/Position');
+const User = use('App/Models/User');
 
 class RequestType {
   register(Model) {
@@ -22,24 +22,24 @@ class RequestType {
      * @return {Promise<object>}
      */
     Model.getInfoFor = async (id = null, getPos = false) => {
-      const filter = { is_available_to_crh: true }
+      const filter = { is_available_to_crh: true };
 
       const type = await Model.query()
         .select('*')
         .where({ id })
-        .firstOrFail()
+        .firstOrFail();
 
-      const data = type.toJSON()
+      const data = type.toJSON();
 
       if (
         getPos &&
         (type.field_before_position !== 'HIDE' ||
           type.field_after_position !== 'HIDE')
       ) {
-        let positions = null
+        let positions = null;
 
         if (data.before_position_group_id === data.after_position_group_id) {
-          positions = await getPositions(data.before_position_group_id, filter)
+          positions = await getPositions(data.before_position_group_id, filter);
         }
 
         data.positions = {
@@ -49,11 +49,11 @@ class RequestType {
           after:
             positions ||
             (await getPositions(data.after_position_group_id, filter))
-        }
+        };
       }
 
-      return data
-    }
+      return data;
+    };
 
     /**
      * Retorna todos os tipos para um determinado controller (pelo ID
@@ -70,10 +70,10 @@ class RequestType {
         .with('types', (builder) =>
           builder.select('id', 'controller_id', 'name', 'color', 'icon')
         )
-        .firstOrFail()
+        .firstOrFail();
 
-      return controller.toJSON().types
-    }
+      return controller.toJSON().types;
+    };
 
     /**
      * ---------------------------------------------------------------------
@@ -90,7 +90,7 @@ class RequestType {
     Model.prototype.getActions = async function() {
       const actions = await this.actions()
         .fetch()
-        .then((actions) => actions.toJSON())
+        .then((actions) => actions.toJSON());
 
       return actions.map(
         ({ id, alias, execute_on: on, name, description }) => ({
@@ -100,8 +100,8 @@ class RequestType {
           name,
           description
         })
-      )
-    }
+      );
+    };
 
     /**
      * Valida os usuários para o tipo da instância.
@@ -113,15 +113,15 @@ class RequestType {
       if (!Array.isArray(users)) {
         throw new TypeError(
           '`users` deve ser do tipo array em `RequestType.checkUsers`.'
-        )
+        );
       }
 
       if (!users.length) {
-        return { status: false, code: 'NO_USERS' }
+        return { status: false, code: 'NO_USERS' };
       }
 
       if (!this.allow_multiple_users && users.length > 1) {
-        return { status: false, code: 'MORE_THAN_ONE_USER' }
+        return { status: false, code: 'MORE_THAN_ONE_USER' };
       }
 
       if (this.allow_unregistered_users) {
@@ -131,24 +131,24 @@ class RequestType {
               status: false,
               code: 'UNDEFINED_HABBO_USER',
               params: [username]
-            }
+            };
           }
         }
       }
 
       if (!this.allow_unregistered_users) {
-        const $default = Symbol('Default')
-        let lastPositionId = $default
+        const $default = Symbol('Default');
+        let lastPositionId = $default;
 
         for (const username of users) {
-          const user = await User.findBy('username', username)
+          const user = await User.findBy('username', username);
 
           if (!user) {
-            return { status: false, code: 'NO_USER', params: [username] }
+            return { status: false, code: 'NO_USER', params: [username] };
           }
 
           if (this.strict_to_position_group) {
-            const position = await user.position().fetch()
+            const position = await user.position().fetch();
 
             // Verifica se a posição é a mesma do grupo definido no esquema do tipo:
             if (position.group_id !== this.strict_to_position_group) {
@@ -156,7 +156,7 @@ class RequestType {
                 status: false,
                 code: 'INVALID_POSITION',
                 params: [position.name, username]
-              }
+              };
             }
 
             // Verifica se todos os afetados têm a mesma posição:
@@ -164,16 +164,16 @@ class RequestType {
               lastPositionId !== $default &&
               lastPositionId !== user.position_id
             ) {
-              return { status: false, code: 'DIF_POSITIONS' }
+              return { status: false, code: 'DIF_POSITIONS' };
             }
 
-            lastPositionId = user.position_id
+            lastPositionId = user.position_id;
           }
         }
       }
 
-      return { status: true }
-    }
+      return { status: true };
+    };
 
     /**
      * Valida os campos para o tipo da instância.
@@ -198,23 +198,23 @@ class RequestType {
         ['field_extra_user_2', 'extra_user_2'],
         ['field_extra_user_3', 'extra_user_3'],
         ['field_extra_user_4', 'extra_user_4']
-      ])
+      ]);
 
       for (const [key, field] of dict.entries()) {
-        if (!this[key]) continue
+        if (!this[key]) continue;
 
         if (this[key] === 'REQUIRED' && !data[field]) {
-          return { status: false, code: 'MISSING_VALUES', params: [field] }
+          return { status: false, code: 'MISSING_VALUES', params: [field] };
         }
 
         if (this[key] === 'HIDE' && !!data[field]) {
-          return { status: false, code: 'FORBIDDEN_FIELDS', params: [field] }
+          return { status: false, code: 'FORBIDDEN_FIELDS', params: [field] };
         }
       }
 
-      return { status: true }
-    }
+      return { status: true };
+    };
   }
 }
 
-module.exports = RequestType
+module.exports = RequestType;

@@ -7,9 +7,9 @@ class Request {
      * @return {boolean}
      */
     Model.prototype.validToken = function(token) {
-      return this.integrity_token === token
-    }
+      return this.integrity_token === token;
+    };
   }
 }
 
-module.exports = Request
+module.exports = Request;

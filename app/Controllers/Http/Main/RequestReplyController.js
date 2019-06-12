@@ -12,4 +12,4 @@ class RequestReplyController {
   async destroy() {}
 }
 
-module.exports = RequestReplyController
+module.exports = RequestReplyController;

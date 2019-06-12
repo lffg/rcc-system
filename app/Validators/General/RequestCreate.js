@@ -1,10 +1,10 @@
-const { sprintf } = require('sprintf-js')
+const { sprintf } = require('sprintf-js');
 
-const { HttpException } = use('@adonisjs/generic-exceptions')
-const { RequestInterface } = use('App/Services/Request')
-const { splitNicks } = use('App/Helpers/split-nicks')
-const FormError = use('App/Exceptions/FormError')
-const Route = use('Route')
+const { HttpException } = use('@adonisjs/generic-exceptions');
+const { RequestInterface } = use('App/Services/Request');
+const { splitNicks } = use('App/Helpers/split-nicks');
+const FormError = use('App/Exceptions/FormError');
+const Route = use('Route');
 
 class RequestCreate {
   /**
@@ -13,8 +13,8 @@ class RequestCreate {
    * @return {object}
    */
   get messages() {
-    const { request } = this.ctx
-    const affecteds = splitNicks(request.input('receivers', ''), true)
+    const { request } = this.ctx;
+    const affecteds = splitNicks(request.input('receivers', ''), true);
 
     return {
       INVALID_AUTHOR:
@@ -39,7 +39,7 @@ class RequestCreate {
       UNDEFINED_HABBO_USER:
         'O usuário "%s" não existe no Habbo Hotel. Se você acha que isso é um erro, atualize a página e tente novamente.',
       $default: 'Houve um erro desconhecido ao tentar criar o requerimento.'
-    }
+    };
   }
 
   /**
@@ -51,54 +51,54 @@ class RequestCreate {
    * @return {any}
    */
   error(error, params = [], status = 400) {
-    const uri = Route.url('requests.create')
-    const { request, response } = this.ctx
-    error = sprintf(error || this.messages.$default, ...params)
+    const uri = Route.url('requests.create');
+    const { request, response } = this.ctx;
+    error = sprintf(error || this.messages.$default, ...params);
 
     if (/\/save$/i.test(request.url())) {
       throw new FormError(
         `Erro ao tentar criar a requisição: ${error}`,
         400,
         uri
-      )
+      );
     }
 
-    response.status(status).json({ error })
-    return false
+    response.status(status).json({ error });
+    return false;
   }
 
   async authorize() {
-    const { request, params: requestParams } = this.ctx
-    let step
+    const { request, params: requestParams } = this.ctx;
+    let step;
 
     if (!requestParams.step && [1]) {
-      step = 3
+      step = 3;
     } else {
       switch (parseInt(requestParams.step)) {
         case 1:
-          return true
+          return true;
         case 2:
-          step = 1
-          break
+          step = 1;
+          break;
         case 3:
-          step = 2
-          break
+          step = 2;
+          break;
         default:
-          throw new HttpException('Requisição inválida.', 400)
+          throw new HttpException('Requisição inválida.', 400);
       }
     }
 
     const { status, code, params = [] } = await RequestInterface.validate(
       step,
       request.all()
-    )
+    );
 
     if (!status) {
-      return this.error(this.messages[code], params)
+      return this.error(this.messages[code], params);
     }
 
-    return true
+    return true;
   }
 }
 
-module.exports = RequestCreate
+module.exports = RequestCreate;

@@ -4,12 +4,12 @@
  *    - Definir propriedades computadas após a criação do requerimento.
  */
 
-const getComputedRequestProps = require('../ext/getComputedRequestProps')
+const getComputedRequestProps = require('../ext/getComputedRequestProps');
 
-const htmlifyLineBreaks = use('App/Helpers/htmlify-line-breaks')
-const FormError = use('App/Exceptions/FormError')
-const sanitize = use('App/Helpers/sanitize')
-const Request = use('App/Models/Request')
+const htmlifyLineBreaks = use('App/Helpers/htmlify-line-breaks');
+const FormError = use('App/Exceptions/FormError');
+const sanitize = use('App/Helpers/sanitize');
+const Request = use('App/Models/Request');
 
 module.exports = () => ({
   requiresTransaction: true,
@@ -19,10 +19,10 @@ module.exports = () => ({
   requiresReview: false,
   requiresType: false,
   caller
-})
+});
 
 async function caller({ transaction, payload, systemAction = false }) {
-  let data = {}
+  let data = {};
 
   for (const [
     key,
@@ -33,44 +33,44 @@ async function caller({ transaction, payload, systemAction = false }) {
       payload[name] === null ||
       typeof payload[name] === 'undefined'
     ) {
-      delete payload[name]
+      delete payload[name];
     }
 
     if (required && !payload[name]) {
       throw new FormError(
         `Erro ao criar a requisição: '${name}' está faltando.`,
         400
-      )
+      );
     }
 
     // Transforma quebra de linhas em <br>:
     if (['reason', 'notes', 'price'].includes(name)) {
-      payload[name] = !payload[name] ? null : htmlifyLineBreaks(payload[name])
+      payload[name] = !payload[name] ? null : htmlifyLineBreaks(payload[name]);
     }
 
     // XSS-Clean:
-    payload[name] = !payload[name] ? payload[name] : sanitize(payload[name])
+    payload[name] = !payload[name] ? payload[name] : sanitize(payload[name]);
 
     data = Object.assign(data, {
       [key]: payload[name]
-    })
+    });
   }
 
   if (
     [data.is_crh, data.crh_state].every((field) => typeof field === 'undefined')
   ) {
-    data.crh_state = 'PENDING'
+    data.crh_state = 'PENDING';
   }
 
   // Criar a requisição:
-  const request = new Request()
-  request.merge(data)
-  await request.save(transaction)
+  const request = new Request();
+  request.merge(data);
+  await request.save(transaction);
 
   // Definir dados computados:
-  const computedProps = await getComputedRequestProps(request, transaction)
-  request.merge(computedProps)
-  await request.save(transaction)
+  const computedProps = await getComputedRequestProps(request, transaction);
+  request.merge(computedProps);
+  await request.save(transaction);
 }
 
 const requiredFields = new Map([
@@ -95,4 +95,4 @@ const requiredFields = new Map([
   ['extra_user_2', { name: 'extra_user_2' }],
   ['extra_user_3', { name: 'extra_user_3' }],
   ['extra_user_4', { name: 'extra_user_4' }]
-])
+]);

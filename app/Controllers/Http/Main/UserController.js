@@ -1,8 +1,8 @@
-const { merge } = require('lodash')
+const { merge } = require('lodash');
 
-const User = use('App/Models/User')
-const Database = use('Database')
-const Route = use('Route')
+const User = use('App/Models/User');
+const Database = use('Database');
+const Route = use('Route');
 
 class UserController {
   /**
@@ -14,12 +14,12 @@ class UserController {
     // eslint-disable-next-line
     let { page = 1, u = '', order, order_by: orderBy } = request.all() // , inactive
 
-    const query = User.query()
+    const query = User.query();
 
-    if (page <= 0) page = 1
-    if (u.length > 0) query.where('username', 'like', `%${u}%`)
+    if (page <= 0) page = 1;
+    if (u.length > 0) query.where('username', 'like', `%${u}%`);
     if (order === 'last_visit' || order === 'username' || order === 'id') {
-      query.orderBy(order, orderBy === 'asc' ? 'asc' : 'desc')
+      query.orderBy(order, orderBy === 'asc' ? 'asc' : 'desc');
     }
 
     const data = await query
@@ -31,7 +31,7 @@ class UserController {
       )
       .with('position', (builder) => builder.select('id', 'name', 'alias'))
       .paginate(page, 36)
-      .then((data) => data.toJSON())
+      .then((data) => data.toJSON());
 
     return view.render('pages.users.index', {
       data,
@@ -45,7 +45,7 @@ class UserController {
       ]
         .filter((param) => param !== '')
         .join('&')
-    })
+    });
   }
 
   /**
@@ -54,7 +54,7 @@ class UserController {
    * @method GET
    */
   async show({ request, view }) {
-    const username = request.input('u', null)
+    const username = request.input('u', null);
 
     const userData = await User.query()
       .where({ username })
@@ -64,14 +64,14 @@ class UserController {
       )
       .with('position', (builder) => builder.select('id', 'name', 'alias'))
       .withCount('warnings')
-      .firstOrFail()
+      .firstOrFail();
 
     const userSalary = await User.findBy('username', username).then((user) =>
       user.getSalary()
-    )
+    );
 
-    const user = merge(userData.toJSON(), userSalary)
-    return view.render('pages.users.show', { user })
+    const user = merge(userData.toJSON(), userSalary);
+    return view.render('pages.users.show', { user });
   }
 
   /**
@@ -94,9 +94,9 @@ class UserController {
       .innerJoin('users as R', 'R.id', '=', 'req.receiver_id')
       .innerJoin('users as A', 'A.id', '=', 'req.author_id')
       .where('R.id', id)
-      .orderByRaw('req.created_at DESC, req.id DESC')
+      .orderByRaw('req.created_at DESC, req.id DESC');
 
-    return view.render('pages.users.timeline-items', { events })
+    return view.render('pages.users.timeline-items', { events });
   }
 
   /**
@@ -116,12 +116,12 @@ class UserController {
       .select('id')
       .with('userSearches', (builder) => builder.orderBy('created_at', 'desc'))
       .limit(10)
-      .first()
+      .first();
 
     return view.render('pages.users.find', {
       lastSearches: lastSearches.toJSON().userSearches,
       usernames: await this.autocomplete(...arguments)
-    })
+    });
   }
 
   /**
@@ -130,7 +130,7 @@ class UserController {
    * @method GET
    */
   async autocomplete({ request }) {
-    const query = request.input('query', '')
+    const query = request.input('query', '');
 
     const usernames = await User.query()
       .select('username')
@@ -138,9 +138,9 @@ class UserController {
       .orderByRaw('last_visit DESC, username')
       .limit(5)
       .fetch()
-      .then((usernames) => usernames.toJSON().map(({ username }) => username))
+      .then((usernames) => usernames.toJSON().map(({ username }) => username));
 
-    return usernames
+    return usernames;
   }
 
   /**
@@ -150,20 +150,20 @@ class UserController {
    * @param  {object} ctx
    */
   async findAction({ request, response, session, auth }) {
-    const username = request.input('username', '')
+    const username = request.input('username', '');
 
     try {
-      await User.findByOrFail('username', username)
+      await User.findByOrFail('username', username);
     } catch (e) {
-      session.flash({ danger: `O usuário "${username}" não existe.` })
-      return response.redirect('back')
+      session.flash({ danger: `O usuário "${username}" não existe.` });
+      return response.redirect('back');
     }
 
-    await auth.user.userSearches().create({ username })
+    await auth.user.userSearches().create({ username });
 
-    session.flash({ info: 'Redirecionado da página de busca.' })
-    return response.redirect(`${Route.url('users.show')}?u=${username}`)
+    session.flash({ info: 'Redirecionado da página de busca.' });
+    return response.redirect(`${Route.url('users.show')}?u=${username}`);
   }
 }
 
-module.exports = UserController
+module.exports = UserController;

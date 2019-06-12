@@ -1,4 +1,4 @@
-const Model = use('Model')
+const Model = use('Model');
 
 class RequestEditLog extends Model {
   /**
@@ -12,12 +12,12 @@ class RequestEditLog extends Model {
    */
 
   request() {
-    return this.belongsTo('App/Models/Request')
+    return this.belongsTo('App/Models/Request');
   }
 
   author() {
-    return this.belongsTo('App/Models/User', 'author_id')
+    return this.belongsTo('App/Models/User', 'author_id');
   }
 }
 
-module.exports = RequestEditLog
+module.exports = RequestEditLog;
