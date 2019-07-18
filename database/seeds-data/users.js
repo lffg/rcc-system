@@ -15,8 +15,8 @@ const usernames = [
   state: 'ACTIVE',
   password: 'sys-123',
   is_verified_email: true,
-  promoter_id: 2,
-  position_id: 37
+  promoter_id: 1,
+  position_id: 5
 }));
 
 const users = [
@@ -39,7 +39,16 @@ const users = [
     tag: 'DsT',
     password: '123',
     email: 'dean@rccsystem.com',
-    position_id: 37 // 38 = C. Supr.
+    position_id: 38 // 38 = C. Supr.
+  },
+  {
+    id: 3,
+    username: 'Zaswes',
+    state: 'ACTIVE',
+    tag: 'Zas',
+    password: '123',
+    email: 'zas@rccsystem.com',
+    position_id: 37
   }
 ];
 

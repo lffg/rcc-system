@@ -58,10 +58,10 @@
 
 @section('footer')
   @loggedIn
-  Logado como {{ $userdata.username }} &middot;
-  <a href="{{ route('logout') }}?confirm=on">
-    Sair
-  </a>
+    <strong>Logado como {{ $userdata.username }}</strong> &middot;
+    <a href="{{ route('logout') }}?confirm=on">
+      Sair
+    </a>
   @else
     <span style="display: block; margin: -10px;"></span>
   @endloggedIn

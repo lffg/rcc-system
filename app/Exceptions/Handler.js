@@ -16,7 +16,7 @@ class ExceptionHandler extends BaseExceptionHandler {
    * Lida com os erros HTTP.
    */
   async handle(error, ctx) {
-    const handle = false;
+    const handle = true;
     if (!handle) return super.handle(...arguments);
 
     this.error = error;
