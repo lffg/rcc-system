@@ -27,7 +27,7 @@ Route.group(() => {
     .as('posts.delete')
     .middleware(['admin']);
 })
-  .middleware(['auth'])
+  .middleware(['auth', 'todo'])
   .namespace('Main')
   .prefix('news');
 
