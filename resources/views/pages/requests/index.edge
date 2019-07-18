@@ -19,16 +19,16 @@
     <div class="col-lg-6">
       <div class="card">
         <div class="card-header">
-          <i class="fa fa-book"></i> Listagens do CRH
+          <i class="fa fa-book"></i> Listas de Requerimentos
         </div>
         <div class="list-group list-group-flush">
           @each(controller in controllers)
             <li class="list-group-item">
               <a
-                href="{{ route('requests.list', { slug: controller.slug }) }}"
+                href="{{ route('requests.all', { controllerSlug: controller.slug }) }}"
                 style="font-weight: 600; color: {{ controller.color }};"
               >
-                Listagem de {{ controller.name }}
+                Listas de {{ controller.name }}
               </a>
             </li>
           @endeach

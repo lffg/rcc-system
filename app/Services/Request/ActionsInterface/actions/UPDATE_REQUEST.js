@@ -48,7 +48,7 @@ async function caller({ transaction, request, payload }) {
   request.merge(computedProps);
   await request.save(transaction);
 
-  // TODO ::
+  // TODO(lffg):
   // if (request.crh_state !== 'PENDING')
   // execute_action_by_system('REVIEW', request.crh_state)
 }

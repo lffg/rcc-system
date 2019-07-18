@@ -110,7 +110,6 @@ class UserController {
       user: { id }
     }
   }) {
-    // TODO: Remover isso. É desnecessário e irrelevante.
     const lastSearches = await User.query()
       .where({ id })
       .select('id')
