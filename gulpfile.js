@@ -56,11 +56,7 @@ function sassTask(done) {
     .pipe(plumber())
     .pipe(sourcemaps.init())
     .pipe(sass({ outputStyle: 'compressed' }))
-    .pipe(
-      prefixer({
-        browsers: ['last 4 versions']
-      })
-    )
+    .pipe(prefixer())
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(DEST_PATHS.sass));
 
