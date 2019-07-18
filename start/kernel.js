@@ -21,6 +21,7 @@ const namedMiddleware = {
   auth: 'Adonis/Middleware/Auth',
   guest: 'App/Middleware/Named/Guest',
   ajax: 'App/Middleware/Named/Ajax',
+  todo: 'App/Middleware/Named/Todo',
   admin: 'App/Middleware/Named/Admin'
 };
 
