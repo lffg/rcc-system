@@ -119,7 +119,7 @@ class UserController {
 
     return view.render('pages.users.find', {
       lastSearches: lastSearches.toJSON().userSearches,
-      usernames: await this.autocomplete(...arguments)
+      usernames: await this.autocomplete(...arguments) // eslint-disable-line prefer-rest-params
     });
   }
 

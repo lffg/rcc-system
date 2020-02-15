@@ -28,7 +28,7 @@ class UserController {
    * @method GET
    * @api
    */
-  async checkTag({ request }) {
+  checkTag({ request }) {
     const tag = request.input('tag', '');
 
     return Database.from('users')

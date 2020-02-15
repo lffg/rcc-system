@@ -69,8 +69,13 @@ class UserGroup {
      * @return {Promise<boolean>}
      */
     Model.prototype.hasGroup = async function(group, getByAlias = false) {
-      if (!getByAlias && typeof group === 'string' && !isNaN(parseInt(group))) {
-        group = parseInt(group);
+      if (
+        !getByAlias &&
+        typeof group === 'string' &&
+        !isNaN(parseInt(group, 10))
+      ) {
+        // eslint-disable-next-line no-param-reassign
+        group = parseInt(group, 10);
       }
 
       const groups = await this.getGroups(getByAlias);
@@ -85,8 +90,13 @@ class UserGroup {
      * @return {Promise<boolean>}
      */
     Model.prototype.isModerator = async function(group, getByAlias = false) {
-      if (!getByAlias && typeof group === 'string' && !isNaN(parseInt(group))) {
-        group = parseInt(group);
+      if (
+        !getByAlias &&
+        typeof group === 'string' &&
+        !isNaN(parseInt(group, 10))
+      ) {
+        // eslint-disable-next-line no-param-reassign
+        group = parseInt(group, 10);
       }
 
       const groups = await this.getModerationGroups(getByAlias);

@@ -21,11 +21,13 @@ class UserPositionController {
 
     const {
       position: { id, name, next, prev, equivalence }
-    } = (await User.query()
-      .select('id', 'username', 'position_id')
-      .where({ username })
-      .with('position', (builder) => builder.getNear())
-      .first()).toJSON();
+    } = (
+      await User.query()
+        .select('id', 'username', 'position_id')
+        .where({ username })
+        .with('position', (builder) => builder.getNear())
+        .first()
+    ).toJSON();
 
     return {
       positions: { prev, current: { id, name }, next, equivalence },

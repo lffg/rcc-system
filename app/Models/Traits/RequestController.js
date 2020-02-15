@@ -32,7 +32,7 @@ class RequestController {
      * @param  {boolean} getTypes
      * @return {Promise<object>}
      */
-    Model.getControllers = async (onlyForCrh = true, getTypes = false) => {
+    Model.getControllers = (onlyForCrh = true, getTypes = false) => {
       const query = Model.query().select('id', 'name');
 
       if (onlyForCrh) {

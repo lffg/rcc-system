@@ -49,12 +49,12 @@ hooks.after.providersRegistered(() => {
    * Adiciona um método "absolute" para as views".
    */
   View.global('absolute', (url = '') => {
-    let base = Config.get('app.url');
+    const base = Config.get('app.url');
 
-    base = base.replace(/^\/|\/$/g, '');
-    url = url.replace(/^\/|\/$/g, '');
+    const trimmedBaseUrl = base.replace(/^\/|\/$/g, '');
+    const trimmedUrl = url.replace(/^\/|\/$/g, '');
 
-    return `${base}/${url}`;
+    return `${trimmedBaseUrl}/${trimmedUrl}`;
   });
 
   /**

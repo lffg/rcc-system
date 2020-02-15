@@ -24,7 +24,7 @@ class VerifyEmailController {
    *
    * @method GET
    */
-  async index({ view }) {
+  index({ view }) {
     if (this._verify(...arguments)) return;
     return view.render('pages.session.auth.verify-email');
   }

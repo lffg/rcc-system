@@ -126,6 +126,7 @@ class RequestType {
 
       if (this.allow_unregistered_users) {
         for (const username of users) {
+          // eslint-disable-next-line no-await-in-loop
           if (!(await existsHabboUser(username))) {
             return {
               status: false,
@@ -141,6 +142,7 @@ class RequestType {
         let lastPositionId = $default;
 
         for (const username of users) {
+          // eslint-disable-next-line no-await-in-loop
           const user = await User.findBy('username', username);
 
           if (!user) {
@@ -148,6 +150,7 @@ class RequestType {
           }
 
           if (this.strict_to_position_group) {
+            // eslint-disable-next-line no-await-in-loop
             const position = await user.position().fetch();
 
             // Verifica se a posição é a mesma do grupo definido no esquema do tipo:
@@ -181,7 +184,7 @@ class RequestType {
      * @param  {string[]} users
      * @return {Promise<{ status: boolean, code?: string, params?: string[] }>}
      */
-    Model.prototype.validateFields = async function(data) {
+    Model.prototype.validateFields = function(data) {
       const dict = new Map([
         ['field_before_position', 'before_position_id'],
         ['field_after_position', 'after_position_id'],

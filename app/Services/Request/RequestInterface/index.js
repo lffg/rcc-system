@@ -1,21 +1,52 @@
+const callAction = require('./_callAction');
+const validateStep = require('./_validate');
+
 const { HttpException } = use('@adonisjs/generic-exceptions');
 
-exports.validate = async function(step, payload) {
-  if (![1, 2, 3].includes(parseInt(step))) {
+function validate(step, payload) {
+  if (![1, 2, 3].includes(parseInt(step, 10))) {
     throw new HttpException(
       `Parte inválida (${step}) para validação de requisição.`
     );
   }
 
-  return require('./_validate')(parseInt(step), payload);
+  return validateStep(parseInt(step, 10), payload);
+}
+
+const create = (...params) => callAction('CREATE')(...params);
+const update = (...params) => callAction('UPDATE')(...params);
+const reject = (...params) => callAction('REJECT')(...params);
+const approve = (...params) => callAction('APPROVE')(...params);
+
+module.exports = {
+  validate,
+  create,
+  update,
+  reject,
+  approve
 };
 
-const callAction = require('./_callAction');
+//
+//
+//
+//
 
-// *:
-exports.create = async (...params) => callAction('CREATE')(...params);
-exports.update = async (...params) => callAction('UPDATE')(...params);
+// const callAction = require('./_callAction');
+// const validateStep = require('./_validate');
 
-// CRH:
-exports.reject = async (...params) => callAction('REJECT')(...params);
-exports.approve = async (...params) => callAction('APPROVE')(...params);
+// const { HttpException } = use('@adonisjs/generic-exceptions');
+
+// exports.validate = function validate(step, payload) {
+//   if (![1, 2, 3].includes(parseInt(step, 10))) {
+//     throw new HttpException(
+//       `Parte inválida (${step}) para validação de requisição.`
+//     );
+//   }
+
+//   return validateStep(parseInt(step, 10), payload);
+// };
+
+// exports.create = (...params) => callAction('CREATE')(...params);
+// exports.update = (...params) => callAction('UPDATE')(...params);
+// exports.reject = (...params) => callAction('REJECT')(...params);
+// exports.approve = (...params) => callAction('APPROVE')(...params);

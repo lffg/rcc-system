@@ -16,7 +16,7 @@ class Position {
      * @param  {number} groupId
      * @return {Promise<object|object[]>}
      */
-    Model.getFullPositionsList = async (
+    Model.getFullPositionsList = (
       { prev = true, next = true, equivalence = true } = {},
       groupId = null
     ) => {
@@ -54,9 +54,9 @@ class Position {
 
       if (groupId) query.andWhere({ id: groupId });
 
-      const data = await query[!groupId ? 'fetch' : 'firstOrFail']().then(
-        (groups) => groups.toJSON()
-      );
+      const data = await query[
+        !groupId ? 'fetch' : 'firstOrFail'
+      ]().then((groups) => groups.toJSON());
 
       return Array.isArray(data) ? data : [data];
     };

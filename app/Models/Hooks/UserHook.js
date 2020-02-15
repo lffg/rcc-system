@@ -23,6 +23,7 @@ UserHook.hashPassword = async (userInstance) => {
   }
 
   if (userInstance.dirty.password) {
+    // eslint-disable-next-line require-atomic-updates
     userInstance.password = await Hash.make(userInstance.password);
   }
 };

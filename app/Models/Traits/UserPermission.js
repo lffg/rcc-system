@@ -48,9 +48,10 @@ class UserPermission {
       if (
         !getByAlias &&
         typeof permission === 'string' &&
-        !isNaN(parseInt(permission))
+        !isNaN(parseInt(permission, 10))
       ) {
-        permission = parseInt(permission);
+        // eslint-disable-next-line no-param-reassign
+        permission = parseInt(permission, 10);
       }
 
       const permissions = await this.getPermissions(getByAlias);

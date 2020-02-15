@@ -28,7 +28,7 @@ class CreateGroup {
     };
   }
 
-  async fails(errorMessages) {
+  fails(errorMessages) {
     const { response, session } = this.ctx;
 
     session

@@ -16,7 +16,7 @@ class ResetPasswordController {
    *
    * @method POST
    */
-  async sendEmail({ request, response, session, view }) {
+  async sendEmail({ request, response, session }) {
     const email = request.input('email');
     // TODO(lffg):
     // eslint-disable-next-line

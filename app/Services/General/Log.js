@@ -39,19 +39,16 @@ class Log {
   }
 
   static async _iterate(logs, actionAuthor, ip) {
-    for (let log of logs) {
-      if (typeof log === 'string') {
-        log = { message: log, cond: true };
-      }
+    const promises = logs
+      .filter((log) => typeof log !== 'string' && log.cond === false)
+      .map((log) =>
+        actionAuthor.logs().create({
+          log: typeof log === 'string' ? log : log.message,
+          ip: ip
+        })
+      );
 
-      const { message, cond = true } = log;
-      if (!cond) continue;
-
-      await actionAuthor.logs().create({
-        log: message,
-        ip: ip
-      });
-    }
+    await Promise.all(promises);
   }
 }
 

@@ -14,7 +14,7 @@ GroupHook.setOrder = async (groupInstance) => {
 
   try {
     const { order: lastOrder } = lastGroup.toJSON();
-    groupInstance.order = parseInt(lastOrder) + 1;
+    groupInstance.order = parseInt(lastOrder, 10) + 1;
   } catch (e) {
     groupInstance.order = 1;
   }
@@ -24,16 +24,15 @@ GroupHook.setOrder = async (groupInstance) => {
  * Reseta a ordem de todos os grupos após um deles ser removido.
  */
 GroupHook.resetOrder = async () => {
+  /** @type {{ id: number }[]} */
   const groups = await Group.query()
     .sortByOrder()
     .fetch()
     .then((groups) => groups.toJSON());
 
-  for (const index in groups) {
-    const { id } = groups[index];
-
-    const group = await Group.findOrFail(id);
-    group.order = parseInt(index) + 1;
-    await group.save();
+  for (const [index, { id }] of groups.entries()) {
+    const group = await Group.findOrFail(id); // eslint-disable-line no-await-in-loop
+    group.order = index + 1;
+    await group.save(); // eslint-disable-line no-await-in-loop
   }
 };

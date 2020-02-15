@@ -225,9 +225,12 @@ class GroupController {
     const group = await Group.findOrFail(id);
 
     for (const username of users) {
+      // eslint-disable-next-line no-await-in-loop
       const user = await User.findByOrFail('username', username);
+      // eslint-disable-next-line no-await-in-loop
       await user.groups().detach([group.id]);
 
+      // eslint-disable-next-line no-await-in-loop
       await Log.log(auth.user.id, request.ip(), {
         message: `Removeu o usuário ${user.username} do grupo ${group.name}`
       });
@@ -280,13 +283,17 @@ class GroupController {
     const group = await Group.findOrFail(id);
 
     for (const username of users) {
+      // eslint-disable-next-line no-await-in-loop
       const user = await User.findByOrFail('username', username);
 
+      // eslint-disable-next-line no-await-in-loop
       await user.groups().detach([group.id]);
+      // eslint-disable-next-line no-await-in-loop
       await user.groups().attach([group.id], (row) => {
         row.is_moderator = false;
       });
 
+      // eslint-disable-next-line no-await-in-loop
       await Log.log(auth.user.id, request.ip(), {
         message: `Removeu o usuário ${user.username} da moderação do grupo ${group.name}`
       });

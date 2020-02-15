@@ -20,9 +20,7 @@ class PostController {
    *
    * @method GET
    */
-  async create() {
-    return 1;
-  }
+  async create() {}
 
   /**
    * Mostra a página para salvar uma notícia.
@@ -52,9 +50,7 @@ class PostController {
    *
    * @method GET
    */
-  async edit() {
-    return 1;
-  }
+  edit() {}
 
   /**
    * Atualiza a notícia.

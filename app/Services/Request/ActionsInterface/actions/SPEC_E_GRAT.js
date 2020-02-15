@@ -18,6 +18,6 @@ module.exports = () => ({
 async function caller({ transaction, request }) {
   const user = await User.findOrFail(request.receiver_id);
   user.effective_bonuses =
-    parseInt(user.effective_bonuses) + parseInt(request.bonuses);
+    parseInt(user.effective_bonuses, 10) + parseInt(request.bonuses, 10);
   await user.save(transaction);
 }

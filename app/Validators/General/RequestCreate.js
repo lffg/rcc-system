@@ -53,17 +53,17 @@ class RequestCreate {
   error(error, params = [], status = 400) {
     const uri = Route.url('requests.create');
     const { request, response } = this.ctx;
-    error = sprintf(error || this.messages.$default, ...params);
+    const formattedError = sprintf(error || this.messages.$default, ...params);
 
     if (/\/save$/i.test(request.url())) {
       throw new FormError(
-        `Erro ao tentar criar a requisição: ${error}`,
+        `Erro ao tentar criar a requisição: ${formattedError}`,
         400,
         uri
       );
     }
 
-    response.status(status).json({ error });
+    response.status(status).json({ error: formattedError });
     return false;
   }
 
@@ -74,7 +74,7 @@ class RequestCreate {
     if (!requestParams.step && [1]) {
       step = 3;
     } else {
-      switch (parseInt(requestParams.step)) {
+      switch (parseInt(requestParams.step, 10)) {
         case 1:
           return true;
         case 2:

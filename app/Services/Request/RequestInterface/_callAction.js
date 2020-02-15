@@ -31,7 +31,7 @@ module.exports = function callAction(executeOn = null) {
       for (const action of actions) {
         const actionInterface = new ActionsInterface();
         actionInterface.use(params);
-        await actionInterface.execute(action);
+        await actionInterface.execute(action); // eslint-disable-line no-await-in-loop
       }
     } catch (error) {
       // Mostre a mensagem somente se for um erro do membro do Centro de
@@ -72,7 +72,7 @@ module.exports = function callAction(executeOn = null) {
  * @param  {number|string} typeId
  * @return {Promise<string[]>}
  */
-const getActions = async (typeId, executeOn) =>
+const getActions = (typeId, executeOn) =>
   Database.select('A.alias')
     .from('request_actions as A')
     .innerJoin('pivot_request_action_type as P', 'P.action_id', '=', 'A.id')

@@ -86,7 +86,7 @@ async function validateType(controller, type) {
     types.map(({ id }) => id)
   );
 
-  return types.includes(parseInt(type.id));
+  return types.includes(parseInt(type.id, 10));
 }
 
 /**

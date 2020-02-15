@@ -32,7 +32,7 @@ class CheckUserRequirements {
 
     // Sets the "banned until" field back to zero if necessary.
     if (moment(auth.user.banned_until).isSameOrBefore(Date.now(), 'day')) {
-      auth.user.banned_until = null;
+      auth.user.banned_until = null; // eslint-disable-line require-atomic-updates
       await auth.user.save();
     }
 

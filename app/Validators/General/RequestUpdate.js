@@ -52,7 +52,7 @@ class GeneralRequestUpdate {
     return true;
   }
 
-  async fails([{ message }]) {
+  fails([{ message }]) {
     const { response, session } = this.ctx;
 
     session.flash({ danger: message });

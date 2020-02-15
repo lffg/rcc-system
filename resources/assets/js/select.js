@@ -63,7 +63,7 @@
         });
       });
 
-      $input.on('focus', function(event) {
+      $input.on('focus', function() {
         $menu.show();
       });
 

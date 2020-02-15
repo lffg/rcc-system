@@ -1,5 +1,5 @@
 class TrimRequestBody {
-  async handle({ request }, next) {
+  handle({ request }, next) {
     if (Object.keys(request.body).length) {
       request.body = Object.assign(
         ...Object.keys(request.body).map((key) => ({

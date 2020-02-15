@@ -10,6 +10,8 @@
   var API_URL = '/api/check-user';
 
   function addNext($el, message, className) {
+    var currentClassName = className;
+
     if (!message) {
       $el.next('.js-response-tooltip').remove();
     }
@@ -18,20 +20,20 @@
       $el.next().remove();
     }
 
-    if (className !== 'valid' && className !== 'invalid') {
-      className = 'invalid';
+    if (currentClassName !== 'valid' && currentClassName !== 'invalid') {
+      currentClassName = 'invalid';
     }
 
     $el.after(
       [
-        '<span class="js-response-tooltip ' + className + '-tooltip">',
+        '<span class="js-response-tooltip ' + currentClassName + '-tooltip">',
         '  <span>' + message + '</span>',
         '</span>'
       ].join('')
     );
   }
 
-  function danger($el, message) {
+  function danger($el) {
     $el.removeClass('is-valid js-loading').addClass('is-invalid');
     addNext($el, 'Este usuário não existe.', 'invalid');
   }
@@ -68,7 +70,7 @@
             u: $this.val(),
             _: Date.now()
           })
-            .done(function(response) {
+            .done(function() {
               success($this);
             })
             .fail(function(errorResponse) {
@@ -99,8 +101,8 @@
 
   var timeout;
   return function() {
-    var context = this,
-      args = arguments;
+    var context = this;
+    var args = arguments; // eslint-disable-line prefer-rest-params
     var later = function() {
       timeout = null;
       if (!immediate) func.apply(context, args);

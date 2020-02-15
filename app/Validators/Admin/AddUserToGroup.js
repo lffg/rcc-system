@@ -34,7 +34,7 @@ class AddUserToGroup {
     };
   }
 
-  async fails(errorMessages) {
+  fails(errorMessages) {
     const { response, session } = this.ctx;
     const [{ message }] = errorMessages;
 

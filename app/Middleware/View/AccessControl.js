@@ -31,9 +31,10 @@ class HasGroup {
         if (
           !getByAlias &&
           typeof group === 'string' &&
-          !isNaN(parseInt(group))
+          !isNaN(parseInt(group, 10))
         ) {
-          group = parseInt(group);
+          // eslint-disable-next-line no-param-reassign
+          group = parseInt(group, 10);
         }
 
         return groups
@@ -52,9 +53,10 @@ class HasGroup {
         if (
           !getByAlias &&
           typeof group === 'string' &&
-          !isNaN(parseInt(group))
+          !isNaN(parseInt(group, 10))
         ) {
-          group = parseInt(group);
+          // eslint-disable-next-line no-param-reassign
+          group = parseInt(group, 10);
         }
 
         return modGroups
@@ -73,9 +75,10 @@ class HasGroup {
         if (
           !getByAlias &&
           typeof permission === 'string' &&
-          !isNaN(parseInt(permission))
+          !isNaN(parseInt(permission, 10))
         ) {
-          permission = parseInt(permission);
+          // eslint-disable-next-line no-param-reassign
+          permission = parseInt(permission, 10);
         }
 
         return permissions

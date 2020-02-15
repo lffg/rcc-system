@@ -45,7 +45,7 @@ class RequestEntityController {
     ]);
     const controller = await RequestController.getInfoFor(data.controller_id);
 
-    switch (parseInt(step)) {
+    switch (parseInt(step, 10)) {
       case 1:
         return view.render('pages.requests.ajax-first-part', {
           controllers: await RequestController.getControllers(),
@@ -75,24 +75,19 @@ class RequestEntityController {
    *
    * @method POST
    */
-  async store({
-    request,
-    response,
-    session,
-    auth: {
-      user: { username }
-    }
-  }) {
+  async store({ request, response, session }) {
     const transaction = await Database.beginTransaction();
     const data = request.all();
 
     try {
       const splittedNicks = await fullSplitNicks(data.receivers, true);
       for (const username of splittedNicks) {
+        // eslint-disable-next-line no-await-in-loop
         const user = await User.findOrCreate(
           { username },
           { username, synthetically_created: true }
         );
+        // eslint-disable-next-line no-await-in-loop
         await RequestInterface.create({
           payload: { ...data, receiver_id: user.id },
           transaction
@@ -187,7 +182,7 @@ class Queries {
     return entity;
   }
 
-  static async reviews(requestId = null) {
+  static reviews(requestId = null) {
     return Database.select(['R.*', 'A.username as author'])
       .from('request_reviews as R')
       .innerJoin('users as A', 'R.author_id', '=', 'A.id')
@@ -195,7 +190,7 @@ class Queries {
       .orderBy('created_at', 'ASC');
   }
 
-  static async editLogs(requestId = null) {
+  static editLogs(requestId = null) {
     return Database.select([
       'L.edit_reason',
       'L.created_at',
