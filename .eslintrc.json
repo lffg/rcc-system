@@ -3,6 +3,9 @@
   "globals": {
     "use": true
   },
+  "rules": {
+    "prefer-rest-params": "off"
+  },
   "overrides": [
     {
       "files": "resources/**/*.js",
@@ -15,6 +18,12 @@
       "rules": {
         "strict": ["error", "function"],
         "no-var": "off"
+      }
+    },
+    {
+      "files": "database/seeds/**/*.js",
+      "rules": {
+        "no-await-in-loop": "off"
       }
     }
   ]
