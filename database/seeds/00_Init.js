@@ -16,26 +16,28 @@ const Post = use('App/Models/Post');
 
 class Init {
   async run() {
-    await Database.raw('SET FOREIGN_KEY_CHECKS = 0');
+    const tables = [
+      'groups',
+      'pivot_group_user',
+      'position_groups',
+      'positions',
+      'permissions',
+      'pivot_group_permission',
+      'users',
+      'notifications',
+      'request_controllers',
+      'request_edit_logs',
+      'request_actions',
+      'request_reviews',
+      'request_types',
+      'requests',
+      'pivot_request_action_type',
+      'posts'
+    ];
 
-    await Group.truncate();
-    await Database.raw('TRUNCATE TABLE pivot_group_user');
-    await PositionGroup.truncate();
-    await Position.truncate();
-    await Permission.truncate();
-    await Database.raw('TRUNCATE TABLE pivot_group_permission');
-    await User.truncate();
-    await Notification.truncate();
-    await RequestController.truncate();
-    await RequestEditLog.truncate();
-    await RequestAction.truncate();
-    await RequestReview.truncate();
-    await RequestType.truncate();
-    await Request.truncate();
-    await Database.raw('TRUNCATE TABLE pivot_request_action_type');
-    await Post.truncate();
-
-    await Database.raw('SET FOREIGN_KEY_CHECKS = 1');
+    for (const table of tables) {
+      await Database.raw(`TRUNCATE "${table}" RESTART IDENTITY CASCADE;`);
+    }
 
     console.log('Tabelas resetadas.');
   }

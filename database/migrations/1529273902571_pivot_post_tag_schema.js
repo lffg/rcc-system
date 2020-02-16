@@ -8,7 +8,7 @@ class PivotPostTagSchema extends Schema {
       table
         .integer('post_id')
         .unsigned()
-        .index('post_id')
+        .index()
         .notNullable();
       table
         .foreign('post_id')
@@ -18,7 +18,7 @@ class PivotPostTagSchema extends Schema {
       table
         .integer('tag_id')
         .unsigned()
-        .index('tag_id')
+        .index()
         .notNullable();
       table
         .foreign('tag_id')

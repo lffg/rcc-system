@@ -34,7 +34,7 @@ class DashboardController {
           .whereNot('is_hidden', true)
           .sortByOrder()
       )
-      .havingBetween('last_visit', [Date.now() - 1000 * 60 * 60, Date.now()])
+      .whereBetween('last_visit', [Date.now() - 1000 * 60 * 60, Date.now()])
       .fetch();
 
     return users.toJSON();

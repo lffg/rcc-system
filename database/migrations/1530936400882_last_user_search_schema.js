@@ -10,7 +10,7 @@ class LastUserSearchSchema extends Schema {
       table
         .integer('user_id')
         .unsigned()
-        .index('user_id')
+        .index()
         .notNullable();
       table
         .foreign('user_id')

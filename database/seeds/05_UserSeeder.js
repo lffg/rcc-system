@@ -1,3 +1,4 @@
+const { pick, omit } = require('lodash');
 const requests = require('../seeds-data/requests-entries');
 const { users } = require('../seeds-data/users');
 
@@ -7,16 +8,11 @@ const User = use('App/Models/User');
 const Database = use('Database');
 
 class UserSeeder {
-  async run() {
-    await Database.raw('SET FOREIGN_KEY_CHECKS = 0');
+  SELF_RELATION_KEYS = ['promoter_id'];
 
+  async run() {
     await this.createUsers();
     console.log('Usuários criados.');
-
-    await Database.raw('SET FOREIGN_KEY_CHECKS = 1');
-
-    await this.setGroupRelations();
-    console.log('Relação entre usuários e grupo criadas.');
 
     // console.log('Aguarde... Requisições estão sendo criadas...')
     // await this.createRequests()
@@ -24,11 +20,40 @@ class UserSeeder {
   }
 
   async createUsers() {
-    for (const data of users) {
-      const user = new User();
-      user.merge(data);
-      await user.save();
-    }
+    const usersWithRelationMap = await Promise.all(
+      users.map(async (userData) => [
+        await this.createUser(omit(userData, this.SELF_RELATION_KEYS)),
+        pick(userData, this.SELF_RELATION_KEYS)
+      ])
+    );
+    console.log('Usuários criados.');
+
+    await Promise.all(
+      usersWithRelationMap.map(async ([user, relationData]) => {
+        user.merge(relationData);
+        await user.save();
+      })
+    );
+    console.log('Relações Usuário <-> Usuário estabelecidas.');
+  }
+
+  async createUser({ __groups__ = [], ...userData }) {
+    const user = new User();
+    user.merge(userData);
+    await user.save();
+
+    await Promise.all(
+      __groups__.map(async (groupAlias) =>
+        user
+          .groups()
+          .attach(
+            (await Group.findBy('alias', groupAlias)).id,
+            (row) => (row.is_moderator = true)
+          )
+      )
+    );
+
+    return user;
   }
 
   async createRequests() {
@@ -44,21 +69,6 @@ class UserSeeder {
         await wait(1000);
       }
     });
-  }
-
-  async setGroupRelations() {
-    const luiz = await User.findByOrFail('username', 'luuuiiiz.');
-    const dean = await User.findByOrFail('username', 'Dean.Santos');
-    const admin = await Group.findBy('alias', 'ADMIN');
-    const dev = await Group.findBy('alias', 'DEV');
-    const crh = await Group.findBy('alias', 'CRH');
-
-    const row = (row) => {
-      row.is_moderator = true;
-    };
-
-    await luiz.groups().attach([admin.id, dev.id], row);
-    await dean.groups().attach([admin.id, dev.id, crh.id], row);
   }
 }
 

@@ -10,7 +10,7 @@ class UserSchema extends Schema {
         .string('username', 80)
         .notNullable()
         .unique()
-        .index('username');
+        .index();
       table.string('password', 60).defaultTo(null);
 
       // Informações e metadados da conta:

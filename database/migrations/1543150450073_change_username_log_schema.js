@@ -12,7 +12,7 @@ class ChangeUsernameLogSchema extends Schema {
       table
         .integer('request_id')
         .unsigned()
-        .index('request_id')
+        .index()
         .defaultTo(null);
       table
         .foreign('request_id')

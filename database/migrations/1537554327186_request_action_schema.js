@@ -8,7 +8,7 @@ class RequestActionSchema extends Schema {
       table
         .string('alias', 80)
         .notNullable()
-        .index('alias');
+        .index();
 
       table.enum('execute_on', ['CREATE', 'UPDATE', 'APPROVE', 'REJECT']);
 

@@ -10,7 +10,7 @@ class PivotGroupUserSchema extends Schema {
       table
         .integer('group_id')
         .unsigned()
-        .index('group_id')
+        .index()
         .notNullable();
       table
         .foreign('group_id')
@@ -20,7 +20,7 @@ class PivotGroupUserSchema extends Schema {
       table
         .integer('user_id')
         .unsigned()
-        .index('user_id')
+        .index()
         .notNullable();
       table
         .foreign('user_id')

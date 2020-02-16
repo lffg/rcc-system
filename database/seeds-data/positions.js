@@ -1,4 +1,4 @@
-exports.groups = [
+exports.positionGroups = [
   {
     id: 1,
     name: 'Corpo Militar',

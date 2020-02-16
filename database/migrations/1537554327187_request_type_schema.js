@@ -10,7 +10,7 @@ class RequestTypeSchema extends Schema {
         .string('alias', 80)
         .notNullable()
         .unique()
-        .index('alias');
+        .index();
       table
         .boolean('is_permanent')
         .notNullable()
@@ -19,7 +19,7 @@ class RequestTypeSchema extends Schema {
       table
         .integer('controller_id')
         .unsigned()
-        .index('controller_id')
+        .index()
         .notNullable();
       table
         .foreign('controller_id')

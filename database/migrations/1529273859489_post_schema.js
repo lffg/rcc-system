@@ -24,7 +24,7 @@ class PostSchema extends Schema {
       table
         .integer('user_id')
         .unsigned()
-        .index('user_id')
+        .index()
         .notNullable();
       table.foreign('user_id').references('users.id');
 

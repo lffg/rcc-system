@@ -9,7 +9,7 @@ class RequestEditLogSchema extends Schema {
       table
         .integer('request_id')
         .unsigned()
-        .index('request_id')
+        .index()
         .notNullable();
       table
         .foreign('request_id')

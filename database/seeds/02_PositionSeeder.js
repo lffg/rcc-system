@@ -1,56 +1,74 @@
-const {
-  positions,
-  groups: positionGroups
-} = require('../seeds-data/positions');
+const { pick, omit } = require('lodash');
+const { positions, positionGroups } = require('../seeds-data/positions');
 
-const { HttpException } = use('@adonisjs/generic-exceptions');
 const PositionGroup = use('App/Models/PositionGroup');
 const Position = use('App/Models/Position');
-const Database = use('Database');
 
 class PositionSeeder {
+  SELF_RELATION_KEYS = [
+    'prev_position_id',
+    'next_position_id',
+    'equivalent_to_id'
+  ];
+
   async run() {
-    await Database.raw('SET FOREIGN_KEY_CHECKS = 0');
-
     await this.createPositionGroups();
-    console.log('Grupos de posições criados.');
-
     await this.createPositions();
-    console.log('Posições criadas.');
-
-    await Database.raw('SET FOREIGN_KEY_CHECKS = 1');
   }
 
   async createPositionGroups() {
-    for (const data of positionGroups) {
-      const group = new PositionGroup();
-      group.merge(data);
-      await group.save();
-    }
+    await Promise.all(
+      positionGroups.map(async (positionGroup) => {
+        const group = new PositionGroup();
+        group.merge(positionGroup);
+        await group.save();
+      })
+    );
+    console.log('Grupos de posições criados.');
   }
 
   async createPositions() {
-    for (const data of positions) {
-      switch (data.type.toUpperCase()) {
-        case 'CM':
-          data.group_id = 1;
-          break;
-        case 'CE':
-          data.group_id = 2;
-          break;
-        case 'EXTRA':
-          data.group_id = 3;
-          break;
-        default:
-          throw new HttpException('Erro.', 400);
-      }
+    const positionsWithRelationMap = await Promise.all(
+      positions
+        .map((positionWithType) => this.setGroupId(positionWithType))
+        .map(async (positionData) => [
+          await this.createPosition(
+            omit(positionData, this.SELF_RELATION_KEYS)
+          ),
+          pick(positionData, this.SELF_RELATION_KEYS)
+        ])
+    );
+    console.log('Posições criadas.');
 
-      delete data.type;
+    await Promise.all(
+      positionsWithRelationMap.map(async ([position, relationData]) => {
+        position.merge(relationData);
+        await position.save();
+      })
+    );
+    console.log('Relações Posição <-> Posição estabelecidas.');
+  }
 
-      const position = new Position();
-      position.merge(data);
-      await position.save();
+  setGroupId({ type, ...position }) {
+    const group = (id) => ({ ...position, group_id: id });
+
+    switch (type) {
+      case 'CM':
+        return group(1);
+      case 'CE':
+        return group(2);
+      case 'EXTRA':
+        return group(3);
+      default:
+        throw new Error('Tipo de posição não existente.');
     }
+  }
+
+  async createPosition(positionData) {
+    const position = new Position();
+    position.merge(positionData);
+    await position.save();
+    return position;
   }
 }
 

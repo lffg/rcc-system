@@ -9,6 +9,7 @@ const usernames = [
   'Goufix',
   'maik@taian'
 ].map((username, index) => ({
+  id: index + 4,
   username,
   tag: `Te${index + 1}`,
   email: `${username}sys@test.com`,
@@ -30,7 +31,8 @@ const users = [
     is_verified_email: true,
     temporary_bonuses: 254,
     promoter_id: 2,
-    position_id: 37
+    position_id: 37,
+    __groups__: ['ADMIN', 'DEV']
   },
   {
     id: 2,
@@ -39,7 +41,8 @@ const users = [
     tag: 'DsT',
     password: '123',
     email: 'dean@rccsystem.com',
-    position_id: 38 // 38 = C. Supr.
+    position_id: 38,
+    __groups__: ['ADMIN', 'DEV', 'CRH']
   },
   {
     id: 3,

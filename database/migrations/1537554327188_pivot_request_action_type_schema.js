@@ -8,7 +8,7 @@ class PivotRequestActionTypeSchema extends Schema {
       table
         .integer('action_id')
         .unsigned()
-        .index('action_id')
+        .index()
         .notNullable();
       table
         .foreign('action_id')
@@ -18,7 +18,7 @@ class PivotRequestActionTypeSchema extends Schema {
       table
         .integer('type_id')
         .unsigned()
-        .index('type_id')
+        .index()
         .notNullable();
       table
         .foreign('type_id')

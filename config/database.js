@@ -11,7 +11,28 @@ module.exports = {
   | interacting with SQL databases.
   |
   */
-  connection: Env.get('DB_CONNECTION', 'mysql'),
+  connection: Env.get('DB_CONNECTION', 'pg'),
+
+  /*
+  |--------------------------------------------------------------------------
+  | PostgreSQL
+  |--------------------------------------------------------------------------
+  |
+  | Here we define connection settings for PostgreSQL database.
+  |
+  | npm i --save pg
+  |
+  */
+  pg: {
+    client: 'pg',
+    connection: {
+      host: Env.get('DB_HOST', ''),
+      port: Env.get('DB_PORT', ''),
+      user: Env.get('DB_USER', ''),
+      password: Env.get('DB_PASSWORD', ''),
+      database: Env.get('DB_DATABASE', '')
+    }
+  },
 
   /*
   |--------------------------------------------------------------------------
@@ -55,26 +76,5 @@ module.exports = {
       filename: Helpers.databasePath(`${Env.get('DB_DATABASE', '')}.sqlite`)
     },
     useNullAsDefault: true
-  },
-
-  /*
-  |--------------------------------------------------------------------------
-  | PostgreSQL
-  |--------------------------------------------------------------------------
-  |
-  | Here we define connection settings for PostgreSQL database.
-  |
-  | npm i --save pg
-  |
-  */
-  pg: {
-    client: 'pg',
-    connection: {
-      host: Env.get('DB_HOST', ''),
-      port: Env.get('DB_PORT', ''),
-      user: Env.get('DB_USER', ''),
-      password: Env.get('DB_PASSWORD', ''),
-      database: Env.get('DB_DATABASE', '')
-    }
   }
 };

@@ -14,7 +14,7 @@ class RequestSchema extends Schema {
       table
         .integer('controller_id')
         .unsigned()
-        .index('controller_id')
+        .index()
         .notNullable();
       table
         .foreign('controller_id')
@@ -23,7 +23,7 @@ class RequestSchema extends Schema {
       table
         .integer('type_id')
         .unsigned()
-        .index('type_id');
+        .index();
       table
         .foreign('type_id')
         .references('request_types.id')
@@ -43,7 +43,7 @@ class RequestSchema extends Schema {
         .defaultTo(false);
       table
         .integer('reviwer_id')
-        .index('reviwer_id')
+        .index()
         .unsigned();
       table
         .foreign('reviwer_id')
@@ -53,7 +53,7 @@ class RequestSchema extends Schema {
       // --- USER FIELDS
       table
         .integer('author_id')
-        .index('author_id')
+        .index()
         .unsigned();
       table
         .foreign('author_id')
@@ -61,7 +61,7 @@ class RequestSchema extends Schema {
         .onDelete('set null');
       table
         .integer('receiver_id')
-        .index('receiver_id')
+        .index()
         .unsigned()
         .notNullable();
       table
@@ -78,7 +78,7 @@ class RequestSchema extends Schema {
       table
         .integer('before_position_id')
         .unsigned()
-        .index('before_position_id')
+        .index()
         .defaultTo(null);
       table
         .foreign('before_position_id')
@@ -87,7 +87,7 @@ class RequestSchema extends Schema {
       table
         .integer('after_position_id')
         .unsigned()
-        .index('after_position_id')
+        .index()
         .defaultTo(null);
       table
         .foreign('after_position_id')

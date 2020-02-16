@@ -10,7 +10,7 @@ class PermissionSchema extends Schema {
         .string('alias', 80)
         .notNullable()
         .unique()
-        .index('alias');
+        .index();
       table
         .boolean('is_permanent')
         .notNullable()

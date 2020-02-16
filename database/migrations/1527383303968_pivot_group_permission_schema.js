@@ -9,7 +9,7 @@ class PivotGroupPermissionSchema extends Schema {
       table
         .integer('group_id')
         .unsigned()
-        .index('group_id')
+        .index()
         .notNullable();
       table
         .foreign('group_id')
@@ -19,7 +19,7 @@ class PivotGroupPermissionSchema extends Schema {
       table
         .integer('permission_id')
         .unsigned()
-        .index('permission_id')
+        .index()
         .notNullable();
       table
         .foreign('permission_id')
