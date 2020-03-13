@@ -8,6 +8,15 @@ class Register {
   async authorize() {
     const { request, response, session } = this.ctx;
     const { username } = request.only('username');
+
+    if (
+      process.env.NODE_ENV === 'development' &&
+      !!request.input('skip_habbo_validation')
+    ) {
+      session.flash({ warning: 'DEV: Validação da missão do usuário pulada.' });
+      return true;
+    }
+
     const { status, error, refresh } = await validate(
       username,
       session.get('confirm-motto')

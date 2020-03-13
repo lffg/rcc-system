@@ -66,6 +66,15 @@
       <samp class="d-block mt-1"><strong>{{ motto }}</strong></samp>
     </div>
 
+    @if(env().isDev())
+      <fieldset class="dev-only" data-env="{{ env().getEnv() }}">
+        <input type="checkbox" id="skip_habbo_validation" name="skip_habbo_validation" value="yes" />
+        <label class="mb-0" for="skip_habbo_validation">
+          Pular validação de missão do Habbo?
+        </label>
+      </fieldset>
+    @endif
+
     <div class="form-group mb-0">
       <button class="btn btn-primary btn-block js-submit" type="submit">
         Continuar
