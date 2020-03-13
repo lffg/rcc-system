@@ -96,7 +96,13 @@ hooks.after.providersRegistered(() => {
   });
 
   View.global('env', () => {
-    return process.env.NODE_ENV;
+    const getEnv = () => process.env.NODE_ENV;
+
+    return {
+      isProd: () => getEnv() === 'production',
+      isDev: () => getEnv() === 'development',
+      getEnv
+    };
   });
 
   /**
