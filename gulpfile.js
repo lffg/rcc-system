@@ -75,8 +75,8 @@ function jsTask(done) {
 }
 
 function watchTask(done) {
-  gulp.watch(WATCH_PATHS.js, () => jsTask);
-  gulp.watch(WATCH_PATHS.sass, () => sassTask);
+  gulp.watch(WATCH_PATHS.js, jsTask);
+  gulp.watch(WATCH_PATHS.sass, sassTask);
 
   done();
 }
