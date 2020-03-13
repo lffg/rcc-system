@@ -95,6 +95,10 @@ hooks.after.providersRegistered(() => {
     );
   });
 
+  View.global('env', () => {
+    return process.env.NODE_ENV;
+  });
+
   /**
    * Adiciona a instância do Moment.JS para as views.
    */
