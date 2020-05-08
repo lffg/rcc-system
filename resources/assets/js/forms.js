@@ -4,14 +4,12 @@
  * ---------------------------------------------------------------------
  */
 
-(function($) {
+(function ($) {
   'use strict';
 
-  $(function() {
-    $(document).on('submit', 'form', function() {
-      var $button = $(this)
-        .find('.js-submit')
-        .not('input');
+  $(function () {
+    $(document).on('submit', 'form', function () {
+      var $button = $(this).find('.js-submit').not('input');
       var oldHTML = $button.html();
 
       $button
@@ -29,13 +27,13 @@
  * ---------------------------------------------------------------------
  */
 
-(function($) {
+(function ($) {
   'use strict';
 
-  $(function() {
+  $(function () {
     $('[required]')
       .parents('form')
-      .each(function() {
+      .each(function () {
         var $form = $(this);
         var $fields = $form.find('[required]');
 
@@ -45,8 +43,8 @@
           return;
         }
 
-        $form.on('submit', function(event) {
-          $fields.each(function() {
+        $form.on('submit', function (event) {
+          $fields.each(function () {
             var $field = $(this);
 
             if (!$field.val()) {
@@ -71,7 +69,7 @@
           }
 
           var $button = $form.find('.js-submit');
-          setTimeout(function() {
+          setTimeout(function () {
             $button.html($button.attr('data-old-html'));
           }, 75);
         });

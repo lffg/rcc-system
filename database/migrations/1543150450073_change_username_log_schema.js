@@ -9,11 +9,7 @@ class ChangeUsernameLogSchema extends Schema {
       table.string('old_username', 180);
       table.string('new_username', 180);
 
-      table
-        .integer('request_id')
-        .unsigned()
-        .index()
-        .defaultTo(null);
+      table.integer('request_id').unsigned().index().defaultTo(null);
       table
         .foreign('request_id')
         .references('requests.id')

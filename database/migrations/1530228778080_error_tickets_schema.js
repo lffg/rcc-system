@@ -6,10 +6,7 @@ class ErrorTicketsSchema extends Schema {
       table.increments();
 
       table.integer('author_id').unsigned();
-      table
-        .foreign('author_id')
-        .references('users.id')
-        .onDelete('set null');
+      table.foreign('author_id').references('users.id').onDelete('set null');
 
       table
         .enum('error_type', ['BUG', 'SPELLING', 'OTHER'])
@@ -24,10 +21,7 @@ class ErrorTicketsSchema extends Schema {
         .defaultTo('PENDING');
 
       table.integer('admin_id').unsigned();
-      table
-        .foreign('admin_id')
-        .references('users.id')
-        .onDelete('set null');
+      table.foreign('admin_id').references('users.id').onDelete('set null');
 
       table.timestamps();
     });

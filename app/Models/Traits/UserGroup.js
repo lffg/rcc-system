@@ -15,7 +15,7 @@ class UserGroup {
      * @param  {boolean} getModField
      * @return {Promise<{ id?: number, alias?: string, is_moderador?: boolean }[]|number[]|string[]>}
      */
-    Model.prototype.getGroups = async function(
+    Model.prototype.getGroups = async function (
       aliases = false,
       getModField = false
     ) {
@@ -47,7 +47,7 @@ class UserGroup {
      * @param  {string|boolean} aliases
      * @return {Promise<{ id?: number, alias?: string }[]|number[]|string[]>}
      */
-    Model.prototype.getModerationGroups = async function(aliases = false) {
+    Model.prototype.getModerationGroups = async function (aliases = false) {
       const groups = (await this.getGroups(aliases, true))
         .filter(({ is_moderator: isMod }) => !!isMod)
         .map(({ id, alias }) => ({ id, alias }));
@@ -68,7 +68,7 @@ class UserGroup {
      * @param  {boolean} getByAlias
      * @return {Promise<boolean>}
      */
-    Model.prototype.hasGroup = async function(group, getByAlias = false) {
+    Model.prototype.hasGroup = async function (group, getByAlias = false) {
       if (
         !getByAlias &&
         typeof group === 'string' &&
@@ -89,7 +89,7 @@ class UserGroup {
      * @param  {boolean} getByAlias
      * @return {Promise<boolean>}
      */
-    Model.prototype.isModerator = async function(group, getByAlias = false) {
+    Model.prototype.isModerator = async function (group, getByAlias = false) {
       if (
         !getByAlias &&
         typeof group === 'string' &&

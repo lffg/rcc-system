@@ -10,10 +10,7 @@ class GroupController {
    * @method GET
    */
   async index({ view }) {
-    const groups = await Group.query()
-      .sortByOrder()
-      .withCount('users')
-      .fetch();
+    const groups = await Group.query().sortByOrder().withCount('users').fetch();
 
     return view.render('pages.groups.index', { groups: groups.toJSON() });
   }

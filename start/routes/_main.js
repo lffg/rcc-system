@@ -37,12 +37,8 @@ Route.group(() => {
  * ---------------------------------------------------------------------
  */
 
-Route.on('site/about')
-  .render('pages.public-private.about')
-  .as('site-about');
-Route.on('site/terms')
-  .render('pages.public-private.terms')
-  .as('site-terms');
+Route.on('site/about').render('pages.public-private.about').as('site-about');
+Route.on('site/terms').render('pages.public-private.terms').as('site-terms');
 Route.on('site/privacy')
   .render('pages.public-private.privacy')
   .as('site-privacy');

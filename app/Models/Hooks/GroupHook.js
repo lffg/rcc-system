@@ -8,9 +8,7 @@ const GroupHook = (exports = module.exports = {});
  * @param {object} groupInstance
  */
 GroupHook.setOrder = async (groupInstance) => {
-  const lastGroup = await Group.query()
-    .orderBy('order', 'desc')
-    .first();
+  const lastGroup = await Group.query().orderBy('order', 'desc').first();
 
   try {
     const { order: lastOrder } = lastGroup.toJSON();

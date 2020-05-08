@@ -7,10 +7,7 @@ class NotificationSchema extends Schema {
       table.boolean('is_read').defaultTo(false);
 
       table.integer('user_id').unsigned();
-      table
-        .foreign('user_id')
-        .references('users.id')
-        .onDelete('cascade');
+      table.foreign('user_id').references('users.id').onDelete('cascade');
 
       table.text('action_uri').defaultTo(null);
       table.text('title').notNullable();

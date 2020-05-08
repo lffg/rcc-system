@@ -14,7 +14,7 @@ class UserPermission {
      * @param  {boolean|string} aliases
      * @return {Promise<{ id: number, alias: string }[]|number[]|string[]>}
      */
-    Model.prototype.getPermissions = async function(aliases = false) {
+    Model.prototype.getPermissions = async function (aliases = false) {
       const permissions = await Database.distinct(
         aliases === 'BOTH' ? ['P.id', 'P.alias'] : aliases ? 'P.alias' : 'P.id'
       )
@@ -41,7 +41,7 @@ class UserPermission {
      * @param  {boolean} getByAlias
      * @return {Promise<boolean>}
      */
-    Model.prototype.hasPermission = async function(
+    Model.prototype.hasPermission = async function (
       permission,
       getByAlias = false
     ) {

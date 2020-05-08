@@ -20,9 +20,7 @@ hooks.after.providersRegistered(() => {
     }
 
     const [table, column] = args;
-    const row = await Database.table(table)
-      .where(column, value)
-      .first();
+    const row = await Database.table(table).where(column, value).first();
 
     if (!row) {
       throw message;
@@ -87,7 +85,7 @@ hooks.after.providersRegistered(() => {
   /**
    * Método para inserir link para usuário.
    */
-  View.global('userLink', function(username, className) {
+  View.global('userLink', function (username, className) {
     return this.safe(
       `<a ${className || ''} href="${Route.url(
         'users.show'
@@ -112,7 +110,7 @@ hooks.after.providersRegistered(() => {
     moment.updateLocale('pt-br', require(Helpers.resourcesPath('i18n/moment')));
     moment.locale('pt-br');
 
-    moment.prototype.f = function(short = false) {
+    moment.prototype.f = function (short = false) {
       if (!short) {
         return this.format('LLLL');
       }
@@ -120,7 +118,7 @@ hooks.after.providersRegistered(() => {
       return this.format('DD MMM YYYY');
     };
 
-    moment.prototype.ut = function() {
+    moment.prototype.ut = function () {
       return this.format('x');
     };
 

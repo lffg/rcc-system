@@ -5,15 +5,8 @@ class PositionGroupSchema extends Schema {
     this.create('position_groups', (table) => {
       table.increments();
 
-      table
-        .string('alias', 80)
-        .notNullable()
-        .unique()
-        .index();
-      table
-        .boolean('is_permanent')
-        .notNullable()
-        .defaultTo(false);
+      table.string('alias', 80).notNullable().unique().index();
+      table.boolean('is_permanent').notNullable().defaultTo(false);
 
       table.string('name', 190).notNullable();
       table.text('description').notNullable();

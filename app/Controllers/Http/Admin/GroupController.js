@@ -73,10 +73,7 @@ class GroupController {
       .users()
       .select('id', 'username')
       .paginate(page, 25);
-    const mods = await group
-      .users()
-      .wherePivot('is_moderator', true)
-      .fetch();
+    const mods = await group.users().wherePivot('is_moderator', true).fetch();
 
     return view.render('admin.groups.members', {
       group: group.toJSON(),

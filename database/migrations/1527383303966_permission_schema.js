@@ -6,15 +6,8 @@ class PermissionSchema extends Schema {
       table.increments();
       table.timestamps();
 
-      table
-        .string('alias', 80)
-        .notNullable()
-        .unique()
-        .index();
-      table
-        .boolean('is_permanent')
-        .notNullable()
-        .defaultTo(false);
+      table.string('alias', 80).notNullable().unique().index();
+      table.boolean('is_permanent').notNullable().defaultTo(false);
 
       table.string('name', 100).notNullable();
       table.text('description').defaultTo(null);

@@ -4,7 +4,7 @@
  * ---------------------------------------------------------------------
  */
 
-(function($, window) {
+(function ($, window) {
   'use strict';
 
   // Criar namespace global do System, caso não exista:
@@ -61,7 +61,7 @@
         .addClass(id || '');
 
       $toast.appendTo('.sys-toast-zone');
-      setTimeout(function() {
+      setTimeout(function () {
         $toast.removeClass('--hidden');
         __init();
       }, 20);
@@ -98,11 +98,11 @@
       {
         duration: duration,
         easing: 'linear',
-        complete: function() {
+        complete: function () {
           $toast.addClass('--hidden');
-          setTimeout(function() {
+          setTimeout(function () {
             $toast.find('.sys-toast-bar').remove();
-            setTimeout(function() {
+            setTimeout(function () {
               $toast.remove();
             }, 20);
           }, 200);
@@ -119,16 +119,16 @@
   function __init() {
     // Caso a tela seja muito pequena:
     if (window.innerWidth < 768) {
-      $('.sys-toast').on('click', function() {
+      $('.sys-toast').on('click', function () {
         var $this = $(this);
-        $this.slideUp(200, function() {
+        $this.slideUp(200, function () {
           $this.remove();
         });
       });
       return;
     }
 
-    $('.sys-toast').each(function() {
+    $('.sys-toast').each(function () {
       var $this = $(this);
 
       if ($this.is(':hidden')) {
@@ -145,21 +145,21 @@
         animateBar($this, $bar, time * 1000);
       }
 
-      $this.on('mouseenter', function() {
+      $this.on('mouseenter', function () {
         if ($this.is(':hidden')) {
           return;
         }
 
         $bar.stop();
-        $bar.fadeOut(150, function() {
+        $bar.fadeOut(150, function () {
           $bar.remove();
         });
       });
 
-      $this.on('mouseleave', function() {
+      $this.on('mouseleave', function () {
         if ($this.find('.sys-toast-bar').length) {
           $this.find('.sys-toast-bar').remove();
-          setTimeout(function() {
+          setTimeout(function () {
             $this.find('.sys-toast-bar').remove();
           }, 20);
         }
@@ -168,12 +168,12 @@
         animateBar($this, $bar, 1250);
       });
 
-      $this.on('click', function() {
+      $this.on('click', function () {
         $bar.stop();
         $this.addClass('--hidden');
-        setTimeout(function() {
+        setTimeout(function () {
           $this.find('.sys-toast-bar').remove();
-          setTimeout(function() {
+          setTimeout(function () {
             $this.remove();
           }, 20);
         }, 200);
@@ -181,7 +181,7 @@
     });
   }
 
-  $(function() {
+  $(function () {
     __init();
   });
 })(jQuery, window);

@@ -99,16 +99,18 @@ class UserController {
       auth.user.id,
       request.ip(),
       {
-        message: `Alteração em campos do perfil para o usuário ${data.username ||
-          user.username}`
+        message: `Alteração em campos do perfil para o usuário ${
+          data.username || user.username
+        }`
       },
       {
         message: `Alteração do nome de usuário. De ${user.username} para ${data.username}`,
         cond: user.username !== data.username
       },
       {
-        message: `Senha alterada para o usuário ${data.username ||
-          user.username}`,
+        message: `Senha alterada para o usuário ${
+          data.username || user.username
+        }`,
         cond: !!data.password && user.password !== data.password
       },
       {

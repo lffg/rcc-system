@@ -6,7 +6,7 @@ class Request {
      * @param  {string} token
      * @return {boolean}
      */
-    Model.prototype.validToken = function(token) {
+    Model.prototype.validToken = function (token) {
       return this.integrity_token === token;
     };
   }

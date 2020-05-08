@@ -24,7 +24,7 @@ module.exports = {
     nextDay: '[Amanhã às] LT',
     nextWeek: 'dddd [às] LT',
     lastDay: '[Ontem às] LT',
-    lastWeek: function() {
+    lastWeek: function () {
       'use strict';
 
       return this.day() === 0 || this.day() === 6

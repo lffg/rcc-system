@@ -24,10 +24,7 @@ class RequestType {
     Model.getInfoFor = async (id = null, getPos = false) => {
       const filter = { is_available_to_crh: true };
 
-      const type = await Model.query()
-        .select('*')
-        .where({ id })
-        .firstOrFail();
+      const type = await Model.query().select('*').where({ id }).firstOrFail();
 
       const data = type.toJSON();
 
@@ -87,7 +84,7 @@ class RequestType {
      *
      * @return {Promise<object[]>}
      */
-    Model.prototype.getActions = async function() {
+    Model.prototype.getActions = async function () {
       const actions = await this.actions()
         .fetch()
         .then((actions) => actions.toJSON());
@@ -109,7 +106,7 @@ class RequestType {
      * @param  {string[]} users
      * @return {Promise<{ status: boolean, code?: string, params?: string[] }>}
      */
-    Model.prototype.validateUsers = async function(users) {
+    Model.prototype.validateUsers = async function (users) {
       if (!Array.isArray(users)) {
         throw new TypeError(
           '`users` deve ser do tipo array em `RequestType.checkUsers`.'
@@ -184,7 +181,7 @@ class RequestType {
      * @param  {string[]} users
      * @return {Promise<{ status: boolean, code?: string, params?: string[] }>}
      */
-    Model.prototype.validateFields = function(data) {
+    Model.prototype.validateFields = function (data) {
       const dict = new Map([
         ['field_before_position', 'before_position_id'],
         ['field_after_position', 'after_position_id'],

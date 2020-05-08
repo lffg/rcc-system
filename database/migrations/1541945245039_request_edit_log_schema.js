@@ -6,21 +6,11 @@ class RequestEditLogSchema extends Schema {
       table.increments();
       table.timestamps();
 
-      table
-        .integer('request_id')
-        .unsigned()
-        .index()
-        .notNullable();
-      table
-        .foreign('request_id')
-        .references('requests.id')
-        .onDelete('cascade');
+      table.integer('request_id').unsigned().index().notNullable();
+      table.foreign('request_id').references('requests.id').onDelete('cascade');
 
       table.integer('author_id').unsigned();
-      table
-        .foreign('author_id')
-        .references('users.id')
-        .onDelete('set null');
+      table.foreign('author_id').references('users.id').onDelete('set null');
 
       table.string('edit_reason').notNullable();
     });

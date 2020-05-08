@@ -4,28 +4,28 @@
  * ---------------------------------------------------------------------
  */
 
-(function($) {
+(function ($) {
   'use strict';
 
-  $(function() {
+  $(function () {
     var $menu = $('.sys-menu');
 
-    window.toggleMenu = function(type) {
+    window.toggleMenu = function (type) {
       $('body').toggleClass('menu-shown', type);
     };
 
-    $('body').on('click', function(event) {
+    $('body').on('click', function (event) {
       if (!$('body').is('.menu-shown')) return;
 
       event.preventDefault();
       window.toggleMenu(false);
     });
 
-    $menu.on('click', function(event) {
+    $menu.on('click', function (event) {
       event.stopPropagation();
     });
 
-    $menu.find('.sys-menu-nav ul li').each(function() {
+    $menu.find('.sys-menu-nav ul li').each(function () {
       const $this = $(this);
 
       if (!$this.find('ul.submenu').length) return;
@@ -35,7 +35,7 @@
         .children('a')
         .append('<i class="sys-menu-submenu-icon fa fa-angle-down"></i>');
 
-      $this.children('a').on('click', function(event) {
+      $this.children('a').on('click', function (event) {
         event.preventDefault();
 
         $menu
@@ -47,10 +47,7 @@
           .slideUp();
 
         $this.toggleClass('is-opened');
-        $this
-          .children('.submenu')
-          .stop()
-          .slideToggle();
+        $this.children('.submenu').stop().slideToggle();
       });
     });
   });

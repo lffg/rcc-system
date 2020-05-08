@@ -5,10 +5,7 @@ class PostTagSchema extends Schema {
     this.create('post_tags', (table) => {
       table.increments();
 
-      table
-        .string('tag', 75)
-        .notNullable()
-        .unique();
+      table.string('tag', 75).notNullable().unique();
 
       table.timestamps();
     });

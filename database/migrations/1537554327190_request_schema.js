@@ -11,63 +11,31 @@ class RequestSchema extends Schema {
 
       table.string('integrity_token', 40).defaultTo(null);
 
-      table
-        .integer('controller_id')
-        .unsigned()
-        .index()
-        .notNullable();
+      table.integer('controller_id').unsigned().index().notNullable();
       table
         .foreign('controller_id')
         .references('request_controllers.id')
         .onDelete('cascade');
-      table
-        .integer('type_id')
-        .unsigned()
-        .index();
+      table.integer('type_id').unsigned().index();
       table
         .foreign('type_id')
         .references('request_types.id')
         .onDelete('set null');
 
       // --- CRH
-      table
-        .boolean('is_crh')
-        .notNullable()
-        .defaultTo(true);
+      table.boolean('is_crh').notNullable().defaultTo(true);
       table
         .enum('crh_state', ['APPROVED', 'PENDING', 'REJECTED'])
         .defaultTo(null);
-      table
-        .boolean('is_reviwed')
-        .notNullable()
-        .defaultTo(false);
-      table
-        .integer('reviwer_id')
-        .index()
-        .unsigned();
-      table
-        .foreign('reviwer_id')
-        .references('users.id')
-        .onDelete('set null');
+      table.boolean('is_reviwed').notNullable().defaultTo(false);
+      table.integer('reviwer_id').index().unsigned();
+      table.foreign('reviwer_id').references('users.id').onDelete('set null');
 
       // --- USER FIELDS
-      table
-        .integer('author_id')
-        .index()
-        .unsigned();
-      table
-        .foreign('author_id')
-        .references('users.id')
-        .onDelete('set null');
-      table
-        .integer('receiver_id')
-        .index()
-        .unsigned()
-        .notNullable();
-      table
-        .foreign('receiver_id')
-        .references('users.id')
-        .onDelete('cascade');
+      table.integer('author_id').index().unsigned();
+      table.foreign('author_id').references('users.id').onDelete('set null');
+      table.integer('receiver_id').index().unsigned().notNullable();
+      table.foreign('receiver_id').references('users.id').onDelete('cascade');
 
       // --- COMPUTED FIELDS
       table.text('computed_title').defaultTo(null);
@@ -75,20 +43,12 @@ class RequestSchema extends Schema {
       table.text('computed_template').defaultTo(null);
 
       // --- FIELDS
-      table
-        .integer('before_position_id')
-        .unsigned()
-        .index()
-        .defaultTo(null);
+      table.integer('before_position_id').unsigned().index().defaultTo(null);
       table
         .foreign('before_position_id')
         .references('positions.id')
         .onDelete('set null');
-      table
-        .integer('after_position_id')
-        .unsigned()
-        .index()
-        .defaultTo(null);
+      table.integer('after_position_id').unsigned().index().defaultTo(null);
       table
         .foreign('after_position_id')
         .references('positions.id')

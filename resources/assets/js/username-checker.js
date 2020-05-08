@@ -4,7 +4,7 @@
  * ---------------------------------------------------------------------
  */
 
-(function($, debounce) {
+(function ($, debounce) {
   'use strict';
 
   var API_URL = '/api/check-user';
@@ -43,11 +43,11 @@
     addNext($el, false);
   }
 
-  $(function() {
-    $('.js-username').each(function() {
+  $(function () {
+    $('.js-username').each(function () {
       var $this = $(this);
 
-      $this.on('keydown change focus', function() {
+      $this.on('keydown change focus', function () {
         if (!/\S/gi.test($this.val())) {
           $this.removeClass('js-loading is-invalid is-valid');
           return;
@@ -60,7 +60,7 @@
 
       $this.on(
         'keydown change focus',
-        debounce(function() {
+        debounce(function () {
           if (!/\S/gi.test($this.val())) {
             $this.removeClass('js-loading is-invalid is-valid');
             return;
@@ -70,10 +70,10 @@
             u: $this.val(),
             _: Date.now()
           })
-            .done(function() {
+            .done(function () {
               success($this);
             })
-            .fail(function(errorResponse) {
+            .fail(function (errorResponse) {
               if (errorResponse.status === 404) {
                 return danger($this, 'Este usuário não existe.');
               }
@@ -100,10 +100,10 @@
   'use strict';
 
   var timeout;
-  return function() {
+  return function () {
     var context = this;
     var args = arguments; // eslint-disable-line prefer-rest-params
-    var later = function() {
+    var later = function () {
       timeout = null;
       if (!immediate) func.apply(context, args);
     };

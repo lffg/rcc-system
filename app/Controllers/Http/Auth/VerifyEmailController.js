@@ -38,10 +38,7 @@ class VerifyEmailController {
     if (this._verify(...arguments)) return;
 
     const chars = `${Env.get('APP_KEY')}-${Date.now()}-${Math.random()}`;
-    const token = crypto
-      .createHash('sha1')
-      .update(chars)
-      .digest('hex');
+    const token = crypto.createHash('sha1').update(chars).digest('hex');
     const email = request.input('email', null);
     const limit = Date.now() + 1000 * 60 * 60;
 

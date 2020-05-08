@@ -24,10 +24,7 @@ class UserController {
 
     const data = await query
       .with('groups', (builder) =>
-        builder
-          .select('id', 'name')
-          .whereNot('is_hidden', true)
-          .sortByOrder()
+        builder.select('id', 'name').whereNot('is_hidden', true).sortByOrder()
       )
       .with('position', (builder) => builder.select('id', 'name', 'alias'))
       .paginate(page, 36)

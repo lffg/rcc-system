@@ -6,21 +6,10 @@ class PivotGroupPermissionSchema extends Schema {
       table.increments();
       table.timestamps();
 
-      table
-        .integer('group_id')
-        .unsigned()
-        .index()
-        .notNullable();
-      table
-        .foreign('group_id')
-        .references('groups.id')
-        .onDelete('cascade');
+      table.integer('group_id').unsigned().index().notNullable();
+      table.foreign('group_id').references('groups.id').onDelete('cascade');
 
-      table
-        .integer('permission_id')
-        .unsigned()
-        .index()
-        .notNullable();
+      table.integer('permission_id').unsigned().index().notNullable();
       table
         .foreign('permission_id')
         .references('permissions.id')

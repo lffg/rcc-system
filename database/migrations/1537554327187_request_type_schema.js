@@ -6,21 +6,10 @@ class RequestTypeSchema extends Schema {
       table.increments();
       table.timestamps();
 
-      table
-        .string('alias', 80)
-        .notNullable()
-        .unique()
-        .index();
-      table
-        .boolean('is_permanent')
-        .notNullable()
-        .defaultTo(false);
+      table.string('alias', 80).notNullable().unique().index();
+      table.boolean('is_permanent').notNullable().defaultTo(false);
 
-      table
-        .integer('controller_id')
-        .unsigned()
-        .index()
-        .notNullable();
+      table.integer('controller_id').unsigned().index().notNullable();
       table
         .foreign('controller_id')
         .references('request_controllers.id')
@@ -30,50 +19,26 @@ class RequestTypeSchema extends Schema {
       table.string('timeline_title', 90).notNullable();
 
       table.text('description').defaultTo(null);
-      table
-        .string('icon', 100)
-        .defaultTo('fa fa-circle-o')
-        .notNullable();
-      table
-        .string('color', 30)
-        .defaultTo('#37474f')
-        .notNullable();
+      table.string('icon', 100).defaultTo('fa fa-circle-o').notNullable();
+      table.string('color', 30).defaultTo('#37474f').notNullable();
 
       table.text('info_text').defaultTo(null);
-      table
-        .boolean('show_in_timeline')
-        .notNullable()
-        .defaultTo(true);
-      table
-        .boolean('allow_unregistered_users')
-        .notNullable()
-        .defaultTo(false);
-      table
-        .boolean('allow_multiple_users')
-        .notNullable()
-        .defaultTo(true);
+      table.boolean('show_in_timeline').notNullable().defaultTo(true);
+      table.boolean('allow_unregistered_users').notNullable().defaultTo(false);
+      table.boolean('allow_multiple_users').notNullable().defaultTo(true);
 
       // --- POSITION FIELDS
-      table
-        .integer('before_position_group_id')
-        .defaultTo(null)
-        .unsigned();
+      table.integer('before_position_group_id').defaultTo(null).unsigned();
       table
         .foreign('before_position_group_id')
         .references('position_groups.id')
         .onDelete('set null');
-      table
-        .integer('after_position_group_id')
-        .defaultTo(null)
-        .unsigned();
+      table.integer('after_position_group_id').defaultTo(null).unsigned();
       table
         .foreign('after_position_group_id')
         .references('position_groups.id')
         .onDelete('set null');
-      table
-        .integer('strict_to_position_group')
-        .defaultTo(null)
-        .unsigned();
+      table.integer('strict_to_position_group').defaultTo(null).unsigned();
       table
         .foreign('strict_to_position_group')
         .references('position_groups.id')

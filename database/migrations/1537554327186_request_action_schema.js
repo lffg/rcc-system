@@ -5,10 +5,7 @@ class RequestActionSchema extends Schema {
     this.create('request_actions', (table) => {
       table.increments();
 
-      table
-        .string('alias', 80)
-        .notNullable()
-        .index();
+      table.string('alias', 80).notNullable().index();
 
       table.enum('execute_on', ['CREATE', 'UPDATE', 'APPROVE', 'REJECT']);
 

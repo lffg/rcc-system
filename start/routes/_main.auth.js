@@ -7,9 +7,7 @@ const Route = use('Route');
  */
 
 Route.group(() => {
-  Route.get('login', 'LoginController.login')
-    .middleware(['guest'])
-    .as('login');
+  Route.get('login', 'LoginController.login').middleware(['guest']).as('login');
 
   Route.post('login', 'LoginController.postLogin')
     .middleware(['guest'])

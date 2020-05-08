@@ -12,20 +12,10 @@ class PostSchema extends Schema {
       table.string('image', 191).defaultTo(null);
       table.text('body').notNullable();
 
-      table
-        .boolean('is_hidden')
-        .notNullable()
-        .defaultTo(false);
-      table
-        .boolean('is_locked')
-        .notNullable()
-        .defaultTo(false);
+      table.boolean('is_hidden').notNullable().defaultTo(false);
+      table.boolean('is_locked').notNullable().defaultTo(false);
 
-      table
-        .integer('user_id')
-        .unsigned()
-        .index()
-        .notNullable();
+      table.integer('user_id').unsigned().index().notNullable();
       table.foreign('user_id').references('users.id');
 
       table.timestamps();

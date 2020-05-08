@@ -105,7 +105,7 @@ class Position {
      *
      * @return {object}
      */
-    Model.queryMacro('getNear', function() {
+    Model.queryMacro('getNear', function () {
       this.select('*')
         .with('group', (builder) => builder.select('id', 'name', 'alias'))
         .with('prev', (builder) => builder.select('id', 'name'))

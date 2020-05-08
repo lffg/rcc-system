@@ -7,15 +7,8 @@ class LastUserSearchSchema extends Schema {
 
       table.string('username', 80).notNullable();
 
-      table
-        .integer('user_id')
-        .unsigned()
-        .index()
-        .notNullable();
-      table
-        .foreign('user_id')
-        .references('users.id')
-        .onDelete('cascade');
+      table.integer('user_id').unsigned().index().notNullable();
+      table.foreign('user_id').references('users.id').onDelete('cascade');
 
       table.timestamps();
     });
