@@ -19,10 +19,10 @@ class ResetPasswordController {
   async sendEmail({ request, response, session }) {
     const email = request.input('email');
     // TODO(lffg):
-    // eslint-disable-next-line
     let user;
 
     try {
+      // eslint-disable-next-line
       user = await User.findByOrFail('email', email);
     } catch (error) {
       session.flash({ danger: 'Não existem usuários com este e-mail.' });
