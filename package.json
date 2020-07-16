@@ -34,7 +34,7 @@
     "@adonisjs/validator": "^5.0.6",
     "fa-icon-list": "^1.0.0",
     "got": "^9.6.0",
-    "lodash": "^4.17.13",
+    "lodash": "^4.17.19",
     "moment": "^2.24.0",
     "pg": "^7.18.1",
     "sanitize-html": "^1.20.1",
