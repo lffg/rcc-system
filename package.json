@@ -33,7 +33,7 @@
     "@adonisjs/shield": "^1.0.8",
     "@adonisjs/validator": "^5.0.6",
     "fa-icon-list": "^1.0.0",
-    "got": "^9.6.0",
+    "got": "^11.8.5",
     "lodash": "^4.17.13",
     "moment": "^2.24.0",
     "pg": "^7.18.1",
